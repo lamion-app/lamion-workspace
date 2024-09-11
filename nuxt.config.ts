@@ -9,7 +9,8 @@ export default defineNuxtConfig({
     "@nuxt/eslint",
     "@nuxt/ui",
     "@nuxtjs/i18n",
-    "nuxt-viewport"
+    "nuxt-viewport",
+    "@sidebase/nuxt-auth",
   ],
   typescript: {
     typeCheck: true,
@@ -22,5 +23,41 @@ export default defineNuxtConfig({
   },
   tailwindcss: {
     configPath: "./configs/tailwind.config.ts",
+  },
+  auth: {
+    baseURL: "https://dummyjson.com/auth",
+    globalAppMiddleware: true,
+    provider: {
+      type: "local",
+      session: {
+        dataType: {
+          id: "string",
+          username: "string",
+        },
+      },
+      pages: {
+        login: "/login",
+      },
+      endpoints: {
+        signIn: { path: "login", method: "post" },
+        signOut: { path: "logout", method: "post" },
+        signUp: { path: "register", method: "post" },
+        getSession: { path: "me", method: "get" },
+      },
+      refresh: {
+        isEnabled: true,
+        endpoint: { path: "refresh", method: "post" },
+      },
+      token: {
+        signInResponseTokenPointer: "/token",
+        type: "Bearer",
+        cookieName: "auth.token",
+        headerName: "Authorization",
+        maxAgeInSeconds: 1800,
+        sameSiteAttribute: "lax",
+        secureCookieAttribute: false,
+        httpOnlyCookieAttribute: false,
+      },
+    },
   },
 });
