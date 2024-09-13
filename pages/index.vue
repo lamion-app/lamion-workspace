@@ -3,29 +3,27 @@
     class="flex justify-center content-center p-10 flex-col items-start gap-3"
   >
     <UCard>
-      <template v-if="status == 'authenticated'">
-        <h1 v-text="'You are: ' + data?.username" />
-      </template>
-
-      <template v-else>
+      <div v-if="!isLoggedIn" class="flex flex-col gap-2 items-start">
         <h1>You are unauthorized</h1>
-      </template>
-    </UCard>
 
-    <div class="flex gap-2">
-      <UButton :disabled="status != 'authenticated'" @click="actionLogout">Logout</UButton>
-    </div>
+        <UButton to="login">Login in app</UButton>
+      </div>
+
+      <div v-else class="flex flex-col gap-2 items-start">
+        <h1 v-text="'You are: ' + account?.username" />
+
+        <UButton @click="logout()">Logout</UButton>
+      </div>
+    </UCard>
   </div>
 </template>
 
 <script setup lang="ts">
-const { data, signOut, status } = useAuth();
+definePageMeta({
+  auth: false,
+});
 
-function actionLogout() {
-  signOut({
-    callbackUrl: "/login",
-  });
-}
+const { logout, isLoggedIn, account } = useAuthProviders();
 </script>
 
 <style scoped></style>

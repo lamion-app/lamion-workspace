@@ -12,6 +12,36 @@ export default defineNuxtConfig({
     "nuxt-viewport",
     "@sidebase/nuxt-auth",
   ],
+  imports: {
+    dirs: ["types", "types/**", "composables/**"],
+    presets: [
+      {
+        from: "vue-router",
+        imports: ["LocationQuery"],
+      },
+    ],
+  },
+  runtimeConfig: {
+    api: {
+      origin: process.env.API_ORIGIN,
+    },
+    auth: {
+      origin: process.env.AUTH_ORIGIN,
+      secret: process.env.AUTH_SECRET,
+    },
+    public: {
+      oauth: {
+        github: {
+          clientId: process.env.GITHUB_CLIENT_ID,
+          redirectUrl: process.env.GITHUB_REDIRECT_URL,
+        },
+        google: {
+          clientId: process.env.GOOGLE_OAUTH_CLIENT_ID,
+          redirectUrl: process.env.GOOGLE_REDIRECT_URL,
+        },
+      },
+    },
+  },
   typescript: {
     typeCheck: true,
   },
@@ -25,7 +55,7 @@ export default defineNuxtConfig({
     configPath: "./configs/tailwind.config.ts",
   },
   auth: {
-    baseURL: "https://dummyjson.com/auth",
+    baseURL: process.env.AUTH_ORIGIN,
     globalAppMiddleware: true,
     provider: {
       type: "local",
@@ -60,4 +90,5 @@ export default defineNuxtConfig({
       },
     },
   },
+  css: ["@/assets/css/_normalize.scss"],
 });

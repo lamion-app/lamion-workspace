@@ -2,24 +2,32 @@
   <div
     class="flex justify-center content-center p-10 flex-col items-start gap-3"
   >
-    <UButton :loading="status != 'unauthenticated'" @click="actionSignIn"
-      >Sign in</UButton
+    <UButton
+      v-for="provider in providers"
+      :key="provider.name"
+      @click="invokeProvider(provider)"
+      >Sign in with {{ provider.displayedName }}</UButton
     >
   </div>
 </template>
 
 <script setup lang="ts">
-const { signIn, status } = useAuth();
+import type { AuthProvider } from "#imports";
 
-function actionSignIn() {
-  const credentials = {
-    username: "emilys",
-    password: "emilyspass",
-  };
+const { providers, signIn } = useAuthProviders();
 
-  signIn(credentials, {
-    callbackUrl: "/",
-  });
+function invokeProvider(provider: AuthProvider) {
+  switch (provider.name) {
+    case CredentialsAuthProvider.name:
+      signIn.credentials("emilys", "emilyspass");
+      break;
+    case GitHubAuthProvider.name:
+      signIn.githubOauth();
+      break;
+    case GoogleAuthProvider.name:
+      signIn.googleOauth();
+      break;
+  }
 }
 </script>
 
