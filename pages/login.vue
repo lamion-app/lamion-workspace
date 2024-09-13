@@ -1,7 +1,5 @@
 <template>
-  <div
-    class="flex justify-center content-center p-10 flex-col items-start gap-3"
-  >
+  <div class="flex justify-center content-center p-10 flex-col items-start gap-3">
     <UButton
       v-for="provider in providers"
       :key="provider.name"
@@ -14,9 +12,16 @@
 <script setup lang="ts">
 import type { AuthProvider } from "#imports";
 
+definePageMeta({
+  auth: {
+    unauthenticatedOnly: true,
+    navigateAuthenticatedTo: "/",
+  },
+});
+
 const { providers, signIn } = useAuthProviders();
 
-function invokeProvider(provider: AuthProvider) {
+function invokeProvider(provider: AuthProvider<unknown>) {
   switch (provider.name) {
     case CredentialsAuthProvider.name:
       signIn.credentials("emilys", "emilyspass");

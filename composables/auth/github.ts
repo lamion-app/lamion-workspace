@@ -35,13 +35,13 @@ export const GitHubAuthProvider = <AuthProvider<GithubOauthData>>{
 
     const { signIn } = useAuth();
 
-    signIn(
+    await signIn(
       {
         username: "emilys",
         password: "emilyspass",
       },
       {
-        callbackUrl: "/",
+        redirect: false,
       }
     );
   },

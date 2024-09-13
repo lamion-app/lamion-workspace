@@ -11,6 +11,7 @@ export const CredentialsAuthProvider = <AuthProvider<unknown>>{
         password: password,
       },
       {
+        redirect: !!callbackUrl,
         callbackUrl: callbackUrl,
       }
     );

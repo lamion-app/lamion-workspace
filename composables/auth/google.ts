@@ -33,18 +33,18 @@ export const GoogleAuthProvider = <AuthProvider<GoogleOauthData>>{
   },
   handleOauthResult: async (data: GoogleOauthData) => {
     console.log(`Google OAuth called.Code=${data.code}`);
-    
+
     // TODO: auth with google code
 
     const { signIn } = useAuth();
 
-    signIn(
+    await signIn(
       {
         username: "emilys",
         password: "emilyspass",
       },
       {
-        callbackUrl: "/",
+        redirect: false,
       }
     );
   },

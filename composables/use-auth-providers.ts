@@ -1,7 +1,6 @@
 export const useAuthProviders = () => {
   const config = useRuntimeConfig();
-  const route = useRoute();
-  const { signOut, data } = useAuth();
+  const { signOut, data, status } = useAuth();
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const providers: Array<AuthProvider<any>> = [
@@ -11,18 +10,26 @@ export const useAuthProviders = () => {
   ];
 
   const isLoggedIn = computed(() => !!data.value);
+  const isLoading = computed(() => status.value == "loading");
 
   return {
     providers,
     account: data,
     isLoggedIn: isLoggedIn,
+    isLoading: isLoading,
     logout: () => {
+      const loginPage = useLoginPage();
+
       signOut({
-        callbackUrl: "/",
+        redirect: false,
       });
+
+      loginPage.navigate();
     },
     signIn: {
       credentials: (username: string, password: string) => {
+        const route = useRoute();
+
         CredentialsAuthProvider.invoke(
           username,
           password,

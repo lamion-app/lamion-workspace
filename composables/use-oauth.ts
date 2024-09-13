@@ -1,37 +1,44 @@
+type OAuthProviderCallback = () => Promise<void>;
+
 export const useOAuth = () => {
   const { providers } = useAuthProviders();
-  const route = useRoute();
 
-  const isLoading = ref<boolean | null>(true);
-  const isValid = ref<boolean | null>(true);
+  const loadedProvider = ref<OAuthProviderCallback | null>(null);
 
-  const load = async (oauthName: string) => {
-    isLoading.value = true;
-    isValid.value = true;
-
-    const provider = providers.find(
-      (p) => p.name == oauthName
-    );
+  const prepare = async (oauthName: string, query: typeof LocationQuery) => {
+    const provider = providers.find((p) => p.name == oauthName);
 
     if (!provider || !provider.handleOauthResult) {
-      isLoading.value = false;
-      isValid.value = false;
-      return;
+      return false;
     }
 
-    const params = provider?.collectOauthParams?.call(provider, route.query);
+    const params = provider?.collectOauthParams?.call(provider, query);
+
     if (params === null) {
-      isValid.value = false;
-    } else {
-      await provider.handleOauthResult!.call(provider, params);
+      return false;
     }
 
-    isLoading.value = false;
+    loadedProvider.value = provider.handleOauthResult!.bind(provider, params);
+
+    return true;
+  };
+
+  const invokeProvider = async (
+    oauthName: string,
+    query: typeof LocationQuery
+  ) => {
+    if (loadedProvider.value == null) {
+      await prepare(oauthName, query);
+    }
+
+    if (loadedProvider.value != null) {
+      await loadedProvider.value();
+    }
   };
 
   return reactive({
-    isValid: isValid,
-    isLoading: isLoading,
-    load: load,
+    loadedProvider: loadedProvider,
+    prepare: prepare,
+    invokeProvider: invokeProvider,
   });
 };
