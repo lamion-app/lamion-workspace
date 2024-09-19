@@ -1,16 +1,17 @@
 import { defineNuxtConfig } from "nuxt/config";
+import Aura from "@primevue/themes/aura";
 
-// https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
   compatibilityDate: "2024-04-03",
   devtools: { enabled: true },
   modules: [
     "@pinia/nuxt",
     "@nuxt/eslint",
-    "@nuxt/ui",
     "@nuxtjs/i18n",
     "nuxt-viewport",
     "@sidebase/nuxt-auth",
+    "@nuxtjs/tailwindcss",
+    "@primevue/nuxt-module",
   ],
   imports: {
     dirs: ["types", "types/**", "composables/**"],
@@ -54,6 +55,17 @@ export default defineNuxtConfig({
   tailwindcss: {
     configPath: "./configs/tailwind.config.ts",
   },
+  primevue: {
+    options: {
+      theme: {
+        preset: Aura,
+      },
+      cssLayer: {
+        name: "primevue",
+        order: "tailwind-base, primevue, tailwind-utilities",
+      },
+    },
+  },
   auth: {
     baseURL: process.env.AUTH_ORIGIN,
     globalAppMiddleware: true,
@@ -90,5 +102,19 @@ export default defineNuxtConfig({
       },
     },
   },
-  css: ["@/assets/css/_normalize.scss"],
+  css: ["@/assets/css/_normalize.scss", "@/assets/css/main.scss"],
+  app: {
+    head: {
+      link: [
+        {
+          rel: "stylesheet",
+          href: "https://fonts.googleapis.com/icon?family=Material+Icons",
+        },
+        {
+          rel: "stylesheet",
+          href: "https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200",
+        },
+      ],
+    },
+  },
 });
