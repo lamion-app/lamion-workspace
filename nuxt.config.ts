@@ -13,6 +13,36 @@ export default defineNuxtConfig({
     "@nuxtjs/tailwindcss",
     "@primevue/nuxt-module",
   ],
+  app: {
+    head: {
+      link: [
+        {
+          rel: "stylesheet",
+          href: "https://fonts.googleapis.com/icon?family=Material+Icons",
+        },
+        {
+          rel: "stylesheet",
+          href: "https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200",
+        },
+      ],
+    },
+  },
+  components: [
+    {
+      path: "~/components",
+      pathPrefix: false,
+    },
+  ],
+  css: ["@/assets/css/_normalize.scss", "@/assets/css/main.scss"],
+  vite: {
+    css: {
+      preprocessorOptions: {
+        scss: {
+          api: "modern-compiler",
+        },
+      },
+    },
+  },
   imports: {
     dirs: ["types", "types/**", "composables/**"],
     presets: [
@@ -43,6 +73,9 @@ export default defineNuxtConfig({
       },
     },
   },
+  pinia: {
+    storesDirs: ["./store/**"],
+  },
   typescript: {
     typeCheck: true,
   },
@@ -59,10 +92,6 @@ export default defineNuxtConfig({
     options: {
       theme: {
         preset: Aura,
-      },
-      cssLayer: {
-        name: "primevue",
-        order: "tailwind-base, primevue, tailwind-utilities",
       },
     },
   },
@@ -100,21 +129,6 @@ export default defineNuxtConfig({
         secureCookieAttribute: false,
         httpOnlyCookieAttribute: false,
       },
-    },
-  },
-  css: ["@/assets/css/_normalize.scss", "@/assets/css/main.scss"],
-  app: {
-    head: {
-      link: [
-        {
-          rel: "stylesheet",
-          href: "https://fonts.googleapis.com/icon?family=Material+Icons",
-        },
-        {
-          rel: "stylesheet",
-          href: "https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200",
-        },
-      ],
     },
   },
 });
