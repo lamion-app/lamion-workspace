@@ -89,6 +89,7 @@ defineEmits<{
     min-height: 12rem;
     cursor: pointer;
 
+    @apply justify-center items-center;
     @apply text-center;
 
     &.item-primary {

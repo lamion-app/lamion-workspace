@@ -27,7 +27,7 @@ const { providers, signIn } = useAuthProviders();
 function invokeProvider(provider: AuthProvider<unknown>) {
   switch (provider.name) {
     case CredentialsAuthProvider.name:
-      signIn.credentials("emilys", "emilyspass");
+      signIn.credentials("michaelw", "michaelwpass");
       break;
     case GitHubAuthProvider.name:
       signIn.githubOauth();

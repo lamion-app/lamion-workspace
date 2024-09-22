@@ -5,15 +5,15 @@ export const CredentialsAuthProvider = <AuthProvider<unknown>>{
   invoke: async (username: string, password: string, callbackUrl?: string) => {
     const { signIn } = useAuth();
 
-    signIn(
-      {
-        username: username,
-        password: password,
-      },
-      {
-        redirect: !!callbackUrl,
-        callbackUrl: callbackUrl,
-      }
+    await signIn(
+        {
+          username: username,
+          password: password,
+        },
+        {
+          redirect: !!callbackUrl,
+          callbackUrl: callbackUrl,
+        }
     );
   },
 };

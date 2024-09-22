@@ -6,28 +6,11 @@
       :items="appNavigation.navigationItems"
     >
       <template #before-menu>
-        <Select
-          v-model="selectedProject"
-          :options="projects"
-          option-label="name"
-          class="w-full !rounded-full"
-        >
-          <template #value="slotParams">
-            <div v-if="slotParams.value" class="flex items-center">
-              <div>{{ slotParams.value.name }}</div>
-            </div>
+        <ProjectSelect v-model="selectedProject!" :projects="projects" />
+      </template>
 
-            <div v-else>
-              <span>{{ slotParams.placeholder }}</span>
-            </div>
-          </template>
-
-          <template #option="{ option }">
-            <div class="flex items-center">
-              <div>{{ option.name }}</div>
-            </div>
-          </template>
-        </Select>
+      <template v-if="!!account" #after-menu>
+        <Profile :account="account" />
       </template>
     </navigation>
 
@@ -45,9 +28,9 @@
 
 <script setup lang="ts">
 const { isAppLoaded } = storeToRefs(useAppStore());
-const projectStore = useProjectsStore();
+const { account } = useAuthProviders();
 const { projects, selectedProject, isProjectSelected } =
-  storeToRefs(projectStore);
+  storeToRefs(useProjectsStore());
 
 const appNavigation = useNavigation();
 </script>

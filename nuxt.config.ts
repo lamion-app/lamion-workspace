@@ -102,12 +102,13 @@ export default defineNuxtConfig({
       type: "local",
       session: {
         dataType: {
-          id: "string",
+          id: "number",
           username: "string",
+          image: "string",
         },
       },
       pages: {
-        login: "/login",
+        login: "/auth/login",
       },
       endpoints: {
         signIn: { path: "login", method: "post" },
@@ -120,7 +121,7 @@ export default defineNuxtConfig({
         endpoint: { path: "refresh", method: "post" },
       },
       token: {
-        signInResponseTokenPointer: "/token",
+        signInResponseTokenPointer: "/refreshToken",
         type: "Bearer",
         cookieName: "auth.token",
         headerName: "Authorization",

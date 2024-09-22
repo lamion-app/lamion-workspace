@@ -2,7 +2,7 @@
   <div class="navigation">
     <app-logo class="logo" />
 
-    <div v-if="!!$slots['before-menu']" class="navigation-extra">
+    <div v-if="!!$slots['before-menu']" class="navigation-extra extra-start">
       <slot name="before-menu" />
     </div>
 
@@ -24,7 +24,7 @@
       </component>
     </div>
 
-    <div v-if="!!$slots['after-menu']" class="navigation-extra">
+    <div v-if="!!$slots['after-menu']" class="navigation-extra extra-end">
       <slot name="after-menu" />
     </div>
   </div>
@@ -68,6 +68,13 @@ const route = useRoute();
       &.active {
         @apply bg-surface-800;
       }
+    }
+  }
+
+  .navigation-extra {
+    &.extra-end {
+      @apply h-full;
+      @apply flex items-end;
     }
   }
 }

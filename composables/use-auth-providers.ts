@@ -22,9 +22,11 @@ export const useAuthProviders = () => {
 
       signOut({
         redirect: false,
-      });
+      }).then(() => {
 
-      loginPage.navigate();
+        localStorage.clear();
+        loginPage.navigate();
+      });
     },
     signIn: {
       credentials: (username: string, password: string) => {
@@ -33,8 +35,10 @@ export const useAuthProviders = () => {
         CredentialsAuthProvider.invoke(
           username,
           password,
-          route.query.callbackUrl?.toString() ?? "/"
-        );
+          route.query.callbackUrl?.toString() ?? "/",
+        ).then(() => {
+          console.log("Auth completed");
+        });
       },
       googleOauth: GoogleAuthProvider.invoke.bind(GoogleAuthProvider, config),
       githubOauth: GitHubAuthProvider.invoke.bind(GitHubAuthProvider, config),
