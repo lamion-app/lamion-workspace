@@ -1,28 +1,28 @@
 export const useNavigation = () => {
   const navigationItems = Array<NavigationItem>(
     {
-      name: "Home",
-      icon: "dashboard",
+      name: "Dashboard",
+      icon: String.fromCodePoint(0xf190),
       route: "index",
     },
     {
       name: "Users",
-      icon: "face",
+      icon: String.fromCodePoint(0xe87c),
       route: "users",
     },
     {
-      name: "Events",
-      icon: "app_registration",
-      route: "events",
+      name: "Functions",
+      icon: String.fromCodePoint(0xf20e),
+      route: "functions",
     },
     {
       name: "Analytics",
-      icon: "analytics",
+      icon: String.fromCodePoint(0xef3e),
       route: "analytics",
     },
     {
       name: "Payments",
-      icon: "account_balance_wallet",
+      icon: String.fromCodePoint(0xe850),
       route: "payments",
     },
   );

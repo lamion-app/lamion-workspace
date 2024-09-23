@@ -1,0 +1,103 @@
+<template>
+  <app-card class="functions">
+    <div class="content flex flex-col">
+      <div class="date-filter flex gap-2">
+        <Chip
+          v-for="period in datePeriods"
+          :key="period.value"
+          :label="period.name"
+          class="cursor-pointer transition-all"
+          :class="{
+            '!bg-primary-600': period.value === tab,
+          }"
+          @click="tab = period.value"
+        />
+      </div>
+
+      <div class="data flex">
+        <div class="info h-full flex flex-col gap-8 justify-end">
+          <div class="info-section">
+            <div class="label text-xl text-surface-400">Total requests</div>
+            <div class="value text-4xl">
+              <span class="number">5.67</span>
+              <span class="unit text-3xl text-surface-400">M</span>
+            </div>
+          </div>
+
+          <div class="info-section">
+            <div class="label text-xl text-surface-400">New users</div>
+            <div class="value text-4xl">
+              <span class="number">200</span>
+              <span class="unit text-3xl text-surface-400">K</span>
+            </div>
+          </div>
+        </div>
+
+        <bar-chart
+          class="chart h-full flex-1 rounded bg-transparent"
+          color="sky"
+          name="Daily calls"
+          :data="[
+            {
+              name: 'AAA',
+              number: 1200,
+            },
+            {
+              name: 'BBB',
+              number: 754,
+            },
+            {
+              name: 'CCC',
+              number: 1232,
+            },
+            {
+              name: 'FFF',
+              number: 2000,
+            },
+            {
+              name: 'DDD',
+              number: 457,
+            },
+            {
+              name: '!@#',
+              number: 765,
+            },
+            {
+              name: 'EEE',
+              number: 257,
+            },
+          ]"
+        />
+      </div>
+    </div>
+  </app-card>
+</template>
+
+<script setup lang="ts">
+const tab = ref(DatePeriod.DAY);
+
+const datePeriodNames = new Map<DatePeriod, string>([
+  [DatePeriod.DAY, "Daily"],
+  [DatePeriod.WEEK, "Weekly"],
+  [DatePeriod.MONTH, "Monthly"],
+  [DatePeriod.YEAR, "Yearly"],
+  [DatePeriod.ALL_TIME, "All time"],
+]);
+const datePeriods = DatePeriodEntries.map((d) => ({
+  value: d,
+  name: datePeriodNames.get(d),
+}));
+</script>
+
+<style scoped lang="scss">
+.functions {
+  .content,
+  .data {
+    @apply gap-8;
+  }
+
+  .data {
+    height: 350px;
+  }
+}
+</style>

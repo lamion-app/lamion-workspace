@@ -17,7 +17,15 @@
     <div class="main">
       <div class="main-container">
         <div v-show="isAppLoaded" class="main-content">
-          <slot />
+          <div v-show="isProjectSelected">
+            <slot />
+          </div>
+
+          <projects-view
+            v-show="!isProjectSelected"
+            :projects="projects"
+            @select-project="selectedProject = $event"
+          />
         </div>
 
         <ProgressSpinner v-show="!isAppLoaded" />
@@ -41,7 +49,7 @@ const appNavigation = useNavigation();
   @apply bg-surface-950;
 
   .navigation {
-    width: 360px;
+    width: 300px;
     @apply max-h-screen overflow-x-hidden overflow-y-auto;
     @apply flex-grow-0 flex-shrink-0;
   }
@@ -58,13 +66,13 @@ const appNavigation = useNavigation();
 
       background-color: color-mix(
         in srgb,
-        var(--p-surface-900) 40%,
-        transparent
+        var(--p-surface-900) 75%,
+        #000
       );
-    }
 
-    .main-content {
-      @apply w-full max-w-screen-xl;
+      .main-content {
+        @apply w-full max-w-screen-2xl;
+      }
     }
   }
 }

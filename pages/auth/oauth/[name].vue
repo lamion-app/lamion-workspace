@@ -29,13 +29,13 @@ onMounted(async () => {
 
 <template>
   <div>
-    <UProgress class="fixed top-0" />
+    <ProgressBar mode="indeterminate" class="fixed top-0" style="height: 6px" />
 
-    <UCard class="card">
+    <app-card class="card">
       <h1>Wait a minute</h1>
 
       <h3>Loading you account</h3>
-    </UCard>
+    </app-card>
   </div>
 </template>
 

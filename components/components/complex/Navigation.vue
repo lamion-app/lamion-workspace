@@ -19,7 +19,7 @@
           active: item.route == route.name,
         }"
       >
-        <span v-if="item.icon" class="icon material-icons" v-text="item.icon" />
+        <span v-if="item.icon" class="material-symbols-outlined" v-text="item.icon" />
         <span v-text="item.name" />
       </component>
     </div>
@@ -49,6 +49,11 @@ const route = useRoute();
   .menu,
   .navigation-extra {
     @apply mx-6;
+  }
+
+  .logo {
+    @apply pt-4;
+    @apply pb-4;
   }
 
   .menu {
