@@ -14,7 +14,7 @@ export interface BarChartTheme {
   high: BarChartThemeItem;
 }
 
-export const defaultBarChartTheme = (color: string) => {
+export const defaultBarChartTheme = (color: string): BarChartTheme => {
   const baseColor = `--p-${color}-`;
   const documentStyle = getComputedStyle(document.documentElement);
 

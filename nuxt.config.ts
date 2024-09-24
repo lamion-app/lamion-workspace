@@ -44,7 +44,7 @@ export default defineNuxtConfig({
     },
   },
   imports: {
-    dirs: ["types/**", "composables/**", "charts/**", "components-types/**"],
+    dirs: ["types/**", "composables/**", "components-types/**"],
     presets: [
       {
         from: "vue-router",

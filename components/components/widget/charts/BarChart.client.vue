@@ -1,11 +1,13 @@
 <template>
-  <div class="overflow-hidden text-surface-500">
+  <div class="relative overflow-hidden text-surface-500">
     <Chart
-      class="w-full h-full"
+      class="w-full !absolute top-0"
+      :style="{
+        bottom: `${-axisPadding}px`,
+      }"
       type="bar"
       :data="chartData"
       :options="chartOptions"
-      :plugins="chartPlugins"
     />
   </div>
 </template>
@@ -13,6 +15,8 @@
 <script setup lang="ts">
 import type { Chart, ChartOptions } from "chart.js";
 import type { ContextProxy } from "chart.js/helpers";
+
+const borderRadius = 24;
 
 const props = withDefaults(
   defineProps<{
@@ -65,7 +69,7 @@ const chartData = computed(() => {
       {
         label: props.name,
         data: props.data.map((i) => i.number),
-        borderRadius: Number.MAX_VALUE,
+        borderRadius: borderRadius,
         borderSkipped: false,
         backgroundColor: (context: ContextProxy) => {
           if (!context.chart.chartArea) {
@@ -118,6 +122,10 @@ const chartOptions = computed(() => {
     chartTheme: {
       backgroundColor: documentStyle.getPropertyValue("background-color"),
     },
+    maintainAspectRatio: false,
+    animation: {
+      duration: 0,
+    },
     scales: {
       x: {
         stacked: true,
@@ -154,9 +162,5 @@ const chartOptions = computed(() => {
       },
     },
   } as ChartOptions;
-});
-
-const chartPlugins = computed(() => {
-  return [...defaultChartsPlugins];
 });
 </script>

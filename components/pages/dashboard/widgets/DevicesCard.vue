@@ -1,8 +1,9 @@
 <template>
-  <app-card>
-    <span class="text-2xl font-black">Top devices</span>
-    <span class="text-sm mt-2">For the current month</span>
-
+  <app-card
+    title="Top devices"
+    subtitle="For the current month"
+    title-class="text-xl font-bold"
+  >
     <div class="devices">
       <div class="device">
         <Avatar shape="circle" size="large">
@@ -42,7 +43,7 @@
         </div>
       </div>
 
-      <div class="device">
+      <div v-for="(_, index) in Array(3)" :key="index" class="device">
         <Avatar shape="circle" size="large">
           <span class="material-symbols-outlined">&#xe80b;</span>
         </Avatar>
@@ -67,8 +68,8 @@
 <style scoped lang="scss">
 .devices {
   @apply w-full;
-  @apply flex flex-col gap-2;
-  @apply mt-6;
+  @apply flex flex-col flex-wrap gap-2;
+  @apply overflow-hidden;
 
   .device {
     @apply w-full;
@@ -79,8 +80,7 @@
     @apply px-1 py-1;
 
     .content {
-      flex: 1;
-      @apply flex flex-col;
+      @apply flex flex-1 flex-col;
 
       .name {
         @apply text-sm font-medium;
