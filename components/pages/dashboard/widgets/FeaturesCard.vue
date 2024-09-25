@@ -36,37 +36,16 @@
         class="chart h-full flex-1 rounded bg-transparent"
         color="sky"
         name="Daily calls"
-        :data="[
-          {
-            name: 'AAA',
-            number: 1200,
-          },
-          {
-            name: 'BBB',
-            number: 754,
-          },
-          {
-            name: 'CCC',
-            number: 1232,
-          },
-          {
-            name: 'FFF',
-            number: 2000,
-          },
-          {
-            name: 'DDD',
-            number: 457,
-          },
-          {
-            name: '!@#',
-            number: 765,
-          },
-          {
-            name: 'EEE',
-            number: 257,
-          },
-        ]"
-      />
+        :data="array"
+      >
+        <template #tooltip="{ item }">
+          <div class="w-20 bg-surface-800 rounded-xl p-5">
+            <span>{{ array[item].name }}</span>
+            <hr />
+            <span>{{ array[item].number }}</span>
+          </div>
+        </template>
+      </bar-chart>
     </div>
   </app-card>
 </template>
@@ -85,6 +64,37 @@ const datePeriods = DatePeriodEntries.map((d) => ({
   value: d,
   name: datePeriodNames.get(d),
 }));
+
+const array = [
+  {
+    name: "AAA",
+    number: 1200,
+  },
+  {
+    name: "BBB",
+    number: 754,
+  },
+  {
+    name: "CCC",
+    number: 1232,
+  },
+  {
+    name: "FFF",
+    number: 2000,
+  },
+  {
+    name: "DDD",
+    number: 457,
+  },
+  {
+    name: "!@#",
+    number: 765,
+  },
+  {
+    name: "EEE",
+    number: 257,
+  },
+];
 </script>
 
 <style scoped lang="scss">

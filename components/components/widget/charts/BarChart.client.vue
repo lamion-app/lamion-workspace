@@ -1,5 +1,23 @@
 <template>
   <div class="relative overflow-hidden text-surface-500">
+    <div
+      ref="tooltipHost"
+      class="tooltip-host pointer-events-none"
+      :class="{
+        'opacity-0': !tooltipData.visible,
+      }"
+      :style="{
+        top: tooltipData.y + 'px',
+        left: tooltipData.x + 'px',
+      }"
+    >
+      <slot
+        v-if="tooltipData.item != null"
+        name="tooltip"
+        :item="tooltipData.item"
+      />
+    </div>
+
     <Chart
       class="w-full !absolute top-0"
       :style="{
@@ -13,10 +31,17 @@
 </template>
 
 <script setup lang="ts">
-import type { Chart, ChartOptions } from "chart.js";
+import type { Chart, ChartOptions, TooltipModel } from "chart.js";
 import type { ContextProxy } from "chart.js/helpers";
 
 const borderRadius = 24;
+
+const tooltipData = ref({
+  item: null as number | null,
+  x: 0,
+  y: 0,
+  visible: false,
+});
 
 const props = withDefaults(
   defineProps<{
@@ -115,8 +140,19 @@ const chartOptions = computed(() => {
         display: false,
       },
       tooltip: {
-        mode: "index",
-        intersect: false,
+        enabled: false,
+        position: "nearest",
+        external(context: { chart: Chart; tooltip: TooltipModel<never> }) {
+          const itemName = context.tooltip.title[0];
+          const itemIndex = props.data.findIndex((i) => i.name === itemName);
+
+          tooltipData.value = {
+            item: itemIndex ?? tooltipData.value.item,
+            x: context.chart.canvas.offsetLeft + context.tooltip.caretX,
+            y: context.chart.canvas.offsetTop + context.tooltip.caretY,
+            visible: context.tooltip.opacity > 0,
+          };
+        },
       },
     },
     chartTheme: {
@@ -161,3 +197,12 @@ const chartOptions = computed(() => {
   } as ChartOptions;
 });
 </script>
+
+<style scoped lang="scss">
+.tooltip-host {
+  @apply absolute z-10;
+  @apply transition-all;
+
+  transform: translateX(-50%);
+}
+</style>
