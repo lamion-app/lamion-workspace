@@ -1,6 +1,6 @@
 <template>
   <app-card
-    class="!bg-stone-800 !justify-start"
+    class="report-card !justify-start"
     title="Activity report"
     subtitle="8 august 2024"
     title-class="text-3xl font-black"
@@ -47,4 +47,13 @@
   </app-card>
 </template>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+.report-card {
+  background: linear-gradient(
+    135deg,
+    var(--p-stone-800) 0%,
+    var(--p-stone-900) 40%,
+    var(--p-surface-800) 120%
+  );
+}
+</style>

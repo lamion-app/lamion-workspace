@@ -8,6 +8,22 @@
       stroke-opacity="10"
       :items="[
         {
+          name: '00:00',
+          number: 2141,
+        },
+        {
+          name: '02:00',
+          number: 2341,
+        },
+        {
+          name: '04:00',
+          number: 1841,
+        },
+        {
+          name: '06:00',
+          number: 2141,
+        },
+        {
           name: '08:00',
           number: 2341,
         },
