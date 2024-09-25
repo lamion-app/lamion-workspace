@@ -59,7 +59,7 @@ const appNavigation = useNavigation();
 
     .main-container {
       @apply w-full h-max min-h-full;
-      @apply py-20 px-20;
+      @apply py-10 px-12;
       @apply rounded-tl-3xl rounded-bl-3xl;
 
       @apply flex items-center justify-center;

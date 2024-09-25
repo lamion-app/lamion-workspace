@@ -2,3 +2,13 @@
   width: 100%;
   min-height: 100%;
 }
+
+@for $i from 13 to 50 {
+  .col-span-#{$i} {
+    grid-column: span #{$i} / span #{$i};
+  }
+
+  .row-span-#{$i} {
+    grid-row: span #{$i} / span #{$i};
+  }
+}

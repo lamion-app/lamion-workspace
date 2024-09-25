@@ -1,7 +1,7 @@
 <template>
   <app-card title="User activity time" title-class="text-xl font-bold">
     <line-chart
-      class="-mx-3 -mb-5"
+      class="-mx-3 -mb-3"
       value-height="60px"
       color="primary"
       brightness="500"
@@ -51,7 +51,7 @@
       </template>
 
       <template #label="{ item }">
-        <span class="text-sm font-bold mb-3">{{ item.name }}</span>
+        <span class="text-sm font-bold pb-3">{{ item.name }}</span>
       </template>
     </line-chart>
   </app-card>

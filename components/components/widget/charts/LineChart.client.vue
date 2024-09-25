@@ -105,19 +105,19 @@ const chartOptions = computed(() => ({
 }));
 
 const pointRadiusPx = computed(
-  () => `${pointBorder.value + props.strokeWidth + 1}px`,
+  () => `${pointBorder.value + props.pointRadius + props.strokeWidth - 1}px`,
 );
 </script>
 
 <style scoped lang="scss">
 .line-chart {
-  @apply relative;
+  @apply relative h-full;
   @apply flex flex-col gap-4;
 
   .chart {
-    height: 100%;
-    margin-top: v-bind(valueHeight);
+    @apply flex-1;
     width: calc(100% - 100% / 7 + v-bind(pointRadiusPx) * 2);
+    margin-top: v-bind(valueHeight);
     margin-left: calc(100% / 7 / 2 - v-bind(pointRadiusPx));
   }
 
@@ -159,7 +159,7 @@ const pointRadiusPx = computed(
   }
 
   .legend {
-    @apply w-full flex;
+    @apply w-full flex items-start;
     z-index: 2;
 
     .label {

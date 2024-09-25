@@ -1,16 +1,14 @@
 <template>
   <app-card
+    class="!bg-stone-800 !justify-start"
     title="Activity report"
     subtitle="8 august 2024"
     title-class="text-3xl font-black"
   >
-    <div class="legend flex gap-2 text-sm font-bold">
+    <div class="legend flex flex-wrap gap-2 text-sm font-bold">
       <span
         class="cursor-pointer select-none bg-primary-500 rounded-lg px-3 py-1"
         >Users</span
-      >
-      <span class="cursor-pointer select-none bg-sky-700 rounded-lg px-3 py-1"
-        >Called functions</span
       >
       <span class="cursor-pointer select-none bg-red-700 rounded-lg px-3 py-1"
         >Errors</span
@@ -36,7 +34,6 @@
         :class="{
           'opacity-50': index < 3,
           '!bg-primary-500': index % 4 === 0,
-          '!bg-sky-700': index === 6 || index === 10,
           '!bg-red-700': index % 12 === 0 && index > 0,
         }"
         class="col-span-1 bg-surface-700 rounded aspect-square px-2 pt-1 pb-2"

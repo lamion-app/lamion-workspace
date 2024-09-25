@@ -1,7 +1,5 @@
 <template>
-  <div
-    class="card bg-surface-900 flex flex-col gap-6 p-5 justify-center rounded-xl overflow-hidden"
-  >
+  <div class="app-card">
     <div v-if="!!title || !!subtitle" class="flex flex-col gap-2">
       <span
         v-if="!!title"
@@ -22,3 +20,11 @@ defineProps<{
   titleClass?: string;
 }>();
 </script>
+
+<style scoped lang="scss">
+.app-card {
+  @apply flex flex-col gap-6 justify-between;
+  @apply p-5 bg-surface-900 rounded-xl;
+  @apply overflow-hidden;
+}
+</style>

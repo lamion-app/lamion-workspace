@@ -123,9 +123,6 @@ const chartOptions = computed(() => {
       backgroundColor: documentStyle.getPropertyValue("background-color"),
     },
     maintainAspectRatio: false,
-    animation: {
-      duration: 0,
-    },
     scales: {
       x: {
         stacked: true,
