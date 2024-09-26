@@ -47,8 +47,7 @@
       @apply flex flex-1 flex-col;
 
       .name {
-        @apply text-sm font-medium;
-        max-lines: 1;
+        @apply text-sm font-medium text-nowrap;
       }
 
       .total {

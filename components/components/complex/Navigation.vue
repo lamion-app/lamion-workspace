@@ -1,6 +1,11 @@
 <template>
-  <div class="navigation">
-    <app-logo class="logo" />
+  <div
+    class="navigation"
+    :class="{
+      expanded: expanded,
+    }"
+  >
+    <app-logo class="logo" :expanded="expanded" @click="$emit('hide')" />
 
     <div v-if="!!$slots['before-menu']" class="navigation-extra extra-start">
       <slot name="before-menu" />
@@ -18,9 +23,15 @@
         :class="{
           active: item.route == route.name,
         }"
+        @click="$emit('hide')"
       >
-        <span v-if="item.icon" class="material-symbols-outlined" v-text="item.icon" />
-        <span v-text="item.name" />
+        <span
+          v-if="item.icon"
+          class="item-icon material-symbols-outlined"
+          v-text="item.icon"
+        />
+
+        <span class="item-text" v-text="item.name" />
       </component>
     </div>
 
@@ -34,7 +45,12 @@
 import { NuxtLink } from "#components";
 
 defineProps<{
+  expanded: boolean;
   items: Array<NavigationItem>;
+}>();
+
+defineEmits<{
+  hide: [];
 }>();
 
 const route = useRoute();
@@ -42,18 +58,31 @@ const route = useRoute();
 
 <style scoped lang="scss">
 .navigation {
-  @apply flex flex-col gap-6;
-  @apply py-6;
+  @apply relative size-full;
+  @apply flex flex-col gap-6 items-center;
+  @apply pt-12 pb-6 px-3;
+  @apply overflow-x-hidden;
+
+  &.expanded {
+    @apply px-6;
+    @apply overflow-y-auto;
+  }
+
+  &:not(.expanded) {
+    .item-text {
+      display: none;
+    }
+  }
 
   .logo,
   .menu,
   .navigation-extra {
-    @apply mx-6;
+    @apply w-full;
   }
 
   .logo {
-    @apply pt-4;
-    @apply pb-4;
+    flex-shrink: 0;
+    flex-grow: 0;
   }
 
   .menu {

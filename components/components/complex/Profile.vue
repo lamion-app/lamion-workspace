@@ -1,41 +1,28 @@
 <template>
   <NuxtLink :to="{ name: 'profile' }" class="w-full">
-    <Card class="profile">
-      <template #content>
-        <div class="profile-content">
-          <Avatar
-            class="avatar"
-            :label="
-              account.image == null || account.image.length == 0
-                ? account.username.charAt(0).toUpperCase()
-                : undefined
-            "
-            :image="
-              account.image == null || account.image.length == 0
-                ? undefined
-                : account.image
-            "
-            size="large"
-            shape="circle"
-          />
+    <app-card class="profile" :class="{ expanded: expanded }">
+      <div class="profile-content">
+        <profile-avatar :username="account.username" :image="account.image" />
 
-          <div class="profile-data">
-            <span class="name" v-text="account.username" />
+        <div class="profile-data">
+          <span class="name" v-text="account.username" />
 
-            <NuxtLink :to="{ name: 'auth-logout' }" class="logout"
-              >Logout
-            </NuxtLink>
-          </div>
-
-          <span class="material-icons">chevron_right</span>
+          <NuxtLink :to="{ name: 'auth-logout' }" class="logout"
+            >Logout
+          </NuxtLink>
         </div>
-      </template>
-    </Card>
+
+        <span class="icon material-icons">chevron_right</span>
+      </div>
+    </app-card>
   </NuxtLink>
 </template>
 
 <script setup lang="ts">
+import ProfileAvatar from "~/components/components/complex/ProfileAvatar.vue";
+
 defineProps<{
+  expanded: boolean;
   account: Account;
 }>();
 </script>
@@ -59,6 +46,16 @@ defineProps<{
         @apply w-min;
         @apply text-sm text-red-400 font-bold;
       }
+    }
+  }
+
+  &:not(.expanded) {
+    @apply p-2;
+    @apply flex items-center justify-center;
+
+    .profile-data,
+    .icon {
+      display: none;
     }
   }
 }
