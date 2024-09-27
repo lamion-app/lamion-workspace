@@ -3,12 +3,6 @@
   min-height: 100%;
 }
 
-@for $i from 13 to 50 {
-  .col-span-#{$i} {
-    grid-column: span #{$i} / span #{$i};
-  }
-
-  .row-span-#{$i} {
-    grid-row: span #{$i} / span #{$i};
-  }
+.bg-window {
+  background-color: color-mix(in srgb, var(--p-surface-900) 75%, #000) !important;
 }

@@ -13,12 +13,12 @@
       />
     </div>
 
-    <div class="h-full data flex">
-      <div class="info h-full flex flex-col gap-8 justify-end">
+    <div class="h-full data flex flex-col lg:flex-row">
+      <div class="info flex flex-wrap gap-8 lg:h-full lg:flex-col lg:justify-end">
         <div class="info-section">
           <div class="label text-xl text-surface-400">Total requests</div>
           <div class="value text-4xl">
-            <span class="number">5.67</span>
+            <span class="state">5.67</span>
             <span class="unit text-3xl text-surface-400">M</span>
           </div>
         </div>
@@ -26,7 +26,7 @@
         <div class="info-section">
           <div class="label text-xl text-surface-400">New users</div>
           <div class="value text-4xl">
-            <span class="number">200</span>
+            <span class="state">200</span>
             <span class="unit text-3xl text-surface-400">K</span>
           </div>
         </div>
@@ -93,6 +93,14 @@ const array = [
   {
     name: "EEE",
     number: 257,
+  },
+  {
+    name: "123",
+    number: 831,
+  },
+  {
+    name: "7452",
+    number: 1034,
   },
 ];
 </script>

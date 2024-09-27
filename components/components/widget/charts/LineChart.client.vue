@@ -107,6 +107,8 @@ const chartOptions = computed(() => ({
 const pointRadiusPx = computed(
   () => `${pointBorder.value + props.pointRadius + props.strokeWidth - 1}px`,
 );
+
+const itemsCount = computed(() => props.items.length);
 </script>
 
 <style scoped lang="scss">
@@ -116,9 +118,9 @@ const pointRadiusPx = computed(
 
   .chart {
     @apply flex-1;
-    width: calc(100% - 100% / 7 + v-bind(pointRadiusPx) * 2);
+    width: calc(100% - 100% / v-bind(itemsCount) + v-bind(pointRadiusPx) * 2);
     margin-top: v-bind(valueHeight);
-    margin-left: calc(100% / 7 / 2 - v-bind(pointRadiusPx));
+    margin-left: calc(100% / v-bind(itemsCount) / 2 - v-bind(pointRadiusPx));
   }
 
   .axis {
@@ -138,7 +140,7 @@ const pointRadiusPx = computed(
           bottom: 0;
           width: 1px;
 
-          @apply bg-surface-700 opacity-20;
+          @apply bg-surface-700 opacity-10;
         }
       }
 

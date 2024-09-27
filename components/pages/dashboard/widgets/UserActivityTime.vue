@@ -6,6 +6,8 @@
       color="primary"
       brightness="500"
       stroke-opacity="10"
+      :point-border="3"
+      :point-radius="2"
       :items="[
         {
           name: '00:00',

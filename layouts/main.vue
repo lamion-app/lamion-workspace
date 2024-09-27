@@ -50,7 +50,7 @@
     />
 
     <div class="main">
-      <div class="main-container">
+      <div class="main-container bg-window">
         <div v-show="isAppLoaded" class="main-content">
           <div v-show="isProjectSelected">
             <slot />
@@ -87,14 +87,19 @@ $header-height: 64px;
   @apply flex;
   @apply bg-surface-950;
 
+  .header,
+  .main .main-container {
+    @apply px-6;
+  }
+
   .header {
     @apply absolute top-0 left-0;
     @apply w-full;
     height: $header-height;
     @apply flex gap-6 items-center;
-    @apply px-8;
     @apply bg-surface-900;
     @apply transition-all;
+    @apply z-30;
   }
 
   .nav-controller {
@@ -140,12 +145,9 @@ $header-height: 64px;
 
     .main-container {
       @apply w-full h-max min-h-full;
-      @apply py-10 px-12;
+      @apply py-6 xl:py-10 xl:px-12;
       @apply rounded-tl-3xl rounded-bl-3xl;
-
       @apply flex items-center justify-center;
-
-      background-color: color-mix(in srgb, var(--p-surface-900) 75%, #000);
 
       .main-content {
         @apply w-full max-w-screen-2xl;

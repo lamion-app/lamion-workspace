@@ -15,9 +15,9 @@
 
 <script setup lang="ts">
 defineProps<{
-  title?: string;
-  subtitle?: string;
-  titleClass?: string;
+  title?: string | null;
+  subtitle?: string | null;
+  titleClass?: string | null;
 }>();
 </script>
 

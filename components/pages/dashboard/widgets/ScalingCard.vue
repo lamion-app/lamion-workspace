@@ -1,42 +1,82 @@
 <template>
-  <app-card title="Scaling" subtitle="This month (August 2024)">
-    <div class="text-lg font-normal">
-      <div class="flex gap-2">
-        <span class="text-primary-500 font-bold">+25K</span>
-        <span class="w-max">regular users</span>
-      </div>
+  <app-card
+    title="Dashboard"
+    subtitle="Today's summary"
+    title-class="text-4xl font-black"
+  >
+    <div class="scaling-container h-full grid gap-4">
+      <app-card
+        v-for="item in items"
+        :key="item.name"
+        class="!gap-2 bg-window"
+        :title="item.name"
+        title-class="text-sm font-bold text-surface-300"
+      >
+        <div class="flex gap-4 items-center overflow-hidden">
+          <value-quantity
+            class="text-6xl"
+            :value="item.value"
+            :quantity="item.quantity"
+            quantity-class="text-surface-400"
+          />
 
-      <div class="flex gap-2">
-        <span class="text-sky-500 font-bold">+25 min</span>
-        <span class="w-max">in app time</span>
-      </div>
-    </div>
-
-    <div class="-mx-3 -mb-3 rounded-lg bg-surface-800 px-4 py-2">
-      <span class="text-sm font-bold text-surface-300">Total users</span>
-
-      <div class="-mt-2 flex gap-4 items-center">
-        <div class="text-7xl">
-          <span>300</span>
-          <span class="text-surface-400">K</span>
+          <up-down-indicator
+            :value="item.change.value"
+            :quantity="item.change.quantity"
+          />
         </div>
-
-        <div class="mt-1 flex gap-1.5 items-center text-sm font-bold">
-          <div
-            class="flex items-center justify-center size-5 bg-primary-500 rounded-full"
-          >
-            <span class="material-symbols-outlined text-surface-800 text-center"
-              >&#xe316;</span
-            >
-          </div>
-
-          <span class="text-primary-500">10%</span>
-        </div>
-      </div>
+      </app-card>
     </div>
   </app-card>
 </template>
 
-<script setup lang="ts"></script>
+<script setup lang="ts">
+const items = [
+  {
+    name: "Total users",
+    value: 300,
+    quantity: "K",
+    change: {
+      value: 10,
+      quantity: "%",
+    },
+  },
+  {
+    name: "Active users",
+    value: 2.2,
+    quantity: "K",
+    change: {
+      value: 30,
+      quantity: "%",
+    },
+  },
+  {
+    name: "In-app time",
+    value: 152,
+    quantity: "H",
+    change: {
+      value: 5,
+      quantity: "%",
+    },
+  },
+  {
+    name: "Triggered events",
+    value: 616,
+    quantity: "B",
+    change: {
+      value: -5,
+      quantity: "%",
+    },
+  },
+];
+</script>
 
-<style scoped></style>
+<style scoped lang="scss">
+.scaling-container {
+  @apply sm:grid-cols-2;
+
+  @media (min-width: 1580px) {
+    @apply grid-cols-4;
+  }
+}
+</style>

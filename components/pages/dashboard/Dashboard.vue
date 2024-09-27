@@ -1,50 +1,33 @@
 <template>
   <div class="dashboard">
-    <in-app-activity-card id="app-activity" class="col-span-1 row-span-18" />
+    <scaling-card class="col-span-full 2xl:col-span-9" />
 
-    <features-card id="features" class="h-full col-span-2 row-span-22" />
+    <app-health-card class="col-span-full 2xl:col-span-3" />
 
-    <crash-statistics-card
-      id="crash-free-users"
-      class="h-full col-span-1 row-span-9"
-    />
+    <features-card class="!h-[600px] lg:!h-full lg:col-span-8 2xl:col-span-8" />
 
-    <activity-report-card
-      id="activity-report"
-      class="h-full col-span-1 row-span-16"
-    />
+    <in-app-activity-card class="lg:col-span-4 2xl:col-span-4" />
 
-    <scaling-card class="h-full col-span-1 row-span-12" />
+    <activity-report-card class="lg:col-span-5 2xl:col-span-5" />
 
-    <devices-card id="top-devices" class="col-span-1 row-span-16" />
-
-    <app-card class="h-full col-span-1 row-span-17">
-      top regions by users
-    </app-card>
-
-    <user-activity-time
-      id="activity_time"
-      class="h-full col-span-1 row-span-13"
-    />
-
-    <app-card class="h-full col-span-1 row-span-8">
-      ...
-    </app-card>
+    <user-activity-time class="lg:col-span-7 2xl:col-span-7" />
   </div>
 </template>
 
 <style scoped lang="scss">
 .dashboard {
   @apply size-full;
-  @apply grid gap-4 grid-flow-row items-start justify-start;
+  @apply flex flex-col;
+  @apply gap-4;
 
-  grid-template-columns: 3fr 7fr 3fr;
-  grid-auto-rows: 12px;
+  @screen lg {
+    @apply grid grid-flow-row items-start justify-start;
+
+    grid-template-columns: repeat(12, 1fr);
+  }
 
   & > * {
-    max-height: 100%;
+    height: 100%;
   }
 }
 </style>
-<script setup lang="ts">
-</script>

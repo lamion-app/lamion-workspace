@@ -29,7 +29,7 @@
       <span class="col-span-1 text-sm font-black text-center">sun</span>
 
       <div
-        v-for="(_, index) in Array(14)"
+        v-for="(_, index) in Array(21)"
         :key="index"
         :class="{
           'opacity-50': index < 3,
