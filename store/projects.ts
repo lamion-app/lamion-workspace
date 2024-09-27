@@ -53,13 +53,14 @@ export const useProjectsStore = defineStore("projectsStore", () => {
 
   const isProjectSelected = computed(() => selectedProject.value !== null);
 
-  onMounted(() => {
+  const loadInitProject = () => {
     selectedProjectIndex.value = getDefaultSelectedProject();
-  });
+  };
 
   return {
     projects,
     selectedProject,
     isProjectSelected,
+    loadInitProject,
   };
 });

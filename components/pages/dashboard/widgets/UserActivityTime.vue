@@ -1,6 +1,6 @@
 <template>
   <app-card title="User activity time" title-class="text-xl font-bold">
-    <line-chart
+    <custom-axis-line-chart
       class="-mx-3 -mb-3"
       value-height="60px"
       color="primary"
@@ -71,6 +71,6 @@
       <template #label="{ item }">
         <span class="text-sm font-bold pb-3">{{ item.name }}</span>
       </template>
-    </line-chart>
+    </custom-axis-line-chart>
   </app-card>
 </template>

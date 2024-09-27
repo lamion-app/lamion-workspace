@@ -3,10 +3,9 @@
 </template>
 
 <script setup lang="ts">
-  definePageMeta({
-    layout: "main",
-    middleware: "selected-project"
-  });
+definePageMeta({
+  layout: "main",
+});
 </script>
 
 <style scoped lang="scss"></style>

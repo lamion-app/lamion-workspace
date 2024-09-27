@@ -1,57 +1,60 @@
 <template>
   <div class="root">
-    <header class="header">
-      <button @click="navigationExpanded = !navigationExpanded">
-        <span class="material-symbols-outlined text-3xl font-black"
-          >&#xe5d2;</span
-        >
-      </button>
+    <template v-if="isProjectSelected && isAppLoaded">
+      <header class="header">
+        <button @click="navigationExpanded = !navigationExpanded">
+          <span class="material-symbols-outlined text-3xl font-black"
+            >&#xe5d2;</span
+          >
+        </button>
 
-      <!-- TODO -->
-      <h3 class="text-lg font-medium text-nowrap">Current page name</h3>
-    </header>
+        <!-- TODO -->
+        <h3 class="text-lg font-medium text-nowrap">Current page name</h3>
+      </header>
 
-    <div
-      class="nav-controller drawer"
-      :class="{
-        expanded: navigationExpanded,
-      }"
-    >
-      <button
-        class="btn-expand"
-        aria-label="Expand"
-        @click="navigationExpanded = !navigationExpanded"
+      <div
+        class="nav-controller drawer"
+        :class="{
+          expanded: navigationExpanded,
+        }"
       >
-        <span class="material-symbols-outlined text-lg font-black"
-          >&#xe5cc;</span
+        <button
+          class="btn-expand"
+          aria-label="Expand"
+          @click="navigationExpanded = !navigationExpanded"
         >
-      </button>
+          <span class="material-symbols-outlined text-lg font-black"
+            >&#xe5cc;</span
+          >
+        </button>
 
-      <navigation
-        v-if="isProjectSelected && isAppLoaded"
-        :expanded="navigationExpanded"
-        :items="appNavigation.navigationItems"
-        @hide="navigationExpanded = false"
-      >
-        <template v-if="navigationExpanded" #before-menu>
-          <ProjectSelect v-model="selectedProject!" :projects="projects" />
-        </template>
+        <navigation
+          v-if="isProjectSelected && isAppLoaded"
+          :expanded="navigationExpanded"
+          :items="appNavigation.navigationItems"
+          @hide="navigationExpanded = false"
+        >
+          <template v-if="navigationExpanded" #before-menu>
+            <ProjectSelect v-model="selectedProject!" :projects="projects" />
+          </template>
 
-        <template v-if="!!account" #after-menu>
-          <Profile :expanded="navigationExpanded" :account="account" />
-        </template>
-      </navigation>
-    </div>
+          <template v-if="!!account" #after-menu>
+            <Profile :expanded="navigationExpanded" :account="account" />
+          </template>
+        </navigation>
+      </div>
 
-    <div
-      v-if="navigationExpanded"
-      class="scrim"
-      @click="navigationExpanded = false"
-    />
+      <div
+        v-if="navigationExpanded"
+        class="scrim"
+        @click="navigationExpanded = false"
+      />
+    </template>
 
     <div class="main">
       <div class="main-container bg-window">
         <div v-show="isAppLoaded" class="main-content">
+          <!-- TODO need not to draw page when project is not selected -->
           <div v-show="isProjectSelected">
             <slot />
           </div>
@@ -72,12 +75,17 @@
 <script setup lang="ts">
 const { isAppLoaded } = storeToRefs(useAppStore());
 const { account } = useAuthProviders();
+const projectsStore = useProjectsStore();
 const { projects, selectedProject, isProjectSelected } =
-  storeToRefs(useProjectsStore());
+  storeToRefs(projectsStore);
 
 const appNavigation = useNavigation();
 
 const navigationExpanded = ref(false);
+
+onMounted(() => {
+  projectsStore.loadInitProject();
+});
 </script>
 
 <style scoped lang="scss">

@@ -20,11 +20,11 @@ export const defaultBarChartTheme = (color: string): BarChartTheme => {
 
   return {
     low: {
-      start: documentStyle.getPropertyValue(baseColor + "700"),
-      end: documentStyle.getPropertyValue(baseColor + "900"),
+      start: documentStyle.getPropertyValue(baseColor + "900"),
+      end: documentStyle.getPropertyValue(baseColor + "950"),
     },
     normal: {
-      start: documentStyle.getPropertyValue(baseColor + "500"),
+      start: documentStyle.getPropertyValue(baseColor + "600"),
       end: documentStyle.getPropertyValue(baseColor + "900"),
     },
     high: {

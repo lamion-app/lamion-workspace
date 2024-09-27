@@ -41,7 +41,7 @@
         <template #tooltip="{ item }">
           <div class="w-20 bg-surface-800 rounded-xl p-5">
             <span>{{ array[item].name }}</span>
-            <hr />
+            <hr >
             <span>{{ array[item].number }}</span>
           </div>
         </template>
