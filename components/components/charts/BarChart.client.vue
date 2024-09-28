@@ -2,9 +2,9 @@
   <div class="relative overflow-hidden text-surface-500">
     <div
       ref="tooltipHost"
-      class="tooltip-host pointer-events-none"
+      class="tooltip-host"
       :class="{
-        'opacity-0': !tooltipData.visible,
+        visible: tooltipData.visible,
       }"
       :style="{
         top: tooltipData.y + 'px',
@@ -14,7 +14,7 @@
       <slot
         v-if="tooltipData.item != null"
         name="tooltip"
-        :item="tooltipData.item"
+        :index="tooltipData.item"
       />
     </div>
 
@@ -34,14 +34,7 @@
 import type { Chart, ChartOptions, TooltipModel } from "chart.js";
 import type { ContextProxy } from "chart.js/helpers";
 
-const borderRadius = 24;
-
-const tooltipData = ref({
-  item: null as number | null,
-  x: 0,
-  y: 0,
-  visible: false,
-});
+const slots = useSlots();
 
 const props = withDefaults(
   defineProps<{
@@ -50,6 +43,7 @@ const props = withDefaults(
     averageThresholdPercent?: number;
     theme?: BarChartTheme;
     color?: string;
+    borderRadius?: number;
     showYAxisLabels?: boolean;
     yAxisLabelsCount?: number;
     axisPadding?: number;
@@ -57,12 +51,20 @@ const props = withDefaults(
   {
     averageThresholdPercent: 20,
     color: "primary",
+    borderRadius: 24,
     theme: undefined,
     axisPadding: 16,
     showYAxisLabels: false,
     yAxisLabelsCount: undefined,
   },
 );
+
+const tooltipData = ref({
+  item: null as number | null,
+  x: 0,
+  y: 0,
+  visible: false,
+});
 
 const maxValue = computed(() => {
   return Math.max(...props.data.map((i) => i.number));
@@ -94,7 +96,7 @@ const chartData = computed(() => {
       {
         label: props.name,
         data: props.data.map((i) => i.number),
-        borderRadius: borderRadius,
+        borderRadius: props.borderRadius,
         borderSkipped: false,
         backgroundColor: (context: ContextProxy) => {
           if (!context.chart.chartArea) {
@@ -140,7 +142,7 @@ const chartOptions = computed(() => {
         display: false,
       },
       tooltip: {
-        enabled: false,
+        enabled: !slots["tooltip"],
         position: "nearest",
         external(context: { chart: Chart; tooltip: TooltipModel<never> }) {
           const itemName = context.tooltip.title[0];
@@ -199,10 +201,5 @@ const chartOptions = computed(() => {
 </script>
 
 <style scoped lang="scss">
-.tooltip-host {
-  @apply absolute z-10;
-  @apply transition-all;
-
-  transform: translateX(-50%);
-}
+@import url(/assets/css/charts.scss);
 </style>

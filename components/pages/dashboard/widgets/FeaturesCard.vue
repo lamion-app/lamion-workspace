@@ -14,7 +14,9 @@
     </div>
 
     <div class="h-full data flex flex-col lg:flex-row">
-      <div class="info flex flex-wrap gap-8 lg:h-full lg:flex-col lg:justify-end">
+      <div
+        class="info flex flex-wrap gap-8 lg:h-full lg:flex-col lg:justify-end"
+      >
         <div class="info-section">
           <div class="label text-xl text-surface-400">Total requests</div>
           <div class="value text-4xl">
@@ -38,11 +40,11 @@
         name="Daily calls"
         :data="array"
       >
-        <template #tooltip="{ item }">
+        <template #tooltip="{ index }">
           <div class="w-20 bg-surface-800 rounded-xl p-5">
-            <span>{{ array[item].name }}</span>
-            <hr >
-            <span>{{ array[item].number }}</span>
+            <span>{{ array[index].name }}</span>
+            <hr />
+            <span>{{ array[index].number }}</span>
           </div>
         </template>
       </bar-chart>
