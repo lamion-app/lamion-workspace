@@ -1,9 +1,6 @@
 <template>
   <div class="flex items-center justify-center">
-    <app-card
-      class="w-full h-[400px]"
-      title="Active users"
-    >
+    <app-card class="w-full h-[400px]" title="Active users">
       <line-chart
         class="-mx-5 h-full"
         color="primary"

@@ -23,8 +23,8 @@ export const useAuthProviders = () => {
       signOut({
         redirect: false,
       }).then(() => {
-
         localStorage.clear();
+
         loginPage.navigate();
       });
     },

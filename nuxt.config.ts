@@ -102,18 +102,18 @@ export default defineNuxtConfig({
       md: 768,
       lg: 1024,
       xl: 1280,
-      '2xl': 1536,
+      "2xl": 1536,
     },
     defaultBreakpoints: {
-      desktop: 'lg',
-      mobile: 'xs',
-      tablet: 'md',
+      desktop: "lg",
+      mobile: "xs",
+      tablet: "md",
     },
-    fallbackBreakpoint: 'lg'
+    fallbackBreakpoint: "lg",
   },
   auth: {
     baseURL: process.env.AUTH_ORIGIN,
-    globalAppMiddleware: true,
+    globalAppMiddleware: false,
     provider: {
       type: "local",
       session: {
