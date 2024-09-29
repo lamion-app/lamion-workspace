@@ -1,5 +1,5 @@
 <template>
-  <div class="flex flex-col">
+  <div class="flex gap-4 flex-col">
     <div class="chart relative flex-1">
       <div
         ref="tooltipHost"
@@ -58,7 +58,6 @@ import type {
 const props = withDefaults(
   defineProps<
     LineChartProps & {
-      indent?: number;
       tension?: number;
       prevValue: number;
       nextValue: number;
@@ -66,7 +65,6 @@ const props = withDefaults(
   >(),
   {
     ...LineChartDefaults,
-    indent: 5,
     tension: 0.4,
   },
 );
@@ -85,25 +83,6 @@ const dataNumbers = computed(() => [
   ...props.items.map((i) => i.number),
   props.nextValue,
 ]);
-
-function normalize(num: number, up: boolean): number {
-  const indented = up
-    ? num / (1 - props.indent / 100)
-    : num / (1 + props.indent / 100);
-
-  if (up) {
-    return Math.ceil(indented / 10) * 10;
-  } else {
-    return Math.floor(indented / 10) * 10;
-  }
-}
-
-const minValue = computed(() =>
-  normalize(Math.min(...dataNumbers.value), false),
-);
-const maxValue = computed(() =>
-  normalize(Math.max(...dataNumbers.value), true),
-);
 
 const pointBorder = computed(() =>
   props.pointEnabled ? props.pointBorder : 0,
@@ -197,6 +176,12 @@ const chartOptions = computed(() => ({
       display: false,
     },
   },
+  clip: false,
+  layout: {
+    padding: {
+      bottom: props.pointRadius
+    },
+  },
   elements: {
     point: {
       radius: props.pointRadius,
@@ -210,18 +195,10 @@ const chartOptions = computed(() => ({
       display: false,
     },
     y: {
-      min: minValue.value,
-      max: maxValue.value,
       display: false,
     },
   },
 }));
-
-// const itemsCount = computed(() => props.items.length);
-//
-// const pointRadiusPx = computed(
-//   () => `${pointBorder.value + props.pointRadius * 2}px`,
-// );
 </script>
 
 <style scoped lang="scss">
@@ -230,14 +207,5 @@ const chartOptions = computed(() => ({
 .chart {
   width: 100%;
   height: 100%;
-
-  .chart {
-    //$a: calc(100% / (v-bind(itemsCount) + 2) - v-bind(pointRadiusPx) * 2);
-    //
-    //height: 100%;
-    //
-    //margin-left: calc($a * -1);
-    //margin-right: calc($a * -1);
-  }
 }
 </style>
