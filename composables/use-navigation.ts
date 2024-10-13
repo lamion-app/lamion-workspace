@@ -20,11 +20,6 @@ export const useNavigation = () => {
       icon: String.fromCodePoint(0xef3e),
       route: "analytics",
     },
-    {
-      name: "Payments",
-      icon: String.fromCodePoint(0xe850),
-      route: "payments",
-    },
   );
 
   return {
