@@ -33,7 +33,11 @@ export default defineNuxtConfig({
       pathPrefix: false,
     },
   ],
-  css: ["@/assets/css/_normalize.scss", "@/assets/css/main.scss"],
+  css: [
+    "@/assets/css/_normalize.scss",
+    "@/assets/css/main.scss",
+    "@/assets/css/vars.scss",
+  ],
   vite: {
     css: {
       preprocessorOptions: {

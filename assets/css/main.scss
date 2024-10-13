@@ -4,5 +4,21 @@
 }
 
 .bg-window {
-  background-color: color-mix(in srgb, var(--p-surface-900) 75%, #000) !important;
+  background-color: color-mix(in srgb, var(--p-surface-900) 65%, #000) !important;
+}
+
+.text-secondary {
+  @apply text-surface-400;
+}
+
+.p-tablist-tab-list,
+.p-tabpanels,
+.p-datatable-header-cell,
+.p-datatable-tbody > tr {
+  background: none !important;
+}
+
+.p-datatable-tbody > tr > td,
+.p-datatable-header-cell, {
+  border-color: var(--p-surface-700) !important;
 }

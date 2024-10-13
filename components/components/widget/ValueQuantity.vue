@@ -8,12 +8,13 @@
 <script setup lang="ts">
 withDefaults(
   defineProps<{
-    value: number;
-    quantity: string | null;
+    value: number | string;
+    quantity?: string | null;
     valueClass?: string;
     quantityClass?: string;
   }>(),
   {
+    quantity: null,
     valueClass: "",
     quantityClass: "",
   },

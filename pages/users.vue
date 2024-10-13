@@ -1,5 +1,7 @@
 <template>
-  <users-page />
+  <app-layout scrollable>
+    <users-page />
+  </app-layout>
 </template>
 
 <script setup lang="ts">

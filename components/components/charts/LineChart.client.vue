@@ -28,6 +28,7 @@
     </div>
 
     <div
+      v-if="!hideLabels"
       class="flex"
       :style="{
         marginLeft: `${100 / (items.length + 1) / 2}%`,
@@ -49,23 +50,25 @@
 
 <script setup lang="ts">
 import type { ContextProxy } from "chart.js/helpers";
-import type { Chart, TooltipModel } from "chart.js";
-import type {
-  LineChartProps,
-  LineChartTheme,
-} from "~/components-types/charts/LineChart";
+import type { Chart, ChartOptions, TooltipModel, TooltipItem } from "chart.js";
+import { buildDefaultTheme } from "~/components-types/charts/Chart";
+import type { ChartProps } from "~/components-types/charts/Chart";
+
+const emptyLabel = "---";
 
 const props = withDefaults(
   defineProps<
-    LineChartProps & {
+    ChartProps & {
       tension?: number;
       prevValue: number;
       nextValue: number;
+      hideLabels?: boolean;
     }
   >(),
   {
-    ...LineChartDefaults,
+    ...ChartDefaults,
     tension: 0.4,
+    hideLabels: false,
   },
 );
 
@@ -88,26 +91,13 @@ const pointBorder = computed(() =>
   props.pointEnabled ? props.pointBorder : 0,
 );
 
-const buildDefaultTheme = (
-  color: string,
-  brightness: string,
-): LineChartTheme => {
-  const style = getComputedStyle(document.documentElement);
-
-  const pointColor = style.getPropertyValue(`--p-${color}-200`);
-  const strokeColor = style.getPropertyValue(`--p-${color}-${brightness}`);
-
-  return {
-    strokeColor: strokeColor,
-    pointColor: pointColor,
-  };
-};
-
 const chartData = computed(() => {
-  const theme = props.theme ?? buildDefaultTheme(props.color, props.brightness);
+  const theme =
+    props.theme ??
+    buildDefaultTheme(props.color, props.brightness);
 
   return {
-    labels: ["---", ...props.items.map((i) => i.name), "---"],
+    labels: [emptyLabel, ...props.items.map((i) => i.name), emptyLabel],
     datasets: [
       {
         data: dataNumbers.value.map((item, index) => ({
@@ -155,50 +145,62 @@ const chartData = computed(() => {
   };
 });
 
-const chartOptions = computed(() => ({
-  plugins: {
-    tooltip: {
-      enabled: !slots["tooltip"],
-      position: "nearest",
-      external(context: { chart: Chart; tooltip: TooltipModel<never> }) {
-        const itemName = context.tooltip.title[0];
-        const itemIndex = props.items.findIndex((i) => i.name === itemName);
+const chartOptions = computed(
+  () =>
+    ({
+      plugins: {
+        tooltip: {
+          enabled: !slots["tooltip"],
+          position: "nearest",
+          filter: function (e: TooltipItem<never>) {
+            return !!slots["tooltip"] && e.label != emptyLabel;
+          },
+          external(context: { chart: Chart; tooltip: TooltipModel<never> }) {
+            const itemName = context.tooltip.title[0];
+            const itemIndex = props.items.findIndex((i) => i.name === itemName);
 
-        tooltipData.value = {
-          item: itemIndex ?? tooltipData.value.item,
-          x: context.chart.canvas.offsetLeft + context.tooltip.caretX,
-          y: context.chart.canvas.offsetTop + context.tooltip.caretY,
-          visible: context.tooltip.opacity > 0,
-        };
+            tooltipData.value = {
+              item: itemIndex ?? tooltipData.value.item,
+              x: context.chart.canvas.offsetLeft + context.tooltip.caretX,
+              y: context.chart.canvas.offsetTop + context.tooltip.caretY,
+              visible: context.tooltip.opacity > 0,
+            };
+          },
+        },
+        legend: {
+          display: false,
+        },
       },
-    },
-    legend: {
-      display: false,
-    },
-  },
-  clip: false,
-  layout: {
-    padding: {
-      bottom: props.pointRadius
-    },
-  },
-  elements: {
-    point: {
-      radius: props.pointRadius,
-      hitRadius: props.pointRadius,
-      hoverRadius: props.pointRadius,
-    },
-  },
-  maintainAspectRatio: false,
-  scales: {
-    x: {
-      display: false,
-    },
-    y: {
-      display: false,
-    },
-  },
-}));
+      interaction: {
+        mode: "nearest",
+        axis: "x",
+        intersect: false,
+      },
+      clip: false,
+      layout: {
+        padding: {
+          top: props.pointRadius,
+          bottom: props.pointRadius,
+        },
+      },
+      elements: {
+        point: {
+          radius: props.pointRadius,
+          hitRadius: props.pointRadius,
+          hoverRadius: props.pointRadius,
+        },
+      },
+      maintainAspectRatio: false,
+      scales: {
+        x: {
+          display: false,
+        },
+        y: {
+          display: false,
+        },
+      },
+    }) as ChartOptions,
+);
 </script>
 
 <style scoped lang="scss">

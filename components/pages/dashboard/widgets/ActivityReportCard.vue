@@ -51,9 +51,9 @@
 .report-card {
   background: linear-gradient(
     135deg,
-    var(--p-stone-800) 0%,
-    var(--p-stone-900) 40%,
-    var(--p-surface-800) 120%
+    var(--p-stone-700) 0%,
+    var(--p-stone-800) 40%,
+    var(--p-surface-700) 120%
   );
 }
 </style>

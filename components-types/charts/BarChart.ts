@@ -1,8 +1,3 @@
-export interface BarChartItem {
-  name: string;
-  number: number;
-}
-
 export interface BarChartThemeItem {
   start: string;
   end: string;

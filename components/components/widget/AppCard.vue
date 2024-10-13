@@ -1,5 +1,5 @@
 <template>
-  <div class="app-card">
+  <div class="app-card" :class="variant">
     <div v-if="!!title || !!subtitle" class="flex flex-col gap-2">
       <span
         v-if="!!title"
@@ -14,17 +14,35 @@
 </template>
 
 <script setup lang="ts">
-defineProps<{
-  title?: string | null;
-  subtitle?: string | null;
-  titleClass?: string | null;
-}>();
+type CardType = "filled" | "outlined";
+
+withDefaults(
+  defineProps<{
+    title?: string | null;
+    subtitle?: string | null;
+    titleClass?: string | null;
+    variant?: CardType;
+  }>(),
+  {
+    title: null,
+    subtitle: null,
+    titleClass: null,
+    variant: "filled",
+  },
+);
 </script>
 
 <style scoped lang="scss">
 .app-card {
   @apply flex flex-col gap-6 justify-between;
-  @apply p-5 bg-surface-900 rounded-xl;
-  @apply overflow-hidden;
+  @apply p-5 rounded-xl overflow-hidden;
+
+  &.filled {
+    @apply bg-surface-900;
+  }
+
+  &.outlined {
+    @apply border-[1px] border-surface-700;
+  }
 }
 </style>

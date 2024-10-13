@@ -1,5 +1,7 @@
 <template>
-  <dashboard-page />
+  <app-layout scrollable>
+    <dashboard-page />
+  </app-layout>
 </template>
 
 <script setup lang="ts">

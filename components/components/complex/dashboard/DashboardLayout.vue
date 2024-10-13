@@ -10,7 +10,7 @@
   @apply flex flex-col;
   @apply gap-4;
 
-  @screen lg {
+  @screen md {
     @apply grid grid-flow-row items-start justify-start;
 
     grid-template-columns: repeat(12, 1fr);

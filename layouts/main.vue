@@ -15,7 +15,7 @@
       <div
         class="nav-controller drawer"
         :class="{
-          expanded: navigationExpanded
+          expanded: navigationExpanded,
         }"
       >
         <button
@@ -51,24 +51,7 @@
       />
     </template>
 
-    <div class="main">
-      <div class="main-container bg-window">
-        <div v-show="isAppLoaded" class="main-content">
-          <!-- TODO need not to draw page when project is not selected -->
-          <div v-show="isProjectSelected">
-            <slot />
-          </div>
-
-          <projects-view
-            v-show="!isProjectSelected"
-            :projects="projects"
-            @select-project="selectedProject = $event"
-          />
-        </div>
-
-        <ProgressSpinner v-show="!isAppLoaded" />
-      </div>
-    </div>
+    <slot />
   </div>
 </template>
 
@@ -89,25 +72,17 @@ onMounted(() => {
 </script>
 
 <style scoped lang="scss">
-$header-height: 64px;
-
 .root {
   @apply flex;
   @apply bg-surface-950;
 
-  .header,
-  .main .main-container {
-    @apply px-6;
-  }
-
   .header {
-    @apply absolute top-0 left-0;
+    @apply absolute top-0 left-0 z-30;
     @apply w-full;
-    height: $header-height;
+    height: var(--header-height);
     @apply flex gap-6 items-center;
-    @apply bg-surface-900;
-    @apply transition-all;
-    @apply z-30;
+    @apply px-6;
+    @apply bg-surface-800 transition-all;
   }
 
   .nav-controller {
@@ -146,22 +121,6 @@ $header-height: 64px;
     @apply absolute top-0 left-0 right-0 bottom-0;
     @apply bg-surface-900 opacity-75;
     z-index: 400;
-  }
-
-  .main {
-    @apply max-h-screen overflow-x-hidden overflow-y-auto;
-
-    .main-container {
-      @apply w-full h-max min-h-full;
-      @apply py-6 xl:py-10 xl:px-12;
-      @apply rounded-tl-3xl rounded-bl-3xl;
-      @apply flex items-center justify-center;
-
-      .main-content {
-        @apply w-full max-w-screen-2xl;
-        padding-top: $header-height;
-      }
-    }
   }
 
   @screen xl {

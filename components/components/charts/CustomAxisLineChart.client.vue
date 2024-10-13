@@ -26,19 +26,19 @@
 </template>
 
 <script setup lang="ts">
-import type {
-  LineChartProps,
-  LineChartTheme,
-} from "~/components-types/charts/LineChart";
+import type { ChartProps } from "~/components-types/charts/Chart";
+import { buildDefaultTheme } from "~/components-types/charts/Chart";
 
 const props = withDefaults(
   defineProps<
-    LineChartProps & {
+    ChartProps & {
+      strokeOpacity?: string;
       valueHeight?: string;
     }
   >(),
   {
-    ...LineChartDefaults,
+    ...ChartDefaults,
+    strokeOpacity: "10",
     valueHeight: "24px",
   },
 );
@@ -47,27 +47,8 @@ const pointBorder = computed(() =>
   props.pointEnabled ? props.pointBorder : 0,
 );
 
-const buildDefaultTheme = (
-  color: string,
-  brightness: string,
-  strokeOpacity: string,
-): LineChartTheme => {
-  const style = getComputedStyle(document.documentElement);
-
-  const pointColor = style.getPropertyValue(`--p-${color}-${brightness}`);
-  const strokeColor =
-    style.getPropertyValue(`--p-${color}-${brightness}`) + strokeOpacity;
-
-  return {
-    strokeColor: strokeColor,
-    pointColor: pointColor,
-  };
-};
-
 const chartData = computed(() => {
-  const theme =
-    props.theme ??
-    buildDefaultTheme(props.color, props.brightness, props.strokeOpacity);
+  const theme = props.theme ?? buildDefaultTheme(props.color, props.brightness);
 
   return {
     labels: props.items.map((p) => p.name),
@@ -75,7 +56,7 @@ const chartData = computed(() => {
       {
         data: props.items.map((p) => p.number),
         fill: false,
-        borderColor: theme.strokeColor,
+        borderColor: theme.strokeColor + props.strokeOpacity,
         borderWidth: props.strokeWidth,
         pointBackgroundColor: "transparent",
         pointBorderColor: theme.pointColor,

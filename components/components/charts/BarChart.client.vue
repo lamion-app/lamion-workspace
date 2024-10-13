@@ -39,7 +39,7 @@ const slots = useSlots();
 const props = withDefaults(
   defineProps<{
     name: string;
-    data: BarChartItem[];
+    data: ChartItem[];
     averageThresholdPercent?: number;
     theme?: BarChartTheme;
     color?: string;

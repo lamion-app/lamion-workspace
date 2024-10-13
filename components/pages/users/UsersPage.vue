@@ -1,41 +1,44 @@
 <template>
   <dashboard-layout>
-    <app-card class="col-span-full !h-[400px]" title="Active users">
-      <line-chart
-        class="-mx-5 -mb-5 h-full"
-        color="primary"
-        brightness="500"
-        stroke-opacity="ff"
-        :stroke-width="3"
-        :point-border="3"
-        :point-radius="7"
-        :prev-value="data[0].number"
-        :next-value="data[data.length - 1].number"
-        :items="data"
-      >
-        <template #tooltip="{ index }">
-          <div class="bg-surface-800 rounded-xl p-5">
-            <span>{{ data[index].name }}</span>
-            <hr />
-            <span>{{ data[index].number }}</span>
-          </div>
-        </template>
+    <total-users-card class="!h-[300px] col-span-4 2xl:col-span-3" />
 
-        <template #label="{ item }">
-          <div class="py-2">
-            <span>{{ item.name }}</span>
-          </div>
-        </template>
-      </line-chart>
+    <active-users-card class="!h-[300px] col-span-4" />
+
+    <growth-rate-card class="!hidden 2xl:!flex col-span-2" />
+
+    <platform-collation-card class="col-span-4 2xl:col-span-3 row-span-2" />
+
+    <app-card
+      title="User activity time"
+      class="col-span-8 2xl:col-span-9 row-span-1"
+    >
+      <user-activity-time class="-mx-5" />
+    </app-card>
+
+    <app-card class="col-span-full">
+      <div class="flex flex-wrap items-center justify-between">
+        <span class="text-2xl font-bold">Devices info</span>
+
+        <SelectButton
+          model-value="Today"
+          :options="['Today', 'Month', 'Yearly']"
+          aria-labelledby="basic"
+        />
+      </div>
+
+      <devices-table />
     </app-card>
   </dashboard-layout>
 </template>
 
+<style scoped lang="scss">
+.users-page {
+  .data,
+  .display {
+    @apply flex-1;
+  }
+}
+</style>
 <script setup lang="ts">
-const data = [...Array(15).keys()].map((_, index) => {
-  return {
-    name: `${1 + index}.06.24`,
-    number: Math.floor(Math.random() * (index + 1) * 1000),
-  };
-});
+import PlatformCollationCard from "~/components/pages/users/PlatformCollationCard.vue";
 </script>

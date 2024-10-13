@@ -1,7 +1,7 @@
 <template>
   <app-card title="Top devices" title-class="text-xl font-bold">
     <div class="devices">
-      <div v-for="(_, index) in Array(20)" :key="index" class="device">
+      <div v-for="(_, index) in Array(5)" :key="index" class="device">
         <Avatar class="leading" shape="circle">
           <span class="material-symbols-outlined">&#xe80b;</span>
         </Avatar>
@@ -29,9 +29,7 @@
     @apply w-full;
     height: 48px;
     @apply flex items-center justify-between gap-2;
-    @apply rounded-full bg-surface-800;
     @apply overflow-x-hidden;
-    @apply px-1 py-1;
 
     .leading,
     .trailing {
