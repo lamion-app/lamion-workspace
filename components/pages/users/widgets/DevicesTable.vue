@@ -1,4 +1,5 @@
 <template>
+  <!-- TODO: add deferred -->
   <DataTable :value="data">
     <Column field="name" header="Name" />
 

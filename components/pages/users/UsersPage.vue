@@ -39,6 +39,3 @@
   }
 }
 </style>
-<script setup lang="ts">
-import PlatformCollationCard from "~/components/pages/users/PlatformCollationCard.vue";
-</script>

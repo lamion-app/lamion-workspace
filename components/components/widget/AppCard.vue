@@ -10,6 +10,10 @@
     </div>
 
     <slot />
+
+    <div v-if="loading" class="loader">
+      <progress-spinner />
+    </div>
   </div>
 </template>
 
@@ -22,18 +26,21 @@ withDefaults(
     subtitle?: string | null;
     titleClass?: string | null;
     variant?: CardType;
+    loading?: boolean;
   }>(),
   {
     title: null,
     subtitle: null,
     titleClass: null,
     variant: "filled",
+    loading: false,
   },
 );
 </script>
 
 <style scoped lang="scss">
 .app-card {
+  @apply relative;
   @apply flex flex-col gap-6 justify-between;
   @apply p-5 rounded-xl overflow-hidden;
 
@@ -43,6 +50,12 @@ withDefaults(
 
   &.outlined {
     @apply border-[1px] border-surface-700;
+  }
+
+  .loader {
+    @apply flex items-center justify-center;
+    @apply absolute top-0 left-0 size-full;
+    @apply bg-surface-700 bg-opacity-40;
   }
 }
 </style>

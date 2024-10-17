@@ -11,9 +11,9 @@ export const useNavigation = () => {
       route: "users",
     },
     {
-      name: "Functions",
+      name: "Features",
       icon: String.fromCodePoint(0xf20e),
-      route: "functions",
+      route: "features",
     },
     {
       name: "Analytics",

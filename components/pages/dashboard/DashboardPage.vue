@@ -6,7 +6,25 @@
 
     <features-card
       class="!h-[600px] lg:!h-full col-span-full lg:col-span-8 2xl:col-span-8"
-    />
+    >
+      <template #extras>
+        <div class="info-section">
+          <div class="label text-xl text-surface-400">Total requests</div>
+          <div class="value text-4xl">
+            <span class="state">5.67</span>
+            <span class="unit text-3xl text-surface-400">M</span>
+          </div>
+        </div>
+
+        <div class="info-section">
+          <div class="label text-xl text-surface-400">New users</div>
+          <div class="value text-4xl">
+            <span class="state">200</span>
+            <span class="unit text-3xl text-surface-400">K</span>
+          </div>
+        </div>
+      </template>
+    </features-card>
 
     <in-app-activity-card class="col-span-full lg:col-span-4 2xl:col-span-4" />
 
