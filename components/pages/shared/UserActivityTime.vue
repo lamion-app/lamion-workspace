@@ -1,5 +1,6 @@
 <template>
   <custom-axis-line-chart
+    class="min-w-[600px]"
     value-height="60px"
     color="primary"
     brightness="500"
@@ -24,9 +25,7 @@
 </template>
 
 <script setup lang="ts">
-const viewport = useViewport();
-
-const totalItems = [
+const items = [
   {
     name: "00:00",
     number: 2141,
@@ -76,22 +75,4 @@ const totalItems = [
     number: 2334,
   },
 ];
-
-const items = computed(() => {
-  let maxItems: number;
-
-  if (viewport.isLessThan("md")) {
-    maxItems = 10;
-  } else if (viewport.isLessThan("xl")) {
-    maxItems = 7;
-  } else {
-    return totalItems;
-  }
-
-  const indent = totalItems.length - maxItems;
-
-  if (indent <= 0) return totalItems;
-
-  return totalItems.slice(indent / 2, totalItems.length - indent / 2);
-});
 </script>

@@ -15,7 +15,7 @@
       <div
         class="nav-controller drawer"
         :class="{
-          expanded: navigationExpanded,
+          expanded: navigationExpanded
         }"
       >
         <button

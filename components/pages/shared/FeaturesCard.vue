@@ -1,19 +1,20 @@
 <template>
   <app-card class="functions">
-    <div class="date-filter flex gap-2">
+    <div class="-mx-5 px-5 overflow-x-auto no-scrollbar flex gap-2">
       <Chip
         v-for="period in datePeriods"
         :key="period.value"
-        :label="period.name"
         class="font-bold cursor-pointer transition-all"
         :class="{
           '!bg-primary-500': period.value === tab,
         }"
         @click="tab = period.value"
-      />
+      >
+        <span class="w-max">{{ period.name }}</span>
+      </Chip>
     </div>
 
-    <div class="h-full data flex flex-col lg:flex-row">
+    <div class="h-full flex flex-col lg:flex-row gap-2 max-lg:gap-4">
       <div
         class="info flex flex-wrap gap-4 lg:h-full lg:flex-col lg:justify-end"
       >
@@ -21,7 +22,7 @@
       </div>
 
       <bar-chart
-        class="chart h-full flex-1 rounded bg-transparent"
+        class="chart h-full flex-1 max-lg:-mx-3 rounded bg-transparent"
         color="sky"
         name="Daily calls"
         :data="array"
@@ -29,7 +30,7 @@
         <template #tooltip="{ index }">
           <div class="w-20 bg-surface-800 rounded-xl p-5">
             <span>{{ array[index].name }}</span>
-            <hr >
+            <hr />
             <span>{{ array[index].number }}</span>
           </div>
         </template>
@@ -98,10 +99,6 @@ const array = [
   .content,
   .data {
     @apply gap-8;
-  }
-
-  .data {
-    height: 100%;
   }
 }
 </style>

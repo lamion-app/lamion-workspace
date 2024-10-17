@@ -1,7 +1,7 @@
 <template>
   <app-card
     title="Average in-app activity"
-    subtitle="See how much time users spend on each screen"
+    subtitle="See which features are most important to users"
   >
     <div class="flex flex-col gap-4">
       <div
@@ -17,22 +17,20 @@
         />
 
         <div class="flex flex-col flex-1 mb-1">
-          <span class="text-lg font-bold">Screen #{{ index + 1 }}</span>
+          <span class="text-lg font-bold">Feature #{{ index + 1 }}</span>
 
           <span class="text-xs font-medium"
-            >{{ `${90 - index * 10}%` }} total time</span
+            >{{ `${90 - index * 10}%` }} of total events</span
           >
         </div>
 
-        <div class="time">
-          <span class="text-xl font-bold" v-text="90 - index * 10" />
-          <span class="text-lg font-medium ms-1 text-surface-400">h</span>
-        </div>
+        <value-quantity
+          :value="90 - index * 10"
+          quantity="K"
+          value-class="text-xl font-bold"
+          quantity-class="text-lg font-medium text-secondary"
+        />
       </div>
     </div>
   </app-card>
 </template>
-
-<script setup lang="ts"></script>
-
-<style scoped></style>

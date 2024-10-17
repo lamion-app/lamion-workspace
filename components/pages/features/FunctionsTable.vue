@@ -1,28 +1,6 @@
 <template>
-  <app-card
-    title="Functions"
-    title-class="text-lg font-medium"
-    class="!gap-2"
-    :loading="isLoading"
-  >
-    <DataTable :value="content">
-      <template #header>
-        <div class="w-full flex flex-wrap gap-2 justify-between">
-          <IconField>
-            <InputIcon>
-              <span class="text-lg material-symbols-outlined">&#xe8b6;</span>
-            </InputIcon>
-
-            <InputText
-              v-model="filters.search"
-              :disabled="isLoading"
-              class="lg:w-[350px]"
-              placeholder="Search"
-            />
-          </IconField>
-        </div>
-      </template>
-
+  <app-card class="w-full overflow-x-auto" variant="outlined">
+    <DataTable class="-m-5 pt-2 min-w-[900px]" :value="content">
       <template v-if="!isLoading" #empty>
         <span>No functions found.</span>
       </template>
@@ -207,7 +185,6 @@
         </template>
       </Column>
     </DataTable>
-
     <!-- TODO: add progress bar -->
   </app-card>
 </template>
@@ -354,6 +331,201 @@ function loadData() {
           { name: "NAVIGATION", color: "magenta" },
         ],
       },
+      {
+        name: "Open post author",
+        totalActivityNumber: 2000,
+        activityNumber: 2,
+        activityQuantity: "K",
+        feature: { name: "Post" },
+        screen: { name: "Post details" },
+        tags: [
+          { name: "UI", color: "blue" },
+          { name: "NETWORK", color: "green" },
+          { name: "NAVIGATION", color: "magenta" },
+        ],
+      },
+      {
+        name: "Open post author",
+        totalActivityNumber: 2000,
+        activityNumber: 2,
+        activityQuantity: "K",
+        feature: { name: "Post" },
+        screen: { name: "Post details" },
+        tags: [
+          { name: "UI", color: "blue" },
+          { name: "NETWORK", color: "green" },
+          { name: "NAVIGATION", color: "magenta" },
+        ],
+      },
+      {
+        name: "Open post author",
+        totalActivityNumber: 2000,
+        activityNumber: 2,
+        activityQuantity: "K",
+        feature: { name: "Post" },
+        screen: { name: "Post details" },
+        tags: [
+          { name: "UI", color: "blue" },
+          { name: "NETWORK", color: "green" },
+          { name: "NAVIGATION", color: "magenta" },
+        ],
+      },
+      {
+        name: "Open post author",
+        totalActivityNumber: 2000,
+        activityNumber: 2,
+        activityQuantity: "K",
+        feature: { name: "Post" },
+        screen: { name: "Post details" },
+        tags: [
+          { name: "UI", color: "blue" },
+          { name: "NETWORK", color: "green" },
+          { name: "NAVIGATION", color: "magenta" },
+        ],
+      },
+      {
+        name: "Open post author",
+        totalActivityNumber: 2000,
+        activityNumber: 2,
+        activityQuantity: "K",
+        feature: { name: "Post" },
+        screen: { name: "Post details" },
+        tags: [
+          { name: "UI", color: "blue" },
+          { name: "NETWORK", color: "green" },
+          { name: "NAVIGATION", color: "magenta" },
+        ],
+      },
+      {
+        name: "Open post author",
+        totalActivityNumber: 2000,
+        activityNumber: 2,
+        activityQuantity: "K",
+        feature: { name: "Post" },
+        screen: { name: "Post details" },
+        tags: [
+          { name: "UI", color: "blue" },
+          { name: "NETWORK", color: "green" },
+          { name: "NAVIGATION", color: "magenta" },
+        ],
+      },
+      {
+        name: "Open post author",
+        totalActivityNumber: 2000,
+        activityNumber: 2,
+        activityQuantity: "K",
+        feature: { name: "Post" },
+        screen: { name: "Post details" },
+        tags: [
+          { name: "UI", color: "blue" },
+          { name: "NETWORK", color: "green" },
+          { name: "NAVIGATION", color: "magenta" },
+        ],
+      },
+      {
+        name: "Open post author",
+        totalActivityNumber: 2000,
+        activityNumber: 2,
+        activityQuantity: "K",
+        feature: { name: "Post" },
+        screen: { name: "Post details" },
+        tags: [
+          { name: "UI", color: "blue" },
+          { name: "NETWORK", color: "green" },
+          { name: "NAVIGATION", color: "magenta" },
+        ],
+      },
+      {
+        name: "Open post author",
+        totalActivityNumber: 2000,
+        activityNumber: 2,
+        activityQuantity: "K",
+        feature: { name: "Post" },
+        screen: { name: "Post details" },
+        tags: [
+          { name: "UI", color: "blue" },
+          { name: "NETWORK", color: "green" },
+          { name: "NAVIGATION", color: "magenta" },
+        ],
+      },
+      {
+        name: "Open post author",
+        totalActivityNumber: 2000,
+        activityNumber: 2,
+        activityQuantity: "K",
+        feature: { name: "Post" },
+        screen: { name: "Post details" },
+        tags: [
+          { name: "UI", color: "blue" },
+          { name: "NETWORK", color: "green" },
+          { name: "NAVIGATION", color: "magenta" },
+        ],
+      },
+      {
+        name: "Open post author",
+        totalActivityNumber: 2000,
+        activityNumber: 2,
+        activityQuantity: "K",
+        feature: { name: "Post" },
+        screen: { name: "Post details" },
+        tags: [
+          { name: "UI", color: "blue" },
+          { name: "NETWORK", color: "green" },
+          { name: "NAVIGATION", color: "magenta" },
+        ],
+      },
+      {
+        name: "Open post author",
+        totalActivityNumber: 2000,
+        activityNumber: 2,
+        activityQuantity: "K",
+        feature: { name: "Post" },
+        screen: { name: "Post details" },
+        tags: [
+          { name: "UI", color: "blue" },
+          { name: "NETWORK", color: "green" },
+          { name: "NAVIGATION", color: "magenta" },
+        ],
+      },
+      {
+        name: "Open post author",
+        totalActivityNumber: 2000,
+        activityNumber: 2,
+        activityQuantity: "K",
+        feature: { name: "Post" },
+        screen: { name: "Post details" },
+        tags: [
+          { name: "UI", color: "blue" },
+          { name: "NETWORK", color: "green" },
+          { name: "NAVIGATION", color: "magenta" },
+        ],
+      },
+      {
+        name: "Open post author",
+        totalActivityNumber: 2000,
+        activityNumber: 2,
+        activityQuantity: "K",
+        feature: { name: "Post" },
+        screen: { name: "Post details" },
+        tags: [
+          { name: "UI", color: "blue" },
+          { name: "NETWORK", color: "green" },
+          { name: "NAVIGATION", color: "magenta" },
+        ],
+      },
+      {
+        name: "Open post author",
+        totalActivityNumber: 2000,
+        activityNumber: 2,
+        activityQuantity: "K",
+        feature: { name: "Post" },
+        screen: { name: "Post details" },
+        tags: [
+          { name: "UI", color: "blue" },
+          { name: "NETWORK", color: "green" },
+          { name: "NAVIGATION", color: "magenta" },
+        ],
+      },
     ];
 
     isLoading.value = false;
@@ -376,6 +548,21 @@ function loadData() {
 
   .actions {
     @apply flex flex-wrap justify-between gap-2;
+  }
+}
+</style>
+
+<style lang="scss">
+.p-datatable-table {
+  th,
+  td {
+    &:first-child {
+      @apply ps-8 !important;
+    }
+
+    &:last-child {
+      @apply pe-8 !important;
+    }
   }
 }
 </style>

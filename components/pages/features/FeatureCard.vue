@@ -1,5 +1,5 @@
 <template>
-  <app-card class="!justify-start !gap-4" variant="outlined">
+  <app-card class="!justify-start !gap-4">
     <div class="flex flex-col">
       <span class="text-2xl">Authorization</span>
       <span class="text-sm text-secondary">10 functions</span>
@@ -34,12 +34,12 @@
     <div class="rounded-lg bg-surface-800 bg-opacity-40 px-3 py-1">
       <span class="text-sm font-medium text-secondary">Top function</span>
 
-      <div class="mt-2 flex gap-2 justify-between items-center">
+      <div class="mt-1 flex gap-2 justify-between items-center">
         <div>
           <span class="font-bold">Sign in</span>
 
           <div class="flex items-center gap-1 text-sm text-secondary">
-            <span>Total calls: </span>
+            <span>Total events:</span>
 
             <value-quantity class="font-black" value="1" quantity="K" />
           </div>
@@ -64,4 +64,3 @@
     </div>
   </app-card>
 </template>
-<script setup lang="ts"></script>

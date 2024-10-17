@@ -1,12 +1,23 @@
 <template>
   <div class="app-card" :class="variant">
-    <div v-if="!!title || !!subtitle" class="flex flex-col gap-2">
-      <span
-        v-if="!!title"
-        :class="!!titleClass ? titleClass : 'text-2xl font-black'"
-        v-text="title"
-      />
-      <span v-if="!!subtitle" class="text-sm" v-text="subtitle" />
+    <div v-if="!!title || !!subtitle" class="flex">
+      <div class="flex-1 flex flex-col gap-2">
+        <span
+          v-if="!!title"
+          class="flex-1"
+          :class="!!titleClass ? titleClass : 'text-2xl font-black'"
+          v-text="title"
+        />
+        <span v-if="!!subtitle" class="text-sm" v-text="subtitle" />
+      </div>
+
+      <slot name="action">
+        <icon-button
+          v-if="action"
+          :icon="action"
+          @click="$emit('click:action')"
+        />
+      </slot>
     </div>
 
     <slot />
@@ -25,6 +36,7 @@ withDefaults(
     title?: string | null;
     subtitle?: string | null;
     titleClass?: string | null;
+    action?: string | null;
     variant?: CardType;
     loading?: boolean;
   }>(),
@@ -32,10 +44,15 @@ withDefaults(
     title: null,
     subtitle: null,
     titleClass: null,
+    action: null,
     variant: "filled",
     loading: false,
   },
 );
+
+defineEmits<{
+  "click:action": [];
+}>();
 </script>
 
 <style scoped lang="scss">

@@ -3,18 +3,14 @@
     class="report-card !justify-start"
     title="Activity report"
     subtitle="8 august 2024"
+    action="&#xe89e;"
     title-class="text-3xl font-black"
+    @click:action="navigateTo({ name: 'calendar' })"
   >
     <div class="legend flex flex-wrap gap-2 text-sm font-bold">
-      <span
-        class="cursor-pointer select-none bg-primary-500 rounded-lg px-3 py-1"
-        >Users</span
-      >
-      <span class="cursor-pointer select-none bg-red-700 rounded-lg px-3 py-1"
-        >Errors</span
-      >
-      <span
-        class="cursor-pointer select-none bg-surface-700 rounded-lg px-3 py-1"
+      <span class="select-none bg-primary-500 rounded-lg px-3 py-1">Users</span>
+      <span class="select-none bg-red-700 rounded-lg px-3 py-1">Errors</span>
+      <span class="select-none bg-surface-700 rounded-lg px-3 py-1"
         >No extra activity</span
       >
     </div>
