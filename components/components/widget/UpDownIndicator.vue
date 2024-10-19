@@ -3,8 +3,8 @@
     <div
       class="flex items-center justify-center size-5 rounded-full"
       :class="{
-        'bg-primary-500': value > 0,
-        'bg-red-500': value <= 0,
+        'bg-primary-500': isUp,
+        'bg-red-500': !isUp,
       }"
     >
       <span
@@ -18,8 +18,8 @@
 
     <span
       :class="{
-        'text-primary-500': value > 0,
-        'text-red-500': value <= 0,
+        'text-primary-500': isUp,
+        'text-red-500': !isUp,
       }"
       >{{ Math.abs(value) }}{{ quantity }}</span
     >
@@ -27,10 +27,20 @@
 </template>
 
 <script setup lang="ts">
-defineProps<{
-  value: number;
-  quantity: string;
-}>();
+const props = withDefaults(
+  defineProps<{
+    value: number;
+    quantity: string;
+    revert?: boolean;
+  }>(),
+  {
+    revert: false,
+  },
+);
+
+const isUp = computed(() => {
+  return props.value > 0 ? !props.revert : props.revert;
+});
 </script>
 
 <style scoped></style>

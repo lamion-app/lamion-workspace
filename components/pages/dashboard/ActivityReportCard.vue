@@ -2,44 +2,42 @@
   <app-card
     class="report-card !justify-start"
     title="Activity report"
-    subtitle="8 august 2024"
+    subtitle="August 2024"
     action="&#xe89e;"
     title-class="text-3xl font-black"
-    @click:action="navigateTo({ name: 'calendar' })"
+    @click:action="navigateTo({ name: 'activity' })"
   >
-    <div class="legend flex flex-wrap gap-2 text-sm font-bold">
-      <span class="select-none bg-primary-500 rounded-lg px-3 py-1">Users</span>
-      <span class="select-none bg-red-700 rounded-lg px-3 py-1">Errors</span>
-      <span class="select-none bg-surface-700 rounded-lg px-3 py-1"
-        >No extra activity</span
-      >
-    </div>
+    <calendar-layout :weeks="3" gap="gap-2">
+      <template #legend>
+        <div class="legend flex flex-wrap gap-2 text-sm font-bold">
+          <span class="select-none bg-primary-500 rounded-lg px-3 py-1"
+            >Users</span
+          >
+          <span class="select-none bg-red-700 rounded-lg px-3 py-1"
+            >Errors</span
+          >
+          <span class="select-none bg-surface-700 rounded-lg px-3 py-1"
+            >No extra activity</span
+          >
+        </div>
+      </template>
 
-    <div class="grid grid-cols-7 gap-2">
-      <span class="col-span-1 text-sm font-black text-center">mon</span>
-      <span class="col-span-1 text-sm font-black text-center">tue</span>
-      <span class="col-span-1 text-sm font-black text-center">wed</span>
-      <span class="col-span-1 text-sm font-black text-center">thu</span>
-      <span class="col-span-1 text-sm font-black text-center">fri</span>
-      <span class="col-span-1 text-sm font-black text-center">sat</span>
-      <span class="col-span-1 text-sm font-black text-center">sun</span>
-
-      <div
-        v-for="(_, index) in Array(21)"
-        :key="index"
-        :class="{
-          'opacity-50': index < 3,
-          '!bg-primary-500': index % 4 === 0,
-          '!bg-red-700': index % 12 === 0 && index > 0,
-        }"
-        class="col-span-1 bg-surface-700 rounded aspect-square px-2 pt-1 pb-2"
-      >
+      <template #default="{ index }">
         <div
-          class="size-full text-2xl font-medium flex items-center justify-center"
-          v-text="index < 3 ? 29 + index : index - 2"
-        />
-      </div>
-    </div>
+          :class="{
+            'opacity-50': index < 3,
+            '!bg-primary-500': index % 4 === 0,
+            '!bg-red-700': index % 12 === 0 && index > 0,
+          }"
+          class="size-full bg-surface-700 rounded aspect-square px-2 pt-1 pb-2"
+        >
+          <div
+            class="size-full text-2xl font-medium flex items-center justify-center"
+            v-text="index < 3 ? 29 + index : index - 2"
+          />
+        </div>
+      </template>
+    </calendar-layout>
   </app-card>
 </template>
 

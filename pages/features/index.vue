@@ -80,7 +80,6 @@
 
       <div class="col-span-full hidden lg:block" />
 
-      <!-- TODO: hey bro, add "create feature" button pls -->
       <div class="col-span-full">
         <app-card title="App features" subtitle="Total 30 items">
           <div class="flex flex-wrap gap-2">

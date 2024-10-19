@@ -94,8 +94,10 @@
           </Popover>
         </div>
 
-        <div class="items flex flex-col">
+        <div class="items flex flex-col gap-2">
           <div
+            v-for="index in Array(10).keys()"
+            :key="index"
             class="function flex items-center bg-surface-800 bg-opacity-40 rounded-xl px-4 py-2"
           >
             <div class="content flex-1">

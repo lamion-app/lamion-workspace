@@ -23,6 +23,7 @@
           <up-down-indicator
             :value="item.change.value"
             :quantity="item.change.quantity"
+            :revert="item.change.revert"
           />
         </div>
       </app-card>
@@ -51,12 +52,13 @@ const items = [
     },
   },
   {
-    name: "In-app time",
-    value: 152,
-    quantity: "H",
+    name: "Crashes",
+    value: 12,
+    quantity: "K",
     change: {
-      value: 5,
+      value: -5,
       quantity: "%",
+      revert: true,
     },
   },
   {

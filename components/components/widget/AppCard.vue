@@ -1,5 +1,5 @@
 <template>
-  <div class="app-card" :class="variant">
+  <div class="app-card" :class="[variant, gap]">
     <div v-if="!!title || !!subtitle" class="flex items-start">
       <div class="flex-1 flex flex-col gap-2">
         <span
@@ -20,7 +20,9 @@
       </slot>
     </div>
 
-    <slot />
+    <div class="flex-1 flex flex-col" :class="gap">
+      <slot />
+    </div>
 
     <Loader v-if="loading" />
   </div>
@@ -37,6 +39,7 @@ withDefaults(
     action?: string | null;
     variant?: CardType;
     loading?: boolean;
+    gap?: string;
   }>(),
   {
     title: null,
@@ -45,6 +48,7 @@ withDefaults(
     action: null,
     variant: "filled",
     loading: false,
+    gap: "gap-2",
   },
 );
 
@@ -53,7 +57,7 @@ defineEmits<{
 }>();
 </script>
 
-<style scoped lang="scss">
+<style lang="scss">
 .app-card {
   @apply relative;
   @apply flex flex-col gap-6 justify-between;
@@ -61,6 +65,10 @@ defineEmits<{
 
   &.filled {
     @apply bg-surface-900;
+
+    & > .app-card.filled {
+      @apply bg-surface-800;
+    }
   }
 
   &.outlined {
