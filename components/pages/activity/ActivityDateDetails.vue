@@ -1,43 +1,43 @@
 <template>
-  <div class="flex flex-col gap-6">
+  <div class="col gap-6">
     <h2 class="text-4xl font-bold">{{ 1 + item * 3 }} August</h2>
 
     <div class="flex flex-wrap gap-2">
       <app-card
-        class="min-w-[200px] flex-1 !gap-2 bg-window"
+        class="min-w-[200px] flex-1 bg-window"
         title="Active users"
         title-class="text-sm font-bold text-surface-300"
       >
         <value-quantity
-          class="text-primary text-6xl"
+          class="text-6xl"
           value="40"
           quantity="K"
-          quantity-class="text-primary-900"
+          quantity-class="text-secondary"
         />
       </app-card>
 
       <app-card
-        class="min-w-[250px] flex-1 !gap-2 bg-window"
+        class="min-w-[250px] flex-1 bg-window"
         title="Triggered events"
         title-class="text-sm font-bold text-surface-300"
       >
         <value-quantity
-          class="text-primary text-6xl"
+          class="text-6xl"
           value="100"
           quantity="K"
-          quantity-class="text-primary-900"
+          quantity-class="text-secondary"
         />
       </app-card>
 
       <app-card
-        class="min-w-[100px] flex-1 !gap-2 bg-window"
+        class="min-w-[100px] flex-1 bg-window"
         title="Crashes"
         title-class="text-sm font-bold text-surface-300"
       >
         <value-quantity
           class="text-6xl"
           value="30"
-          quantity-class="text-surface-400"
+          quantity-class="text-secondary"
         />
       </app-card>
     </div>
@@ -47,7 +47,7 @@
       title="Most used features"
       title-class="text-sm font-medium text-secondary"
     >
-      <div class="items flex flex-col gap-2">
+      <div class="items col gap-2">
         <div class="flex gap-2 justify-between items-center">
           <div>
             <span class="font-bold">Sign in</span>

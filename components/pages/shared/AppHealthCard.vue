@@ -5,31 +5,15 @@
       healthy: isHealth,
       unhealthy: !isHealth,
     }"
-    :title="isHealth ? null : 'Crash alert'"
-    :title-class="isHealth ? 'text-xl font-bold' : 'text-4xl font-black'"
+    container-class="size-full col center !gap-2"
   >
-    <div class="content w-full flex flex-col gap-2">
-      <div class="data flex flex-wrap gap-2 items-end">
-        <div class="state text-7xl font-black">
-          <span v-if="isHealth">Health</span>
+    <template v-if="isHealth">
+      <span class="state text-7xl font-black">Health</span>
 
-          <value-quantity
-            v-else
-            :value="crashes.count"
-            :quantity="crashes.quantity"
-            quantity-class="opacity-40"
-          />
-        </div>
+      <div class="text-lg font-medium">
+        <span v-if="crashes.count == 0">No any crashes in the last week</span>
 
-        <span v-if="!isHealth" class="quantity text-4xl font-bold"
-          >crashes</span
-        >
-      </div>
-
-      <div v-if="isHealth" class="mt-2 text-lg font-medium">
-        <span v-if="crashes.count == 0"> No any crashes in the last week </span>
-
-        <div v-else>
+        <p v-else>
           <span>Only </span>
 
           <value-quantity
@@ -40,9 +24,26 @@
           />
 
           <span> crashes in the last week</span>
-        </div>
+        </p>
       </div>
-    </div>
+    </template>
+
+    <template v-else>
+      <span class="text-4xl font-black text-red-100">Crash alert</span>
+
+      <p>
+        <value-quantity
+          class="text-7xl font-black"
+          :value="crashes.count"
+          :quantity="crashes.quantity"
+          quantity-class="text-red-400"
+        />
+
+        <span class="ms-2 quantity text-4xl font-bold text-red-400"
+          >crashes</span
+        >
+      </p>
+    </template>
   </app-card>
 </template>
 
@@ -71,7 +72,7 @@ const crashes = computed(() => {
 <style scoped lang="scss">
 .app-health {
   &.healthy {
-    @apply justify-center !important;;
+    @apply justify-center !important;
     background: linear-gradient(
       170deg,
       var(--p-sky-800) 0%,
@@ -90,17 +91,9 @@ const crashes = computed(() => {
   &.unhealthy {
     background: linear-gradient(
       135deg,
-      var(--p-rose-900) 0%,
+      var(--p-rose-800) 0%,
       var(--p-rose-950) 120%
     );
-
-    .state {
-      @apply text-red-500;
-    }
-
-    .quantity {
-      @apply text-red-300;
-    }
   }
 }
 </style>

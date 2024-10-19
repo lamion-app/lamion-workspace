@@ -1,14 +1,13 @@
 <template>
-  <div class="main">
-    <div class="main-container bg-window">
+  <div class="main-container">
+    <div class="main">
       <div v-show="isAppLoaded" class="main-content">
-        <!-- TODO need not to draw page when project is not selected -->
-        <div v-show="isProjectSelected" class="contents">
+        <div v-if="isProjectSelected" class="contents">
           <slot />
         </div>
 
         <projects-view
-          v-show="!isProjectSelected"
+          v-else
           :projects="projects"
           @select-project="selectedProject = $event"
         />
@@ -31,14 +30,19 @@ onMounted(() => {
 </script>
 
 <style scoped lang="scss">
-.main {
-  @apply max-h-screen overflow-x-hidden overflow-y-auto;
+@import url(@/assets/css/main.scss);
 
-  .main-container {
+.main-container {
+  @apply w-full min-h-full max-h-screen;
+  @apply overflow-x-hidden overflow-y-auto;
+
+  .main {
     @apply w-full min-h-full;
     @apply py-6 px-6 xl:py-10 xl:px-12;
-    @apply rounded-tl-3xl rounded-bl-3xl;
+    @apply lg:rounded-tl-3xl lg:rounded-bl-3xl;
     @apply flex justify-center;
+
+    @apply bg-window;
 
     .main-content {
       @apply size-full max-w-screen-2xl;
@@ -46,7 +50,7 @@ onMounted(() => {
     }
   }
 
-  @screen xl {
+  @screen lg {
     .main-content {
       padding-top: 0 !important;
     }

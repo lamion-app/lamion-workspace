@@ -1,9 +1,5 @@
 <template>
-  <app-card
-    class="!gap-0"
-    title="Active users"
-    title-class="text-lg text-secondary"
-  >
+  <app-card title="Active users" title-class="text-lg text-secondary" no-gap>
     <value-quantity
       class="text-4xl font-medium"
       value="20"

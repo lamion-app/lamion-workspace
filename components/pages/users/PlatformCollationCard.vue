@@ -1,5 +1,5 @@
 <template>
-  <app-card class="!rounded-3xl !gap-0" variant="outlined" title="Platforms">
+  <app-card class="!rounded-3xl" title="Platforms" variant="outlined" no-gap>
     <div class="-mx-5 px-5 flex-1">
       <radar-chart class="w-full" :items="data" name="devices" />
     </div>
@@ -12,7 +12,7 @@
       <div class="devices">
         <div v-for="(_, index) in Array(5)" :key="index" class="device">
           <Avatar class="leading" shape="circle">
-            <span class="material-symbols-outlined">&#xe80b;</span>
+            <m-icon value="public" />
           </Avatar>
 
           <div class="content">

@@ -1,0 +1,49 @@
+html,
+body,
+#__nuxt,
+#app,
+.root {
+  width: 100%;
+  height: 100%;
+  min-height: 100vh;
+}
+
+.material-symbols-outlined {
+  @apply leading-none;
+}
+
+.p-tabs {
+  .p-tablist-tab-list,
+  .p-tabpanels,
+  .p-datatable-header-cell,
+  .p-datatable-tbody > tr {
+    background: none !important;
+  }
+
+  .p-tabpanels {
+    @apply p-0 !important;
+  }
+}
+
+
+.p-chip {
+  @apply cursor-pointer;
+}
+
+.p-button {
+  @apply font-medium;
+}
+
+.p-autocomplete {
+  input {
+    @apply w-full;
+  }
+}
+
+.p-multiselect {
+  &.p-variant-filled {
+    .p-chip {
+      @apply bg-surface-700 bg-opacity-50;
+    }
+  }
+}

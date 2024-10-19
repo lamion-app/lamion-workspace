@@ -6,10 +6,7 @@
     <Column header="Platform">
       <template #body="slotProps">
         <div class="flex items-center gap-2">
-          <span
-            class="material-symbols-outlined"
-            v-text="slotProps.data.platform.icon"
-          />
+          <m-icon :value="slotProps.data.platform.icon" />
 
           <span v-text="slotProps.data.platform.name" />
         </div>

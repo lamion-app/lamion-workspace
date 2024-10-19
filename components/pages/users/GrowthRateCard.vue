@@ -1,6 +1,6 @@
 <template>
-  <app-card title="Growth rate">
-    <div class="h-full flex flex-col justify-end gap-6">
+  <app-card title="Growth rate" no-gap>
+    <div class="h-full col justify-end gap-6">
       <value-quantity
         class="text-8xl font-medium"
         value="20"

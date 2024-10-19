@@ -2,11 +2,11 @@
   <Dialog
     v-model:visible="visible"
     class="m-4 w-full sm:max-w-[500px]"
-    modal
     header="Add new feature"
+    modal
   >
-    <div class="flex flex-col gap-8">
-      <div class="flex flex-col gap-2">
+    <div class="col gap-8">
+      <div class="col gap-2">
         <InputText
           class="w-full"
           type="text"
@@ -31,6 +31,7 @@
           rounded
           severity="secondary"
         />
+
         <Button class="flex-1" label="Finish" rounded />
       </div>
     </div>

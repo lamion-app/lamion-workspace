@@ -1,6 +1,6 @@
 <template>
   <app-layout>
-    <div class="max-w-[1000px] flex flex-col gap-4">
+    <div class="max-w-[1000px] col gap-4">
       <h1 class="text-6xl">Authorization</h1>
 
       <p>
@@ -75,11 +75,11 @@
             @click="functionsSortOp.toggle($event)"
           >
             <span>Sort by</span>
-            <span class="material-symbols-outlined text-lg">&#xe164;</span>
+            <m-icon value="sort" class="text-lg" />
           </Button>
 
           <Popover ref="functionsSortOp">
-            <div class="flex flex-col">
+            <div class="col">
               <button
                 v-for="item in ['Events count', 'Date added']"
                 :key="item"
@@ -94,29 +94,29 @@
           </Popover>
         </div>
 
-        <div class="items flex flex-col gap-2">
-          <div
+        <div class="items col gap-2">
+          <app-card
             v-for="index in Array(10).keys()"
             :key="index"
-            class="function flex items-center bg-surface-800 bg-opacity-40 rounded-xl px-4 py-2"
+            container-class="!flex-row items-center"
           >
             <div class="content flex-1">
               <span class="text-lg font-medium">Function name</span>
 
-              <p class="text-sm font-thin">
+              <div class="text-sm font-thin">
                 <span>Total events: </span>
                 <value-quantity
                   value="20"
                   quantity="K"
                   quantity-class="text-secondary"
                 />
-              </p>
+              </div>
             </div>
 
             <div class="actions">
               <icon-button icon="&#xe16f;" severity="danger" />
             </div>
-          </div>
+          </app-card>
         </div>
       </app-card>
     </div>

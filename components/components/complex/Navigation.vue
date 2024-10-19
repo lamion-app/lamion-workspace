@@ -25,11 +25,7 @@
         }"
         @click="$emit('hide')"
       >
-        <span
-          v-if="item.icon"
-          class="item-icon material-symbols-outlined"
-          v-text="item.icon"
-        />
+        <m-icon v-if="item.icon" :value="item.icon" />
 
         <span class="item-text" v-text="item.name" />
       </component>

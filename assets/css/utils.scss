@@ -1,0 +1,28 @@
+.bg-window {
+  background-color: var(--bg-window);
+}
+
+.text-secondary {
+  @apply text-surface-400;
+}
+
+.no-scrollbar {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+.spacer {
+  @apply flex-1;
+}
+
+.col {
+  @apply flex flex-col;
+}
+
+.center {
+  @apply items-center justify-center;
+}

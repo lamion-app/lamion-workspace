@@ -1,6 +1,6 @@
 <template>
   <Button class="p-button-icon-only" :severity="severity" text rounded>
-    <span class="material-symbols-outlined text-lg">{{ icon }}</span>
+    <m-icon class="text-lg" :value="icon" />
   </Button>
 </template>
 

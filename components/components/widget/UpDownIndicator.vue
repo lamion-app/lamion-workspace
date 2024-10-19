@@ -1,7 +1,7 @@
 <template>
   <div class="mt-1 flex gap-1.5 items-center text-sm font-bold">
     <div
-      class="flex items-center justify-center size-5 rounded-full"
+      class="flex center size-5 rounded-full"
       :class="{
         'bg-primary-500': isUp,
         'bg-red-500': !isUp,

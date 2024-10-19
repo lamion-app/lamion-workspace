@@ -6,14 +6,14 @@
       'text-red-500': value <= 0,
     }"
   >
-    <span
-      class="w-6 text-center material-symbols-outlined rounded border-[1px] text-sm"
+    <m-icon
+      class="size-6 rounded border-[1px] col center text-sm"
       :class="{
         'border-primary': value > 0,
         'border-red-500': value <= 0,
       }"
-      >{{ icon }}</span
-    >
+      :value="icon"
+    />
 
     <span class="font-bold">{{ value }}{{ quantity }}</span>
 
@@ -33,5 +33,3 @@ defineProps<{
   label?: string;
 }>();
 </script>
-
-<style scoped></style>

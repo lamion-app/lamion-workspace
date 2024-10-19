@@ -3,7 +3,7 @@
     title="Average in-app activity"
     subtitle="See which features are most important to users"
   >
-    <div class="flex flex-col gap-4">
+    <div class="col gap-4">
       <div
         v-for="(_, index) in Array(5)"
         :key="index"
@@ -16,7 +16,7 @@
           class="!text-lg !size-14"
         />
 
-        <div class="flex flex-col flex-1 mb-1">
+        <div class="col flex-1 mb-1">
           <span class="text-lg font-bold">Feature #{{ index + 1 }}</span>
 
           <span class="text-xs font-medium"

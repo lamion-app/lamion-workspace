@@ -1,5 +1,5 @@
 <template>
-  <div class="flex flex-col gap-12">
+  <div class="col gap-12">
     <h3 class="text-5xl font-black">Your projects</h3>
 
     <div class="project-list pt-4">
@@ -35,7 +35,7 @@
           class="project-item item-secondary"
           @click="$emit('openTemplates')"
         >
-          <span class="material-symbols-outlined text-4xl">explore</span>
+          <m-icon value="explore" class="text-4xl" />
 
           <h5 class="project-title pt-3">See templates</h5>
 
@@ -50,7 +50,7 @@
           class="project-item item-secondary"
           @click="$emit('openDocs')"
         >
-          <span class="material-symbols-outlined text-4xl">library_books</span>
+          <m-icon value="library_books" class="text-4xl" />
 
           <h5 class="project-title pt-3">See docs 😊👍</h5>
         </app-card>

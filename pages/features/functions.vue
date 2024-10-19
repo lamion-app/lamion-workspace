@@ -1,23 +1,22 @@
 <template>
   <app-layout>
     <app-card
+      class="!gap-4"
       title="App functions"
       subtitle="Search across all app functions"
       title-class="text-lg font-medium"
     >
-      <div class="w-full flex flex-wrap gap-2 justify-between">
-        <IconField>
-          <InputIcon>
-            <span class="text-lg material-symbols-outlined">&#xe8b6;</span>
-          </InputIcon>
+      <IconField>
+        <InputIcon>
+          <m-icon value="search" class="text-lg" />
+        </InputIcon>
 
-          <InputText
-            v-model="filters.search"
-            class="w-full lg:w-[350px]"
-            placeholder="Search"
-          />
-        </IconField>
-      </div>
+        <InputText
+          v-model="filters.search"
+          class="w-full lg:w-[350px]"
+          placeholder="Search"
+        />
+      </IconField>
     </app-card>
 
     <functions-table

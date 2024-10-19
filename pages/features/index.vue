@@ -14,7 +14,7 @@
           />
         </app-card>
 
-        <div class="flex flex-col gap-2">
+        <div class="col gap-2">
           <app-card
             v-for="(_, i) in Array(2)"
             :key="i"
@@ -45,8 +45,8 @@
 
       <features-card class="col-span-full lg:col-span-8 !h-[600px]">
         <template #extras>
-          <div class="info-section">
-            <div class="text-xl text-surface-400">Total events</div>
+          <div class="col">
+            <span class="text-xl text-surface-400">Total events</span>
 
             <value-quantity
               class="text-4xl"
@@ -56,8 +56,8 @@
             />
           </div>
 
-          <div class="info-section">
-            <div class="text-xl text-surface-400">By last month</div>
+          <div class="col">
+            <span class="text-xl text-surface-400">By last month</span>
             <value-quantity
               class="text-4xl"
               value="300"
@@ -66,8 +66,8 @@
             />
           </div>
 
-          <div class="info-section">
-            <div class="text-xl text-surface-400">Rate</div>
+          <div class="col">
+            <span class="text-xl text-surface-400">Rate</span>
             <value-quantity
               class="text-4xl"
               value="10"
@@ -81,14 +81,14 @@
       <div class="col-span-full hidden lg:block" />
 
       <div class="col-span-full">
-        <app-card title="App features" subtitle="Total 30 items">
+        <app-card class="!gap-4" title="App features" subtitle="Total 30 items">
           <div class="flex flex-wrap gap-2">
             <Button
               severity="primary"
               rounded
               @click="addFeatureDialogVisible = true"
             >
-              <span class="material-symbols-outlined">&#xe145;</span>
+              <m-icon value="add" />
 
               <span>Create new feature</span>
             </Button>
@@ -101,11 +101,11 @@
               @click="featuresSortOp.toggle($event)"
             >
               <span>Sort by</span>
-              <span class="material-symbols-outlined text-lg">&#xe164;</span>
+              <m-icon value="sort" />
             </Button>
 
             <Popover ref="featuresSortOp">
-              <div class="flex flex-col">
+              <div class="col">
                 <button
                   v-for="item in ['Requests', 'Errors', 'Date created']"
                   :key="item"

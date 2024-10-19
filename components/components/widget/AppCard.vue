@@ -1,7 +1,15 @@
 <template>
-  <div class="app-card" :class="[variant, gap]">
+  <div
+    class="app-card"
+    :class="{
+      filled: variant == 'filled',
+      outlined: variant == 'outlined',
+      'gap-0': noGap,
+      'gap-2': !noGap,
+    }"
+  >
     <div v-if="!!title || !!subtitle" class="flex items-start">
-      <div class="flex-1 flex flex-col gap-2">
+      <div class="flex-1 col gap-2">
         <span
           v-if="!!title"
           class="flex-1"
@@ -20,7 +28,7 @@
       </slot>
     </div>
 
-    <div class="flex-1 flex flex-col" :class="gap">
+    <div v-if="!!$slots['default']" class="flex-1 flex gap-[inherit]" :class="containerClass">
       <slot />
     </div>
 
@@ -35,20 +43,22 @@ withDefaults(
   defineProps<{
     title?: string | null;
     subtitle?: string | null;
-    titleClass?: string | null;
-    action?: string | null;
+    titleClass?: string;
+    action?: string;
     variant?: CardType;
     loading?: boolean;
-    gap?: string;
+    containerClass?: string;
+    noGap?: boolean;
   }>(),
   {
-    title: null,
-    subtitle: null,
-    titleClass: null,
-    action: null,
+    title: undefined,
+    subtitle: undefined,
+    titleClass: undefined,
+    action: undefined,
     variant: "filled",
     loading: false,
-    gap: "gap-2",
+    containerClass: "flex-col",
+    noGap: false,
   },
 );
 
@@ -60,14 +70,15 @@ defineEmits<{
 <style lang="scss">
 .app-card {
   @apply relative;
-  @apply flex flex-col gap-6 justify-between;
+  @apply flex flex-col justify-between;
   @apply p-5 rounded-xl overflow-hidden;
 
   &.filled {
     @apply bg-surface-900;
 
-    & > .app-card.filled {
-      @apply bg-surface-800;
+    & .app-card.filled {
+      @apply bg-surface-800 bg-opacity-40;
+      @apply px-3 py-2;
     }
   }
 

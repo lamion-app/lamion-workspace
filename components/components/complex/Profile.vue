@@ -19,8 +19,6 @@
 </template>
 
 <script setup lang="ts">
-import ProfileAvatar from "~/components/components/complex/ProfileAvatar.vue";
-
 defineProps<{
   expanded: boolean;
   account: Account;

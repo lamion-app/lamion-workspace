@@ -1,7 +1,7 @@
 <template>
   <div class="list-details">
     <div class="list no-scrollbar" :class="listClass">
-      <div class="flex flex-col gap-2">
+      <div class="col gap-2">
         <div
           v-for="(item, index) in items"
           :key="index"
@@ -43,7 +43,7 @@ defineEmits<{
 }>();
 
 defineSlots<{
-  item(props: { item: T, active: boolean }): VNode;
+  item(props: { item: T; active: boolean }): VNode;
   details(props: { item: T }): VNode;
 }>();
 </script>
@@ -51,12 +51,12 @@ defineSlots<{
 <style scoped lang="scss">
 .list-details {
   @apply flex items-stretch gap-4;
-  @apply max-h-[100vh];
+  @apply lg:max-h-[100vh];
 
   .list,
   .details {
     @apply flex-1;
-    @apply overflow-y-auto;
+    @apply lg:overflow-y-auto;
   }
 
   .details {

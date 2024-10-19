@@ -9,7 +9,7 @@
   >
     <calendar-layout :weeks="3" gap="gap-2">
       <template #legend>
-        <div class="legend flex flex-wrap gap-2 text-sm font-bold">
+        <div class="flex flex-wrap gap-2 text-sm font-bold">
           <span class="select-none bg-primary-500 rounded-lg px-3 py-1"
             >Users</span
           >

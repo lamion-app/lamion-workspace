@@ -4,11 +4,11 @@
     subtitle="Today's summary"
     title-class="text-4xl font-black"
   >
-    <div class="scaling-container h-full grid gap-4">
+    <div class="scaling-container">
       <app-card
         v-for="item in items"
         :key="item.name"
-        class="!gap-2 bg-window"
+        class="flex-1 bg-window"
         :title="item.name"
         title-class="text-sm font-bold text-surface-300"
       >
@@ -75,7 +75,8 @@ const items = [
 
 <style scoped lang="scss">
 .scaling-container {
-  @apply sm:grid-cols-2;
+  @apply h-full gap-4;
+  @apply grid sm:grid-cols-2;
 
   @media (min-width: 1580px) {
     @apply grid-cols-4;

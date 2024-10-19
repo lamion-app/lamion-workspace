@@ -2,10 +2,11 @@
   <div class="root">
     <template v-if="isProjectSelected && isAppLoaded">
       <header class="header">
-        <button @click="navigationExpanded = !navigationExpanded">
-          <span class="material-symbols-outlined text-3xl font-black"
-            >&#xe5d2;</span
-          >
+        <button
+          class="size-[30px]"
+          @click="navigationExpanded = !navigationExpanded"
+        >
+          <m-icon class="text-3xl font-black" value="menu" />
         </button>
 
         <!-- TODO -->
@@ -15,7 +16,7 @@
       <div
         class="nav-controller drawer"
         :class="{
-          expanded: navigationExpanded
+          expanded: navigationExpanded,
         }"
       >
         <button
@@ -23,9 +24,7 @@
           aria-label="Expand"
           @click="navigationExpanded = !navigationExpanded"
         >
-          <span class="material-symbols-outlined text-lg font-black"
-            >&#xe5cc;</span
-          >
+          <m-icon class="text-lg font-black" value="chevron_right" />
         </button>
 
         <navigation
@@ -56,6 +55,7 @@
 </template>
 
 <script setup lang="ts">
+const viewport = useViewport();
 const { isAppLoaded } = storeToRefs(useAppStore());
 const { account } = useAuthProviders();
 const projectsStore = useProjectsStore();
@@ -68,6 +68,12 @@ const navigationExpanded = ref(false);
 
 onMounted(() => {
   projectsStore.loadInitProject();
+});
+
+watchEffect(() => {
+  if (viewport.match("lg")) {
+    navigationExpanded.value = false;
+  }
 });
 </script>
 
@@ -123,24 +129,17 @@ onMounted(() => {
     z-index: 400;
   }
 
-  @screen xl {
+  @screen lg {
     .header {
       top: -100%;
     }
 
     .nav-controller {
-      width: 300px;
+      width: var(--navigation-collapsed-width);
+
       @apply relative;
       @apply flex-grow-0 flex-shrink-0;
       @apply transform-none !important;
-
-      &:not(.expanded) {
-        width: 80px;
-      }
-
-      .btn-expand {
-        @apply flex !important;
-      }
     }
 
     .scrim {
@@ -149,6 +148,22 @@ onMounted(() => {
 
     .main-content {
       padding-top: 0 !important;
+    }
+  }
+
+  @screen xl {
+    .nav-controller {
+      .btn-expand {
+        @apply flex !important;
+      }
+    }
+
+    .nav-controller {
+      width: 300px;
+
+      &:not(.expanded) {
+        width: var(--navigation-collapsed-width);
+      }
     }
   }
 }

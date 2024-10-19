@@ -10,7 +10,7 @@
     :items="items"
   >
     <template #value="{ item }">
-      <div class="flex flex-col items-center">
+      <div class="col items-center">
         <span class="text-lg font-black"
           >{{ (Math.ceil(item.number / 500) * 500) / 1000 }}k</span
         >

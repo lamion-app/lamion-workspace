@@ -16,18 +16,22 @@
         <user-activity-time class="-mx-5" />
       </app-card>
 
-      <app-card class="col-span-full">
-        <div class="flex flex-wrap items-center justify-between">
-          <span class="text-2xl font-bold">Devices info</span>
-
+      <app-card
+        class="col-span-full"
+        title="Devices info"
+        title-class="text-2xl font-bold"
+      >
+        <template #action>
           <SelectButton
             model-value="Today"
             :options="['Today', 'Month', 'Yearly']"
             aria-labelledby="basic"
           />
-        </div>
+        </template>
 
-        <devices-table />
+        <template #default>
+          <devices-table />
+        </template>
       </app-card>
     </dashboard-layout>
   </app-layout>

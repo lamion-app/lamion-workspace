@@ -1,9 +1,5 @@
 <template>
-  <app-card
-    class="w-full overflow-x-auto"
-    variant="outlined"
-    :loading="isLoading"
-  >
+  <app-card class="w-full overflow-x-auto" :loading="isLoading">
     <DataTable class="table -m-5 pt-2 min-w-[900px]" :value="data">
       <template v-if="!isLoading" #empty>
         <span>No functions found.</span>
@@ -34,15 +30,13 @@
           <div class="header action" @click="namePopover.toggle($event)">
             <span class="font-medium">Name</span>
 
-            <span class="material-symbols-outlined text-lg">&#xef4f;</span>
+            <m-icon class="text-lg" value="filter_alt" />
 
             <popover ref="namePopover">
               <div class="filter-popover">
                 <IconField>
                   <InputIcon>
-                    <span class="text-lg material-symbols-outlined"
-                      >&#xe8b6;</span
-                    >
+                    <m-icon value="search" class="text-lg" />
                   </InputIcon>
 
                   <InputText
@@ -76,7 +70,7 @@
           <div class="header action" @click="featurePopover.toggle($event)">
             <span class="font-medium">Feature</span>
 
-            <span class="material-symbols-outlined text-lg">&#xef4f;</span>
+            <m-icon class="text-lg" value="filter_alt" />
 
             <popover ref="featurePopover">
               <div class="filter-popover">
@@ -111,7 +105,7 @@
           <div class="header action" @click="tagsPopover.toggle($event)">
             <span class="font-medium">Tags</span>
 
-            <span class="material-symbols-outlined text-lg">&#xef4f;</span>
+            <m-icon class="text-lg" value="filter_alt" />
 
             <popover ref="tagsPopover">
               <div class="filter-popover">

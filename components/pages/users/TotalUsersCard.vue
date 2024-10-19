@@ -1,8 +1,8 @@
 <template>
   <app-card
-    class="!gap-0"
     title="Total users"
     title-class="text-lg text-secondary"
+    no-gap
   >
     <value-quantity
       class="text-4xl font-medium"

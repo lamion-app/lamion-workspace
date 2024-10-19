@@ -1,7 +1,7 @@
 <template>
   <app-layout>
     <app-card>
-      <div class="flex flex-col gap-8">
+      <div class="col gap-8">
         <div class="flex flex-wrap justify-between gap-2">
           <h1 class="text-4xl font-medium">Activity report</h1>
 
@@ -20,9 +20,7 @@
           option-label="name"
         >
           <template #option="slotData">
-            <span class="material-symbols-outlined">
-              {{ slotData.option.icon }}
-            </span>
+            <m-icon :value="slotData.option.icon" />
           </template>
         </select-button>
       </div>
@@ -31,31 +29,6 @@
     <Tabs class="mt-8" :value="viewMode.name">
       <TabPanels>
         <TabPanel :value="viewVariants[0].name">
-          <app-card class="!px-0 !py-2">
-            <calendar-layout grid>
-              <template #default="{ index }">
-                <div
-                  :class="{
-                    'opacity-50': index < 3,
-                  }"
-                  class="size-full aspect-square px-4 py-2 flex flex-col items-center gap-2 cursor-pointer"
-                >
-                  <div
-                    class="px-4 text-2xl font-medium"
-                    v-text="index < 3 ? 29 + index : index - 2"
-                  />
-
-                  <activity-info
-                    :show-crashes="index % 12 === 0 && index > 0"
-                    :show-users="index % 4 === 0"
-                  />
-                </div>
-              </template>
-            </calendar-layout>
-          </app-card>
-        </TabPanel>
-
-        <TabPanel :value="viewVariants[1].name">
           <list-details
             list-class="lg:max-w-[400px]"
             :items="listItems"
@@ -63,7 +36,7 @@
             @click:item="onItemSelected($event)"
           >
             <template #item="{ item }">
-              <app-card class="!gap-0 cursor-pointer">
+              <app-card class="cursor-pointer" no-gap>
                 <span class="text-lg font-black"
                   >{{ 1 + item * 3 }} August</span
                 >
@@ -82,6 +55,41 @@
             </template>
           </list-details>
         </TabPanel>
+
+        <TabPanel :value="viewVariants[1].name">
+          <app-card class="!py-2 max-lg:!contents">
+            <div class="-mx-5 overflow-x-auto">
+              <calendar-layout class="min-w-[1000px]" grid>
+                <template #default="{ index }">
+                  <div
+                    :class="{
+                      'opacity-50': index < 3,
+                    }"
+                    class="size-full aspect-square px-4 py-2 col items-center gap-2 cursor-pointer"
+                    @click="
+                      navigateTo({
+                        name: 'activity-date',
+                        params: {
+                          date: index,
+                        },
+                      })
+                    "
+                  >
+                    <div
+                      class="px-4 text-2xl font-medium"
+                      v-text="index < 3 ? 29 + index : index - 2"
+                    />
+
+                    <activity-info
+                      :show-crashes="index % 12 === 0 && index > 0"
+                      :show-users="index % 4 === 0"
+                    />
+                  </div>
+                </template>
+              </calendar-layout>
+            </div>
+          </app-card>
+        </TabPanel>
       </TabPanels>
     </Tabs>
   </app-layout>
@@ -96,16 +104,16 @@ const viewport = useViewport();
 
 const viewVariants = [
   {
-    name: "calendar",
-    icon: String.fromCodePoint(0xebcc),
+    name: "list",
+    icon: "format_list_bulleted",
   },
   {
-    name: "list",
-    icon: String.fromCodePoint(0xe241),
+    name: "calendar",
+    icon: "calendar_month",
   },
 ];
 
-const viewMode = ref(viewVariants[1]);
+const viewMode = ref(viewVariants[0]);
 
 const listItems = [...Array(10).keys()];
 const selectedItem = ref(0);
