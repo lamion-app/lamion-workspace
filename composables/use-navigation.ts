@@ -16,9 +16,9 @@ export const useNavigation = () => {
       route: "features",
     },
     {
-      name: "Analytics",
-      icon: String.fromCodePoint(0xef3e),
-      route: "analytics",
+      name: "Calendar",
+      icon: String.fromCodePoint(0xebcc),
+      route: "calendar",
     },
   );
 

@@ -1,5 +1,5 @@
 <template>
-  <app-layout scrollable>
+  <app-layout>
     <dashboard-layout>
       <scaling-card class="col-span-full 2xl:col-span-9" />
 

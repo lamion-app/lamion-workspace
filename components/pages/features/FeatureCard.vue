@@ -50,13 +50,13 @@
     </div>
 
     <div class="flex flex-wrap gap-2">
-      <Chip>
+      <Chip @click="$emit('click:open')">
         <span class="material-symbols-outlined text-lg">&#xe89e;</span>
 
         <span class="font-medium text-sm">Open</span>
       </Chip>
 
-      <Chip>
+      <Chip @click="$emit('click:edit')">
         <span class="material-symbols-outlined text-lg">&#xe3c9;</span>
 
         <span class="font-medium text-sm">Edit</span>
@@ -64,3 +64,10 @@
     </div>
   </app-card>
 </template>
+
+<script setup lang="ts">
+defineEmits<{
+  "click:open": [];
+  "click:edit": [];
+}>();
+</script>

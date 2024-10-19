@@ -1,5 +1,5 @@
 <template>
-  <app-layout scrollable>
+  <app-layout>
     <dashboard-layout>
       <div class="col-span-full lg:col-span-4 flex flex-col gap-4 !h-[600px]">
         <app-card title="Total events" class="flex-1">
@@ -24,11 +24,17 @@
           >
             <template #action>
               <icon-button
-                class="!text-2xl !bg-primary-500 !text-primary-950"
+                class="!text-2xl"
+                :class="{
+                  '!bg-primary-500': i === 0,
+                  '!text-primary-100': i === 0,
+                  '!bg-red-500': i === 1,
+                  '!text-red-100': i === 1,
+                }"
                 icon="&#xf1e1;"
                 @click="
                   navigateTo({
-                    name: i == 0 ? 'features-functions' : 'crashes',
+                    name: i === 0 ? 'features-functions' : 'crashes',
                   })
                 "
               />
@@ -74,21 +80,29 @@
 
       <div class="col-span-full hidden lg:block" />
 
+      <!-- TODO: hey bro, add "create feature" button pls -->
       <div class="col-span-full">
-        <app-card
-          class="!flex-row items-center justify-between"
-          title="App features"
-          subtitle="Total 30 features"
-        >
+        <app-card title="App features" subtitle="Total 30 items">
           <div class="flex flex-wrap gap-2">
+            <Button
+              severity="primary"
+              rounded
+              @click="addFeatureDialogVisible = true"
+            >
+              <span class="material-symbols-outlined">&#xe145;</span>
+
+              <span>Create new feature</span>
+            </Button>
+
+            <div class="spacer" />
+
             <Button
               severity="secondary"
               rounded
               @click="featuresSortOp.toggle($event)"
             >
+              <span>Sort by</span>
               <span class="material-symbols-outlined text-lg">&#xe164;</span>
-
-              <text>Sort by</text>
             </Button>
 
             <Popover ref="featuresSortOp">
@@ -115,10 +129,21 @@
             v-for="(_, index) in Array(10)"
             :key="index"
             class="bg-surface-900"
+            @click:open="
+              navigateTo({
+                name: 'features-id',
+                params: {
+                  id: 1,
+                },
+              })
+            "
+            @click:edit="addFeatureDialogVisible = true"
           />
         </div>
       </div>
     </dashboard-layout>
+
+    <add-feature-dialog v-model:visible="addFeatureDialogVisible" />
   </app-layout>
 </template>
 
@@ -128,4 +153,6 @@ definePageMeta({
 });
 
 const featuresSortOp = ref();
+
+const addFeatureDialogVisible = ref(false);
 </script>

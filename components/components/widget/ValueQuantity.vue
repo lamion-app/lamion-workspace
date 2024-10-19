@@ -1,8 +1,8 @@
 <template>
-  <div>
+  <span>
     <span :class="valueClass">{{ value }}</span>
     <span v-if="quantity != null" :class="quantityClass">{{ quantity }}</span>
-  </div>
+  </span>
 </template>
 
 <script setup lang="ts">
@@ -20,5 +20,3 @@ withDefaults(
   },
 );
 </script>
-
-<style scoped></style>

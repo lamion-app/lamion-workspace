@@ -11,6 +11,23 @@
   @apply text-surface-400;
 }
 
+.no-scrollbar {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+.spacer {
+  @apply flex-1;
+}
+
+.material-symbols-outlined {
+  @apply leading-none;
+}
+
 .p-tablist-tab-list,
 .p-tabpanels,
 .p-datatable-header-cell,
@@ -18,19 +35,24 @@
   background: none !important;
 }
 
-.material-symbols-outlined {
-  @apply leading-none;
-}
-
 .p-chip {
   @apply cursor-pointer;
 }
 
-.no-scrollbar {
-  scrollbar-width: none;
-  -ms-overflow-style: none;
+.p-button {
+  @apply font-medium;
+}
 
-  &::-webkit-scrollbar {
-    display: none;
+.p-autocomplete {
+  input {
+    @apply w-full;
+  }
+}
+
+.p-multiselect {
+  &.p-variant-filled {
+    .p-chip {
+      @apply bg-surface-700 bg-opacity-50;
+    }
   }
 }

@@ -1,6 +1,6 @@
 <template>
   <div class="app-card" :class="variant">
-    <div v-if="!!title || !!subtitle" class="flex">
+    <div v-if="!!title || !!subtitle" class="flex items-start">
       <div class="flex-1 flex flex-col gap-2">
         <span
           v-if="!!title"
@@ -22,9 +22,7 @@
 
     <slot />
 
-    <div v-if="loading" class="loader">
-      <progress-spinner />
-    </div>
+    <Loader v-if="loading" />
   </div>
 </template>
 
@@ -67,12 +65,6 @@ defineEmits<{
 
   &.outlined {
     @apply border-[1px] border-surface-700;
-  }
-
-  .loader {
-    @apply flex items-center justify-center;
-    @apply absolute top-0 left-0 size-full;
-    @apply bg-surface-700 bg-opacity-40;
   }
 }
 </style>

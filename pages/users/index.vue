@@ -1,5 +1,5 @@
 <template>
-  <app-layout scrollable>
+  <app-layout>
     <dashboard-layout>
       <total-users-card class="!h-[300px] col-span-4 2xl:col-span-3" />
 

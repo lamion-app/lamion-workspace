@@ -1,6 +1,10 @@
 <template>
-  <app-card class="w-full overflow-x-auto" variant="outlined">
-    <DataTable class="-m-5 pt-2 min-w-[900px]" :value="content">
+  <app-card
+    class="w-full overflow-x-auto"
+    variant="outlined"
+    :loading="isLoading"
+  >
+    <DataTable class="table -m-5 pt-2 min-w-[900px]" :value="data">
       <template v-if="!isLoading" #empty>
         <span>No functions found.</span>
       </template>
@@ -54,7 +58,7 @@
                     label="Clear"
                     size="small"
                     severity="secondary"
-                    @click="filters.name = ''"
+                    @click="filters.name = undefined"
                   />
                 </div>
               </div>
@@ -77,7 +81,7 @@
             <popover ref="featurePopover">
               <div class="filter-popover">
                 <MultiSelect
-                  v-model="filters.feature"
+                  v-model="filters.features"
                   :options="features"
                   option-label="name"
                   placeholder="Any"
@@ -89,7 +93,7 @@
                     label="Clear"
                     size="small"
                     severity="secondary"
-                    @click="filters.feature = null"
+                    @click="filters.features = undefined"
                   />
                 </div>
               </div>
@@ -99,41 +103,6 @@
 
         <template #body="slotProps">
           <span>{{ slotProps.data.feature.name }}</span>
-        </template>
-      </Column>
-
-      <Column>
-        <template #header>
-          <div class="header action" @click="screenPopover.toggle($event)">
-            <span class="font-medium">Screen</span>
-
-            <span class="material-symbols-outlined text-lg">&#xef4f;</span>
-
-            <popover ref="screenPopover">
-              <div class="filter-popover">
-                <MultiSelect
-                  v-model="filters.screen"
-                  :options="screens"
-                  option-label="name"
-                  placeholder="Any"
-                />
-
-                <div class="actions">
-                  <Button
-                    type="button"
-                    label="Clear"
-                    size="small"
-                    severity="secondary"
-                    @click="filters.screen = null"
-                  />
-                </div>
-              </div>
-            </popover>
-          </div>
-        </template>
-
-        <template #body="slotProps">
-          <span>{{ slotProps.data.screen.name }}</span>
         </template>
       </Column>
 
@@ -159,7 +128,7 @@
                     label="Clear"
                     size="small"
                     severity="secondary"
-                    @click="filters.tags = null"
+                    @click="filters.tags = undefined"
                   />
                 </div>
               </div>
@@ -184,353 +153,44 @@
           </div>
         </template>
       </Column>
+
+      <Column class="w-[100px] row-hover">
+        <template #body>
+          <div class="flex gap-2">
+            <icon-button
+              class="!bg-surface-700 !bg-opacity-20 !text-surface-100"
+              icon="&#xe3c9;"
+            />
+            <icon-button
+              class="!bg-red-700 !bg-opacity-20 !text-red-100"
+              icon="&#xe92b;"
+            />
+          </div>
+        </template>
+      </Column>
     </DataTable>
-    <!-- TODO: add progress bar -->
+
+    <!-- TODO: add bottom progress bar -->
   </app-card>
 </template>
 
 <script setup lang="ts">
-const isLoading = ref(false);
-const content = ref<Array<FunctionItem>>([]);
-const features = ref<Array<FeatureFilter>>([]);
-const screens = ref<Array<ScreenFilter>>([]);
-const tags = ref<Array<FunctionTag>>([]);
+defineProps<{
+  isLoading: boolean;
+  data: Array<FunctionItem> | undefined;
+  features: Array<FeatureFilter> | undefined;
+  tags: Array<FunctionTag> | undefined;
+}>();
 
-const filters = reactive({
-  search: "",
-  name: "",
-  feature: null,
-  screen: null,
-  tags: null,
-});
+const filters = defineModel<{
+  name: string | undefined;
+  features: Array<FeatureFilter> | undefined;
+  tags: Array<FunctionTag> | undefined;
+}>("filters", { required: true });
 
 const namePopover = ref();
 const featurePopover = ref();
-const screenPopover = ref();
 const tagsPopover = ref();
-
-watch(filters, loadDataAfterTimeout);
-onMounted(loadTableData);
-
-let loadTimer: ReturnType<typeof setTimeout> | undefined;
-
-function loadDataAfterTimeout() {
-  if (loadTimer !== undefined) {
-    clearTimeout(loadTimer);
-  }
-
-  loadTimer = setTimeout(loadData, 800);
-}
-
-function loadTableData() {
-  features.value = [
-    { name: "Authorization" },
-    { name: "Post" },
-    { name: "Home" },
-  ];
-
-  screens.value = [
-    { name: "Sign in" },
-    { name: "Post details" },
-    { name: "Home" },
-  ];
-
-  tags.value = [
-    { name: "UI", color: "blue" },
-    { name: "NETWORK", color: "green" },
-    { name: "NAVIGATION", color: "magenta" },
-    { name: "EXTRA" },
-  ];
-
-  loadData();
-}
-
-function loadData() {
-  if (isLoading.value) return;
-
-  isLoading.value = true;
-  setTimeout(() => {
-    content.value = [
-      {
-        name: "Login click",
-        totalActivityNumber: 10000,
-        activityNumber: 10,
-        activityQuantity: "K",
-        feature: { name: "Authorization" },
-        screen: { name: "Sign in" },
-        tags: [{ name: "UI", color: "blue" }],
-      },
-      {
-        name: "Login failed",
-        totalActivityNumber: 400,
-        activityNumber: 0.4,
-        activityQuantity: "K",
-        feature: { name: "Authorization" },
-        screen: { name: "Sign in" },
-        tags: [
-          { name: "UI", color: "blue" },
-          { name: "NETWORK", color: "green" },
-        ],
-      },
-      {
-        name: "Open post details",
-        totalActivityNumber: 20000,
-        activityNumber: 20,
-        activityQuantity: "K",
-        feature: { name: "Post" },
-        screen: { name: "Home" },
-        tags: [
-          { name: "UI", color: "blue" },
-          { name: "NAVIGATION", color: "magenta" },
-        ],
-      },
-      {
-        name: "Like post",
-        totalActivityNumber: 120000,
-        activityNumber: 120,
-        activityQuantity: "K",
-        feature: { name: "Post" },
-        screen: { name: "Home" },
-        tags: [
-          { name: "UI", color: "blue" },
-          { name: "NETWORK", color: "green" },
-        ],
-      },
-      {
-        name: "Load more posts",
-        totalActivityNumber: 78000,
-        activityNumber: 78,
-        activityQuantity: "K",
-        feature: { name: "Home" },
-        screen: { name: "Home" },
-        tags: [{ name: "NETWORK", color: "green" }],
-      },
-      {
-        name: "See post comments",
-        totalActivityNumber: 8000,
-        activityNumber: 8,
-        activityQuantity: "K",
-        feature: { name: "Post" },
-        screen: { name: "Post details" },
-        tags: [
-          { name: "UI", color: "blue" },
-          { name: "NETWORK", color: "green" },
-          { name: "EXTRA" },
-        ],
-      },
-      {
-        name: "Open post author",
-        totalActivityNumber: 2000,
-        activityNumber: 2,
-        activityQuantity: "K",
-        feature: { name: "Post" },
-        screen: { name: "Post details" },
-        tags: [
-          { name: "UI", color: "blue" },
-          { name: "NETWORK", color: "green" },
-          { name: "NAVIGATION", color: "magenta" },
-        ],
-      },
-      {
-        name: "Open post author",
-        totalActivityNumber: 2000,
-        activityNumber: 2,
-        activityQuantity: "K",
-        feature: { name: "Post" },
-        screen: { name: "Post details" },
-        tags: [
-          { name: "UI", color: "blue" },
-          { name: "NETWORK", color: "green" },
-          { name: "NAVIGATION", color: "magenta" },
-        ],
-      },
-      {
-        name: "Open post author",
-        totalActivityNumber: 2000,
-        activityNumber: 2,
-        activityQuantity: "K",
-        feature: { name: "Post" },
-        screen: { name: "Post details" },
-        tags: [
-          { name: "UI", color: "blue" },
-          { name: "NETWORK", color: "green" },
-          { name: "NAVIGATION", color: "magenta" },
-        ],
-      },
-      {
-        name: "Open post author",
-        totalActivityNumber: 2000,
-        activityNumber: 2,
-        activityQuantity: "K",
-        feature: { name: "Post" },
-        screen: { name: "Post details" },
-        tags: [
-          { name: "UI", color: "blue" },
-          { name: "NETWORK", color: "green" },
-          { name: "NAVIGATION", color: "magenta" },
-        ],
-      },
-      {
-        name: "Open post author",
-        totalActivityNumber: 2000,
-        activityNumber: 2,
-        activityQuantity: "K",
-        feature: { name: "Post" },
-        screen: { name: "Post details" },
-        tags: [
-          { name: "UI", color: "blue" },
-          { name: "NETWORK", color: "green" },
-          { name: "NAVIGATION", color: "magenta" },
-        ],
-      },
-      {
-        name: "Open post author",
-        totalActivityNumber: 2000,
-        activityNumber: 2,
-        activityQuantity: "K",
-        feature: { name: "Post" },
-        screen: { name: "Post details" },
-        tags: [
-          { name: "UI", color: "blue" },
-          { name: "NETWORK", color: "green" },
-          { name: "NAVIGATION", color: "magenta" },
-        ],
-      },
-      {
-        name: "Open post author",
-        totalActivityNumber: 2000,
-        activityNumber: 2,
-        activityQuantity: "K",
-        feature: { name: "Post" },
-        screen: { name: "Post details" },
-        tags: [
-          { name: "UI", color: "blue" },
-          { name: "NETWORK", color: "green" },
-          { name: "NAVIGATION", color: "magenta" },
-        ],
-      },
-      {
-        name: "Open post author",
-        totalActivityNumber: 2000,
-        activityNumber: 2,
-        activityQuantity: "K",
-        feature: { name: "Post" },
-        screen: { name: "Post details" },
-        tags: [
-          { name: "UI", color: "blue" },
-          { name: "NETWORK", color: "green" },
-          { name: "NAVIGATION", color: "magenta" },
-        ],
-      },
-      {
-        name: "Open post author",
-        totalActivityNumber: 2000,
-        activityNumber: 2,
-        activityQuantity: "K",
-        feature: { name: "Post" },
-        screen: { name: "Post details" },
-        tags: [
-          { name: "UI", color: "blue" },
-          { name: "NETWORK", color: "green" },
-          { name: "NAVIGATION", color: "magenta" },
-        ],
-      },
-      {
-        name: "Open post author",
-        totalActivityNumber: 2000,
-        activityNumber: 2,
-        activityQuantity: "K",
-        feature: { name: "Post" },
-        screen: { name: "Post details" },
-        tags: [
-          { name: "UI", color: "blue" },
-          { name: "NETWORK", color: "green" },
-          { name: "NAVIGATION", color: "magenta" },
-        ],
-      },
-      {
-        name: "Open post author",
-        totalActivityNumber: 2000,
-        activityNumber: 2,
-        activityQuantity: "K",
-        feature: { name: "Post" },
-        screen: { name: "Post details" },
-        tags: [
-          { name: "UI", color: "blue" },
-          { name: "NETWORK", color: "green" },
-          { name: "NAVIGATION", color: "magenta" },
-        ],
-      },
-      {
-        name: "Open post author",
-        totalActivityNumber: 2000,
-        activityNumber: 2,
-        activityQuantity: "K",
-        feature: { name: "Post" },
-        screen: { name: "Post details" },
-        tags: [
-          { name: "UI", color: "blue" },
-          { name: "NETWORK", color: "green" },
-          { name: "NAVIGATION", color: "magenta" },
-        ],
-      },
-      {
-        name: "Open post author",
-        totalActivityNumber: 2000,
-        activityNumber: 2,
-        activityQuantity: "K",
-        feature: { name: "Post" },
-        screen: { name: "Post details" },
-        tags: [
-          { name: "UI", color: "blue" },
-          { name: "NETWORK", color: "green" },
-          { name: "NAVIGATION", color: "magenta" },
-        ],
-      },
-      {
-        name: "Open post author",
-        totalActivityNumber: 2000,
-        activityNumber: 2,
-        activityQuantity: "K",
-        feature: { name: "Post" },
-        screen: { name: "Post details" },
-        tags: [
-          { name: "UI", color: "blue" },
-          { name: "NETWORK", color: "green" },
-          { name: "NAVIGATION", color: "magenta" },
-        ],
-      },
-      {
-        name: "Open post author",
-        totalActivityNumber: 2000,
-        activityNumber: 2,
-        activityQuantity: "K",
-        feature: { name: "Post" },
-        screen: { name: "Post details" },
-        tags: [
-          { name: "UI", color: "blue" },
-          { name: "NETWORK", color: "green" },
-          { name: "NAVIGATION", color: "magenta" },
-        ],
-      },
-      {
-        name: "Open post author",
-        totalActivityNumber: 2000,
-        activityNumber: 2,
-        activityQuantity: "K",
-        feature: { name: "Post" },
-        screen: { name: "Post details" },
-        tags: [
-          { name: "UI", color: "blue" },
-          { name: "NETWORK", color: "green" },
-          { name: "NAVIGATION", color: "magenta" },
-        ],
-      },
-    ];
-
-    isLoading.value = false;
-  }, 1500);
-}
 </script>
 
 <style scoped lang="scss">
@@ -562,6 +222,18 @@ function loadData() {
 
     &:last-child {
       @apply pe-8 !important;
+    }
+  }
+}
+
+.table {
+  .row-hover {
+    @apply opacity-0 transition;
+  }
+
+  tr:hover {
+    .row-hover {
+      @apply opacity-100;
     }
   }
 }
