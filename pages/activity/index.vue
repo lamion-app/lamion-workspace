@@ -30,6 +30,7 @@
       <TabPanels>
         <TabPanel :value="viewVariants[0].name">
           <list-details
+            class="!max-h-screen"
             list-class="lg:max-w-[400px]"
             :items="listItems"
             :selected-item="selectedItem"

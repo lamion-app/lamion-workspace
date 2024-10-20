@@ -96,7 +96,7 @@ const array = [
 
 <style scoped lang="scss">
 .functions {
-  .content,
+  .page-content,
   .data {
     @apply gap-8;
   }

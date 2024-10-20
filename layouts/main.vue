@@ -1,24 +1,24 @@
 <template>
-  <div class="root">
+  <div
+    class="root"
+    :class="{
+      'navigation-expanded': navigationExpanded,
+    }"
+  >
     <template v-if="isProjectSelected && isAppLoaded">
       <header class="header">
-        <button
-          class="size-[30px]"
-          @click="navigationExpanded = !navigationExpanded"
-        >
-          <m-icon class="text-3xl font-black" value="menu" />
+        <button class="size-[30px]" @click="onNavigationClick">
+          <m-icon
+            class="text-3xl font-black"
+            :value="isRootRoute ? 'menu' : 'arrow_back'"
+          />
         </button>
 
         <!-- TODO -->
         <h3 class="text-lg font-medium text-nowrap">Current page name</h3>
       </header>
 
-      <div
-        class="nav-controller drawer"
-        :class="{
-          expanded: navigationExpanded,
-        }"
-      >
+      <div class="nav-controller drawer">
         <button
           class="btn-expand"
           aria-label="Expand"
@@ -50,7 +50,9 @@
       />
     </template>
 
-    <slot />
+    <div class="page-content">
+      <slot />
+    </div>
   </div>
 </template>
 
@@ -63,6 +65,7 @@ const { projects, selectedProject, isProjectSelected } =
   storeToRefs(projectsStore);
 
 const appNavigation = useNavigation();
+const router = useRouter();
 
 const navigationExpanded = ref(false);
 
@@ -75,94 +78,94 @@ watchEffect(() => {
     navigationExpanded.value = false;
   }
 });
+
+const isRootRoute = computed(
+  () =>
+    appNavigation.navigationItems.filter(
+      (x) => x.route == router.currentRoute.value.name,
+    ).length > 0,
+);
+
+function onNavigationClick() {
+  if (isRootRoute.value) {
+    navigationExpanded.value = !navigationExpanded.value;
+  } else {
+    router.go(-1);
+  }
+}
 </script>
 
 <style scoped lang="scss">
+@use "@/assets/css/vars";
+
 .root {
-  @apply flex;
   @apply bg-surface-950;
 
   .header {
-    @apply absolute top-0 left-0 z-30;
+    @apply absolute top-0 lg:-top-full left-0 z-30;
     @apply w-full;
-    height: var(--header-height);
+    height: vars.$header-height;
     @apply flex gap-6 items-center;
     @apply px-6;
-    @apply bg-surface-800 transition-all;
+    @apply bg-surface-900 transition-all;
   }
 
   .nav-controller {
-    @apply absolute;
+    @apply fixed top-0 left-0;
     max-width: min(85vw, 450px);
     @apply w-full h-screen;
     @apply transition;
     transition-property: width, transform;
     @apply bg-surface-950;
+    @apply -translate-x-full;
     z-index: 500;
 
-    &:not(.expanded) {
-      @apply -translate-x-full;
+    @screen lg {
+      width: vars.$navigation-collapsed-width;
+      @apply transform-none;
     }
 
     .btn-expand {
-      display: none;
-
-      @apply absolute right-0 z-10;
-      @apply size-6 rounded-full;
+      @apply absolute top-[6rem] right-0 z-10;
+      @apply size-6 max-xl:hidden flex;
       @apply items-center justify-center;
-      @apply bg-surface-800 text-primary transition-all;
-
-      top: 6rem;
-      transform: translateX(50%);
-    }
-
-    &.expanded {
-      .btn-expand {
-        transform: translateX(50%) rotate(180deg);
-      }
+      @apply rounded-full bg-surface-800 text-primary transition-all;
+      @apply translate-x-1/2;
     }
   }
 
   .scrim {
     @apply absolute top-0 left-0 right-0 bottom-0;
+    @apply lg:hidden;
     @apply bg-surface-900 opacity-75;
     z-index: 400;
   }
 
-  @screen lg {
-    .header {
-      top: -100%;
-    }
+  .page-content {
+    padding-top: vars.$header-height;
 
-    .nav-controller {
-      width: var(--navigation-collapsed-width);
-
-      @apply relative;
-      @apply flex-grow-0 flex-shrink-0;
-      @apply transform-none !important;
-    }
-
-    .scrim {
-      display: none;
-    }
-
-    .main-content {
-      padding-top: 0 !important;
+    @screen lg {
+      padding-top: 0;
+      padding-left: vars.$navigation-collapsed-width;
     }
   }
 
-  @screen xl {
+  &.navigation-expanded {
     .nav-controller {
+      @apply translate-x-0;
+
+      @screen xl {
+        width: vars.$navigation-expanded-width;
+      }
+
       .btn-expand {
-        @apply flex !important;
+        transform: translateX(50%) rotate(180deg);
       }
     }
 
-    .nav-controller {
-      width: 300px;
-
-      &:not(.expanded) {
-        width: var(--navigation-collapsed-width);
+    .page-content {
+      @screen lg {
+        padding-left: vars.$navigation-expanded-width;
       }
     }
   }

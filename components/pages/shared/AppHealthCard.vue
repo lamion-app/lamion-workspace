@@ -79,7 +79,7 @@ const crashes = computed(() => {
       var(--p-rose-800) 150%
     );
 
-    .content {
+    .page-content {
       @apply items-center;
     }
 

@@ -100,7 +100,7 @@
             :key="index"
             container-class="!flex-row items-center"
           >
-            <div class="content flex-1">
+            <div class="page-content flex-1">
               <span class="text-lg font-medium">Function name</span>
 
               <div class="text-sm font-thin">

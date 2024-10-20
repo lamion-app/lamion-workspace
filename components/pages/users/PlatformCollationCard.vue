@@ -15,7 +15,7 @@
             <m-icon value="public" />
           </Avatar>
 
-          <div class="content">
+          <div class="page-content">
             <span class="name">Chrome 130</span>
             <span class="total">Total <span class="count">8K</span> calls</span>
           </div>
@@ -74,7 +74,7 @@ const data = [
       @apply bg-surface-700;
     }
 
-    .content {
+    .page-content {
       @apply flex flex-1 flex-col;
 
       .name {

@@ -23,7 +23,7 @@
         </div>
       </div>
 
-      <div class="content" :class="[gap]">
+      <div class="page-content" :class="[gap]">
         <div
           v-for="week in Array(weeks).keys()"
           :key="week"
@@ -63,7 +63,7 @@ withDefaults(
       @apply grid grid-cols-7;
     }
 
-    .content {
+    .page-content {
       @apply mt-2;
       @apply flex flex-col;
     }
@@ -73,7 +73,7 @@ withDefaults(
     }
 
     &.show-grid {
-      .content {
+      .page-content {
         .row,
         .cell {
           @apply border-surface-800;

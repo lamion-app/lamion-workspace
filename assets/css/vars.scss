@@ -1,9 +1,11 @@
 $header-height: 64px;
 $bg-window: color-mix(in srgb, var(--p-surface-900) 65%, #000) !important;
+$navigation-expanded-width: 300px;
 $navigation-collapsed-width: 80px;
 
 :root {
   --header-height: #{$header-height};
   --bg-window: #{$bg-window};
   --navigation-collapsed-width: #{$navigation-collapsed-width};
+  --navigation-expanded-width: #{$navigation-expanded-width};
 }
