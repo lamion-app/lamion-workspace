@@ -1,5 +1,5 @@
 <template>
-  <div class="logo flex items-center justify-center">
+  <div class="logo flex center">
     <NuxtLink :to="{ name: 'index' }">
       <span
         v-if="expanded"
@@ -19,9 +19,14 @@
 </template>
 
 <script setup lang="ts">
-defineProps<{
-  expanded: boolean;
-}>();
+withDefaults(
+  defineProps<{
+    expanded?: boolean;
+  }>(),
+  {
+    expanded: true,
+  },
+);
 </script>
 
 <style lang="scss" scoped>

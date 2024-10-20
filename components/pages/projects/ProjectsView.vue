@@ -4,9 +4,8 @@
 
     <div class="project-list pt-4">
       <app-card
-        hover-color="primary-800"
-        active-color="primary-700"
         class="project-item item-primary"
+        container-class="col center"
         @click="$emit('addProject')"
       >
         <span class="material-icons text-5xl">add</span>
@@ -18,6 +17,7 @@
         v-for="project in projects"
         :key="project.id"
         class="project-item"
+        container-class="col center"
         @click="$emit('selectProject', project)"
       >
         <span class="project-title" v-text="project.name" />
@@ -33,6 +33,7 @@
         <app-card
           v-if="showTemplates"
           class="project-item item-secondary"
+          container-class="col center"
           @click="$emit('openTemplates')"
         >
           <m-icon value="explore" class="text-4xl" />
@@ -48,6 +49,7 @@
         <app-card
           v-if="showDocs"
           class="project-item item-secondary"
+          container-class="col center"
           @click="$emit('openDocs')"
         >
           <m-icon value="library_books" class="text-4xl" />

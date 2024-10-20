@@ -1,11 +1,7 @@
 <template>
   <auth-container>
     <form class="form col gap-2">
-      <h1 class="text-5xl font-black max-xl:text-center">Welcome back</h1>
-
-      <span class="text-lg text-secondary max-xl:text-center"
-        >Please enter your details</span
-      >
+      <h1 class="text-5xl font-black max-xl:text-center">Registration</h1>
 
       <InputGroup class="mt-6">
         <InputGroupAddon>
@@ -17,19 +13,21 @@
 
       <InputGroup>
         <InputGroupAddon>
+          <m-icon value="person" />
+        </InputGroupAddon>
+
+        <InputText placeholder="Username" />
+      </InputGroup>
+
+      <InputGroup>
+        <InputGroupAddon>
           <m-icon value="lock" />
         </InputGroupAddon>
 
-        <Password placeholder="Password" :feedback="false" />
+        <Password placeholder="Password" />
       </InputGroup>
 
-      <nuxt-link
-        class="text-sm text-primary text-end"
-        to="/auth/forgot-password"
-        >Forgot password?
-      </nuxt-link>
-
-      <Button rounded class="mt-6" type="submit">Sign in</Button>
+      <Button rounded class="mt-6" type="submit">Sign up</Button>
 
       <div class="sm:contents flex flex-wrap gap-2">
         <Button class="flex-1" rounded severity="secondary">
@@ -54,19 +52,15 @@
       </div>
 
       <span class="mt-4 text-sm text-secondary text-end">
-        <span>Not registered yet? </span>
+        <span>Already registered? </span>
 
-        <nuxt-link class="text-primary" to="/auth/registration"
-          >Register now</nuxt-link
-        >
+        <nuxt-link class="text-primary" to="/auth/login">Sign in</nuxt-link>
       </span>
     </form>
   </auth-container>
 </template>
 
 <script setup lang="ts">
-// import type { AuthProvider } from "#imports";
-
 import AuthContainer from "~/components/pages/auth/AuthContainer.vue";
 
 definePageMeta({
@@ -75,22 +69,4 @@ definePageMeta({
     navigateAuthenticatedTo: "/",
   },
 });
-
-// const { providers, signIn } = useAuthProviders();
-//
-// function invokeProvider(provider: AuthProvider<unknown>) {
-//   switch (provider.name) {
-//     case CredentialsAuthProvider.name:
-//       signIn.credentials("michaelw", "michaelwpass");
-//       break;
-//     case GitHubAuthProvider.name:
-//       signIn.githubOauth();
-//       break;
-//     case GoogleAuthProvider.name:
-//       signIn.googleOauth();
-//       break;
-//   }
-// }
 </script>
-
-<style scoped></style>
