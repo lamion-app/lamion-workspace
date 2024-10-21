@@ -23,19 +23,27 @@
       </template>
 
       <template #default="{ index }">
-        <div
+        <Button
+          class="size-full aspect-square"
           :class="{
             'opacity-50': index < 3,
-            '!bg-primary-500': index % 4 === 0,
-            '!bg-red-700': index % 12 === 0 && index > 0,
           }"
-          class="size-full bg-surface-700 rounded aspect-square px-2 pt-1 pb-2"
+          :severity="
+            index % 4 ? 'secondary' : index % 12 === 0 ? 'danger' : 'primary'
+          "
+          as="router-link"
+          :to="{
+            name: 'activity-date',
+            params: {
+              date: index,
+            },
+          }"
         >
           <div
             class="size-full text-2xl font-medium flex items-center justify-center"
             v-text="index < 3 ? 29 + index : index - 2"
           />
-        </div>
+        </Button>
       </template>
     </calendar-layout>
   </app-card>
@@ -51,3 +59,4 @@
   );
 }
 </style>
+<script setup lang="ts"></script>

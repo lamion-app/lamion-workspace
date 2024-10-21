@@ -1,6 +1,6 @@
 <template>
   <div class="col gap-6">
-    <h2 class="text-4xl font-bold">{{ 1 + item * 3 }} August</h2>
+    <h2 class="text-4xl font-bold">{{ 1 + item }} August</h2>
 
     <div class="flex flex-wrap gap-2">
       <app-card

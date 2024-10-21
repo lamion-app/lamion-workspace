@@ -71,8 +71,8 @@
                       navigateTo({
                         name: 'activity-date',
                         params: {
-                          date: index,
-                        },
+                          date: index
+                        }
                       })
                     "
                   >
