@@ -15,8 +15,9 @@
           />
         </button>
 
-        <!-- TODO -->
-        <h3 class="text-lg font-medium text-nowrap">Current page name</h3>
+        <h3 class="text-lg font-medium text-nowrap">
+          {{ pageTitle }}
+        </h3>
       </header>
 
       <div class="nav-controller drawer">
@@ -69,16 +70,7 @@ const appNavigation = useNavigation();
 const router = useRouter();
 
 const navigationExpanded = ref(false);
-
-onMounted(() => {
-  projectsStore.loadInitProject();
-});
-
-watchEffect(() => {
-  if (viewport.match("lg")) {
-    navigationExpanded.value = false;
-  }
-});
+const pageTitle = ref("");
 
 const isRootRoute = computed(
   () =>
@@ -86,6 +78,28 @@ const isRootRoute = computed(
       (x) => x.route == router.currentRoute.value.name,
     ).length > 0,
 );
+
+onMounted(() => {
+  projectsStore.loadInitProject();
+});
+
+onMounted(() => {
+  const target = document.querySelector("title")!;
+
+  const observer = new MutationObserver(function () {
+    pageTitle.value = target.text;
+  });
+
+  const config = { subtree: true, characterData: true, childList: true };
+
+  observer.observe(target, config);
+});
+
+watchEffect(() => {
+  if (viewport.match("lg")) {
+    navigationExpanded.value = false;
+  }
+});
 
 function onNavigationClick() {
   if (isRootRoute.value) {

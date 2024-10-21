@@ -93,6 +93,10 @@ definePageMeta({
   },
 });
 
+useHead({
+  title: "Login",
+});
+
 const { signIn, isLoading } = useAppAuth();
 
 const validationSchema = yup.object({

@@ -71,8 +71,8 @@
                       navigateTo({
                         name: 'activity-date',
                         params: {
-                          date: index
-                        }
+                          date: index,
+                        },
                       })
                     "
                   >
@@ -99,6 +99,10 @@
 <script setup lang="ts">
 definePageMeta({
   layout: "main",
+});
+
+useHead({
+  title: "Activity report",
 });
 
 const viewport = useViewport();

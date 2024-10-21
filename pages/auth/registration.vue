@@ -88,6 +88,10 @@ definePageMeta({
   },
 });
 
+useHead({
+  title: "Registration",
+});
+
 const { signIn, isLoading } = useAppAuth();
 
 const validationSchema = yup.object({

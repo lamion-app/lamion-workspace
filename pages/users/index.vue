@@ -41,6 +41,10 @@
 definePageMeta({
   layout: "main",
 });
+
+useHead({
+  title: "Users",
+});
 </script>
 
 <style scoped lang="scss">

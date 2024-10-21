@@ -24,4 +24,8 @@
 definePageMeta({
   layout: "main",
 });
+
+useHead({
+  title: "Activity detail",
+});
 </script>

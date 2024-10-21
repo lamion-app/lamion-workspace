@@ -35,6 +35,10 @@ definePageMeta({
   layout: "main",
 });
 
+useHead({
+  title: "Functions",
+});
+
 const isLoading = ref(false);
 const content = ref<Array<FunctionItem>>([]);
 const features = ref<Array<FeatureFilter>>([]);

@@ -151,6 +151,10 @@ definePageMeta({
   layout: "main",
 });
 
+useHead({
+  title: "Features",
+});
+
 const featuresSortOp = ref();
 
 const addFeatureDialogVisible = ref(false);

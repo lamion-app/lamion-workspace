@@ -50,4 +50,8 @@
 definePageMeta({
   layout: "main",
 });
+
+useHead({
+  title: "Dashboard",
+});
 </script>

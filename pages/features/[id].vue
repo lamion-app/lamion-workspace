@@ -128,6 +128,14 @@ definePageMeta({
   layout: "main",
 });
 
+const route = useRoute();
+
+const title = computed(() => `Feature #${route.params.id}`);
+
+useHead({
+  titleTemplate: title,
+});
+
 const functionsSortOp = ref();
 </script>
 
