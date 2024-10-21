@@ -28,11 +28,17 @@
       </slot>
     </div>
 
-    <div v-if="!!$slots['default']" class="flex-1 flex gap-[inherit]" :class="containerClass">
+    <div
+      v-if="!!$slots['default']"
+      class="flex-1 flex gap-[inherit]"
+      :class="containerClass"
+    >
       <slot />
     </div>
 
-    <Loader v-if="loading" />
+    <slot v-if="loading" name="loader">
+      <Loader />
+    </slot>
   </div>
 </template>
 

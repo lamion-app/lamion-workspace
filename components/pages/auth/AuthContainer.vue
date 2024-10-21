@@ -3,9 +3,9 @@
     <app-logo class="absolute top-4 left-8 max-lg:hidden" />
 
     <div class="h-full flex items-center">
-      <app-card class="max-sm:!contents min-w-[25vw]">
+      <div class="min-w-[25vw]">
         <slot />
-      </app-card>
+      </div>
     </div>
   </div>
 </template>

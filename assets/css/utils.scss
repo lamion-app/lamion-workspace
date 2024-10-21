@@ -26,3 +26,7 @@
 .center {
   @apply items-center justify-center;
 }
+
+.\!center {
+  @apply items-center justify-center !important;
+}

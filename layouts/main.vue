@@ -3,6 +3,7 @@
     class="root"
     :class="{
       'navigation-expanded': navigationExpanded,
+      'navigation-visible': isProjectSelected,
     }"
   >
     <template v-if="isProjectSelected && isAppLoaded">
@@ -142,11 +143,11 @@ function onNavigationClick() {
   }
 
   .page-content {
+    @apply size-full;
     padding-top: vars.$header-height;
 
     @screen lg {
       padding-top: 0;
-      padding-left: vars.$navigation-collapsed-width;
     }
   }
 
@@ -162,10 +163,18 @@ function onNavigationClick() {
         transform: translateX(50%) rotate(180deg);
       }
     }
+  }
 
-    .page-content {
-      @screen lg {
-        padding-left: vars.$navigation-expanded-width;
+  &.navigation-visible {
+    @screen lg {
+      .page-content {
+        padding-left: vars.$navigation-collapsed-width;
+      }
+
+      &.navigation-expanded {
+        .page-content {
+          padding-left: vars.$navigation-expanded-width;
+        }
       }
     }
   }
