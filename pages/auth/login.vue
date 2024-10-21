@@ -93,7 +93,7 @@ definePageMeta({
   },
 });
 
-const { signIn, isLoading } = useAuthProviders();
+const { signIn, isLoading } = useAppAuth();
 
 const validationSchema = yup.object({
   email: yup.string().email().min(4).required(),

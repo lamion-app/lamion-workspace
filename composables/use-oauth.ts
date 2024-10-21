@@ -1,7 +1,7 @@
 type OAuthProviderCallback = () => Promise<void>;
 
 export const useOAuth = () => {
-  const { providers } = useAuthProviders();
+  const { providers } = useAppAuth();
 
   const loadedProvider = ref<OAuthProviderCallback | null>(null);
 

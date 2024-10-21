@@ -7,14 +7,16 @@
         <div class="profile-data">
           <span class="name" v-text="account.username" />
 
-          <NuxtLink :to="{ name: 'auth-logout' }" class="logout"
-            >Logout
-          </NuxtLink>
+          <span class="logout" @click.prevent="isLogoutDialogVisible = true"
+            >Logout</span
+          >
         </div>
 
         <span class="icon material-icons">chevron_right</span>
       </div>
     </app-card>
+
+    <logout-dialog v-model:visible="isLogoutDialogVisible" />
   </NuxtLink>
 </template>
 
@@ -23,6 +25,8 @@ defineProps<{
   expanded: boolean;
   account: Account;
 }>();
+
+const isLogoutDialogVisible = ref(false);
 </script>
 
 <style scoped lang="scss">

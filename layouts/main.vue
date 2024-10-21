@@ -60,7 +60,7 @@
 <script setup lang="ts">
 const viewport = useViewport();
 const { isAppLoaded } = storeToRefs(useAppStore());
-const { account } = useAuthProviders();
+const { account } = useAppAuth();
 const projectsStore = useProjectsStore();
 const { projects, selectedProject, isProjectSelected } =
   storeToRefs(projectsStore);

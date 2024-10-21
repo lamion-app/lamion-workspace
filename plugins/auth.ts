@@ -1,6 +1,6 @@
 export default defineNuxtPlugin({
   async setup() {
-    const auth = useAuthProviders();
+    const auth = useAppAuth();
 
     return {
       provide: {

@@ -1,5 +1,5 @@
 export default defineNuxtRouteMiddleware((to, from) => {
-  const { isLoggedIn } = useAuthProviders();
+  const { isLoggedIn } = useAppAuth();
   const loginPage = useLoginPage();
 
   if (to.meta.auth === false || loginPage.isAuthPage(to.fullPath)) return;

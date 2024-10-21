@@ -1,4 +1,4 @@
-export const useAuthProviders = () => {
+export const useAppAuth = () => {
   const config = useRuntimeConfig();
   const { signOut, data, status } = useAuth();
 

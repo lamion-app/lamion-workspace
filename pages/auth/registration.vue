@@ -1,6 +1,6 @@
 <template>
   <auth-container>
-    <app-card :loading="isLoading">
+    <app-card class="max-sm:!contents" :loading="isLoading">
       <form class="form col gap-2" @submit.prevent="onSubmit">
         <h1 class="text-5xl font-black max-xl:text-center">Registration</h1>
 
@@ -88,7 +88,7 @@ definePageMeta({
   },
 });
 
-const { signIn, isLoading } = useAuthProviders();
+const { signIn, isLoading } = useAppAuth();
 
 const validationSchema = yup.object({
   email: yup.string().email().min(4).required(),
