@@ -1,7 +1,7 @@
 <template>
   <app-layout>
-    <div class="max-w-[1000px] col gap-4">
-      <h1 class="text-6xl">Authorization</h1>
+    <div class="max-w-[1000px] mx-auto col gap-4">
+      <h1 class="text-6xl line-clamp-1">Authorization</h1>
 
       <p>
         Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce
@@ -32,7 +32,7 @@
         </div>
       </div>
 
-      <div class="grid grid-cols-2 gap-4">
+      <div class="lg:grid lg:grid-cols-2 gap-4">
         <app-card title="Total events" class="mt-4">
           <active-users-chart class="flex-1 -mx-5" />
 

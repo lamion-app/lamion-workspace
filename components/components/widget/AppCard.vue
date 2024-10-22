@@ -8,11 +8,11 @@
       'gap-2': !noGap,
     }"
   >
-    <div v-if="!!title || !!subtitle" class="flex items-start">
+    <div v-if="!!title || !!subtitle" class="flex flex-wrap gap-2 items-start">
       <div class="flex-1 col gap-2">
         <span
           v-if="!!title"
-          class="flex-1"
+          class="flex-1 line-clamp-1"
           :class="!!titleClass ? titleClass : 'text-2xl font-black'"
           v-text="title"
         />

@@ -1,21 +1,22 @@
 <template>
-  <div class="py-6 px-6 xl:py-10 xl:px-12 bg-window">
-    <div v-if="isProjectSelected" class="main">
-      <div v-show="isAppLoaded" class="main-content">
-        <div class="contents">
-          <slot />
-        </div>
+  <div class="main bg-window">
+    <template v-if="isAppLoaded">
+      <div
+        v-if="isProjectSelected"
+        class="size-full max-w-screen-2xl lg:rounded-tl-3xl lg:rounded-bl-3xl"
+      >
+        <slot />
       </div>
 
-      <ProgressSpinner v-show="!isAppLoaded" />
-    </div>
+      <projects-view
+        v-else
+        class="w-full min-h-screen"
+        :projects="projects"
+        @select-project="selectedProject = $event"
+      />
+    </template>
 
-    <projects-view
-      v-else
-      class="w-full min-h-screen"
-      :projects="projects"
-      @select-project="selectedProject = $event"
-    />
+    <ProgressSpinner v-else />
   </div>
 </template>
 
@@ -34,12 +35,8 @@ onMounted(() => {
 @import url(@/assets/css/main.scss);
 
 .main {
-  @apply w-full min-h-full;
-  @apply lg:rounded-tl-3xl lg:rounded-bl-3xl;
+  @apply w-full min-h-screen;
   @apply flex justify-center;
-
-  .main-content {
-    @apply size-full max-w-screen-2xl;
-  }
+  @apply py-6 px-6 xl:py-10 xl:px-12;
 }
 </style>

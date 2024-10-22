@@ -17,6 +17,10 @@ definePageMeta({
   },
 });
 
+useHead({
+  title: "Oauth authorization",
+});
+
 const oauth = useOAuth();
 const route = useRoute();
 
