@@ -3,7 +3,7 @@
     class="avatar"
     :label="
       image == null || image.length == 0
-        ? username.charAt(0).toUpperCase()
+        ? label.charAt(0).toUpperCase()
         : undefined
     "
     :image="image == null || image.length == 0 ? undefined : image"
@@ -15,6 +15,6 @@
 <script setup lang="ts">
 defineProps<{
   image?: string;
-  username: string;
+  label: string;
 }>();
 </script>

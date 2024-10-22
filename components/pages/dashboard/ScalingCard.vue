@@ -1,6 +1,6 @@
 <template>
   <app-card
-    title="Dashboard"
+    :title="$selectedProject.value?.name"
     subtitle="Today's summary"
     title-class="text-4xl font-black"
   >

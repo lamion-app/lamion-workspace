@@ -62,5 +62,8 @@ export const useProjectsStore = defineStore("projectsStore", () => {
     selectedProject,
     isProjectSelected,
     loadInitProject,
+    updateSelectedProject: (project: Project) => {
+      selectedProject.value = project;
+    },
   };
 });

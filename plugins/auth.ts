@@ -4,7 +4,7 @@ export default defineNuxtPlugin({
 
     return {
       provide: {
-        account: auth.account,
+        account: computed(() => auth.account.value!),
         isLoggedIn: auth.isLoggedIn,
       },
     };

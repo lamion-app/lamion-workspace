@@ -2,7 +2,7 @@
   <NuxtLink :to="{ name: 'profile' }" class="w-full">
     <app-card class="profile" :class="{ expanded: expanded }">
       <div class="profile-content">
-        <profile-avatar :username="account.username" :image="account.image" />
+        <label-image :label="account.username" :image="account.image" />
 
         <div class="profile-data">
           <span class="name" v-text="account.username" />
