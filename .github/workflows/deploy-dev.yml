@@ -23,8 +23,8 @@ jobs:
   deploy:
     runs-on: ubuntu-latest
     name: "Deploy to Netlify"
-    # needs:
-    #   - check
+    needs:
+      - check
     steps:
       - uses: actions/checkout@v4
 
