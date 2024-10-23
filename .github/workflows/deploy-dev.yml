@@ -1,0 +1,17 @@
+name: "Deploy dev server"
+
+on:
+  push:
+    branches:
+      - "develop"
+      - "feature/ci-cd-**"
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    name: "Deploy to Netlify"
+    steps:
+      - uses: jsmrcaga/action-netlify-deploy@v2.0.0
+        with:
+          NETLIFY_AUTH_TOKEN: ${{ secrets.DEV_AUTH_TOKEN }}
+          NETLIFY_SITE_ID: ${{ secrets.DEV_SITE_ID }}
