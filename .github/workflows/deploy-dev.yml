@@ -3,17 +3,37 @@ name: "Deploy dev server"
 on:
   push:
     branches:
-      - "develop"
+      - "master"
       - "feature/ci-cd-**"
 
 jobs:
+  check:
+    runs-on: ubuntu-latest
+    name: "Deploy to Netlify"
+    steps:
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 18
+      - run: npm run lint
   deploy:
     runs-on: ubuntu-latest
     name: "Deploy to Netlify"
     steps:
       - uses: actions/checkout@v4
-      - uses: jsmrcaga/action-netlify-deploy@v2.0.0
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
         with:
+          node-version: 18
+
+      - run: npm install
+      - run: npm run build
+
+      - name: Deploy to netlify
+        uses: netlify/actions/cli@master
+        env:
           NETLIFY_AUTH_TOKEN: ${{ secrets.DEV_AUTH_TOKEN }}
           NETLIFY_SITE_ID: ${{ secrets.DEV_SITE_ID }}
-          NETLIFY_DEPLOY_TO_PROD: true
+        with:
+          args: deploy
