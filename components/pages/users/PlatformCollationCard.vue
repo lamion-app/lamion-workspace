@@ -71,7 +71,7 @@ const data = [
     }
 
     .leading {
-      @apply bg-surface-700;
+      @apply bg-surface-200 dark:bg-surface-700;
     }
 
     .page-content {

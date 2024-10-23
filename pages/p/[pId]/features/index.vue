@@ -44,7 +44,7 @@
       <features-card class="col-span-full lg:col-span-8 !h-[600px]">
         <template #extras>
           <div class="col">
-            <span class="text-xl text-surface-400">Total events</span>
+            <span class="text-xl text-secondary">Total events</span>
 
             <value-quantity
               class="text-4xl"
@@ -55,7 +55,7 @@
           </div>
 
           <div class="col">
-            <span class="text-xl text-surface-400">By last month</span>
+            <span class="text-xl text-secondary">By last month</span>
             <value-quantity
               class="text-4xl"
               value="300"
@@ -65,7 +65,7 @@
           </div>
 
           <div class="col">
-            <span class="text-xl text-surface-400">Rate</span>
+            <span class="text-xl text-secondary">Rate</span>
             <value-quantity
               class="text-4xl"
               value="10"

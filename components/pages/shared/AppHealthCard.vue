@@ -17,7 +17,7 @@
           <span>Only </span>
 
           <value-quantity
-            class="inline text-pink-300"
+            class="inline text-pink-500 dark:text-pink-300"
             :value="crashes.count"
             :quantity="crashes.quantity"
             quantity-class="opacity-70"
@@ -29,17 +29,17 @@
     </template>
 
     <template v-else>
-      <span class="text-4xl font-black text-red-100">Crash alert</span>
+      <span class="text-4xl font-black text-red-700 dark:text-red-100">Crash alert</span>
 
       <p>
         <value-quantity
           class="text-7xl font-black"
           :value="crashes.count"
           :quantity="crashes.quantity"
-          quantity-class="text-red-400"
+          quantity-class="text-red-700 dark:text-red-400"
         />
 
-        <span class="ms-2 quantity text-4xl font-bold text-red-400"
+        <span class="ms-2 quantity text-4xl font-bold text-red-700 dark:text-red-400"
           >crashes</span
         >
       </p>
@@ -49,7 +49,7 @@
 
 <script setup lang="ts">
 const state = ref({
-  crashes: 500,
+  crashes: 5000,
 });
 
 const isHealth = computed(() => state.value.crashes < 1000);
@@ -73,11 +73,20 @@ const crashes = computed(() => {
 .app-health {
   &.healthy {
     @apply justify-center !important;
+
     background: linear-gradient(
       170deg,
-      var(--p-sky-800) 0%,
-      var(--p-rose-800) 150%
+      var(--p-sky-200) 0%,
+      var(--p-rose-200) 150%
     );
+
+    @media (prefers-color-scheme: dark) {
+      background: linear-gradient(
+        170deg,
+        var(--p-sky-800) 0%,
+        var(--p-rose-800) 150%
+      );
+    }
 
     .page-content {
       @apply items-center;
@@ -91,9 +100,17 @@ const crashes = computed(() => {
   &.unhealthy {
     background: linear-gradient(
       135deg,
-      var(--p-rose-800) 0%,
-      var(--p-rose-950) 120%
+      var(--p-rose-400) 0%,
+      var(--p-rose-300) 120%
     );
+
+    @media (prefers-color-scheme: dark) {
+      background: linear-gradient(
+        135deg,
+        var(--p-rose-800) 0%,
+        var(--p-rose-950) 120%
+      );
+    }
   }
 }
 </style>

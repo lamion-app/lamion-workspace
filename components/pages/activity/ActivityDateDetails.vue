@@ -6,7 +6,7 @@
       <app-card
         class="min-w-[200px] flex-1 bg-window"
         title="Active users"
-        title-class="text-sm font-bold text-surface-300"
+        title-class="text-sm font-medium text-secondary"
       >
         <value-quantity
           class="text-6xl"
@@ -19,7 +19,7 @@
       <app-card
         class="min-w-[250px] flex-1 bg-window"
         title="Triggered events"
-        title-class="text-sm font-bold text-surface-300"
+        title-class="text-sm font-medium text-secondary"
       >
         <value-quantity
           class="text-6xl"
@@ -32,7 +32,7 @@
       <app-card
         class="min-w-[100px] flex-1 bg-window"
         title="Crashes"
-        title-class="text-sm font-bold text-surface-300"
+        title-class="text-sm font-medium text-secondary"
       >
         <value-quantity
           class="text-6xl"
@@ -43,7 +43,6 @@
     </div>
 
     <app-card
-      class="!bg-surface-800 !gap-2"
       title="Most used features"
       title-class="text-sm font-medium text-secondary"
     >
@@ -80,7 +79,7 @@
       </div>
     </app-card>
 
-    <app-card class="!bg-surface-800" title="In-app activity">
+    <app-card title="In-app activity">
       <user-activity-time class="!max-h-[400px] -mx-3" />
     </app-card>
   </div>

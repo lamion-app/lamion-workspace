@@ -95,15 +95,18 @@ defineEmits<{
     @apply text-center;
 
     &.item-primary {
-      @apply hover:bg-primary-800 active:bg-primary-700;
+      @apply hover:bg-primary-200 active:bg-primary-300;
+      @apply dark:hover:bg-primary-800 dark:active:bg-primary-700;
     }
 
     &.item-secondary {
-      @apply hover:bg-sky-900 active:bg-sky-700;
+      @apply hover:bg-sky-200 active:bg-sky-300;
+      @apply dark:hover:bg-sky-900 dark:active:bg-sky-700;
     }
 
     &:not(.item-primary, .item-secondary) {
-      @apply hover:bg-surface-800 active:bg-surface-700;
+      @apply hover:bg-surface-200 active:bg-surface-300;
+      @apply dark:hover:bg-surface-800 dark:active:bg-surface-700;
     }
 
     .project-title {

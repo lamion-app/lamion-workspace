@@ -14,7 +14,7 @@
 
     <calendar-layout :weeks="3" gap="gap-2">
       <template #legend>
-        <div class="flex flex-wrap gap-2 text-sm font-bold">
+        <div class="flex flex-wrap gap-2 text-sm font-bold text-surface-100">
           <span class="select-none bg-primary-500 rounded-lg px-3 py-1"
             >Users</span
           >
@@ -57,9 +57,18 @@ const { createProjectLink } = useProjects();
 .report-card {
   background: linear-gradient(
     135deg,
-    var(--p-stone-700) 0%,
-    var(--p-stone-800) 40%,
-    var(--p-surface-700) 120%
+    var(--p-stone-300) 0%,
+    var(--p-stone-300) 40%,
+    var(--p-surface-300) 120%
   );
+
+  @media (prefers-color-scheme: dark) {
+    background: linear-gradient(
+      135deg,
+      var(--p-stone-700) 0%,
+      var(--p-stone-800) 40%,
+      var(--p-surface-700) 120%
+    );
+  }
 }
 </style>

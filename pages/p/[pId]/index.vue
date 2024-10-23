@@ -16,18 +16,18 @@
       >
         <template #extras>
           <div class="col">
-            <span class="text-xl text-surface-400">Total events</span>
+            <span class="text-xl text-secondary">Total events</span>
             <span class="text-4xl">
               <span class="state">5.67</span>
-              <span class="unit text-3xl text-surface-400">M</span>
+              <span class="unit text-3xl text-secondary">M</span>
             </span>
           </div>
 
           <div class="col">
-            <span class="text-xl text-surface-400">Events per day</span>
+            <span class="text-xl text-secondary">Events per day</span>
             <span class="text-4xl">
               <span class="state">200</span>
-              <span class="unit text-3xl text-surface-400">K</span>
+              <span class="unit text-3xl text-secondary">K</span>
             </span>
           </div>
         </template>

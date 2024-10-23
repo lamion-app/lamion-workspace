@@ -11,11 +11,14 @@ body,
   @apply leading-none;
 }
 
+.p-datatable-header-cell,
+.p-datatable-tbody > tr {
+  background: none !important;
+}
+
 .p-tabs {
   .p-tablist-tab-list,
-  .p-tabpanels,
-  .p-datatable-header-cell,
-  .p-datatable-tbody > tr {
+  .p-tabpanels {
     background: none !important;
   }
 
@@ -23,7 +26,6 @@ body,
     @apply p-0 !important;
   }
 }
-
 
 .p-chip {
   @apply cursor-pointer;

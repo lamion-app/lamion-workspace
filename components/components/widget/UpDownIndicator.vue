@@ -8,7 +8,7 @@
       }"
     >
       <span
-        class="material-symbols-outlined text-surface-800 text-center"
+        class="material-symbols-outlined text-surface-200 dark:text-surface-800 text-center"
         :class="{
           'rotate-180': value <= 0,
         }"

@@ -91,11 +91,12 @@ const { createProjectLink } = useProjects();
       @apply text-lg font-bold;
 
       @apply rounded-2xl;
-      @apply hover:bg-surface-800 active:bg-surface-700;
+      @apply hover:bg-surface-300 active:bg-surface-400;
+      @apply dark:hover:bg-surface-800 dark:active:bg-surface-700;
       @apply transition-all;
 
       &.active {
-        @apply bg-surface-800;
+        @apply bg-surface-300 dark:bg-surface-800;
       }
     }
   }

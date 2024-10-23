@@ -46,7 +46,7 @@
               class="size-8 object-cover"
               src="https://cdn4.iconfinder.com/data/icons/logos-brands-7/512/google_logo-google_icongoogle-512.png"
               alt="Google Icon"
-            />
+            >
 
             <span class="max-sm:hidden">Continue with Google</span>
           </Button>
@@ -58,10 +58,10 @@
             @click="signIn.githubOauth()"
           >
             <img
-              class="size-8 object-cover invert"
+              class="size-8 object-cover dark:invert"
               src="https://cdn-icons-png.flaticon.com/512/25/25231.png"
               alt="GitHub Icon"
-            />
+            >
 
             <span class="max-sm:hidden">Continue with GitHub</span>
           </Button>

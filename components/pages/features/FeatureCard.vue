@@ -8,7 +8,7 @@
     <div class="col gap-2">
       <div class="flex gap-2">
         <div class="flex-1 col">
-          <span class="text-xs text-primary-200">Total calls</span>
+          <span class="text-xs text-primary-800 dark:text-primary-200">Total calls</span>
 
           <value-quantity
             class="font-medium text-primary"
@@ -20,10 +20,10 @@
         <Divider layout="vertical" />
 
         <div class="flex-1 col">
-          <span class="text-xs text-red-200">Errors</span>
+          <span class="text-xs text-red-800 dark:text-red-200">Errors</span>
 
           <value-quantity
-            class="font-medium text-red-500"
+            class="font-medium text-red-600 dark:text-red-500"
             value="2"
             quantity="%"
           />

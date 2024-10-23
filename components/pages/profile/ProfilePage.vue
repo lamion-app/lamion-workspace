@@ -21,37 +21,38 @@
     <logout-dialog v-model:visible="isLogoutDialogVisible" />
 
     <app-card class="mt-4" container-class="col items-start">
-      <div class="projects">
-        <div class="mt-4 grid lg:grid-cols-2 xl:grid-cols-3 gap-2">
-          <Button class="!rounded-xl" severity="secondary">
-            <m-icon value="add" />
+      <div class="w-full mt-4 grid lg:grid-cols-2 xl:grid-cols-3 gap-2">
+        <Button
+          class="!rounded-xl !bg-surface-200 max-xl:col-span-full"
+          severity="secondary"
+        >
+          <m-icon value="add" />
 
-            <span>Create new project</span>
-          </Button>
+          <span>Create new project</span>
+        </Button>
 
-          <app-card
-            v-for="project in projects"
-            :key="project.id"
-            container-class="w-full flex gap-2 items-center"
-          >
-            <m-icon
-              class="size-12 rounded-full bg-window flex center"
-              value="workspaces"
+        <app-card
+          v-for="project in projects"
+          :key="project.id"
+          container-class="w-full flex gap-2 items-center"
+        >
+          <m-icon
+            class="size-12 rounded-full bg-window flex center"
+            value="workspaces"
+          />
+
+          <span class="flex-1 text-lg font">{{ project.name }}</span>
+
+          <div class="actions flex gap-2">
+            <icon-button icon="edit" filled />
+            <icon-button
+              icon="open_in_new"
+              severity="primary"
+              filled
+              @click="openProject(project)"
             />
-
-            <span class="flex-1 text-lg font">{{ project.name }}</span>
-
-            <div class="actions flex gap-2">
-              <icon-button icon="edit" filled />
-              <icon-button
-                icon="open_in_new"
-                severity="primary"
-                filled
-                @click="swapSelectedProject(project)"
-              />
-            </div>
-          </app-card>
-        </div>
+          </div>
+        </app-card>
       </div>
     </app-card>
 
@@ -110,9 +111,5 @@ const validateSettingsField = (key: string, value: string) => {
   return value.trim().length > 4;
 };
 
-const { projects } = useProjects();
-
-function swapSelectedProject(project: Project) {
-  // TODO
-}
+const { projects, openProject } = useProjects();
 </script>

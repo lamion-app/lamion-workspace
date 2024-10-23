@@ -1,5 +1,7 @@
 <template>
-  <app-layout> </app-layout>
+  <app-layout>
+    <h1>TODO</h1>
+  </app-layout>
 </template>
 
 <script setup lang="ts">

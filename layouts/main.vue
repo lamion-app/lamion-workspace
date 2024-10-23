@@ -43,7 +43,11 @@
           </template>
 
           <template v-if="!!account" #after-menu>
-            <Profile :expanded="navigationExpanded" :account="account" />
+            <Profile
+              :expanded="navigationExpanded"
+              :account="account"
+              @click="navigationExpanded = false"
+            />
           </template>
         </navigation>
       </div>
@@ -136,16 +140,20 @@ function onNavigationClick() {
 <style scoped lang="scss">
 @use "@/assets/css/vars";
 
-.root {
-  @apply bg-surface-950;
+.root,
+.nav-controller {
+  @apply bg-surface-100 dark:bg-surface-950;
+}
 
+.root {
   .header {
     @apply absolute top-0 lg:-top-full left-0 z-30;
     @apply w-full;
     height: vars.$header-height;
     @apply flex gap-6 items-center;
     @apply px-6;
-    @apply bg-surface-900 transition-all;
+    @apply bg-surface-100 dark:bg-surface-900;
+    @apply transition-all;
   }
 
   .nav-controller {
@@ -154,7 +162,6 @@ function onNavigationClick() {
     @apply w-full h-screen;
     @apply transition;
     transition-property: width, transform;
-    @apply bg-surface-950;
     @apply -translate-x-full;
     z-index: 500;
 
@@ -167,7 +174,8 @@ function onNavigationClick() {
       @apply absolute top-[6rem] right-0 z-10;
       @apply size-6 max-xl:hidden flex;
       @apply items-center justify-center;
-      @apply rounded-full bg-surface-800 text-primary transition-all;
+      @apply rounded-full text-primary transition-all;
+      @apply bg-surface-300 dark:bg-surface-800;
       @apply translate-x-1/2;
     }
   }

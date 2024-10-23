@@ -11,14 +11,14 @@
         :key="item.name"
         class="flex-1 bg-window"
         :title="item.name"
-        title-class="text-sm font-bold text-surface-300"
+        title-class="text-sm font-bold text-secondary"
       >
         <div class="flex gap-4 items-center overflow-hidden">
           <value-quantity
             class="text-6xl"
             :value="item.value"
             :quantity="item.quantity"
-            quantity-class="text-surface-400"
+            quantity-class="text-secondary"
           />
 
           <up-down-indicator

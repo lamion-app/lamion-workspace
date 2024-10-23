@@ -17,7 +17,7 @@
 
     <span class="font-bold">{{ value }}{{ quantity }}</span>
 
-    <span class="text-surface-200">
+    <span class="text-secondary">
       <slot name="label">
         <p v-if="!!label">{{ label }}</p>
       </slot>

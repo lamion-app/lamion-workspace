@@ -1,8 +1,5 @@
 <template>
-  <NuxtLink
-    :to="createProjectLink('profile')"
-    class="w-full"
-  >
+  <NuxtLink :to="createProjectLink('profile')" class="w-full">
     <app-card class="profile" :class="{ expanded: expanded }">
       <div class="profile-content">
         <label-image :label="account.username" :image="account.image" />
@@ -15,7 +12,7 @@
           >
         </div>
 
-        <span class="icon material-icons">chevron_right</span>
+        <m-icon class="icon" value="chevron_right" />
       </div>
     </app-card>
 
@@ -30,12 +27,16 @@ defineProps<{
 }>();
 
 const isLogoutDialogVisible = ref(false);
-const {createProjectLink} = useProjects();
+const { createProjectLink } = useProjects();
 </script>
 
 <style scoped lang="scss">
 .profile {
   @apply w-full;
+
+  @media (prefers-color-scheme: light) {
+    @apply bg-surface-200 !important;
+  }
 
   .profile-content {
     @apply flex gap-2 items-center;

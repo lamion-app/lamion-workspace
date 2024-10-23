@@ -88,10 +88,11 @@ defineEmits<{
   @apply p-5 rounded-xl overflow-hidden;
 
   &.filled {
-    @apply bg-surface-900;
+    @apply bg-surface-100 dark:bg-surface-900;
 
     & .app-card.filled {
-      @apply bg-surface-800 bg-opacity-40;
+      @apply bg-surface-300 dark:bg-surface-800;
+      @apply bg-opacity-40 !important;
       @apply px-3 py-2;
     }
   }
