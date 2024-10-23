@@ -3,10 +3,15 @@
     class="report-card !justify-start"
     title="Activity report"
     subtitle="August 2024"
-    action="&#xe89e;"
     title-class="text-3xl font-black"
-    @click:action="navigateTo({ name: 'activity' })"
+    title-tag="h2"
   >
+    <template #action>
+      <nuxt-link :to="createProjectLink('activity')">
+        <icon-button icon="open_in_new" />
+      </nuxt-link>
+    </template>
+
     <calendar-layout :weeks="3" gap="gap-2">
       <template #legend>
         <div class="flex flex-wrap gap-2 text-sm font-bold">
@@ -32,12 +37,7 @@
             index % 4 ? 'secondary' : index % 12 === 0 ? 'danger' : 'primary'
           "
           as="router-link"
-          :to="{
-            name: 'activity-date',
-            params: {
-              date: index,
-            },
-          }"
+          :to="createProjectLink('activity-date', { date: index })"
         >
           <div
             class="size-full text-2xl font-medium flex items-center justify-center"
@@ -49,6 +49,10 @@
   </app-card>
 </template>
 
+<script setup lang="ts">
+const { createProjectLink } = useProjects();
+</script>
+
 <style lang="scss" scoped>
 .report-card {
   background: linear-gradient(
@@ -59,4 +63,3 @@
   );
 }
 </style>
-<script setup lang="ts"></script>

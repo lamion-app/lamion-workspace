@@ -33,9 +33,7 @@
                 }"
                 icon="&#xf1e1;"
                 @click="
-                  navigateTo({
-                    name: i === 0 ? 'features-functions' : 'crashes',
-                  })
+                  createProjectLink(i === 0 ? 'features-functions' : 'crashes')
                 "
               />
             </template>
@@ -129,12 +127,11 @@
             :key="index"
             class="bg-surface-900"
             @click:open="
-              navigateTo({
-                name: 'features-id',
-                params: {
+              navigateTo(
+                createProjectLink('features-id', {
                   id: 1,
-                },
-              })
+                })
+              )
             "
             @click:edit="addFeatureDialogVisible = true"
           />
@@ -154,6 +151,8 @@ definePageMeta({
 useHead({
   title: "Features",
 });
+
+const { createProjectLink } = useProjects();
 
 const featuresSortOp = ref();
 

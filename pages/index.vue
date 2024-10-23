@@ -1,57 +1,22 @@
 <template>
-  <app-layout>
-    <dashboard-layout>
-      <scaling-card class="col-span-full 2xl:col-span-9" />
+  <main class="w-full min-h-screen py-6 px-6 xl:py-10 xl:px-12">
+    <div v-if="isProjectsLoading" class="size-full flex center">
+      <progress-spinner class="!mx-auto" />
+    </div>
 
-      <app-health-card class="col-span-full 2xl:col-span-3" />
-
-      <features-card
-        class="!h-[600px] lg:!h-full col-span-full lg:col-span-8 2xl:col-span-8"
-      >
-        <template #extras>
-          <div class="col">
-            <span class="text-xl text-surface-400">Total events</span>
-            <span class="text-4xl">
-              <span class="state">5.67</span>
-              <span class="unit text-3xl text-surface-400">M</span>
-            </span>
-          </div>
-
-          <div class="col">
-            <span class="text-xl text-surface-400">Events per day</span>
-            <span class="text-4xl">
-              <span class="state">200</span>
-              <span class="unit text-3xl text-surface-400">K</span>
-            </span>
-          </div>
-        </template>
-      </features-card>
-
-      <in-app-activity-card
-        class="col-span-full lg:col-span-4 2xl:col-span-4"
-      />
-
-      <activity-report-card
-        class="col-span-full lg:col-span-5 2xl:col-span-5"
-      />
-
-      <app-card
-        class="col-span-full lg:col-span-7 2xl:col-span-7 !overflow-x-auto"
-        title="User activity time"
-        title-class="text-xl font-bold"
-      >
-        <user-activity-time class="-mx-3 -mb-3" />
-      </app-card>
-    </dashboard-layout>
-  </app-layout>
+    <projects-view
+      v-else-if="projects != null"
+      class="w-full min-h-screen"
+      :projects="projects!"
+      @select-project="openProject"
+    />
+  </main>
 </template>
 
 <script setup lang="ts">
-definePageMeta({
-  layout: "main",
-});
-
 useHead({
   title: "Dashboard",
 });
+
+const { isProjectsLoading, projects, openProject } = useProjects();
 </script>

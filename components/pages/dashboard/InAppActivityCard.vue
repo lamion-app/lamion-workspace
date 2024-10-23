@@ -2,12 +2,14 @@
   <app-card
     title="Average in-app activity"
     subtitle="See which features are most important to users"
+    title-tag="h2"
   >
     <div class="col gap-4">
-      <div
+      <nuxt-link
         v-for="(_, index) in Array(5)"
         :key="index"
-        class="flex gap-2 items-center"
+        class="flex gap-2 items-center cursor-pointer"
+        :to="createProjectLink('features-id', { id: index })"
       >
         <Avatar
           :label="`#${index + 1}`"
@@ -30,7 +32,11 @@
           value-class="text-xl font-bold"
           quantity-class="text-lg font-medium text-secondary"
         />
-      </div>
+      </nuxt-link>
     </div>
   </app-card>
 </template>
+
+<script setup lang="ts">
+const { createProjectLink } = useProjects();
+</script>

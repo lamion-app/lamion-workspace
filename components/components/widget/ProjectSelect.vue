@@ -25,7 +25,7 @@
 
 <script setup lang="ts">
 defineProps<{
-  projects: Array<Project>;
+  projects: Array< Project>;
 }>();
 
 const selectedProject = defineModel<Project>();

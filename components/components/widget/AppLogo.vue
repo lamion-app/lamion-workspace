@@ -1,6 +1,6 @@
 <template>
   <div class="logo flex center">
-    <NuxtLink :to="{ name: 'index' }">
+    <NuxtLink :to="createProjectLink()">
       <span
         v-if="expanded"
         class="text-logo text-4xl font-black text-primary select-none cursor-pointer"
@@ -25,8 +25,10 @@ withDefaults(
   }>(),
   {
     expanded: true,
-  },
+  }
 );
+
+const { createProjectLink } = useProjects();
 </script>
 
 <style lang="scss" scoped>

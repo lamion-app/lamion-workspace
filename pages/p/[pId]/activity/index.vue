@@ -68,12 +68,11 @@
                     }"
                     class="size-full aspect-square px-4 py-2 col items-center gap-2 cursor-pointer"
                     @click="
-                      navigateTo({
-                        name: 'activity-date',
-                        params: {
+                      navigateTo(
+                        createProjectLink('activity-date', {
                           date: index,
-                        },
-                      })
+                        })
+                      )
                     "
                   >
                     <div
@@ -105,6 +104,8 @@ useHead({
   title: "Activity report",
 });
 
+const { createProjectLink } = useProjects();
+
 const viewport = useViewport();
 
 const viewVariants = [
@@ -125,12 +126,11 @@ const selectedItem = ref(0);
 
 function onItemSelected(item: number) {
   if (viewport.isLessThan("lg")) {
-    navigateTo({
-      name: "activity-date",
-      params: {
+    navigateTo(
+      createProjectLink("activity-date", {
         date: item,
-      },
-    });
+      })
+    );
   } else {
     selectedItem.value = item;
   }

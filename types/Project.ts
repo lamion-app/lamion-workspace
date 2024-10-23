@@ -1,5 +1,5 @@
 export interface Project {
-  id: Id;
-  name: string;
-  description: string;
+  readonly id: Id;
+  readonly name: string;
+  readonly description: string;
 }

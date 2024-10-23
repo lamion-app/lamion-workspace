@@ -1,8 +1,9 @@
 <template>
   <app-card
-    :title="$selectedProject.value?.name"
+    :title="title"
     subtitle="Today's summary"
     title-class="text-4xl font-black"
+    title-tag="h1"
   >
     <div class="scaling-container">
       <app-card
@@ -32,6 +33,10 @@
 </template>
 
 <script setup lang="ts">
+defineProps<{
+  title: string;
+}>();
+
 const items = [
   {
     name: "Total users",

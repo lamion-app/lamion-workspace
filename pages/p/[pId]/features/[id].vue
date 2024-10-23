@@ -1,6 +1,18 @@
 <template>
   <app-layout>
     <div class="max-w-[1000px] mx-auto col gap-4">
+      <Button
+        class="max-lg:!hidden w-fit"
+        rounded
+        text
+        plain
+        @click="$router.go(-1)"
+      >
+        <m-icon value="arrow_back" />
+
+        <span>Back</span>
+      </Button>
+
       <h1 class="text-6xl line-clamp-1">Authorization</h1>
 
       <p>

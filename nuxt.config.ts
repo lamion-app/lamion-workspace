@@ -12,6 +12,7 @@ export default defineNuxtConfig({
     "@sidebase/nuxt-auth",
     "@nuxtjs/tailwindcss",
     "@primevue/nuxt-module",
+    "@vueuse/nuxt",
   ],
   app: {
     head: {

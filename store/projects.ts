@@ -1,69 +1,90 @@
 import { defineStore } from "pinia";
+import { computedAsync } from "@vueuse/core";
 
-const key = "selectedProject";
+const mockProjects = [
+  {
+    id: 1,
+    name: "Test project",
+    description: "Test project description",
+  },
+  {
+    id: 2,
+    name: "My super puper project",
+    description: "💕😂👌😊👍💕❤️🙌😍",
+  },
+];
 
-const getDefaultSelectedProject = () => {
-  const data = localStorage.getItem(key);
-
-  if (!data) return null;
-
-  return Number(data);
+const loadProjects = (): Promise<Array<Project>> => {
+  return new Promise((resolve) => {
+    setTimeout(() => {
+      resolve(mockProjects);
+    }, 1500);
+  });
 };
 
-const saveSelectedProject = (data: number | null) => {
-  if (data == null) {
-    localStorage.removeItem(key);
-  } else {
-    localStorage.setItem(key, data.toString());
-  }
+const loadSelectedProject = (index: number): Promise<Project> => {
+  return new Promise((resolve) => {
+    setTimeout(() => {
+      resolve(mockProjects[index]);
+    }, 1500);
+  });
 };
 
-export const useProjectsStore = defineStore("projectsStore", () => {
-  const selectedProjectIndex = ref<number | null>(null);
+export const useProjectsStore = defineStore("projects", () => {
+  const route = useRoute();
 
-  const projects = ref([
-    {
-      id: 1,
-      name: "Test project",
-      description: "Test project description",
-    },
-    {
-      id: 2,
-      name: "My super puper project",
-      description: "💕😂👌😊👍💕❤️🙌😍",
-    },
-  ]);
-
-  const selectedProject = computed({
-    get: () => {
-      const index = selectedProjectIndex.value;
-      if (index == null) return null;
-
-      return projects.value[index];
-    },
-    set: (project: Project) => {
-      const index = projects.value.indexOf(project);
-      const realIndex = index == -1 ? null : index;
-
-      selectedProjectIndex.value = realIndex;
-
-      saveSelectedProject(realIndex);
-    },
+  const selectedProjectIndex = computed(() => {
+    return Number(route.params.pId);
   });
 
-  const isProjectSelected = computed(() => selectedProject.value !== null);
+  const projects = ref<Array<Project> | null>(null);
+  const isProjectsLoading = ref<boolean>(false);
 
-  const loadInitProject = () => {
-    selectedProjectIndex.value = getDefaultSelectedProject();
-  };
+  const isSelectedProjectLoading = ref<boolean>(false);
+  const isSelectedProjectError = ref<boolean>(false);
+
+  const selectedProject = computedAsync(async () => {
+    const projectIndex = selectedProjectIndex.value;
+
+    if (isNaN(projectIndex)) return;
+
+    isSelectedProjectLoading.value = true;
+
+    try {
+      if (projectIndex == undefined) {
+        isSelectedProjectError.value = true;
+        return null;
+      } else {
+        const result = await loadSelectedProject(projectIndex);
+
+        if (result == null) {
+          isSelectedProjectError.value = true;
+          return null;
+        }
+
+        isSelectedProjectError.value = false;
+
+        return result;
+      }
+    } finally {
+      isSelectedProjectLoading.value = false;
+    }
+  }, null);
+
+  onMounted(async () => {
+    isProjectsLoading.value = true;
+
+    projects.value = await loadProjects();
+
+    isProjectsLoading.value = false;
+  });
 
   return {
     projects,
+    isProjectsLoading,
+    selectedProjectIndex,
     selectedProject,
-    isProjectSelected,
-    loadInitProject,
-    updateSelectedProject: (project: Project) => {
-      selectedProject.value = project;
-    },
+    isSelectedProjectLoading,
+    isSelectedProjectError,
   };
 });

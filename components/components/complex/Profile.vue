@@ -1,5 +1,8 @@
 <template>
-  <NuxtLink :to="{ name: 'profile' }" class="w-full">
+  <NuxtLink
+    :to="createProjectLink('profile')"
+    class="w-full"
+  >
     <app-card class="profile" :class="{ expanded: expanded }">
       <div class="profile-content">
         <label-image :label="account.username" :image="account.image" />
@@ -27,6 +30,7 @@ defineProps<{
 }>();
 
 const isLogoutDialogVisible = ref(false);
+const {createProjectLink} = useProjects();
 </script>
 
 <style scoped lang="scss">

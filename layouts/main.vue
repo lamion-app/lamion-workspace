@@ -3,10 +3,9 @@
     class="root"
     :class="{
       'navigation-expanded': navigationExpanded,
-      'navigation-visible': isProjectSelected,
     }"
   >
-    <template v-if="isProjectSelected && isAppLoaded">
+    <template v-if="isAppLoaded">
       <header class="header">
         <button class="size-[30px]" @click="onNavigationClick">
           <m-icon
@@ -30,13 +29,17 @@
         </button>
 
         <navigation
-          v-if="isProjectSelected && isAppLoaded"
           :expanded="navigationExpanded"
-          :items="appNavigation.navigationItems"
+          :items="navigationItems"
           @hide="navigationExpanded = false"
         >
           <template v-if="navigationExpanded" #before-menu>
-            <ProjectSelect v-model="selectedProject!" :projects="projects" />
+            <ProjectSelect
+              v-if="selectedProject != null && projects != null"
+              :model-value="selectedProject!"
+              :projects="projects"
+              @update:model-value="openProject"
+            />
           </template>
 
           <template v-if="!!account" #after-menu>
@@ -62,26 +65,46 @@
 const viewport = useViewport();
 const { isAppLoaded } = storeToRefs(useAppStore());
 const { account } = useAppAuth();
-const projectsStore = useProjectsStore();
-const { projects, selectedProject, isProjectSelected } =
-  storeToRefs(projectsStore);
+const { projects, selectedProject, openProject } = useProjects();
 
-const appNavigation = useNavigation();
 const router = useRouter();
 
 const navigationExpanded = ref(false);
 const pageTitle = ref("");
 
+const navigationItems = [
+  {
+    name: "Dashboard",
+    icon: String.fromCodePoint(0xf190),
+    route: "p-pId",
+  },
+  {
+    name: "Users",
+    icon: String.fromCodePoint(0xe87c),
+    route: "p-pId-users",
+  },
+  {
+    name: "Features",
+    icon: String.fromCodePoint(0xf20e),
+    route: "p-pId-features",
+  },
+  {
+    name: "Activity report",
+    icon: String.fromCodePoint(0xe1e6),
+    route: "p-pId-activity",
+  },
+  {
+    name: "Project settings",
+    icon: "admin_panel_settings",
+    route: "p-pId-settings",
+  },
+];
+
 const isRootRoute = computed(
   () =>
-    appNavigation.navigationItems.filter(
-      (x) => x.route == router.currentRoute.value.name,
-    ).length > 0,
+    navigationItems.filter((x) => x.route == router.currentRoute.value.name)
+      .length > 0
 );
-
-onMounted(() => {
-  projectsStore.loadInitProject();
-});
 
 onMounted(() => {
   const target = document.querySelector("title")!;
@@ -162,6 +185,7 @@ function onNavigationClick() {
 
     @screen lg {
       padding-top: 0;
+      padding-left: vars.$navigation-collapsed-width;
     }
   }
 
@@ -177,18 +201,10 @@ function onNavigationClick() {
         transform: translateX(50%) rotate(180deg);
       }
     }
-  }
 
-  &.navigation-visible {
     @screen lg {
       .page-content {
-        padding-left: vars.$navigation-collapsed-width;
-      }
-
-      &.navigation-expanded {
-        .page-content {
-          padding-left: vars.$navigation-expanded-width;
-        }
+        padding-left: vars.$navigation-expanded-width;
       }
     }
   }

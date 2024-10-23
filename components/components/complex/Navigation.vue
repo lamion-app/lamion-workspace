@@ -17,9 +17,7 @@
         v-for="item in items"
         :key="item.route"
         class="menu-item"
-        :to="{
-          name: item.route,
-        }"
+        :to="createProjectLink(item.route)"
         :class="{
           active: item.route == route.name,
         }"
@@ -50,6 +48,7 @@ defineEmits<{
 }>();
 
 const route = useRoute();
+const { createProjectLink } = useProjects();
 </script>
 
 <style scoped lang="scss">

@@ -10,13 +10,17 @@
   >
     <div v-if="!!title || !!subtitle" class="flex flex-wrap gap-2 items-start">
       <div class="flex-1 col gap-2">
-        <span
+        <component
+          :is="titleTag"
           v-if="!!title"
-          class="flex-1 line-clamp-1"
           :class="!!titleClass ? titleClass : 'text-2xl font-black'"
-          v-text="title"
-        />
-        <span v-if="!!subtitle" class="text-sm" v-text="subtitle" />
+        >
+          {{ title }}</component
+        >
+
+        <component :is="subtitleTag" v-if="!!subtitle" class="text-sm">
+          {{ subtitle }}</component
+        >
       </div>
 
       <slot name="action">
@@ -55,6 +59,8 @@ withDefaults(
     loading?: boolean;
     containerClass?: string;
     noGap?: boolean;
+    titleTag?: string;
+    subtitleTag?: string;
   }>(),
   {
     title: undefined,
@@ -65,7 +71,9 @@ withDefaults(
     loading: false,
     containerClass: "flex-col",
     noGap: false,
-  },
+    titleTag: "span",
+    subtitleTag: "span",
+  }
 );
 
 defineEmits<{
