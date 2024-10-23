@@ -9,13 +9,16 @@ on:
 jobs:
   check:
     runs-on: ubuntu-latest
-    name: "Deploy to Netlify"
+    name: "Run checks"
     steps:
       - uses: actions/checkout@v4
+
       - name: Setup Node
         uses: actions/setup-node@v4
         with:
           node-version: 18
+
+      - run: npm install
       - run: npm run lint
   deploy:
     runs-on: ubuntu-latest
