@@ -1,5 +1,5 @@
 <template>
-  <main class="main min-h-screen flex center">
+  <main class="main">
     <div v-if="isAppLoaded" class="main-content">
       <template v-if="isSelectedProjectLoading">
         <progress-spinner />
@@ -24,7 +24,7 @@
         </slot>
       </template>
       <template v-else-if="selectedProject != null">
-        <div class="size-full">
+        <div class="w-full">
           <slot name="default" :project="selectedProject" />
         </div>
       </template>
@@ -45,12 +45,14 @@ const { isSelectedProjectError, isSelectedProjectLoading, selectedProject } =
 @import url(@/assets/css/main.scss);
 
 .main {
+  @apply min-h-screen;
   @apply bg-window lg:rounded-tl-3xl lg:rounded-bl-3xl;
   @apply py-6 px-6 xl:py-10 xl:px-12;
 
   .main-content {
-    @apply max-w-screen-2xl w-full min-h-screen;
-    @apply flex center;
+    @apply max-w-screen-2xl w-full min-h-full;
+    @apply mx-auto;
+    @apply flex justify-center;
   }
 }
 </style>

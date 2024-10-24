@@ -14,10 +14,10 @@
     @apply grid grid-flow-row items-start justify-start;
 
     grid-template-columns: repeat(12, 1fr);
-  }
 
-  & > * {
-    height: 100%;
+    & > * {
+      height: 100%;
+    }
   }
 }
 </style>

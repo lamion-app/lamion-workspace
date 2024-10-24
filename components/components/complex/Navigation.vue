@@ -87,15 +87,14 @@ const { createProjectLink } = useProjects();
       @apply w-full;
       @apply flex items-center gap-3;
       @apply py-4 px-4;
-
       @apply text-lg font-bold;
-
       @apply rounded-2xl;
       @apply hover:bg-surface-300 active:bg-surface-400;
       @apply dark:hover:bg-surface-800 dark:active:bg-surface-700;
       @apply transition-all;
 
       &.active {
+        @apply cursor-default;
         @apply bg-surface-300 dark:bg-surface-800;
       }
     }

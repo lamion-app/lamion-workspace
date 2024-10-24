@@ -23,7 +23,7 @@
     <app-card class="mt-4" container-class="col items-start">
       <div class="w-full mt-4 grid lg:grid-cols-2 xl:grid-cols-3 gap-2">
         <Button
-          class="!rounded-xl !bg-surface-200 max-xl:col-span-full"
+          class="!rounded-xl !bg-surface-200 dark:!bg-surface-900 max-xl:col-span-full"
           severity="secondary"
         >
           <m-icon value="add" />
@@ -56,9 +56,9 @@
       </div>
     </app-card>
 
-    <app-card class="mt-4">
+    <app-card class="mt-4" title="Profile">
       <settings-layout
-        :sections="settings"
+        :settings="settings"
         :validation="validateSettingsField"
         @update-text-item="console.log($event) /* TODO */"
         @update-image="console.log('Update image:', $event) /* TODO */"
@@ -75,31 +75,26 @@ const isLogoutDialogVisible = ref(false);
 
 const settings = computed(() => [
   {
-    title: "Profile",
-    items: [
-      {
-        type: "text" as const,
-        key: "username",
-        title: "Username",
-        subtitle: "Displayed name",
-        value: account.value!.username,
-      },
-      {
-        type: "text" as const,
-        key: "email",
-        title: "Contact email",
-        subtitle: "Setup meow email address",
-        value: account.value!.email,
-      },
-      {
-        type: "image" as const,
-        key: "avatar",
-        title: "Avatar",
-        subtitle: "Set profile avatar",
-        value: account.value!.image,
-        label: account.value!.username,
-      },
-    ],
+    type: "text" as const,
+    key: "username",
+    title: "Username",
+    subtitle: "Displayed name",
+    value: account.value!.username,
+  },
+  {
+    type: "text" as const,
+    key: "email",
+    title: "Contact email",
+    subtitle: "Setup meow email address",
+    value: account.value!.email,
+  },
+  {
+    type: "image" as const,
+    key: "avatar",
+    title: "Avatar",
+    subtitle: "Set profile avatar",
+    value: account.value!.image,
+    label: account.value!.username,
   },
 ]);
 
