@@ -152,8 +152,6 @@ useHead({
   title: "Features",
 });
 
-const { createProjectLink } = useProjects();
-
 const featuresSortOp = ref();
 
 const addFeatureDialogVisible = ref(false);

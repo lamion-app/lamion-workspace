@@ -104,8 +104,6 @@ useHead({
   title: "Activity report",
 });
 
-const { createProjectLink } = useProjects();
-
 const viewport = useViewport();
 
 const viewVariants = [

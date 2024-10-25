@@ -60,6 +60,4 @@ definePageMeta({
 useHead({
   title: "Dashboard",
 });
-
-const { createProjectLink } = useProjects();
 </script>

@@ -27,7 +27,6 @@ defineProps<{
 }>();
 
 const isLogoutDialogVisible = ref(false);
-const { createProjectLink } = useProjects();
 </script>
 
 <style scoped lang="scss">

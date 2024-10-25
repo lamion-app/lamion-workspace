@@ -48,7 +48,6 @@ defineEmits<{
 }>();
 
 const route = useRoute();
-const { createProjectLink } = useProjects();
 </script>
 
 <style scoped lang="scss">

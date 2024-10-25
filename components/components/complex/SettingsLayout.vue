@@ -58,7 +58,7 @@
                   <icon-button
                     icon="content_copy"
                     severity="secondary"
-                    @click="copyText(item.value)"
+                    @click="copyTextToClipboard(item.value)"
                   />
 
                   <icon-button
@@ -173,10 +173,6 @@ const isEditMode = computed(() => (item: SettingsItem) => {
     imageEditData.value?.item.key == item.key
   );
 });
-
-function copyText(text: string) {
-  navigator.clipboard.writeText(text);
-}
 
 function cancelEditMode() {
   textEditData.value = undefined;

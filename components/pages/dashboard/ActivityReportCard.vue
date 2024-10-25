@@ -49,10 +49,6 @@
   </app-card>
 </template>
 
-<script setup lang="ts">
-const { createProjectLink } = useProjects();
-</script>
-
 <style lang="scss" scoped>
 .report-card {
   background: linear-gradient(

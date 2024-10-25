@@ -29,18 +29,34 @@
               <span class="text-sm font-thin">{{ item.value }}</span>
             </div>
 
-            <icon-button icon="delete" severity="danger" />
+            <icon-button
+              icon="delete"
+              severity="danger"
+              @click="confirmDeleteItem($event)"
+            />
           </div>
         </div>
 
         <div class="mt-2 flex flex-wrap gap-2">
-          <Button class="max-sm:w-full" rounded severity="primary">
+          <Button
+            as="router-link"
+            class="max-sm:w-full"
+            rounded
+            severity="primary"
+            :to="createProjectLink('settings-token-new')"
+          >
             <m-icon value="add" />
 
             <span>New access token</span>
           </Button>
 
-          <Button class="max-sm:w-full" text rounded severity="danger">
+          <Button
+            class="max-sm:w-full"
+            text
+            rounded
+            severity="danger"
+            @click="confirmRevokeAll()"
+          >
             <m-icon value="delete" />
 
             <span>Revoke all</span>
@@ -48,6 +64,10 @@
         </div>
       </div>
     </app-card>
+
+    <Toast />
+    <confirm-popup group="prompt" />
+    <confirm-dialog group="dialog" />
   </app-layout>
 </template>
 
@@ -59,6 +79,9 @@ definePageMeta({
 useHead({
   title: "Project settings",
 });
+
+const confirm = useConfirm();
+const toast = useToast();
 
 const { selectedProject } = useProjects();
 
@@ -94,6 +117,63 @@ const validateSettingsField = (key: string, value: string) => {
   console.log(key, value);
 
   return true; // TODO
+};
+
+const confirmDeleteItem = (event: MouseEvent) => {
+  confirm.require({
+    group: "prompt",
+    target: event.currentTarget as HTMLElement,
+    message: "Are you sure you want to revoike token?",
+    rejectProps: {
+      label: "Cancel",
+      severity: "secondary",
+      outlined: true,
+    },
+    acceptProps: {
+      label: "Revoke",
+      severity: "danger",
+    },
+    accept: async () => {
+      toast.add({
+        severity: "info",
+        summary: "Confirmed",
+        detail: "You have accepted",
+        life: 3000,
+      });
+    },
+  });
+};
+
+const confirmRevokeAll = () => {
+  confirm.require({
+    group: "dialog",
+    message: "Do you want to revoke all tokens?",
+    header: "Danger Zone",
+    rejectProps: {
+      label: "Cancel",
+      severity: "secondary",
+    },
+    acceptProps: {
+      label: "Delete",
+      severity: "danger",
+    },
+    accept: () => {
+      toast.add({
+        severity: "info",
+        summary: "Confirmed",
+        detail: "Record deleted",
+        life: 3000,
+      });
+    },
+    reject: () => {
+      toast.add({
+        severity: "error",
+        summary: "Rejected",
+        detail: "You have rejected",
+        life: 3000,
+      });
+    },
+  });
 };
 </script>
 

@@ -37,6 +37,3 @@
   </app-card>
 </template>
 
-<script setup lang="ts">
-const { createProjectLink } = useProjects();
-</script>

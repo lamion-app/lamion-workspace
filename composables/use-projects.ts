@@ -12,25 +12,6 @@ export const useProjects = () => {
     });
   };
 
-  const createProjectLink = (page?: string, params?: object) => {
-    let route: string;
-    if (page == undefined || page == "") {
-      route = "p-pId";
-    } else if (page.startsWith("p-pId")) {
-      route = page;
-    } else {
-      route = "p-pId-" + page;
-    }
-
-    return {
-      name: route,
-      params: {
-        pId: store.selectedProjectIndex.value,
-        ...params,
-      },
-    };
-  };
-
   return {
     projects: shallowReadonly(store.projects),
     isProjectsLoading: readonly(store.isProjectsLoading),
@@ -38,7 +19,6 @@ export const useProjects = () => {
     selectedProject: shallowReadonly(store.selectedProject),
     isSelectedProjectLoading: readonly(store.isSelectedProjectLoading),
     isSelectedProjectError: readonly(store.isSelectedProjectError),
-    openProject,
-    createProjectLink,
+    openProject: openProject,
   };
 };

@@ -27,8 +27,6 @@ withDefaults(
     expanded: true,
   }
 );
-
-const { createProjectLink } = useProjects();
 </script>
 
 <style lang="scss" scoped>
