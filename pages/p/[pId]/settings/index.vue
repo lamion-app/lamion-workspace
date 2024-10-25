@@ -65,7 +65,6 @@
       </div>
     </app-card>
 
-    <Toast />
     <confirm-popup group="prompt" />
     <confirm-dialog group="dialog" />
   </app-layout>

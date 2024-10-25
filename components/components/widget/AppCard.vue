@@ -1,5 +1,6 @@
 <template>
-  <div
+  <component
+    :is="as"
     class="app-card"
     :class="{
       filled: variant == 'filled',
@@ -43,7 +44,7 @@
     <slot v-if="loading" name="loader">
       <Loader />
     </slot>
-  </div>
+  </component>
 </template>
 
 <script setup lang="ts">
@@ -61,6 +62,7 @@ withDefaults(
     noGap?: boolean;
     titleTag?: string;
     subtitleTag?: string;
+    as?: string;
   }>(),
   {
     title: undefined,
@@ -73,6 +75,7 @@ withDefaults(
     noGap: false,
     titleTag: "span",
     subtitleTag: "span",
+    as: "div",
   }
 );
 

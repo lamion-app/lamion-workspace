@@ -14,6 +14,13 @@
           variant="filled"
         />
 
+        <InputText
+          class="w-full"
+          type="text"
+          placeholder="Feature description"
+          variant="filled"
+        />
+
         <MultiSelect
           v-model="selectedFunctions"
           class="w-full"
@@ -27,12 +34,12 @@
       <div class="flex flex-wrap max-sm:flex-wrap-reverse gap-2">
         <Button
           class="max-sm:w-full min-w-24"
-          label="Clear"
-          rounded
+          label="Cancel"
           severity="secondary"
+          @click="visible = false"
         />
 
-        <Button class="flex-1" label="Finish" rounded />
+        <Button class="flex-1" label="Finish" />
       </div>
     </div>
   </Dialog>

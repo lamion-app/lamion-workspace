@@ -1,17 +1,35 @@
 <template>
   <app-layout>
     <div class="max-w-[1000px] mx-auto col gap-4">
-      <Button
-        class="max-lg:!hidden w-fit"
-        rounded
-        text
-        plain
-        @click="$router.go(-1)"
-      >
-        <m-icon value="arrow_back" />
+      <div class="w-full flex items-center justify-between">
+        <Button
+          class="max-lg:!hidden w-fit"
+          rounded
+          text
+          plain
+          @click="$router.go(-1)"
+        >
+          <m-icon value="arrow_back" />
 
-        <span>Back</span>
-      </Button>
+          <span>Back</span>
+        </Button>
+
+        <client-only>
+          <component
+            :is="$viewport.isLessThan('lg') ? Teleport : 'div'"
+            to="#header-actions"
+          >
+            <div class="flex gap-2 rounded-full px-2 py-1 lg:bg-surface-800">
+              <icon-button icon="edit" @click="showEditDialog = true" />
+              <icon-button
+                icon="delete"
+                severity="danger"
+                @click="confirmDelete()"
+              />
+            </div>
+          </component>
+        </client-only>
+      </div>
 
       <h1 class="text-6xl line-clamp-1">Authorization</h1>
 
@@ -126,21 +144,36 @@
             </div>
 
             <div class="actions">
-              <icon-button icon="&#xe16f;" severity="danger" />
+              <icon-button
+                icon="link_off"
+                severity="danger"
+                @click="confirmDetachFunction($event)"
+              />
             </div>
           </app-card>
         </div>
       </app-card>
     </div>
+
+    <confirm-dialog group="dialog" />
+    <confirm-popup group="prompt" />
+
+    <edit-feature-dialog v-model:visible="showEditDialog" />
   </app-layout>
 </template>
 
 <script setup lang="ts">
+import { Teleport } from "vue";
+
 definePageMeta({
   layout: "main",
 });
 
 const route = useRoute();
+const confirm = useConfirm();
+const toast = useToast();
+
+const showEditDialog = ref(false);
 
 const title = computed(() => `Feature #${route.params.id}`);
 
@@ -149,6 +182,65 @@ useHead({
 });
 
 const functionsSortOp = ref();
+
+const confirmDelete = () => {
+  confirm.require({
+    group: "dialog",
+    message: "Do you want to delete feature? This action cannot be undone.",
+    header: "Danger Zone",
+    rejectProps: {
+      label: "Cancel",
+      severity: "secondary",
+    },
+    acceptProps: {
+      label: "Delete",
+      severity: "danger",
+    },
+    accept: () => {
+      toast.add({
+        severity: "info",
+        summary: "Confirmed",
+        detail: "Record deleted",
+        life: 3000,
+      });
+
+      navigateTo(createProjectLink());
+    },
+    reject: () => {
+      toast.add({
+        severity: "error",
+        summary: "Rejected",
+        detail: "You have rejected",
+        life: 3000,
+      });
+    },
+  });
+};
+
+const confirmDetachFunction = (event: MouseEvent) => {
+  confirm.require({
+    group: "prompt",
+    target: event.currentTarget as HTMLElement,
+    message: "Are you sure you want to detach function?",
+    rejectProps: {
+      label: "Cancel",
+      severity: "secondary",
+      outlined: true,
+    },
+    acceptProps: {
+      label: "Detach",
+      severity: "danger",
+    },
+    accept: async () => {
+      toast.add({
+        severity: "info",
+        summary: "Confirmed",
+        detail: "You have accepted",
+        life: 3000,
+      });
+    },
+  });
+};
 </script>
 
 <style scoped lang="scss">

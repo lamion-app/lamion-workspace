@@ -1,5 +1,7 @@
 <template>
   <app-card
+    as="router-link"
+    :to="createProjectLink('features-crashes')"
     class="app-health"
     :class="{
       healthy: isHealth,
@@ -29,7 +31,9 @@
     </template>
 
     <template v-else>
-      <span class="text-4xl font-black text-red-700 dark:text-red-100">Crash alert</span>
+      <span class="text-4xl font-black text-red-700 dark:text-red-100"
+        >Crash alert</span
+      >
 
       <p>
         <value-quantity
@@ -39,7 +43,8 @@
           quantity-class="text-red-700 dark:text-red-400"
         />
 
-        <span class="ms-2 quantity text-4xl font-bold text-red-700 dark:text-red-400"
+        <span
+          class="ms-2 quantity text-4xl font-bold text-red-700 dark:text-red-400"
           >crashes</span
         >
       </p>

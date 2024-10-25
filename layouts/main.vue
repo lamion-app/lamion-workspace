@@ -17,6 +17,10 @@
         <h3 class="text-lg font-medium text-nowrap">
           {{ pageTitle }}
         </h3>
+
+        <div class="spacer" />
+
+        <div id="header-actions" />
       </header>
 
       <div class="nav-controller drawer">

@@ -24,6 +24,7 @@
           >
             <template #action>
               <icon-button
+                as="router-link"
                 class="!text-2xl"
                 :class="{
                   '!bg-primary-500': i === 0,
@@ -32,8 +33,8 @@
                   '!text-red-100': i === 1,
                 }"
                 icon="&#xf1e1;"
-                @click="
-                  createProjectLink(i === 0 ? 'features-functions' : 'crashes')
+                :to="
+                  createProjectLink(i === 0 ? 'features-functions' : 'features-crashes')
                 "
               />
             </template>
@@ -133,13 +134,14 @@
                 })
               )
             "
-            @click:edit="addFeatureDialogVisible = true"
+            @click:edit="showEditDialogVisible = true"
           />
         </div>
       </div>
     </dashboard-layout>
 
     <add-feature-dialog v-model:visible="addFeatureDialogVisible" />
+    <edit-feature-dialog v-model:visible="showEditDialogVisible" />
   </app-layout>
 </template>
 
@@ -155,4 +157,5 @@ useHead({
 const featuresSortOp = ref();
 
 const addFeatureDialogVisible = ref(false);
+const showEditDialogVisible = ref(false);
 </script>

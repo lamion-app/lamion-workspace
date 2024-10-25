@@ -11,6 +11,10 @@ body,
   @apply leading-none;
 }
 
+.p-dialog {
+  min-width: max(20vw, 400px) !important;
+}
+
 .p-datatable-header-cell,
 .p-datatable-tbody > tr {
   background: none !important;
