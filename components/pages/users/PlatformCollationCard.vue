@@ -1,12 +1,17 @@
 <template>
-  <app-card class="!rounded-3xl" title="Platforms" variant="outlined" no-gap>
+  <app-card
+    class="!rounded-3xl"
+    :title="$locale('platforms')"
+    variant="outlined"
+    no-gap
+  >
     <div class="-mx-5 px-5 flex-1">
       <radar-chart class="w-full" :items="data" name="devices" />
     </div>
 
     <app-card
       class="-mx-5 -mb-5"
-      title="Top devices"
+      :title="$locale('topDevices')"
       title-class="text-xl font-bold"
     >
       <div class="devices">
@@ -16,8 +21,15 @@
           </Avatar>
 
           <div class="page-content">
-            <span class="name">Chrome 130</span>
-            <span class="total">Total <span class="count">8K</span> calls</span>
+            <span class="name">{{ $locale("chrome130") }}</span>
+
+            <p class="total">
+              <span>
+                {{ $locale("total") }}
+              </span>
+              <span class="mx-1 count">8K</span>
+              <span>{{ $locale("calls") }}</span>
+            </p>
           </div>
 
           <Avatar class="trailing" label="2K" shape="circle" />
@@ -38,7 +50,7 @@ const data = [
     number: 59,
   },
   {
-    name: "WEB/Deskto",
+    name: "WEB/Desktop",
     number: 90,
   },
   {

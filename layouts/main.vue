@@ -26,7 +26,7 @@
       <div class="nav-controller drawer">
         <button
           class="btn-expand"
-          aria-label="Expand"
+          :aria-label="$locale('expand')"
           @click="navigationExpanded = !navigationExpanded"
         >
           <m-icon class="text-lg font-black" value="chevron_right" />

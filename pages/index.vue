@@ -14,8 +14,10 @@
 </template>
 
 <script setup lang="ts">
+const { t } = useI18n();
+
 useHead({
-  title: "Dashboard",
+  title: t("dashboard"),
 });
 
 const { isProjectsLoading, projects, openProject } = useProjects();

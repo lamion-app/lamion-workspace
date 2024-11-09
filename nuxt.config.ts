@@ -71,10 +71,6 @@ export default defineNuxtConfig({
           clientId: process.env.GITHUB_CLIENT_ID,
           redirectUrl: process.env.GITHUB_REDIRECT_URL,
         },
-        google: {
-          clientId: process.env.GOOGLE_OAUTH_CLIENT_ID,
-          redirectUrl: process.env.GOOGLE_REDIRECT_URL,
-        },
       },
     },
   },
@@ -89,6 +85,13 @@ export default defineNuxtConfig({
   },
   i18n: {
     vueI18n: "./configs/i18n.config.ts",
+    strategy: "no_prefix",
+    defaultLocale: "ru",
+    detectBrowserLanguage: {
+      useCookie: true,
+      cookieKey: "i18n_redirected",
+      redirectOn: "root",
+    },
   },
   tailwindcss: {
     configPath: "./configs/tailwind.config.ts",

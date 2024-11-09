@@ -10,30 +10,32 @@
     container-class="size-full col center !gap-2"
   >
     <template v-if="isHealth">
-      <span class="state text-7xl font-black">Health</span>
+      <span class="state text-7xl font-black">{{ $locale("health") }}</span>
 
       <div class="text-lg font-medium">
-        <span v-if="crashes.count == 0">No any crashes in the last week</span>
+        <span v-if="crashes.count == 0">{{
+          $locale("noCrashesInTheLastWeek")
+        }}</span>
 
-        <p v-else>
-          <span>Only </span>
+        <p v-else class="text-center">
+          <span>{{ $locale("only") }} </span>
 
           <value-quantity
-            class="inline text-pink-500 dark:text-pink-300"
+            class="mx-1 text-pink-500 dark:text-pink-300"
             :value="crashes.count"
             :quantity="crashes.quantity"
             quantity-class="opacity-70"
           />
 
-          <span> crashes in the last week</span>
+          <span> {{ $locale("crashesInTheLastWeek") }}</span>
         </p>
       </div>
     </template>
 
     <template v-else>
-      <span class="text-4xl font-black text-red-700 dark:text-red-100"
-        >Crash alert</span
-      >
+      <span class="text-4xl font-black text-red-700 dark:text-red-100">{{
+        $locale("crashAlert")
+      }}</span>
 
       <p>
         <value-quantity
@@ -45,7 +47,7 @@
 
         <span
           class="ms-2 quantity text-4xl font-bold text-red-700 dark:text-red-400"
-          >crashes</span
+          >{{ $locale("crashesCount") }}</span
         >
       </p>
     </template>
@@ -54,7 +56,7 @@
 
 <script setup lang="ts">
 const state = ref({
-  crashes: 5000,
+  crashes: 500,
 });
 
 const isHealth = computed(() => state.value.crashes < 1000);

@@ -2,10 +2,10 @@
   <auth-container>
     <app-card class="max-sm:!contents" :loading="isLoading">
       <form class="form col gap-2" @submit.prevent="onSubmit">
-        <h1 class="text-5xl font-black max-xl:text-center">Welcome back</h1>
+        <h1 class="text-5xl font-black max-xl:text-center">{{ $locale('welcomeBack') }}</h1>
 
         <span class="text-lg text-secondary max-xl:text-center"
-          >Please enter your details</span
+          >{{ $locale('pleaseEnterYourDetails') }}</span
         >
 
         <input-validated
@@ -14,7 +14,7 @@
           :error="errors.email"
           :props="emailAttrs"
           class="mt-6"
-          placeholder="Email"
+          :placeholder="$locale('email')"
           icon="mail"
         />
 
@@ -24,7 +24,7 @@
           :error="errors.password"
           :props="passwordAttrs"
           password
-          placeholder="Password"
+          :placeholder="$locale('password')"
           icon="lock"
         />
 
@@ -32,28 +32,13 @@
           <nuxt-link
             class="text-sm text-primary text-end"
             to="/auth/forgot-password"
-            >Forgot password?
+            >{{ $locale('forgotPassword') }}
           </nuxt-link>
         </div>
 
-        <Button rounded class="mt-6" type="submit">Sign in</Button>
+        <Button rounded class="mt-6" type="submit">{{ $locale('signIn') }}</Button>
 
         <div class="sm:contents flex flex-wrap gap-2">
-          <Button
-            class="flex-1"
-            rounded
-            severity="secondary"
-            @click="signIn.googleOauth()"
-          >
-            <img
-              class="size-8 object-cover"
-              src="https://cdn4.iconfinder.com/data/icons/logos-brands-7/512/google_logo-google_icongoogle-512.png"
-              alt="Google Icon"
-            >
-
-            <span class="max-sm:hidden">Continue with Google</span>
-          </Button>
-
           <Button
             class="flex-1"
             rounded
@@ -63,18 +48,18 @@
             <img
               class="size-8 object-cover dark:invert"
               src="https://cdn-icons-png.flaticon.com/512/25/25231.png"
-              alt="GitHub Icon"
+              :alt="$locale('githubIcon')"
             >
 
-            <span class="max-sm:hidden">Continue with GitHub</span>
+            <span class="max-sm:hidden">{{ $locale('continueWithGithub') }}</span>
           </Button>
         </div>
 
         <span class="mt-4 text-sm text-secondary text-end">
-          <span>Not registered yet? </span>
+          <span>{{ $locale('notRegisteredYet') }} </span>
 
-          <nuxt-link class="text-primary" to="/auth/registration"
-            >Register now</nuxt-link
+          <nuxt-link class="ms-1 text-primary" to="/auth/registration"
+            >{{ $locale('registerNow') }}</nuxt-link
           >
         </span>
       </form>

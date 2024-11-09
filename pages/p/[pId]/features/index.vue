@@ -2,7 +2,7 @@
   <app-layout>
     <dashboard-layout>
       <div class="col-span-full lg:col-span-4 flex flex-col gap-4 !h-[600px]">
-        <app-card title="Total events" class="flex-1">
+        <app-card :title="$locale('totalEvents')" class="flex-1">
           <active-users-chart class="flex-1 -mx-5" />
 
           <text-up-down-indicator
@@ -10,7 +10,7 @@
             icon="&#xe7fd;"
             :value="34"
             quantity="%"
-            label="from last month"
+            :label="$locale('fromLastMonth')"
           />
         </app-card>
 
@@ -19,7 +19,7 @@
             v-for="(_, i) in Array(2)"
             :key="i"
             class="flex-1"
-            :title="['See app functions', 'Manage crashes'][i]"
+            :title="[$locale('seeAppFunctions'), $locale('manageCrashes')][i]"
             title-class="font-bold text-2xl"
           >
             <template #action>
@@ -34,7 +34,9 @@
                 }"
                 icon="&#xf1e1;"
                 :to="
-                  createProjectLink(i === 0 ? 'features-functions' : 'features-crashes')
+                  createProjectLink(
+                    i === 0 ? 'features-functions' : 'features-crashes',
+                  )
                 "
               />
             </template>
@@ -42,45 +44,16 @@
         </div>
       </div>
 
-      <features-card class="col-span-full lg:col-span-8 !h-[600px]">
-        <template #extras>
-          <div class="col">
-            <span class="text-xl text-secondary">Total events</span>
-
-            <value-quantity
-              class="text-4xl"
-              value="5.67"
-              quantity="M"
-              quantity-class="text-3xl text-secondary"
-            />
-          </div>
-
-          <div class="col">
-            <span class="text-xl text-secondary">By last month</span>
-            <value-quantity
-              class="text-4xl"
-              value="300"
-              quantity="K"
-              quantity-class="text-3xl text-secondary"
-            />
-          </div>
-
-          <div class="col">
-            <span class="text-xl text-secondary">Rate</span>
-            <value-quantity
-              class="text-4xl"
-              value="10"
-              quantity="K/day"
-              quantity-class="text-3xl text-secondary"
-            />
-          </div>
-        </template>
-      </features-card>
+      <features-card class="col-span-full lg:col-span-8 !h-[600px]" />
 
       <div class="col-span-full hidden lg:block" />
 
       <div class="col-span-full">
-        <app-card class="!gap-4" title="App features" subtitle="Total 30 items">
+        <app-card
+          class="!gap-4"
+          :title="$locale('appFeatures')"
+          :subtitle="$locale('total_items', { count: 350 })"
+        >
           <div class="flex flex-wrap gap-2">
             <Button
               severity="primary"
@@ -89,7 +62,7 @@
             >
               <m-icon value="add" />
 
-              <span>Create new feature</span>
+              <span>{{ $locale("createNewFeature") }}</span>
             </Button>
 
             <div class="spacer" />
@@ -99,7 +72,7 @@
               rounded
               @click="featuresSortOp.toggle($event)"
             >
-              <span>Sort by</span>
+              <span>{{ $locale("sortBy") }}</span>
               <m-icon value="sort" />
             </Button>
 
@@ -131,7 +104,7 @@
               navigateTo(
                 createProjectLink('features-id', {
                   id: 1,
-                })
+                }),
               )
             "
             @click:edit="showEditDialogVisible = true"

@@ -1,15 +1,15 @@
 <template>
   <div class="logo flex center">
-    <NuxtLink :to="createProjectLink()">
+    <NuxtLink to="/">
       <span
         v-if="expanded"
         class="text-logo text-4xl font-black text-primary select-none cursor-pointer"
-        >APP LOGO</span
+        >{{ $locale("appName") }}</span
       >
 
       <Avatar
         v-else
-        label="A"
+        :label="$locale('appName').charAt(0)"
         shape="circle"
         size="large"
         class="avatar-logo font-black !text-3xl !bg-primary !text-primary-contrast"
@@ -25,7 +25,7 @@ withDefaults(
   }>(),
   {
     expanded: true,
-  }
+  },
 );
 </script>
 

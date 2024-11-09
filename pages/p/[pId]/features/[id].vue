@@ -11,7 +11,7 @@
         >
           <m-icon value="arrow_back" />
 
-          <span>Back</span>
+          <span>{{ $locale("back") }}</span>
         </Button>
 
         <client-only>
@@ -33,15 +33,7 @@
 
       <h1 class="text-6xl line-clamp-1">Authorization</h1>
 
-      <p>
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce
-        dignissim, eros et consectetur pharetra, risus quam interdum lectus, vel
-        pellentesque leo neque at quam. Maecenas maximus ultricies eleifend.
-        Nullam porttitor, lacus sed aliquam interdum, mauris turpis placerat
-        purus, vulputate pellentesque ex turpis vitae odio. Curabitur pulvinar,
-        mi sit amet condimentum vehicula, ipsum tortor dignissim ligula, at
-        faucibus dolor eros in leo.
-      </p>
+      <p>loremIpsumDolorSitAmetConsecteturAdipiscingElitFus</p>
 
       <div class="w-full flex flex-wrap gap-2">
         <div
@@ -63,7 +55,7 @@
       </div>
 
       <div class="lg:grid lg:grid-cols-2 gap-4">
-        <app-card title="Total events" class="mt-4">
+        <app-card :title="$locale('totalEvents')" class="mt-4">
           <active-users-chart class="flex-1 -mx-5" />
 
           <text-up-down-indicator
@@ -71,12 +63,12 @@
             icon="&#xe7fd;"
             :value="34"
             quantity="%"
-            label="from last month"
+            :label="$locale('fromLastMonth')"
           />
         </app-card>
 
         <!-- TODO: make red -->
-        <app-card title="Crash rate" class="mt-4">
+        <app-card :title="$locale('crashRate')" class="mt-4">
           <active-users-chart class="flex-1 -mx-5" />
 
           <text-up-down-indicator
@@ -84,19 +76,22 @@
             icon="&#xe7fd;"
             :value="34"
             quantity="%"
-            label="from last month"
+            :label="$locale('fromLastMonth')"
           />
         </app-card>
       </div>
 
-      <app-card title="Functions" title-class="text-xl font-medium">
+      <app-card :title="$locale('functions')" title-class="text-xl font-medium">
         <div class="filters flex flex-wrap justify-between gap-2">
           <IconField>
             <InputIcon>
               <span class="text-lg material-symbols-outlined">&#xe8b6;</span>
             </InputIcon>
 
-            <InputText class="w-full lg:w-[350px]" placeholder="Search" />
+            <InputText
+              class="w-full lg:w-[350px]"
+              :placeholder="$locale('search')"
+            />
           </IconField>
 
           <Button
@@ -104,14 +99,17 @@
             rounded
             @click="functionsSortOp.toggle($event)"
           >
-            <span>Sort by</span>
+            <span>{{ $locale("sortBy") }}</span>
             <m-icon value="sort" class="text-lg" />
           </Button>
 
           <Popover ref="functionsSortOp">
             <div class="col">
               <button
-                v-for="item in ['Events count', 'Date added']"
+                v-for="item in [
+                  t('featurePage.functions.sort.event'),
+                  t('featurePage.functions.sort.date'),
+                ]"
                 :key="item"
                 class="rounded px-4 py-2 text-start"
                 :class="{
@@ -131,11 +129,15 @@
             container-class="!flex-row items-center"
           >
             <div class="page-content flex-1">
-              <span class="text-lg font-medium">Function name</span>
+              <span class="text-lg font-medium">{{
+                $locale("functionName")
+              }}</span>
 
               <div class="text-sm font-thin">
-                <span>Total events: </span>
+                <span>{{ $locale("totalEvents") }}</span>
+
                 <value-quantity
+                  class="ms-1"
                   value="20"
                   quantity="K"
                   quantity-class="text-secondary"
@@ -169,6 +171,7 @@ definePageMeta({
   layout: "main",
 });
 
+const { t } = useI18n();
 const route = useRoute();
 const confirm = useConfirm();
 const toast = useToast();
@@ -186,14 +189,14 @@ const functionsSortOp = ref();
 const confirmDelete = () => {
   confirm.require({
     group: "dialog",
-    message: "Do you want to delete feature? This action cannot be undone.",
-    header: "Danger Zone",
+    message: t("featurePage.dialogs.delete.subtitle"),
+    header: t("featurePage.dialogs.delete.title"),
     rejectProps: {
-      label: "Cancel",
+      label: t("cancel"),
       severity: "secondary",
     },
     acceptProps: {
-      label: "Delete",
+      label: t("delete"),
       severity: "danger",
     },
     accept: () => {
@@ -221,14 +224,14 @@ const confirmDetachFunction = (event: MouseEvent) => {
   confirm.require({
     group: "prompt",
     target: event.currentTarget as HTMLElement,
-    message: "Are you sure you want to detach function?",
+    message: t("featurePage.dialogs.detachFeature.title"),
     rejectProps: {
-      label: "Cancel",
+      label: t("cancel"),
       severity: "secondary",
       outlined: true,
     },
     acceptProps: {
-      label: "Detach",
+      label: t("featurePage.dialogs.detachFeature.confirm"),
       severity: "danger",
     },
     accept: async () => {

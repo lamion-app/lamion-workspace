@@ -18,7 +18,28 @@
       <div
         class="info flex flex-wrap gap-4 lg:h-full lg:flex-col lg:justify-end"
       >
-        <slot name="extras" />
+        <div class="col">
+          <span class="text-xl text-secondary">{{ $locale("byAllTime") }}</span>
+
+          <value-quantity
+            class="text-4xl"
+            value="5.67"
+            quantity="M"
+            quantity-class="text-3xl text-secondary"
+          />
+        </div>
+
+        <div class="col">
+          <span class="text-xl text-secondary">{{
+            $locale("bySelectedPeriod")
+          }}</span>
+          <value-quantity
+            class="text-4xl"
+            value="300"
+            quantity="K"
+            quantity-class="text-3xl text-secondary"
+          />
+        </div>
       </div>
 
       <bar-chart
@@ -30,7 +51,7 @@
         <template #tooltip="{ index }">
           <div class="w-20 bg-surface-800 rounded-xl p-5">
             <span>{{ array[index].name }}</span>
-            <hr >
+            <hr />
             <span>{{ array[index].number }}</span>
           </div>
         </template>
@@ -40,14 +61,16 @@
 </template>
 
 <script setup lang="ts">
+const { t } = useI18n();
+
 const tab = ref(DatePeriod.DAY);
 
 const datePeriodNames = new Map<DatePeriod, string>([
-  [DatePeriod.DAY, "Daily"],
-  [DatePeriod.WEEK, "Weekly"],
-  [DatePeriod.MONTH, "Monthly"],
-  [DatePeriod.YEAR, "Yearly"],
-  [DatePeriod.ALL_TIME, "All time"],
+  [DatePeriod.DAY, t("daily")],
+  [DatePeriod.WEEK, t("weekly")],
+  [DatePeriod.MONTH, t("monthly")],
+  [DatePeriod.YEAR, t("yearly")],
+  [DatePeriod.ALL_TIME, t("all_time")],
 ]);
 const datePeriods = DatePeriodEntries.map((d) => ({
   value: d,

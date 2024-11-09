@@ -1,12 +1,9 @@
+import * as Locales from "@/configs/locales";
+
 export default defineI18nConfig(() => ({
-  legacy: false,
-  locale: "en",
+  fallbackLocale: "ru",
   messages: {
-    en: {
-      welcome: "Welcome",
-    },
-    fr: {
-      welcome: "Bienvenue",
-    },
+    en: Locales.EnglishLocale,
+    ru: Locales.RussianLocale,
   },
 }));

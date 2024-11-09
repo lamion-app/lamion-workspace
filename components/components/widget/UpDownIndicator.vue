@@ -21,7 +21,7 @@
         'text-primary-500': isUp,
         'text-red-500': !isUp,
       }"
-      >{{ Math.abs(value) }}{{ quantity }}</span
+      >{{ `${Math.abs(value)}${quantity}` }}</span
     >
   </div>
 </template>

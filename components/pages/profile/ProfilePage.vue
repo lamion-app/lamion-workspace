@@ -13,7 +13,7 @@
         <span
           class="text-sm text-red-400 font-bold cursor-pointer"
           @click.prevent="isLogoutDialogVisible = true"
-          >Logout</span
+          >{{ $locale("logout") }}</span
         >
       </div>
     </app-card>
@@ -28,7 +28,7 @@
         >
           <m-icon value="add" />
 
-          <span>Create new project</span>
+          <span>{{ $locale("createNewProject") }}</span>
         </Button>
 
         <app-card
@@ -56,7 +56,7 @@
       </div>
     </app-card>
 
-    <app-card class="mt-4" title="Profile">
+    <app-card class="mt-4" :title="$locale('profile')">
       <settings-layout
         :settings="settings"
         :validation="validateSettingsField"
@@ -69,6 +69,8 @@
 </template>
 
 <script setup lang="ts">
+const { t } = useI18n();
+
 const { account } = useAppAuth();
 
 const isLogoutDialogVisible = ref(false);
@@ -77,22 +79,22 @@ const settings = computed(() => [
   {
     type: "text" as const,
     key: "username",
-    title: "Username",
-    subtitle: "Displayed name",
+    title: t("username"),
+    subtitle: "displayedName",
     value: account.value!.username,
   },
   {
     type: "text" as const,
     key: "email",
-    title: "Contact email",
-    subtitle: "Setup meow email address",
+    title: t("contactEmail"),
+    subtitle: t("setupContactEmail"),
     value: account.value!.email,
   },
   {
     type: "image" as const,
     key: "avatar",
-    title: "Avatar",
-    subtitle: "Set profile avatar",
+    title: t("avatar"),
+    subtitle: t("setupAvatar"),
     value: account.value!.image,
     label: account.value!.username,
   },

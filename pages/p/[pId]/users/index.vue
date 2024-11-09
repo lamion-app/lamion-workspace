@@ -10,7 +10,7 @@
       <platform-collation-card class="col-span-4 2xl:col-span-3 row-span-2" />
 
       <app-card
-        title="User activity time"
+        :title="$locale('userActivityTime')"
         class="col-span-8 2xl:col-span-9 row-span-1 !overflow-x-auto"
       >
         <user-activity-time class="-mx-5" />
@@ -18,13 +18,13 @@
 
       <app-card
         class="col-span-full"
-        title="Devices info"
+        :title="$locale('devicesInfo')"
         title-class="text-2xl font-bold"
       >
         <template #action>
           <SelectButton
-            model-value="Today"
-            :options="['Today', 'Month', 'Yearly']"
+            :model-value="$locale('daily')"
+            :options="[$locale('daily'), $locale('monthly'), $locale('yearly')]"
             aria-labelledby="basic"
           />
         </template>

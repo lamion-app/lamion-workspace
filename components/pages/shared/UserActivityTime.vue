@@ -14,7 +14,7 @@
         <span class="text-lg font-black"
           >{{ (Math.ceil(item.number / 500) * 500) / 1000 }}k</span
         >
-        <span class="text-sm font-normal">users</span>
+        <span class="text-sm font-normal">{{ $locale("sessions_count") }}</span>
       </div>
     </template>
 

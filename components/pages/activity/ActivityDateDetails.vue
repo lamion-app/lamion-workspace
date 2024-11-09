@@ -1,11 +1,11 @@
 <template>
   <div class="col gap-6">
-    <h2 class="text-4xl font-bold">{{ 1 + item }} August</h2>
+    <h2 class="text-4xl font-bold">{{ $locale('1ItemAugust') }}</h2>
 
     <div class="flex flex-wrap gap-2">
       <app-card
         class="min-w-[200px] flex-1 bg-window"
-        title="Active users"
+        :title="$locale('activeUsers')"
         title-class="text-sm font-medium text-secondary"
       >
         <value-quantity
@@ -18,7 +18,7 @@
 
       <app-card
         class="min-w-[250px] flex-1 bg-window"
-        title="Triggered events"
+        :title="$locale('triggeredEvents')"
         title-class="text-sm font-medium text-secondary"
       >
         <value-quantity
@@ -31,7 +31,7 @@
 
       <app-card
         class="min-w-[100px] flex-1 bg-window"
-        title="Crashes"
+        :title="$locale('crashesCountCapitalize')"
         title-class="text-sm font-medium text-secondary"
       >
         <value-quantity
@@ -43,16 +43,16 @@
     </div>
 
     <app-card
-      title="Most used features"
+      :title="$locale('mostUsedFeatures')"
       title-class="text-sm font-medium text-secondary"
     >
       <div class="items col gap-2">
         <div class="flex gap-2 justify-between items-center">
           <div>
-            <span class="font-bold">Sign in</span>
+            <span class="font-bold">{{ $locale('signIn') }}</span>
 
             <div class="flex items-center gap-1 text-sm text-secondary">
-              <span>Total events:</span>
+              <span>{{ $locale('totalEvents') }}</span>
 
               <value-quantity class="font-black" value="1" quantity="K" />
             </div>
@@ -65,10 +65,10 @@
 
         <div class="flex gap-2 justify-between items-center">
           <div>
-            <span class="font-bold">Sign in</span>
+            <span class="font-bold">{{ $locale('signIn') }}</span>
 
             <div class="flex items-center gap-1 text-sm text-secondary">
-              <span>Total events:</span>
+              <span>{{ $locale('totalEvents') }}</span>
 
               <value-quantity class="font-black" value="1" quantity="K" />
             </div>
@@ -79,7 +79,7 @@
       </div>
     </app-card>
 
-    <app-card title="In-app activity">
+    <app-card :title="$locale('inappActivity')">
       <user-activity-time class="!max-h-[400px] -mx-3" />
     </app-card>
   </div>

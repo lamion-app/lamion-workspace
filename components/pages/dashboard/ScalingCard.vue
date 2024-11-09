@@ -1,7 +1,7 @@
 <template>
   <app-card
     :title="title"
-    subtitle="Today's summary"
+    :subtitle="$locale('todaySummary')"
     title-class="text-4xl font-black"
     title-tag="h1"
   >
@@ -33,13 +33,15 @@
 </template>
 
 <script setup lang="ts">
+const { t } = useI18n();
+
 defineProps<{
   title: string;
 }>();
 
 const items = [
   {
-    name: "Total users",
+    name: t("totalUsers"),
     value: 300,
     quantity: "K",
     change: {
@@ -48,7 +50,7 @@ const items = [
     },
   },
   {
-    name: "Active users",
+    name: t("activeUsers"),
     value: 2.2,
     quantity: "K",
     change: {
@@ -57,7 +59,7 @@ const items = [
     },
   },
   {
-    name: "Crashes",
+    name: t("crashes"),
     value: 12,
     quantity: "K",
     change: {
@@ -67,7 +69,7 @@ const items = [
     },
   },
   {
-    name: "Triggered events",
+    name: t("triggeredEvents"),
     value: 616,
     quantity: "B",
     change: {

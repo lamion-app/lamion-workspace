@@ -6,7 +6,6 @@ export const useAppAuth = () => {
   const providers: Array<AuthProvider<any>> = [
     CredentialsAuthProvider,
     GitHubAuthProvider,
-    GoogleAuthProvider,
   ];
 
   const isLoggedIn = computed(() => !!data.value);
@@ -40,7 +39,6 @@ export const useAppAuth = () => {
           console.log("Auth completed");
         });
       },
-      googleOauth: GoogleAuthProvider.invoke.bind(GoogleAuthProvider, config),
       githubOauth: GitHubAuthProvider.invoke.bind(GitHubAuthProvider, config),
     },
   };
