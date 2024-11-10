@@ -2,14 +2,14 @@
   <NuxtLink :to="createProjectLink('profile')" class="w-full">
     <app-card class="profile" :class="{ expanded: expanded }">
       <div class="profile-content">
-        <label-image :label="account.username" :image="account.image" />
+        <label-image :label="account.username" :image="account.avatar" />
 
         <div class="profile-data">
           <span class="name" v-text="account.username" />
 
-          <span class="logout" @click.prevent="isLogoutDialogVisible = true"
-            >{{ $locale('logout') }}</span
-          >
+          <span class="logout" @click.prevent="isLogoutDialogVisible = true">{{
+            $locale("logout")
+          }}</span>
         </div>
 
         <m-icon class="icon" value="chevron_right" />

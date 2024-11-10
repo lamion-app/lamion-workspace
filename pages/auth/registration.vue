@@ -2,7 +2,9 @@
   <auth-container>
     <app-card class="max-sm:!contents" :loading="isLoading">
       <form class="form col gap-2" @submit.prevent="onSubmit">
-        <h1 class="text-5xl font-black max-xl:text-center">{{ $locale('registration') }}</h1>
+        <h1 class="text-5xl font-black max-xl:text-center">
+          {{ $locale("registration") }}
+        </h1>
 
         <input-validated
           v-model="email"
@@ -33,7 +35,20 @@
           icon="lock"
         />
 
-        <Button rounded class="mt-6" type="submit">{{ $locale('signUp') }}</Button>
+        <span
+          v-if="showErrors && !isLoading && isInvalidCredentialsErrorVisible"
+          class="text-lg text-red-500 text-center whitespace-pre-line"
+        >
+          {{ $locale("auth.signUp.credentialsError") }}
+        </span>
+
+        <Button
+          rounded
+          class="mt-6"
+          type="submit"
+          :disabled="isLoading || !isFormValid"
+          >{{ $locale("signUp") }}
+        </Button>
 
         <div class="sm:contents flex flex-wrap gap-2">
           <Button
@@ -46,16 +61,20 @@
               class="size-8 object-cover dark:invert"
               src="https://cdn-icons-png.flaticon.com/512/25/25231.png"
               :alt="$locale('githubIcon')"
-            >
+            />
 
-            <span class="max-sm:hidden">{{ $locale('continueWithGithub') }}</span>
+            <span class="max-sm:hidden">{{
+              $locale("continueWithGithub")
+            }}</span>
           </Button>
         </div>
 
         <span class="mt-4 text-sm text-secondary text-end">
-          <span>{{ $locale('alreadyRegistered') }} </span>
+          <span>{{ $locale("alreadyRegistered") }} </span>
 
-          <nuxt-link class="ms-1 text-primary" to="/auth/login">{{ $locale('signIn') }}</nuxt-link>
+          <nuxt-link class="ms-1 text-primary" to="/auth/login">{{
+            $locale("signIn")
+          }}</nuxt-link>
         </span>
       </form>
     </app-card>
@@ -77,7 +96,7 @@ useHead({
   title: "Registration",
 });
 
-const { signIn, isLoading } = useAppAuth();
+const { signUp, signIn } = useAppAuth();
 
 const validationSchema = yup.object({
   email: yup.string().email().min(4).required(),
@@ -94,18 +113,38 @@ const [username, usernameAttrs] = defineField("username");
 const [password, passwordAttrs] = defineField("password");
 
 const showErrors = ref(false);
+const isLoading = ref(false);
+const isInvalidCredentialsErrorVisible = ref(false);
 
-function onSubmit() {
+const isFormValid = computed(() => {
+  return (
+    !!email.value &&
+    !!username.value &&
+    !!password.value &&
+    !errors.value["email"] &&
+    !errors.value["username"] &&
+    !errors.value["password"]
+  );
+});
+
+async function onSubmit() {
   // Show errors only after first submit
   showErrors.value = true;
 
   const e = Object.keys(errors.value);
   if (e.length > 0) return;
 
-  // TODO: add signup
-  signIn.credentials(
-    values.email.substring(0, values.email.length - 10), // TODO: remove on prod
-    values.password,
-  );
+  isLoading.value = true;
+
+  try {
+    await signUp(values.email, values.username, values.password);
+    isInvalidCredentialsErrorVisible.value = false;
+  } catch (e) {
+    console.error(e);
+
+    isInvalidCredentialsErrorVisible.value = true;
+  }
+
+  isLoading.value = false;
 }
 </script>

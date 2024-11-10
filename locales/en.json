@@ -11,6 +11,14 @@
   "appFunctionsSubtitle": "Search across all app functions",
   "appFunctionsTitle": "App functions",
   "appName": "Lamion",
+  "auth": {
+    "signIn": {
+      "credentialsError": "No account was found with these credentials.\nPlease check your credentials and try again."
+    },
+    "signUp": {
+      "credentialsError": "Account with such credentials already exists."
+    }
+  },
   "avatar": "Avatar",
   "averageInAppActivitySubtitle": "See which features are most important to users",
   "averageInAppActivityTitle": "Average in-app activity",

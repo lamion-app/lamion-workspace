@@ -11,6 +11,14 @@
   "appFunctionsSubtitle": "Поиск по всем функциям приложения",
   "appFunctionsTitle": "Функции приложения",
   "appName": "Lamion",
+  "auth": {
+    "signIn": {
+      "credentialsError": "Учетная запись не найдена."
+    },
+    "signUp": {
+      "credentialsError": "Учетная запись с такими данными уже существует."
+    }
+  },
   "avatar": "Аватар",
   "averageInAppActivitySubtitle": "Посмотрите, какие функции наиболее важны для пользователей",
   "averageInAppActivityTitle": "Средняя активность в приложении",

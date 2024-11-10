@@ -4,7 +4,7 @@
       <label-image
         class="!size-[150px] !bg-window !text-6xl font-black"
         :label="account!.username"
-        :image="account!.image"
+        :image="account!.avatar"
       />
 
       <div class="col gap-2">
@@ -95,7 +95,7 @@ const settings = computed(() => [
     key: "avatar",
     title: t("avatar"),
     subtitle: t("setupAvatar"),
-    value: account.value!.image,
+    value: account.value!.avatar,
     label: account.value!.username,
   },
 ]);
