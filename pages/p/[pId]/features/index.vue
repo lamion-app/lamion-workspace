@@ -2,7 +2,7 @@
   <app-layout>
     <dashboard-layout>
       <div class="col-span-full lg:col-span-4 flex flex-col gap-4 !h-[600px]">
-        <app-card :title="$locale('totalEvents')" class="flex-1">
+        <app-card :title="$locale('features.totalEvents')" class="flex-1">
           <active-users-chart class="flex-1 -mx-5" />
 
           <text-up-down-indicator
@@ -10,7 +10,7 @@
             icon="&#xe7fd;"
             :value="34"
             quantity="%"
-            :label="$locale('fromLastMonth')"
+            :label="$locale('common.phrases.fromLastMonth')"
           />
         </app-card>
 
@@ -19,7 +19,12 @@
             v-for="(_, i) in Array(2)"
             :key="i"
             class="flex-1"
-            :title="[$locale('seeAppFunctions'), $locale('manageCrashes')][i]"
+            :title="
+              [
+                $locale('features.seeAppFunctions'),
+                $locale('features.manageCrashes'),
+              ][i]
+            "
             title-class="font-bold text-2xl"
           >
             <template #action>
@@ -51,8 +56,8 @@
       <div class="col-span-full">
         <app-card
           class="!gap-4"
-          :title="$locale('appFeatures')"
-          :subtitle="$locale('total_items', { count: 350 })"
+          :title="$locale('features.totalFeatures')"
+          :subtitle="$locale('features.totalItems', { count: 350 })"
         >
           <div class="flex flex-wrap gap-2">
             <Button
@@ -62,7 +67,7 @@
             >
               <m-icon value="add" />
 
-              <span>{{ $locale("createNewFeature") }}</span>
+              <span>{{ $locale("features.createNewFeature") }}</span>
             </Button>
 
             <div class="spacer" />
@@ -72,14 +77,18 @@
               rounded
               @click="featuresSortOp.toggle($event)"
             >
-              <span>{{ $locale("sortBy") }}</span>
+              <span>{{ $locale("common.simple.sortBy") }}</span>
               <m-icon value="sort" />
             </Button>
 
             <Popover ref="featuresSortOp">
               <div class="col">
                 <button
-                  v-for="item in ['Requests', 'Errors', 'Date created']"
+                  v-for="item in [
+                    $locale('features.sort.requests'),
+                    $locale('features.sort.errors'),
+                    $locale('features.sort.createdAt'),
+                  ]"
                   :key="item"
                   class="rounded px-4 py-2 text-start"
                   :class="{

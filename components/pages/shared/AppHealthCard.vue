@@ -10,15 +10,17 @@
     container-class="size-full col center !gap-2"
   >
     <template v-if="isHealth">
-      <span class="state text-7xl font-black">{{ $locale("health") }}</span>
+      <span class="state text-7xl font-black">{{
+        $locale("health.title")
+      }}</span>
 
       <div class="text-lg font-medium">
         <span v-if="crashes.count == 0">{{
-          $locale("noCrashesInTheLastWeek")
+          $locale("health.noCrashesInTheLastWeek")
         }}</span>
 
         <p v-else class="text-center">
-          <span>{{ $locale("only") }} </span>
+          <span>{{ $locale("common.simple.only") }} </span>
 
           <value-quantity
             class="mx-1 text-pink-500 dark:text-pink-300"
@@ -27,14 +29,14 @@
             quantity-class="opacity-70"
           />
 
-          <span> {{ $locale("crashesInTheLastWeek") }}</span>
+          <span> {{ $locale("health.crashesInTheLastWeek") }}</span>
         </p>
       </div>
     </template>
 
     <template v-else>
       <span class="text-4xl font-black text-red-700 dark:text-red-100">{{
-        $locale("crashAlert")
+        $locale("health.crashAlert")
       }}</span>
 
       <p>
@@ -47,7 +49,7 @@
 
         <span
           class="ms-2 quantity text-4xl font-bold text-red-700 dark:text-red-400"
-          >{{ $locale("crashesCount") }}</span
+          >{{ $locale("health.crashesCount") }}</span
         >
       </p>
     </template>

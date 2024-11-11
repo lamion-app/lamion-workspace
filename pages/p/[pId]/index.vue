@@ -25,7 +25,7 @@
 
       <app-card
         class="col-span-full lg:col-span-7 2xl:col-span-7 !overflow-x-auto"
-        :title="$locale('userActivityTime')"
+        :title="$locale('userActivityTime.title')"
         title-class="text-xl font-bold"
       >
         <user-activity-time class="-mx-3 -mb-3" />
@@ -36,10 +36,7 @@
 
 <script setup lang="ts">
 definePageMeta({
+  title: "dashboard.title",
   layout: "main",
-});
-
-useHead({
-  title: "Dashboard",
 });
 </script>

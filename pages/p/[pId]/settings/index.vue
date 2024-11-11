@@ -125,7 +125,7 @@ const confirmDeleteItem = (event: MouseEvent) => {
     target: event.currentTarget as HTMLElement,
     message: t("settings.accessTokens.dialogs.revokeToken.title"),
     rejectProps: {
-      label: t("cancel"),
+      label: t("common.simple.cancel"),
       severity: "secondary",
       outlined: true,
     },
@@ -150,7 +150,7 @@ const confirmRevokeAll = () => {
     message: t("settings.accessTokens.dialogs.revokeAllTokens.subtitle"),
     header: t("settings.accessTokens.dialogs.revokeAllTokens.title"),
     rejectProps: {
-      label: t("cancel"),
+      label: t("common.simple.cancel"),
       severity: "secondary",
     },
     acceptProps: {

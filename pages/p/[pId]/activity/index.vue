@@ -3,7 +3,7 @@
     <app-card>
       <div class="col gap-8">
         <div class="flex flex-wrap justify-between gap-2">
-          <h1 class="text-4xl font-medium">{{ $locale('activityReport') }}</h1>
+          <h1 class="text-4xl font-medium">{{ $locale('activity.title') }}</h1>
 
           <div class="actions flex flex-wrap items-center gap-2">
             <icon-button icon="&#xe5cb;" />

@@ -13,7 +13,7 @@
         <span
           class="text-sm text-red-400 font-bold cursor-pointer"
           @click.prevent="isLogoutDialogVisible = true"
-          >{{ $locale("logout") }}</span
+          >{{ $locale("auth.logout.action") }}</span
         >
       </div>
     </app-card>
@@ -28,7 +28,7 @@
         >
           <m-icon value="add" />
 
-          <span>{{ $locale("createNewProject") }}</span>
+          <span>{{ $locale("profile.createNewProject") }}</span>
         </Button>
 
         <app-card
@@ -56,7 +56,7 @@
       </div>
     </app-card>
 
-    <app-card class="mt-4" :title="$locale('profile')">
+    <app-card class="mt-4" :title="$locale('profile.title')">
       <settings-layout
         :settings="settings"
         :validation="validateSettingsField"
@@ -79,22 +79,22 @@ const settings = computed(() => [
   {
     type: "text" as const,
     key: "username",
-    title: t("username"),
-    subtitle: "displayedName",
+    title: t("profile.settings.username.title"),
+    subtitle: t("profile.settings.username.subtitle"),
     value: account.value!.username,
   },
   {
     type: "text" as const,
     key: "email",
-    title: t("contactEmail"),
-    subtitle: t("setupContactEmail"),
+    title: t("profile.settings.email.title"),
+    subtitle: t("profile.settings.email.subtitle"),
     value: account.value!.email,
   },
   {
     type: "image" as const,
     key: "avatar",
-    title: t("avatar"),
-    subtitle: t("setupAvatar"),
+    title: t("profile.settings.avatar.title"),
+    subtitle: t("profile.settings.avatar.subtitle"),
     value: account.value!.avatar,
     label: account.value!.username,
   },

@@ -80,6 +80,7 @@ export default defineNuxtConfig({
     checker: true,
   },
   i18n: {
+    baseUrl: process.env.WORKSPACE_ORIGIN,
     vueI18n: "./configs/i18n.config.ts",
     strategy: "no_prefix",
     defaultLocale: "ru",
@@ -88,6 +89,16 @@ export default defineNuxtConfig({
       cookieKey: "i18n_redirected",
       redirectOn: "root",
     },
+    locales: [
+      {
+        code: "en",
+        language: "en-US",
+      },
+      {
+        code: "ru",
+        language: "ru-RU",
+      },
+    ],
   },
   tailwindcss: {
     configPath: "./configs/tailwind.config.ts",

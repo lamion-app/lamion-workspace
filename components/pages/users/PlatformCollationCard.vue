@@ -1,7 +1,7 @@
 <template>
   <app-card
     class="!rounded-3xl"
-    :title="$locale('platforms')"
+    :title="$locale('users.platforms')"
     variant="outlined"
     no-gap
   >
@@ -11,7 +11,7 @@
 
     <app-card
       class="-mx-5 -mb-5"
-      :title="$locale('topDevices')"
+      :title="$locale('users.topDevices')"
       title-class="text-xl font-bold"
     >
       <div class="devices">
@@ -21,14 +21,14 @@
           </Avatar>
 
           <div class="page-content">
-            <span class="name">{{ $locale("chrome130") }}</span>
+            <span class="name">chrome130</span>
 
             <p class="total">
               <span>
-                {{ $locale("total") }}
+                {{ $locale("common.simple.total") }}
               </span>
               <span class="mx-1 count">8K</span>
-              <span>{{ $locale("calls") }}</span>
+              <span>{{ $locale("common.simple.calls") }}</span>
             </p>
           </div>
 

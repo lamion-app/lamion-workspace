@@ -19,7 +19,9 @@
         class="info flex flex-wrap gap-4 lg:h-full lg:flex-col lg:justify-end"
       >
         <div class="col">
-          <span class="text-xl text-secondary">{{ $locale("byAllTime") }}</span>
+          <span class="text-xl text-secondary">{{
+            $locale("dashboard.featuresRating.byAllTime")
+          }}</span>
 
           <value-quantity
             class="text-4xl"
@@ -31,7 +33,7 @@
 
         <div class="col">
           <span class="text-xl text-secondary">{{
-            $locale("bySelectedPeriod")
+            $locale("dashboard.featuresRating.bySelectedPeriod")
           }}</span>
           <value-quantity
             class="text-4xl"
@@ -45,7 +47,7 @@
       <bar-chart
         class="chart h-full flex-1 max-lg:-mx-3 rounded bg-transparent"
         color="sky"
-        name="Daily calls"
+        :name="$locale('dashboard.featuresRating.chartName')"
         :data="array"
       >
         <template #tooltip="{ index }">
@@ -66,11 +68,11 @@ const { t } = useI18n();
 const tab = ref(DatePeriod.DAY);
 
 const datePeriodNames = new Map<DatePeriod, string>([
-  [DatePeriod.DAY, t("daily")],
-  [DatePeriod.WEEK, t("weekly")],
-  [DatePeriod.MONTH, t("monthly")],
-  [DatePeriod.YEAR, t("yearly")],
-  [DatePeriod.ALL_TIME, t("all_time")],
+  [DatePeriod.DAY, t("datetime.periods.daily")],
+  [DatePeriod.WEEK, t("datetime.periods.weekly")],
+  [DatePeriod.MONTH, t("datetime.periods.monthly")],
+  [DatePeriod.YEAR, t("datetime.periods.yearly")],
+  [DatePeriod.ALL_TIME, t("datetime.periods.all_time")],
 ]);
 const datePeriods = DatePeriodEntries.map((d) => ({
   value: d,

@@ -14,11 +14,5 @@
 </template>
 
 <script setup lang="ts">
-const { t } = useI18n();
-
-useHead({
-  title: t("dashboard"),
-});
-
 const { isProjectsLoading, projects, openProject } = useProjects();
 </script>

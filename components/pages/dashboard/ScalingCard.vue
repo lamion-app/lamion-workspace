@@ -1,7 +1,7 @@
 <template>
   <app-card
     :title="title"
-    :subtitle="$locale('todaySummary')"
+    :subtitle="$locale('dashboard.todaySummary')"
     title-class="text-4xl font-black"
     title-tag="h1"
   >
@@ -41,7 +41,7 @@ defineProps<{
 
 const items = [
   {
-    name: t("totalUsers"),
+    name: t("dashboard.totalUsers"),
     value: 300,
     quantity: "K",
     change: {
@@ -50,7 +50,7 @@ const items = [
     },
   },
   {
-    name: t("activeUsers"),
+    name: t("dashboard.activeUsers"),
     value: 2.2,
     quantity: "K",
     change: {
@@ -59,7 +59,7 @@ const items = [
     },
   },
   {
-    name: t("crashes"),
+    name: t("dashboard.crashes"),
     value: 12,
     quantity: "K",
     change: {
@@ -69,7 +69,7 @@ const items = [
     },
   },
   {
-    name: t("triggeredEvents"),
+    name: t("dashboard.triggeredEvents"),
     value: 616,
     quantity: "B",
     change: {

@@ -1,12 +1,17 @@
 <template>
   <Dialog v-model:visible="visible" modal :show-header="false">
     <div class="col py-4">
-      <h2 class="text-3xl font-medium">{{ $locale('editFeature') }}</h2>
+      <h2 class="text-3xl font-medium">{{ $locale("features.edit.title") }}</h2>
 
-      <input-text class="mt-6" :placeholder="$locale('featureName')" variant="filled" />
       <input-text
-        class="mt-1"
-        :placeholder="$locale('featureDescription')"
+        class="mt-6"
+        :placeholder="$locale('features.edit.name')"
+        variant="filled"
+      />
+
+      <input-text
+        class="mt-2"
+        :placeholder="$locale('features.edit.description')"
         variant="filled"
       />
 
@@ -14,13 +19,13 @@
         <Button
           class="max-sm:w-full"
           severity="secondary"
-          :label="$locale('cancel')"
+          :label="$locale('common.simple.cancel')"
           @click="visible = false"
         />
 
         <Button
           class="max-sm:w-full"
-          :label="$locale('saveChanges')"
+          :label="$locale('common.simple.finish')"
           @click="visible = false"
         />
       </div>

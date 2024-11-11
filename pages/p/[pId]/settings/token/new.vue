@@ -1,41 +1,50 @@
 <template>
   <app-layout>
-    <h1 class="text-5xl font-bold">{{ $locale('createANewProjectAccessToken') }}</h1>
+    <h1 class="text-5xl font-bold">
+      {{ $locale("accessKey.createANewProjectAccessToken") }}
+    </h1>
 
     <app-card class="mt-4">
       <Stepper v-model:value="step" linear>
         <StepList class="max-w-[600px]">
-          <Step :value="1">{{ $locale('geneateToken') }}</Step>
-          <Step :value="2">{{ $locale('copyToken') }}</Step>
+          <Step :value="1">{{ $locale("accessKey.generateToken") }}</Step>
+          <Step :value="2">{{ $locale("accessKey.copyToken") }}</Step>
         </StepList>
         <StepPanels>
           <StepPanel :value="1" class="!bg-transparent">
             <div class="col">
-              <h3 class="text-2xl font-medium">{{ $locale('generateAccessToken') }}</h3>
-              <span
-                >{{ $locale('giveTheTokenNameToRememberWhatItWillBeUsedFor') }}</span
-              >
+              <h3 class="text-2xl font-medium">
+                {{ $locale("accessKey.generateAccessToken") }}
+              </h3>
+              <span>{{ $locale("accessKey.mindTokenName") }}</span>
 
-              <input-text class="mt-4 max-w-[350px]" :placeholder="$locale('tokenName')" />
+              <input-text
+                class="mt-4 max-w-[350px]"
+                :placeholder="$locale('accessKey.tokenName')"
+              />
 
               <div class="mt-6 flex flex-wrap gap-2">
                 <Button
                   severity="secondary"
-                  :label="$locale('cancel')"
+                  :label="$locale('common.simple.cancel')"
                   @click="$router.go(-1)"
                 />
 
-                <Button severity="primary" :label="$locale('generate')" @click="step = 2" />
+                <Button
+                  severity="primary"
+                  :label="$locale('accessKey.generate')"
+                  @click="step = 2"
+                />
               </div>
             </div>
           </StepPanel>
 
           <StepPanel :value="2" class="!bg-transparent">
             <div class="col">
-              <h3 class="text-2xl font-medium">{{ $locale('newTokenReady') }}</h3>
-              <span
-                >{{ $locale('ifYouLoseYourTokenYouWillHaveToGenerateANewOne') }}</span
-              >
+              <h3 class="text-2xl font-medium">
+                {{ $locale("accessKey.newTokenReady") }}
+              </h3>
+              <span>{{ $locale("accessKey.tokenLoseMessage") }}</span>
 
               <app-card class="mt-4" container-class="items-center flex-row">
                 <span>Kr63gkeru4A4fCnXamdoH2e7tb7sn8P2206c</span>
@@ -50,7 +59,7 @@
                 <Button
                   as="router-link"
                   severity="secondary"
-                  :label="$locale('goToApp')"
+                  :label="$locale('accessKey.goToApp')"
                   :to="createProjectLink('settings')"
                 />
               </div>

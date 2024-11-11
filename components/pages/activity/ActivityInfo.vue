@@ -6,7 +6,7 @@
       <p>
         <value-quantity value="1" quantity="K" />
 
-        <span class="ms-1">{{ $locale("crashesCount") }}</span>
+        <span class="ms-1">{{ $locale("activity.crashesCount") }}</span>
       </p>
     </div>
 
@@ -16,7 +16,7 @@
       <p>
         <value-quantity value="4" quantity="K" />
 
-        <span class="ms-1">{{ $locale("newUsers") }}</span>
+        <span class="ms-1">{{ $locale("activity.newUsers") }}</span>
       </p>
     </div>
   </div>

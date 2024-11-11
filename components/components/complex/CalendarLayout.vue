@@ -16,7 +16,7 @@
             <slot name="dayOfWeek" :index="i">
               <span
                 class="text-sm font-black text-center"
-                v-text="['mon', 'tue', 'wed', 'thu', 'fri', 'sat', 'sun'][i]"
+                v-text="monthNames[i]"
               />
             </slot>
           </div>
@@ -40,6 +40,8 @@
 </template>
 
 <script setup lang="ts">
+const { t } = useI18n();
+
 withDefaults(
   defineProps<{
     weeks?: number;
@@ -52,6 +54,16 @@ withDefaults(
     grid: false,
   },
 );
+
+const monthNames = [
+  t("datetime.months.short.mon"),
+  t("datetime.months.short.tue"),
+  t("datetime.months.short.wed"),
+  t("datetime.months.short.thu"),
+  t("datetime.months.short.fri"),
+  t("datetime.months.short.sat"),
+  t("datetime.months.short.sun"),
+];
 </script>
 
 <style lang="scss" scoped>

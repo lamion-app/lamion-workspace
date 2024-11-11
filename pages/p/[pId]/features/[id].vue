@@ -11,7 +11,7 @@
         >
           <m-icon value="arrow_back" />
 
-          <span>{{ $locale("back") }}</span>
+          <span>{{ $locale("common.simple.back") }}</span>
         </Button>
 
         <client-only>
@@ -55,7 +55,7 @@
       </div>
 
       <div class="lg:grid lg:grid-cols-2 gap-4">
-        <app-card :title="$locale('totalEvents')" class="mt-4">
+        <app-card :title="$locale('features.details.totalEvents')" class="mt-4">
           <active-users-chart class="flex-1 -mx-5" />
 
           <text-up-down-indicator
@@ -63,12 +63,12 @@
             icon="&#xe7fd;"
             :value="34"
             quantity="%"
-            :label="$locale('fromLastMonth')"
+            :label="$locale('common.phrases.fromLastMonth')"
           />
         </app-card>
 
         <!-- TODO: make red -->
-        <app-card :title="$locale('crashRate')" class="mt-4">
+        <app-card :title="$locale('features.details.crashRate')" class="mt-4">
           <active-users-chart class="flex-1 -mx-5" />
 
           <text-up-down-indicator
@@ -76,12 +76,15 @@
             icon="&#xe7fd;"
             :value="34"
             quantity="%"
-            :label="$locale('fromLastMonth')"
+            :label="$locale('common.phrases.fromLastMonth')"
           />
         </app-card>
       </div>
 
-      <app-card :title="$locale('functions')" title-class="text-xl font-medium">
+      <app-card
+        :title="$locale('features.details.functions.title')"
+        title-class="text-xl font-medium"
+      >
         <div class="filters flex flex-wrap justify-between gap-2">
           <IconField>
             <InputIcon>
@@ -90,7 +93,7 @@
 
             <InputText
               class="w-full lg:w-[350px]"
-              :placeholder="$locale('search')"
+              :placeholder="$locale('common.simple.search')"
             />
           </IconField>
 
@@ -99,7 +102,7 @@
             rounded
             @click="functionsSortOp.toggle($event)"
           >
-            <span>{{ $locale("sortBy") }}</span>
+            <span>{{ $locale("common.simple.sortBy") }}</span>
             <m-icon value="sort" class="text-lg" />
           </Button>
 
@@ -107,8 +110,8 @@
             <div class="col">
               <button
                 v-for="item in [
-                  t('featurePage.functions.sort.event'),
-                  t('featurePage.functions.sort.date'),
+                  t('features.details.functions.sort.event'),
+                  t('features.details.functions.sort.date'),
                 ]"
                 :key="item"
                 class="rounded px-4 py-2 text-start"
@@ -129,12 +132,10 @@
             container-class="!flex-row items-center"
           >
             <div class="page-content flex-1">
-              <span class="text-lg font-medium">{{
-                $locale("functionName")
-              }}</span>
+              <span class="text-lg font-medium">Function #{{ index }}</span>
 
               <div class="text-sm font-thin">
-                <span>{{ $locale("totalEvents") }}</span>
+                <span>{{ $locale("features.details.totalEvents") }}:</span>
 
                 <value-quantity
                   class="ms-1"
@@ -189,14 +190,14 @@ const functionsSortOp = ref();
 const confirmDelete = () => {
   confirm.require({
     group: "dialog",
-    message: t("featurePage.dialogs.delete.subtitle"),
-    header: t("featurePage.dialogs.delete.title"),
+    message: t("features.details.dialogs.delete.subtitle"),
+    header: t("features.details.dialogs.delete.title"),
     rejectProps: {
-      label: t("cancel"),
+      label: t("common.simple.cancel"),
       severity: "secondary",
     },
     acceptProps: {
-      label: t("delete"),
+      label: t("common.simple.delete"),
       severity: "danger",
     },
     accept: () => {
@@ -224,14 +225,14 @@ const confirmDetachFunction = (event: MouseEvent) => {
   confirm.require({
     group: "prompt",
     target: event.currentTarget as HTMLElement,
-    message: t("featurePage.dialogs.detachFeature.title"),
+    message: t("features.details.dialogs.detachFeature.title"),
     rejectProps: {
-      label: t("cancel"),
+      label: t("common.simple.cancel"),
       severity: "secondary",
       outlined: true,
     },
     acceptProps: {
-      label: t("featurePage.dialogs.detachFeature.confirm"),
+      label: t("features.details.dialogs.detachFeature.confirm"),
       severity: "danger",
     },
     accept: async () => {

@@ -1,130 +1,122 @@
 <template>
-  <div
-    class="root"
-    :class="{
-      'navigation-expanded': navigationExpanded,
-    }"
-  >
-    <template v-if="isAppLoaded">
-      <header class="header">
-        <button class="size-[30px]" @click="onNavigationClick">
-          <m-icon
-            class="text-3xl font-black"
-            :value="isRootRoute ? 'menu' : 'arrow_back'"
-          />
-        </button>
-
-        <h3 class="text-lg font-medium text-nowrap">
-          {{ pageTitle }}
-        </h3>
-
-        <div class="spacer" />
-
-        <div id="header-actions" />
-      </header>
-
-      <div class="nav-controller drawer">
-        <button
-          class="btn-expand"
-          :aria-label="$locale('expand')"
-          @click="navigationExpanded = !navigationExpanded"
-        >
-          <m-icon class="text-lg font-black" value="chevron_right" />
-        </button>
-
-        <navigation
-          :expanded="navigationExpanded"
-          :items="navigationItems"
-          @hide="navigationExpanded = false"
-        >
-          <template v-if="navigationExpanded" #before-menu>
-            <ProjectSelect
-              v-if="selectedProject != null && projects != null"
-              :model-value="selectedProject!"
-              :projects="projects"
-              @update:model-value="openProject"
+  <seo-layout>
+    <div
+      class="root"
+      :class="{
+        'navigation-expanded': navigationExpanded,
+      }"
+    >
+      <template v-if="isAppLoaded">
+        <header class="header">
+          <button class="size-[30px]" @click="onNavigationClick">
+            <m-icon
+              class="text-3xl font-black"
+              :value="isRootRoute ? 'menu' : 'arrow_back'"
             />
-          </template>
+          </button>
 
-          <template v-if="!!account" #after-menu>
-            <Profile
-              :expanded="navigationExpanded"
-              :account="account"
-              @click="navigationExpanded = false"
-            />
-          </template>
-        </navigation>
+          <h3 class="text-lg font-medium text-nowrap">
+            {{ pageTitle }}
+          </h3>
+
+          <div class="spacer" />
+
+          <div id="header-actions" />
+        </header>
+
+        <div class="nav-controller drawer">
+          <button
+            class="btn-expand"
+            :aria-label="$locale('expand')"
+            @click="navigationExpanded = !navigationExpanded"
+          >
+            <m-icon class="text-lg font-black" value="chevron_right" />
+          </button>
+
+          <navigation
+            :expanded="navigationExpanded"
+            :items="navigationItems"
+            @hide="navigationExpanded = false"
+          >
+            <template v-if="navigationExpanded" #before-menu>
+              <ProjectSelect
+                v-if="!!selectedProject && projects != null"
+                :model-value="selectedProject!"
+                :projects="projects"
+                @update:model-value="openProject"
+              />
+            </template>
+
+            <template v-if="!!account" #after-menu>
+              <Profile
+                :expanded="navigationExpanded"
+                :account="account"
+                @click="navigationExpanded = false"
+              />
+            </template>
+          </navigation>
+        </div>
+
+        <div
+          v-if="navigationExpanded"
+          class="scrim"
+          @click="navigationExpanded = false"
+        />
+      </template>
+
+      <div class="page-content">
+        <slot />
       </div>
-
-      <div
-        v-if="navigationExpanded"
-        class="scrim"
-        @click="navigationExpanded = false"
-      />
-    </template>
-
-    <div class="page-content">
-      <slot />
     </div>
-  </div>
+  </seo-layout>
 </template>
 
 <script setup lang="ts">
 const viewport = useViewport();
 const { isAppLoaded } = storeToRefs(useAppStore());
 const { account } = useAppAuth();
+const { t } = useI18n();
 const { projects, selectedProject, openProject } = useProjects();
 
 const router = useRouter();
+const route = useRoute();
 
 const navigationExpanded = ref(false);
-const pageTitle = ref("");
+const pageTitle = computed(() =>
+  t(route.meta.title?.toString() ?? "app.title"),
+);
 
-const navigationItems = [
+const navigationItems = computed(() => [
   {
-    name: "Dashboard",
+    name: t("app.navigation.dashboard"),
     icon: String.fromCodePoint(0xf190),
     route: "p-pId",
   },
   {
-    name: "Users",
+    name: t("app.navigation.users"),
     icon: String.fromCodePoint(0xe87c),
     route: "p-pId-users",
   },
   {
-    name: "Features",
+    name: t("app.navigation.features"),
     icon: String.fromCodePoint(0xf20e),
     route: "p-pId-features",
   },
   {
-    name: "Activity report",
+    name: t("app.navigation.activity"),
     icon: String.fromCodePoint(0xe1e6),
     route: "p-pId-activity",
   },
   {
-    name: "Project settings",
+    name: t("app.navigation.settings"),
     icon: "admin_panel_settings",
     route: "p-pId-settings",
   },
-];
+]);
 
 const isRootRoute = computed(
-  () =>
-    navigationItems.filter((x) => x.route == router.currentRoute.value.name)
-      .length > 0
+  () => navigationItems.value.filter((x) => x.route == route.name).length > 0,
 );
-
-onMounted(() => {
-  const target = document.querySelector("title")!;
-
-  const observer = new MutationObserver(function () {
-    pageTitle.value = target.text;
-  });
-
-  const config = { subtree: true, characterData: true, childList: true };
-
-  observer.observe(target, config);
-});
 
 watchEffect(() => {
   if (viewport.match("lg")) {

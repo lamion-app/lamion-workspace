@@ -1,7 +1,7 @@
 <template>
   <app-card
-    :title="$locale('averageInAppActivityTitle')"
-    :subtitle="$locale('averageInAppActivitySubtitle')"
+    :title="$locale('dashboard.inAppActivity.title')"
+    :subtitle="$locale('dashboard.inAppActivity.subtitle')"
     title-tag="h2"
   >
     <div class="col gap-4">
@@ -22,8 +22,10 @@
           <span class="text-lg font-bold">Функция №{{ index + 1 }}</span>
 
           <span class="text-xs font-medium">{{
-            $locale("ofTotalEvents", { expr: `${90 - index * 10}%` })
-          }}</span>
+              $locale("dashboard.inAppActivity.ofTotalEvents", {
+                expr: `${90 - index * 10}%`,
+              })
+            }}</span>
         </div>
 
         <value-quantity

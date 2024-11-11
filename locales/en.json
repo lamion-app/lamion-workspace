@@ -1,184 +1,30 @@
 {
-  "aboutUs": "About us",
-  "activeUsers": "Active users",
-  "activity": "Activity",
-  "activityReport": "Activity report",
-  "addProject": "Add project",
-  "all_time": "All time",
-  "alreadyRegistered": "Already registered?",
-  "any": "Any",
-  "appFeatures": "App features",
-  "appFunctionsSubtitle": "Search across all app functions",
-  "appFunctionsTitle": "App functions",
-  "appName": "Lamion",
-  "auth": {
-    "signIn": {
-      "credentialsError": "No account was found with these credentials.\nPlease check your credentials and try again."
-    },
-    "signUp": {
-      "credentialsError": "Account with such credentials already exists."
-    }
+  "accessKey": {
+    "mindTokenName": "",
+    "tokenLoseMessage": ""
   },
-  "avatar": "Avatar",
-  "averageInAppActivitySubtitle": "See which features are most important to users",
-  "averageInAppActivityTitle": "Average in-app activity",
-  "back": "Back",
-  "byAllTime": "By all time",
-  "bySelectedPeriod": "By selected period",
-  "calls": "calls",
-  "cancel": "Cancel",
-  "clear": "Clear",
-  "contactEmail": "Contact email",
-  "continueWithGithub": "Continue with GitHub",
-  "copyToken": "Copy token",
-  "crashAlert": "Crash alert",
-  "crashRate": "Crash rate",
-  "crashesCount": "crashes",
-  "crashesCountCapitalize": "Crashes count",
-  "crashesInTheLastWeek": "crashes in the last week",
-  "createANewProjectAccessToken": "Create a new project access token",
-  "createNewFeature": "Create new feature",
-  "createNewProject": "Create new project",
-  "daily": "Daily",
-  "dashboard": "Dashboard",
-  "delete": "Delete",
-  "devicesInfo": "Devices info",
-  "displayedName": "Displayed name",
-  "edit": "Edit",
-  "editFeature": "Edit feature",
-  "email": "Email",
-  "errors": "Errors",
-  "errorsOfTotal": "Errors",
-  "eventsPerDay": "Events per day",
-  "expand": "Expand",
-  "feature": "Feature",
-  "featureDescription": "Feature description",
-  "featureName": "Feature name",
-  "featurePage": {
-    "dialogs": {
-      "delete": {
-        "subtitle": "Do you want to delete feature? This action cannot be undone.",
-        "title": "Danger zone"
-      },
-      "detachFeature": {
-        "confirm": "Detach",
-        "title": "Are you sure you want to detach function?"
-      }
+  "activity": {
+    "crashesCount": "",
+    "details": {
+      "crashesCount": "",
+      "inAppActivity": "",
+      "mostUsedFeatures": "",
+      "triggeredEvents": ""
     },
-    "functions": {
-      "sort": {
-        "date": "Date added",
-        "event": "Events count"
+    "newUsers": ""
+  },
+  "features": {
+    "create": {
+      "title": ""
+    },
+    "details": {
+      "functions": {
+        "sort": {
+          "date": "Date created",
+          "event": "Events count"
+        },
+        "title": ""
       }
     }
-  },
-  "finish": "Finish",
-  "forgotPassword": "Forgot password?",
-  "fromLastMonth": "from last month",
-  "functionName": "Function name",
-  "functions": "Functions",
-  "functionsCount": "{count} functions",
-  "geneateToken": "Geneate token",
-  "generate": "Generate",
-  "generateAccessToken": "Generate access token",
-  "githubIcon": "GitHub Icon",
-  "giveTheTokenNameToRememberWhatItWillBeUsedFor": "Give the token name to remember what it will be used for",
-  "goToApp": "Go to app",
-  "goToDashboard": "Go to dashboard",
-  "growthRate": "Growth rate",
-  "health": "Health",
-  "ifYouLoseYourTokenYouWillHaveToGenerateANewOne": "If you lose your token, you will have to generate a new one.",
-  "inappActivity": "In-app activity",
-  "linkFunctions": "Link functions",
-  "loadingError": "Loading error",
-  "loadingYouAccount": "Loading you account",
-  "logout": "Logout",
-  "logoutSubtitle": "Are you sure you want to log out of your account?",
-  "logoutTitle": "Confirm action",
-  "manageCrashes": "Manage crashes",
-  "monthly": "Monthly",
-  "mostUsedFeatures": "Most used features",
-  "name": "Name",
-  "newTokenReady": "New token ready",
-  "newUsers": "new users",
-  "noCrashesInTheLastWeek": "No any crashes in the last week",
-  "noExtraActivity": "No extra activity",
-  "noFunctionsFound": "No functions found.",
-  "notAvailableYet": "Not available yet",
-  "notRegisteredYet": "Not registered yet?",
-  "ofTotalEvents": "{expr} of total events",
-  "only": "Only",
-  "open": "Open",
-  "password": "Password",
-  "platform": "Platform",
-  "platforms": "Platforms",
-  "pleaseEnterYourDetails": "Please enter your details",
-  "profile": "Profile",
-  "rate": "Rate",
-  "registerNow": "Register now",
-  "registration": "Registration",
-  "saveChanges": "Save changes",
-  "search": "Search",
-  "searchByName": "Search by name",
-  "seeAppFunctions": "See app functions",
-  "seeDocs": "See docs 😊👍",
-  "sessions_count": "sessions",
-  "settings": {
-    "accessTokens": {
-      "dialogs": {
-        "revokeAllTokens": {
-          "confirm": "Revoke",
-          "subtitle": "Do you want to revoke all tokens?",
-          "title": "Danger Zone"
-        },
-        "revokeToken": {
-          "confirm": "Revoke",
-          "title": "Are you sure you want to revoke token?"
-        }
-      },
-      "newAccessToken": "New access token",
-      "revokeAll": "Revoke all",
-      "title": "Project access tokens"
-    },
-    "general": {
-      "items": {
-        "projectDescription": {
-          "subtitle": "Any project description",
-          "title": "Project label"
-        },
-        "projectName": {
-          "subtitle": "Displayed project name",
-          "title": "Project name"
-        }
-      },
-      "title": "General settings"
-    },
-    "title": "Settings"
-  },
-  "setupAvatar": "Set profile avatar",
-  "setupContactEmail": "Setup meow contant email",
-  "signIn": "Sign in",
-  "signUp": "Sign up",
-  "sortBy": "Sort by",
-  "tags": "Tags",
-  "thisFeatureIsStillInDevelopment": "This feature is still in development.",
-  "todaySummary": "Today's summary",
-  "tokenName": "Token name",
-  "topDevices": "Top devices",
-  "topFunction": "Top function",
-  "total": "Total",
-  "totalCalls": "Total calls",
-  "totalEvents": "Total events:",
-  "totalUsers": "Total users",
-  "total_items": "Total {count} items",
-  "triggeredEvents": "Triggered events",
-  "tryAgainLaterOrContactToSupport": "Try again later or contact to support",
-  "userActivityTime": "Users activity time",
-  "username": "Username",
-  "users": "Users",
-  "waitAMinute": "Wait a minute",
-  "weekly": "Weekly",
-  "welcomeBack": "Welcome back",
-  "yearly": "Yearly",
-  "yourProjects": "Your projects"
+  }
 }

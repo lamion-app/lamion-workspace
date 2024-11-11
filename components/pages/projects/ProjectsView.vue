@@ -1,6 +1,6 @@
 <template>
   <div class="col gap-12">
-    <h3 class="text-5xl font-black">{{ $locale("yourProjects") }}</h3>
+    <h3 class="text-5xl font-black">{{ $locale("projects.yourProjects") }}</h3>
 
     <div class="project-list pt-4">
       <app-card
@@ -10,7 +10,9 @@
       >
         <m-icon class="text-5xl" value="add" />
 
-        <span class="text-2xl font-black pt-2">{{ $locale("addProject") }}</span>
+        <span class="text-2xl font-black pt-2">{{
+          $locale("projects.addProject")
+        }}</span>
       </app-card>
 
       <app-card
@@ -38,7 +40,7 @@
         >
           <m-icon value="explore" class="text-4xl" />
 
-          <h5 class="project-title pt-3">{{ $locale("aboutUs") }}</h5>
+          <h5 class="project-title pt-3">{{ $locale("projects.aboutUs") }}</h5>
         </app-card>
 
         <app-card
@@ -49,7 +51,7 @@
         >
           <m-icon value="library_books" class="text-4xl" />
 
-          <h5 class="project-title pt-3">{{ $locale("seeDocs") }}</h5>
+          <h5 class="project-title pt-3">{{ $locale("projects.seeDocs") }}</h5>
         </app-card>
       </div>
     </template>

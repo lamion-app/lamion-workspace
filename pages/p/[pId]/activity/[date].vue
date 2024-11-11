@@ -10,7 +10,7 @@
       >
         <m-icon value="arrow_back" />
 
-        <span>{{ $locale('back') }}</span>
+        <span>{{ $locale('common.simple.back') }}</span>
       </Button>
 
       <app-card class="mt-6 max-lg:!contents">

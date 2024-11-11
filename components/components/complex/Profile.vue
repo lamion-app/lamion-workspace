@@ -8,7 +8,7 @@
           <span class="name" v-text="account.username" />
 
           <span class="logout" @click.prevent="isLogoutDialogVisible = true">{{
-            $locale("logout")
+            $locale("auth.logout.action")
           }}</span>
         </div>
 

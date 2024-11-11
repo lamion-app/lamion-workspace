@@ -3,7 +3,7 @@
     <div class="col">
       <span class="text-2xl">Авторизация</span>
       <span class="text-sm text-secondary">{{
-        $locale("functionsCount", { count: 10 })
+        $locale("features.card.functionsCount", { count: 10 })
       }}</span>
     </div>
 
@@ -11,7 +11,7 @@
       <div class="flex gap-2">
         <div class="flex-1 col">
           <span class="text-xs text-primary-800 dark:text-primary-200">{{
-            $locale("totalCalls")
+            $locale("features.card.totalCalls")
           }}</span>
 
           <value-quantity
@@ -25,7 +25,7 @@
 
         <div class="flex-1 col">
           <span class="text-xs text-red-800 dark:text-red-200">{{
-            $locale("errorsOfTotal")
+            $locale("features.card.errorsOfTotal")
           }}</span>
 
           <value-quantity
@@ -39,7 +39,7 @@
 
     <app-card
       class="!gap-1"
-      :title="$locale('topFunction')"
+      :title="$locale('features.card.topFunction')"
       title-class="text-sm font-medium text-secondary"
     >
       <div class="flex gap-2 justify-between items-center">
@@ -47,7 +47,7 @@
           <span class="font-bold">Authorization</span>
 
           <div class="flex items-center gap-1 text-sm text-secondary">
-            <span>{{ $locale("totalEvents") }}</span>
+            <span>{{ $locale("features.card.totalCalls") }}:</span>
 
             <value-quantity class="font-black" value="1" quantity="K" />
           </div>
@@ -61,13 +61,13 @@
       <Chip @click="$emit('click:open')">
         <m-icon class="text-lg" value="open_in_new" />
 
-        <span class="font-medium text-sm">{{ $locale("open") }}</span>
+        <span class="font-medium text-sm">{{ $locale("common.simple.open") }}</span>
       </Chip>
 
       <Chip @click="$emit('click:edit')">
         <m-icon class="text-lg" value="edit" />
 
-        <span class="font-medium text-sm">{{ $locale("edit") }}</span>
+        <span class="font-medium text-sm">{{ $locale("common.simple.edit") }}</span>
       </Chip>
     </div>
   </app-card>

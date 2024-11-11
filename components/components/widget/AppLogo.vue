@@ -4,12 +4,12 @@
       <span
         v-if="expanded"
         class="text-logo text-4xl font-black text-primary select-none cursor-pointer"
-        >{{ $locale("appName") }}</span
+        >{{ $locale("app.title") }}</span
       >
 
       <Avatar
         v-else
-        :label="$locale('appName').charAt(0)"
+        :label="$locale('app.title').charAt(0)"
         shape="circle"
         size="large"
         class="avatar-logo font-black !text-3xl !bg-primary !text-primary-contrast"
