@@ -22,7 +22,7 @@
         container-class="col center"
         @click="$emit('selectProject', project)"
       >
-        <span class="project-title" v-text="project.name" />
+        <span class="project-title" v-text="project.title" />
 
         <span class="project-description" v-text="project.description" />
       </app-card>

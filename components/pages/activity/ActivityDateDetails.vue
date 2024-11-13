@@ -80,7 +80,7 @@
     </app-card>
 
     <app-card :title="$locale('activity.details.inAppActivity')">
-      <user-activity-time class="!max-h-[400px] -mx-3" />
+<!--      <user-activity-time class="!max-h-[400px] -mx-3" />-->
     </app-card>
   </div>
 </template>

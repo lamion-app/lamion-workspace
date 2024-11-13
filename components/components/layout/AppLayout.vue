@@ -1,15 +1,25 @@
 <template>
   <main class="main">
     <div v-if="isAppLoaded" class="main-content">
-      <template v-if="isSelectedProjectLoading">
+      <template
+        v-if="
+          selectedProjectState == undefined ||
+          selectedProjectState == SelectedProjectState.LOADING
+        "
+      >
         <progress-spinner />
       </template>
-      <template v-else-if="isSelectedProjectError">
+
+      <template v-else-if="selectedProjectState == SelectedProjectState.ERROR">
         <slot name="error">
           <div class="col center gap-2">
-            <h1 class="text-3xl font-black text-red-500">{{ $locale('loadingError') }}</h1>
+            <h1 class="text-3xl font-black text-red-500">
+              {{ $locale("loadingError") }}
+            </h1>
 
-            <span class="text-lg">{{ $locale('tryAgainLaterOrContactToSupport') }}</span>
+            <span class="text-lg">{{
+              $locale("tryAgainLaterOrContactToSupport")
+            }}</span>
 
             <Button
               as="router-link"
@@ -23,22 +33,37 @@
           </div>
         </slot>
       </template>
-      <template v-else-if="selectedProject != null">
+
+      <template
+        v-else-if="
+          selectedProjectState == SelectedProjectState.READY &&
+          !!selectedProject
+        "
+      >
         <div class="w-full">
           <slot name="default" :project="selectedProject" />
         </div>
       </template>
-    </div>
 
-    <ProgressSpinner v-else />
+      <div
+        v-else-if="selectedProjectState == SelectedProjectState.NOT_FOUND"
+        class="col center gap-4"
+      >
+        <h1 class="text-7xl text-center">
+          {{ $locale("app.errors.projectNotFound.title") }}
+        </h1>
+        <span class="text-center whitespace-pre-line">{{
+          $locale("app.errors.projectNotFound.subtitle")
+        }}</span>
+      </div>
+    </div>
   </main>
 </template>
 
 <script setup lang="ts">
 const { isAppLoaded } = storeToRefs(useAppStore());
 
-const { isSelectedProjectError, isSelectedProjectLoading, selectedProject } =
-  useProjects();
+const { selectedProjectState, selectedProject } = useProjects();
 </script>
 
 <style scoped lang="scss">

@@ -10,29 +10,18 @@
         'show-grid': grid,
       }"
     >
-      <div class="header">
-        <div class="row" :class="[gap]">
-          <div v-for="(_, i) in Array(7)" :key="i" class="cell">
-            <slot name="dayOfWeek" :index="i">
-              <span
-                class="text-sm font-black text-center"
-                v-text="monthNames[i]"
-              />
-            </slot>
-          </div>
-        </div>
-      </div>
-
       <div class="page-content" :class="[gap]">
-        <div
-          v-for="week in Array(weeks).keys()"
-          :key="week"
-          class="row"
-          :class="[gap]"
-        >
-          <div v-for="day in Array(7).keys()" :key="day" class="cell">
-            <slot name="default" :index="week * 7 + (day + 1)" />
-          </div>
+        <div v-for="(_, i) in Array(7)" :key="i" class="cell">
+          <slot name="dayOfWeek" :index="i">
+            <span
+              class="text-sm font-black text-center"
+              v-text="monthNames[i]"
+            />
+          </slot>
+        </div>
+
+        <div v-for="day in items" :key="day.index" class="cell">
+          <slot name="default" :date="day.date" :in-range="day.inRange" />
         </div>
       </div>
     </div>
@@ -42,20 +31,48 @@
 <script setup lang="ts">
 const { t } = useI18n();
 
-withDefaults(
+const props = withDefaults(
   defineProps<{
-    weeks?: number;
+    startDate: Date;
+    endDate: Date;
     gap?: string;
     grid?: boolean;
   }>(),
   {
-    weeks: 4,
     gap: "",
     grid: false,
   },
 );
 
-const monthNames = [
+const items = computed(() => {
+  const rangeStart = new Date(props.startDate);
+  const day = rangeStart.getDay();
+  const diff = rangeStart.getDate() - day + (day == 0 ? -6 : 1);
+  rangeStart.setDate(diff);
+
+  const rangeEnd = new Date(props.endDate);
+  rangeEnd.setDate(props.endDate.getDate() - props.endDate.getDay() + 7);
+
+  const totalDays =
+    Math.floor(
+      (rangeEnd.getTime() - rangeStart.getTime()) / (24 * 3600 * 1000),
+    ) + 1;
+
+  return [...new Array(totalDays).keys()].map((x) => {
+    const date = new Date(rangeStart);
+    date.setDate(date.getDate() + x);
+
+    return {
+      index: x,
+      date: date,
+      inRange:
+        props.startDate.getTime() <= date.getTime() &&
+        props.endDate.getTime() >= date.getTime(),
+    };
+  });
+});
+
+const monthNames = computed(() => [
   t("datetime.months.short.mon"),
   t("datetime.months.short.tue"),
   t("datetime.months.short.wed"),
@@ -63,7 +80,7 @@ const monthNames = [
   t("datetime.months.short.fri"),
   t("datetime.months.short.sat"),
   t("datetime.months.short.sun"),
-];
+]);
 </script>
 
 <style lang="scss" scoped>
@@ -71,13 +88,9 @@ const monthNames = [
   .table {
     @apply size-full;
 
-    .row {
-      @apply grid grid-cols-7;
-    }
-
     .page-content {
       @apply mt-2;
-      @apply flex flex-col;
+      @apply grid grid-cols-7;
     }
 
     .cell {

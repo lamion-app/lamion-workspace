@@ -41,7 +41,7 @@
             value="workspaces"
           />
 
-          <span class="flex-1 text-lg font">{{ project.name }}</span>
+          <span class="flex-1 text-lg font">{{ project.title }}</span>
 
           <div class="actions flex gap-2">
             <icon-button icon="edit" filled />

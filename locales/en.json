@@ -13,6 +13,18 @@
     },
     "newUsers": ""
   },
+  "app": {
+    "errors": {
+      "projectNotFound": {
+        "subtitle": ""
+      }
+    }
+  },
+  "dashboard": {
+    "inAppActivity": {
+      "ofTotalEvents": ""
+    }
+  },
   "features": {
     "create": {
       "title": ""
@@ -26,5 +38,9 @@
         "title": ""
       }
     }
+  },
+  "health": {
+    "crashes": "",
+    "noCrashes": ""
   }
 }

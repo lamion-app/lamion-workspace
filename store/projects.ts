@@ -1,33 +1,8 @@
 import { defineStore } from "pinia";
-import { computedAsync } from "@vueuse/core";
+import { SelectedProjectState } from "@/types/Project";
 
-const mockProjects = [
-  {
-    id: 1,
-    name: "Test project",
-    description: "Test project description",
-  },
-  {
-    id: 2,
-    name: "My super puper project",
-    description: "💕😂👌😊👍💕❤️🙌😍",
-  },
-];
-
-const loadProjects = (): Promise<Array<Project>> => {
-  return new Promise((resolve) => {
-    setTimeout(() => {
-      resolve(mockProjects);
-    }, 1500);
-  });
-};
-
-const loadSelectedProject = (index: number): Promise<Project> => {
-  return new Promise((resolve) => {
-    setTimeout(() => {
-      resolve(mockProjects[index]);
-    }, 1500);
-  });
+const loadProjects = async (): Promise<Array<Project>> => {
+  return await useApiCall<Array<Project>>("/project");
 };
 
 export const useProjectsStore = defineStore("projects", () => {
@@ -40,51 +15,46 @@ export const useProjectsStore = defineStore("projects", () => {
   const projects = ref<Array<Project> | null>(null);
   const isProjectsLoading = ref<boolean>(false);
 
-  const isSelectedProjectLoading = ref<boolean>(false);
-  const isSelectedProjectError = ref<boolean>(false);
+  const selectedProject = ref<Project>();
+  const selectedProjectState = ref<SelectedProjectState>();
 
-  const selectedProject = computedAsync(async () => {
-    const projectIndex = selectedProjectIndex.value;
+  let savedProjectKey: number | undefined = undefined;
 
-    if (isNaN(projectIndex)) return;
-
-    isSelectedProjectLoading.value = true;
-
-    try {
-      if (projectIndex == undefined) {
-        isSelectedProjectError.value = true;
-        return null;
-      } else {
-        const result = await loadSelectedProject(projectIndex);
-
-        if (result == null) {
-          isSelectedProjectError.value = true;
-          return null;
-        }
-
-        isSelectedProjectError.value = false;
-
-        return result;
-      }
-    } finally {
-      isSelectedProjectLoading.value = false;
+  watch([projects, selectedProjectIndex], async ([projects, index]) => {
+    if (isNaN(index) || index == undefined) {
+      selectedProjectState.value = SelectedProjectState.NOT_FOUND;
+      return;
     }
-  }, null);
+
+    if (!projects || projects.length === 0) return;
+
+    if (index != savedProjectKey) {
+      savedProjectKey = index;
+      selectedProject.value = projects[index];
+    }
+
+    selectedProjectState.value = SelectedProjectState.READY;
+  });
 
   onMounted(async () => {
     isProjectsLoading.value = true;
 
-    projects.value = await loadProjects();
-
-    isProjectsLoading.value = false;
+    try {
+      selectedProjectState.value = SelectedProjectState.LOADING;
+      projects.value = await loadProjects();
+    } catch (e) {
+      console.error(e);
+      selectedProjectState.value = SelectedProjectState.ERROR;
+    } finally {
+      isProjectsLoading.value = false;
+    }
   });
 
   return {
-    projects,
-    isProjectsLoading,
-    selectedProjectIndex,
-    selectedProject,
-    isSelectedProjectLoading,
-    isSelectedProjectError,
+    projects: projects,
+    isProjectsLoading: isProjectsLoading,
+    selectedProjectIndex: selectedProjectIndex,
+    selectedProject: selectedProject,
+    selectedProjectState: selectedProjectState,
   };
 });

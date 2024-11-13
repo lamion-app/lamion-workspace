@@ -13,7 +13,7 @@
         :title="$locale('userActivityTime.title')"
         class="col-span-8 2xl:col-span-9 row-span-1 !overflow-x-auto"
       >
-        <user-activity-time class="-mx-5" />
+<!--        <user-activity-time class="-mx-5" />-->
       </app-card>
 
       <app-card

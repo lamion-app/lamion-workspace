@@ -2,7 +2,7 @@
   <app-card
     :title="title"
     :subtitle="$locale('dashboard.todaySummary')"
-    title-class="text-4xl font-black"
+    title-class="text-5xl font-black"
     title-tag="h1"
   >
     <div class="scaling-container">
@@ -33,17 +33,20 @@
 </template>
 
 <script setup lang="ts">
+import type { DashboardScaling } from "@/components-types/Dashboard";
+
 const { t } = useI18n();
 
-defineProps<{
+const props = defineProps<{
   title: string;
+  data: DashboardScaling;
 }>();
 
-const items = [
+const items = computed(() => [
   {
     name: t("dashboard.totalUsers"),
-    value: 300,
-    quantity: "K",
+    value: props.data.total_users.actual,
+    quantity: "K", // TODO
     change: {
       value: 10,
       quantity: "%",
@@ -51,7 +54,7 @@ const items = [
   },
   {
     name: t("dashboard.activeUsers"),
-    value: 2.2,
+    value: props.data.active_users.actual,
     quantity: "K",
     change: {
       value: 30,
@@ -60,7 +63,7 @@ const items = [
   },
   {
     name: t("dashboard.crashes"),
-    value: 12,
+    value: props.data.total_crashes.actual,
     quantity: "K",
     change: {
       value: -5,
@@ -70,14 +73,14 @@ const items = [
   },
   {
     name: t("dashboard.triggeredEvents"),
-    value: 616,
+    value: props.data.triggered_events.actual,
     quantity: "B",
     change: {
       value: -5,
       quantity: "%",
     },
   },
-];
+]);
 </script>
 
 <style scoped lang="scss">

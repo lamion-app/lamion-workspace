@@ -7,7 +7,7 @@
   >
     <template #value="slotParams">
       <div v-if="slotParams.value" class="flex items-center">
-        <div>{{ slotParams.value.name }}</div>
+        <div>{{ slotParams.value.title }}</div>
       </div>
 
       <div v-else>
@@ -17,7 +17,7 @@
 
     <template #option="{ option }">
       <div class="flex items-center">
-        <div>{{ option.name }}</div>
+        <div>{{ option.title }}</div>
       </div>
     </template>
   </Select>
@@ -25,7 +25,7 @@
 
 <script setup lang="ts">
 defineProps<{
-  projects: Array< Project>;
+  projects: Array<Project>;
 }>();
 
 const selectedProject = defineModel<Project>();

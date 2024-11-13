@@ -17,8 +17,8 @@ export const useProjects = () => {
     isProjectsLoading: readonly(store.isProjectsLoading),
     selectedProjectIndex: readonly(store.selectedProjectIndex),
     selectedProject: shallowReadonly(store.selectedProject),
-    isSelectedProjectLoading: readonly(store.isSelectedProjectLoading),
-    isSelectedProjectError: readonly(store.isSelectedProjectError),
+    selectedProjectId: computed(() => store.selectedProject.value?.id),
+    selectedProjectState: store.selectedProjectState,
     openProject: openProject,
   };
 };

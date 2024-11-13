@@ -102,7 +102,7 @@ const settings = computed(() => [
     key: "project-name",
     title: t("settings.general.items.projectName.title"),
     subtitle: t("settings.general.items.projectName.subtitle"),
-    value: selectedProject.value!.name,
+    value: selectedProject.value!.title,
   },
   {
     type: "text" as const,
