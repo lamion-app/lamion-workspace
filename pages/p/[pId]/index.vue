@@ -13,25 +13,7 @@
 
       <features-card
         class="!h-[600px] lg:!h-full col-span-full lg:col-span-8 2xl:col-span-8"
-      >
-        <template #extras>
-          <div class="col">
-            <span class="text-xl text-secondary">Total events</span>
-            <span class="text-4xl">
-              <span class="state">5.67</span>
-              <span class="unit text-3xl text-secondary">M</span>
-            </span>
-          </div>
-
-          <div class="col">
-            <span class="text-xl text-secondary">Events per day</span>
-            <span class="text-4xl">
-              <span class="state">200</span>
-              <span class="unit text-3xl text-secondary">K</span>
-            </span>
-          </div>
-        </template>
-      </features-card>
+      />
 
       <in-app-activity-card
         class="col-span-full lg:col-span-4 2xl:col-span-4"
@@ -43,7 +25,7 @@
 
       <app-card
         class="col-span-full lg:col-span-7 2xl:col-span-7 !overflow-x-auto"
-        title="User activity time"
+        :title="$locale('userActivityTime.title')"
         title-class="text-xl font-bold"
       >
         <user-activity-time class="-mx-3 -mb-3" />
@@ -54,10 +36,7 @@
 
 <script setup lang="ts">
 definePageMeta({
+  title: "dashboard.title",
   layout: "main",
-});
-
-useHead({
-  title: "Dashboard",
 });
 </script>

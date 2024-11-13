@@ -7,9 +7,9 @@
       <template v-else-if="isSelectedProjectError">
         <slot name="error">
           <div class="col center gap-2">
-            <h1 class="text-3xl font-black text-red-500">Loading error</h1>
+            <h1 class="text-3xl font-black text-red-500">{{ $locale('loadingError') }}</h1>
 
-            <span class="text-lg">Try again later or contact to support</span>
+            <span class="text-lg">{{ $locale('tryAgainLaterOrContactToSupport') }}</span>
 
             <Button
               as="router-link"
@@ -18,7 +18,7 @@
               text
               rounded
               severity="secondary"
-              label="Go to dashboard"
+              :label="$locale('goToDashboard')"
             />
           </div>
         </slot>

@@ -58,22 +58,14 @@ export default defineNuxtConfig({
     ],
   },
   runtimeConfig: {
-    api: {
-      origin: process.env.API_ORIGIN,
-    },
-    auth: {
-      origin: process.env.AUTH_ORIGIN,
-      secret: process.env.AUTH_SECRET,
-    },
     public: {
+      api: {
+        origin: process.env.API_ORIGIN,
+      },
       oauth: {
         github: {
           clientId: process.env.GITHUB_CLIENT_ID,
           redirectUrl: process.env.GITHUB_REDIRECT_URL,
-        },
-        google: {
-          clientId: process.env.GOOGLE_OAUTH_CLIENT_ID,
-          redirectUrl: process.env.GOOGLE_REDIRECT_URL,
         },
       },
     },
@@ -88,7 +80,25 @@ export default defineNuxtConfig({
     checker: true,
   },
   i18n: {
+    baseUrl: process.env.WORKSPACE_ORIGIN,
     vueI18n: "./configs/i18n.config.ts",
+    strategy: "no_prefix",
+    defaultLocale: "ru",
+    detectBrowserLanguage: {
+      useCookie: true,
+      cookieKey: "i18n_redirected",
+      redirectOn: "root",
+    },
+    locales: [
+      {
+        code: "en",
+        language: "en-US",
+      },
+      {
+        code: "ru",
+        language: "ru-RU",
+      },
+    ],
   },
   tailwindcss: {
     configPath: "./configs/tailwind.config.ts",
@@ -126,28 +136,28 @@ export default defineNuxtConfig({
           id: "number",
           username: "string",
           email: "string",
-          image: "string",
+          avatar: "string | undefined",
         },
       },
       pages: {
         login: "/auth/login",
       },
       endpoints: {
-        signIn: { path: "login", method: "post" },
-        signOut: { path: "logout", method: "post" },
-        signUp: { path: "register", method: "post" },
-        getSession: { path: "me", method: "get" },
+        signIn: { path: "auth/signIn", method: "post" },
+        signOut: false,
+        signUp: { path: "auth/signUp", method: "post" },
+        getSession: { path: "account/me", method: "get" },
       },
       refresh: {
         isEnabled: true,
-        endpoint: { path: "refresh", method: "post" },
+        endpoint: { path: "auth/refresh", method: "post" },
       },
       token: {
         signInResponseTokenPointer: "/refreshToken",
         type: "Bearer",
         cookieName: "auth.token",
         headerName: "Authorization",
-        maxAgeInSeconds: 1800,
+        maxAgeInSeconds: 60 * 60 * 24 * 3,
         sameSiteAttribute: "lax",
         secureCookieAttribute: false,
         httpOnlyCookieAttribute: false,

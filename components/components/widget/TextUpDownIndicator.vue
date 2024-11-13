@@ -15,7 +15,7 @@
       :value="icon"
     />
 
-    <span class="font-bold">{{ value }}{{ quantity }}</span>
+    <span class="font-bold">{{ `${value}${quantity}` }}</span>
 
     <span class="text-secondary">
       <slot name="label">

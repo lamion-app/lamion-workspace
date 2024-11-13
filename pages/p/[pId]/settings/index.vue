@@ -1,10 +1,10 @@
 <template>
   <app-layout>
-    <h1 class="text-6xl font-black">Settings</h1>
+    <h1 class="text-6xl font-black">{{ $locale("settings.title") }}</h1>
 
     <app-card class="mt-12" container-class="col !gap-6">
       <div class="section">
-        <h3 class="title">General settings</h3>
+        <h3 class="title">{{ $locale("settings.general.title") }}</h3>
 
         <settings-layout
           :settings="settings"
@@ -16,7 +16,7 @@
       </div>
 
       <div class="section !gap-4">
-        <h3 class="title">Project access tokens</h3>
+        <h3 class="title">{{ $locale("settings.accessTokens.title") }}</h3>
 
         <div class="col gap-2">
           <div
@@ -47,7 +47,7 @@
           >
             <m-icon value="add" />
 
-            <span>New access token</span>
+            <span>{{ $locale("settings.accessTokens.newAccessToken") }}</span>
           </Button>
 
           <Button
@@ -59,7 +59,7 @@
           >
             <m-icon value="delete" />
 
-            <span>Revoke all</span>
+            <span>{{ $locale("settings.accessTokens.revokeAll") }}</span>
           </Button>
         </div>
       </div>
@@ -79,6 +79,7 @@ useHead({
   title: "Project settings",
 });
 
+const { t } = useI18n();
 const confirm = useConfirm();
 const toast = useToast();
 
@@ -99,15 +100,15 @@ const settings = computed(() => [
   {
     type: "text" as const,
     key: "project-name",
-    title: "Project name",
-    subtitle: "Displayed project name",
+    title: t("settings.general.items.projectName.title"),
+    subtitle: t("settings.general.items.projectName.subtitle"),
     value: selectedProject.value!.name,
   },
   {
     type: "text" as const,
     key: "project-label",
-    title: "Project label",
-    subtitle: "Any project description",
+    title: t("settings.general.items.projectDescription.title"),
+    subtitle: t("settings.general.items.projectDescription.subtitle"),
     value: selectedProject.value!.description,
   },
 ]);
@@ -122,14 +123,14 @@ const confirmDeleteItem = (event: MouseEvent) => {
   confirm.require({
     group: "prompt",
     target: event.currentTarget as HTMLElement,
-    message: "Are you sure you want to revoike token?",
+    message: t("settings.accessTokens.dialogs.revokeToken.title"),
     rejectProps: {
-      label: "Cancel",
+      label: t("common.simple.cancel"),
       severity: "secondary",
       outlined: true,
     },
     acceptProps: {
-      label: "Revoke",
+      label: t("settings.accessTokens.dialogs.revokeToken.confirm"),
       severity: "danger",
     },
     accept: async () => {
@@ -146,14 +147,14 @@ const confirmDeleteItem = (event: MouseEvent) => {
 const confirmRevokeAll = () => {
   confirm.require({
     group: "dialog",
-    message: "Do you want to revoke all tokens?",
-    header: "Danger Zone",
+    message: t("settings.accessTokens.dialogs.revokeAllTokens.subtitle"),
+    header: t("settings.accessTokens.dialogs.revokeAllTokens.title"),
     rejectProps: {
-      label: "Cancel",
+      label: t("common.simple.cancel"),
       severity: "secondary",
     },
     acceptProps: {
-      label: "Delete",
+      label: t("settings.accessTokens.dialogs.revokeAllTokens.confirm"),
       severity: "danger",
     },
     accept: () => {

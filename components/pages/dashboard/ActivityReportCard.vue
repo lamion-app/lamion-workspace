@@ -1,8 +1,8 @@
 <template>
   <app-card
     class="report-card !justify-start"
-    title="Activity report"
-    subtitle="August 2024"
+    :title="$locale('activity.title')"
+    subtitle="Август 2024"
     title-class="text-3xl font-black"
     title-tag="h2"
   >
@@ -16,13 +16,13 @@
       <template #legend>
         <div class="flex flex-wrap gap-2 text-sm font-bold text-surface-100">
           <span class="select-none bg-primary-500 rounded-lg px-3 py-1"
-            >Users</span
+            >{{ $locale('activity.users') }}</span
           >
           <span class="select-none bg-red-700 rounded-lg px-3 py-1"
-            >Errors</span
+            >{{ $locale('activity.errors') }}</span
           >
           <span class="select-none bg-surface-700 rounded-lg px-3 py-1"
-            >No extra activity</span
+            >{{ $locale('activity.noExtraActivity') }}</span
           >
         </div>
       </template>

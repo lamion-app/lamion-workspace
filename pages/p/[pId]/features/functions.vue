@@ -2,8 +2,8 @@
   <app-layout>
     <app-card
       class="!gap-4"
-      title="App functions"
-      subtitle="Search across all app functions"
+      :title="$locale('functions.title')"
+      :subtitle="$locale('functions.subtitle')"
       title-class="text-lg font-medium"
     >
       <IconField>
@@ -14,7 +14,7 @@
         <InputText
           v-model="filters.search"
           class="w-full lg:w-[350px]"
-          placeholder="Search"
+          :placeholder="$locale('common.simple.search')"
         />
       </IconField>
     </app-card>

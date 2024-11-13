@@ -3,12 +3,12 @@
     <app-card>
       <div class="col gap-8">
         <div class="flex flex-wrap justify-between gap-2">
-          <h1 class="text-4xl font-medium">Activity report</h1>
+          <h1 class="text-4xl font-medium">{{ $locale('activity.title') }}</h1>
 
           <div class="actions flex flex-wrap items-center gap-2">
             <icon-button icon="&#xe5cb;" />
 
-            <span class="font-medium text-xl">October 2025</span>
+            <span class="font-medium text-xl">Август 2025</span>
 
             <icon-button icon="&#xe5cc;" />
           </div>
@@ -39,7 +39,7 @@
             <template #item="{ item }">
               <app-card class="cursor-pointer" no-gap>
                 <span class="text-lg font-black"
-                  >{{ 1 + item * 3 }} August</span
+                  >{{ 1 + item * 3 }} Августа</span
                 >
 
                 <activity-info

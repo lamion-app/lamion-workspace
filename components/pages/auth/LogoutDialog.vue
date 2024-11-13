@@ -7,15 +7,15 @@
   >
     <BlockUI :blocked="isLoading">
       <div class="col center gap-4 pt-4">
-        <h2 class="text-4xl font-black">Confirm action</h2>
+        <h2 class="text-4xl font-black">{{ $locale("logoutTitle") }}</h2>
 
-        <span>Are you sure you want to log out of your account?</span>
+        <span>{{ $locale("logoutSubtitle") }}</span>
 
         <div class="w-full flex justify-end gap-2 flex-wrap">
           <Button
             rounded
             text
-            label="Cancel"
+            :label="$locale('cancel')"
             severity="secondary"
             @click="visible = false"
           />
@@ -23,7 +23,7 @@
           <Button
             rounded
             text
-            label="Logout"
+            :label="$locale('logout')"
             severity="danger"
             @click="logout"
           />

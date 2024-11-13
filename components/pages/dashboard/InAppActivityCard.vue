@@ -1,7 +1,7 @@
 <template>
   <app-card
-    title="Average in-app activity"
-    subtitle="See which features are most important to users"
+    :title="$locale('dashboard.inAppActivity.title')"
+    :subtitle="$locale('dashboard.inAppActivity.subtitle')"
     title-tag="h2"
   >
     <div class="col gap-4">
@@ -19,11 +19,13 @@
         />
 
         <div class="col flex-1 mb-1">
-          <span class="text-lg font-bold">Feature #{{ index + 1 }}</span>
+          <span class="text-lg font-bold">Функция №{{ index + 1 }}</span>
 
-          <span class="text-xs font-medium"
-            >{{ `${90 - index * 10}%` }} of total events</span
-          >
+          <span class="text-xs font-medium">{{
+              $locale("dashboard.inAppActivity.ofTotalEvents", {
+                expr: `${90 - index * 10}%`,
+              })
+            }}</span>
         </div>
 
         <value-quantity
@@ -36,4 +38,3 @@
     </div>
   </app-card>
 </template>
-

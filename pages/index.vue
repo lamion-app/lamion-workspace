@@ -14,9 +14,5 @@
 </template>
 
 <script setup lang="ts">
-useHead({
-  title: "Dashboard",
-});
-
 const { isProjectsLoading, projects, openProject } = useProjects();
 </script>

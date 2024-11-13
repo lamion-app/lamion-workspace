@@ -1,6 +1,6 @@
 <template>
   <app-card
-    title="Total users"
+    :title="$locale('users.totalUsers')"
     title-class="text-lg text-secondary"
     no-gap
   >
@@ -18,7 +18,7 @@
       icon="&#xe7fd;"
       :value="12"
       quantity="%"
-      label="from last month"
+      :label="$locale('common.phrases.fromLastMonth')"
     />
   </app-card>
 </template>

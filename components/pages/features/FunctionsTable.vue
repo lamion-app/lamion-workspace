@@ -6,13 +6,15 @@
 
     <DataTable class="table -m-5 pt-2 min-w-[900px]" :value="data">
       <template v-if="!isLoading" #empty>
-        <span>No functions found.</span>
+        <span>{{ $locale("functions.emptyText") }}</span>
       </template>
 
       <Column>
         <template #header>
           <div class="header">
-            <span class="font-medium">Activity</span>
+            <span class="font-medium">{{
+              $locale("functions.table.activity")
+            }}</span>
           </div>
         </template>
 
@@ -32,7 +34,9 @@
       <Column>
         <template #header>
           <div class="header action" @click="namePopover.toggle($event)">
-            <span class="font-medium">Name</span>
+            <span class="font-medium">{{
+              $locale("functions.table.name")
+            }}</span>
 
             <m-icon class="text-lg" value="filter_alt" />
 
@@ -46,14 +50,14 @@
                   <InputText
                     v-model="filters.name"
                     :disabled="isLoading"
-                    placeholder="Search by name"
+                    :placeholder="$locale('functions.searchByName')"
                   />
                 </IconField>
 
                 <div class="actions">
                   <Button
                     type="button"
-                    label="Clear"
+                    :label="$locale('common.simple.clear')"
                     size="small"
                     severity="secondary"
                     @click="filters.name = undefined"
@@ -72,7 +76,9 @@
       <Column>
         <template #header>
           <div class="header action" @click="featurePopover.toggle($event)">
-            <span class="font-medium">Feature</span>
+            <span class="font-medium">{{
+              $locale("functions.table.feature")
+            }}</span>
 
             <m-icon class="text-lg" value="filter_alt" />
 
@@ -82,13 +88,13 @@
                   v-model="filters.features"
                   :options="features"
                   option-label="name"
-                  placeholder="Any"
+                  :placeholder="$locale('common.simple.any')"
                 />
 
                 <div class="actions">
                   <Button
                     type="button"
-                    label="Clear"
+                    :label="$locale('common.simple.clear')"
                     size="small"
                     severity="secondary"
                     @click="filters.features = undefined"
@@ -107,7 +113,9 @@
       <Column class="w-[15%]">
         <template #header>
           <div class="header action" @click="tagsPopover.toggle($event)">
-            <span class="font-medium">Tags</span>
+            <span class="font-medium">{{
+              $locale("functions.table.tags")
+            }}</span>
 
             <m-icon class="text-lg" value="filter_alt" />
 
@@ -117,13 +125,13 @@
                   v-model="filters.tags"
                   :options="tags"
                   option-label="name"
-                  placeholder="Any"
+                  :placeholder="$locale('common.simple.any')"
                 />
 
                 <div class="actions">
                   <Button
                     type="button"
-                    label="Clear"
+                    :label="$locale('common.simple.clear')"
                     size="small"
                     severity="secondary"
                     @click="filters.tags = undefined"
@@ -157,11 +165,11 @@
           <div class="flex gap-2">
             <icon-button
               class="!bg-surface-700 !bg-opacity-20 !text-surface-100"
-              icon="&#xe3c9;"
+              icon="edit"
             />
             <icon-button
               class="!bg-red-700 !bg-opacity-20 !text-red-100"
-              icon="&#xe92b;"
+              icon="delete"
             />
           </div>
         </template>

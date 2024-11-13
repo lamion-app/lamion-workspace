@@ -18,19 +18,42 @@
       <div
         class="info flex flex-wrap gap-4 lg:h-full lg:flex-col lg:justify-end"
       >
-        <slot name="extras" />
+        <div class="col">
+          <span class="text-xl text-secondary">{{
+            $locale("dashboard.featuresRating.byAllTime")
+          }}</span>
+
+          <value-quantity
+            class="text-4xl"
+            value="5.67"
+            quantity="M"
+            quantity-class="text-3xl text-secondary"
+          />
+        </div>
+
+        <div class="col">
+          <span class="text-xl text-secondary">{{
+            $locale("dashboard.featuresRating.bySelectedPeriod")
+          }}</span>
+          <value-quantity
+            class="text-4xl"
+            value="300"
+            quantity="K"
+            quantity-class="text-3xl text-secondary"
+          />
+        </div>
       </div>
 
       <bar-chart
         class="chart h-full flex-1 max-lg:-mx-3 rounded bg-transparent"
         color="sky"
-        name="Daily calls"
+        :name="$locale('dashboard.featuresRating.chartName')"
         :data="array"
       >
         <template #tooltip="{ index }">
           <div class="w-20 bg-surface-800 rounded-xl p-5">
             <span>{{ array[index].name }}</span>
-            <hr >
+            <hr />
             <span>{{ array[index].number }}</span>
           </div>
         </template>
@@ -40,14 +63,16 @@
 </template>
 
 <script setup lang="ts">
+const { t } = useI18n();
+
 const tab = ref(DatePeriod.DAY);
 
 const datePeriodNames = new Map<DatePeriod, string>([
-  [DatePeriod.DAY, "Daily"],
-  [DatePeriod.WEEK, "Weekly"],
-  [DatePeriod.MONTH, "Monthly"],
-  [DatePeriod.YEAR, "Yearly"],
-  [DatePeriod.ALL_TIME, "All time"],
+  [DatePeriod.DAY, t("datetime.periods.daily")],
+  [DatePeriod.WEEK, t("datetime.periods.weekly")],
+  [DatePeriod.MONTH, t("datetime.periods.monthly")],
+  [DatePeriod.YEAR, t("datetime.periods.yearly")],
+  [DatePeriod.ALL_TIME, t("datetime.periods.all_time")],
 ]);
 const datePeriods = DatePeriodEntries.map((d) => ({
   value: d,

@@ -1,5 +1,5 @@
 <template>
-  <app-card title="Active users" title-class="text-lg text-secondary" no-gap>
+  <app-card :title="$locale('users.activeUsers')" title-class="text-lg text-secondary" no-gap>
     <value-quantity
       class="text-4xl font-medium"
       value="20"
@@ -14,7 +14,7 @@
       icon="&#xe7fd;"
       :value="34"
       quantity="%"
-      label="from last month"
+      :label="$locale('common.phrases.fromLastMonth')"
     />
   </app-card>
 </template>

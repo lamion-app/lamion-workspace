@@ -1,9 +1,9 @@
 <template>
   <!-- TODO: add deferred -->
   <DataTable :value="data">
-    <Column field="name" header="Name" />
+    <Column field="name" :header="$locale('devices.name')" />
 
-    <Column header="Platform">
+    <Column :header="$locale('devices.platform')">
       <template #body="slotProps">
         <div class="flex items-center gap-2">
           <m-icon :value="slotProps.data.platform.icon" />
@@ -13,7 +13,7 @@
       </template>
     </Column>
 
-    <Column header="Activity">
+    <Column :header="$locale('devices.activity')">
       <template #body="slotProps">
         <div class="flex items-center gap-2">
           <value-quantity
@@ -35,7 +35,7 @@
       </template>
     </Column>
 
-    <Column header="Errors">
+    <Column :header="$locale('devices.errors')">
       <template #body="slotProps">
         <div>
           <value-quantity

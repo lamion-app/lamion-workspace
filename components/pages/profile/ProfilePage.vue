@@ -4,7 +4,7 @@
       <label-image
         class="!size-[150px] !bg-window !text-6xl font-black"
         :label="account!.username"
-        :image="account!.image"
+        :image="account!.avatar"
       />
 
       <div class="col gap-2">
@@ -13,7 +13,7 @@
         <span
           class="text-sm text-red-400 font-bold cursor-pointer"
           @click.prevent="isLogoutDialogVisible = true"
-          >Logout</span
+          >{{ $locale("auth.logout.action") }}</span
         >
       </div>
     </app-card>
@@ -28,7 +28,7 @@
         >
           <m-icon value="add" />
 
-          <span>Create new project</span>
+          <span>{{ $locale("profile.createNewProject") }}</span>
         </Button>
 
         <app-card
@@ -56,7 +56,7 @@
       </div>
     </app-card>
 
-    <app-card class="mt-4" title="Profile">
+    <app-card class="mt-4" :title="$locale('profile.title')">
       <settings-layout
         :settings="settings"
         :validation="validateSettingsField"
@@ -69,6 +69,8 @@
 </template>
 
 <script setup lang="ts">
+const { t } = useI18n();
+
 const { account } = useAppAuth();
 
 const isLogoutDialogVisible = ref(false);
@@ -77,23 +79,23 @@ const settings = computed(() => [
   {
     type: "text" as const,
     key: "username",
-    title: "Username",
-    subtitle: "Displayed name",
+    title: t("profile.settings.username.title"),
+    subtitle: t("profile.settings.username.subtitle"),
     value: account.value!.username,
   },
   {
     type: "text" as const,
     key: "email",
-    title: "Contact email",
-    subtitle: "Setup meow email address",
+    title: t("profile.settings.email.title"),
+    subtitle: t("profile.settings.email.subtitle"),
     value: account.value!.email,
   },
   {
     type: "image" as const,
     key: "avatar",
-    title: "Avatar",
-    subtitle: "Set profile avatar",
-    value: account.value!.image,
+    title: t("profile.settings.avatar.title"),
+    subtitle: t("profile.settings.avatar.subtitle"),
+    value: account.value!.avatar,
     label: account.value!.username,
   },
 ]);

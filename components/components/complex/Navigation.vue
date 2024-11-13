@@ -25,7 +25,7 @@
       >
         <m-icon v-if="item.icon" :value="item.icon" />
 
-        <span class="item-text" v-text="item.name" />
+        <span class="item-text line-clamp-1" v-text="item.name" />
       </component>
     </div>
 

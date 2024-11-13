@@ -36,9 +36,9 @@ onMounted(async () => {
     <ProgressBar mode="indeterminate" class="fixed top-0" style="height: 6px" />
 
     <app-card class="card">
-      <h1>Wait a minute</h1>
+      <h1>{{ $locale('waitAMinute') }}</h1>
 
-      <h3>Loading you account</h3>
+      <h3>{{ $locale('loadingYouAccount') }}</h3>
     </app-card>
   </div>
 </template>

@@ -1,0 +1,30 @@
+{
+  "accessKey": {
+    "mindTokenName": "",
+    "tokenLoseMessage": ""
+  },
+  "activity": {
+    "crashesCount": "",
+    "details": {
+      "crashesCount": "",
+      "inAppActivity": "",
+      "mostUsedFeatures": "",
+      "triggeredEvents": ""
+    },
+    "newUsers": ""
+  },
+  "features": {
+    "create": {
+      "title": ""
+    },
+    "details": {
+      "functions": {
+        "sort": {
+          "date": "Date created",
+          "event": "Events count"
+        },
+        "title": ""
+      }
+    }
+  }
+}

@@ -1,11 +1,11 @@
 <template>
   <div class="col gap-6">
-    <h2 class="text-4xl font-bold">{{ 1 + item }} August</h2>
+    <h2 class="text-4xl font-bold">31 Августа</h2>
 
     <div class="flex flex-wrap gap-2">
       <app-card
         class="min-w-[200px] flex-1 bg-window"
-        title="Active users"
+        :title="$locale('activity.details.activeUsers')"
         title-class="text-sm font-medium text-secondary"
       >
         <value-quantity
@@ -18,7 +18,7 @@
 
       <app-card
         class="min-w-[250px] flex-1 bg-window"
-        title="Triggered events"
+        :title="$locale('activity.details.triggeredEvents')"
         title-class="text-sm font-medium text-secondary"
       >
         <value-quantity
@@ -31,7 +31,7 @@
 
       <app-card
         class="min-w-[100px] flex-1 bg-window"
-        title="Crashes"
+        :title="$locale('activity.details.crashesCount')"
         title-class="text-sm font-medium text-secondary"
       >
         <value-quantity
@@ -43,7 +43,7 @@
     </div>
 
     <app-card
-      title="Most used features"
+      :title="$locale('activity.details.mostUsedFeatures')"
       title-class="text-sm font-medium text-secondary"
     >
       <div class="items col gap-2">
@@ -52,7 +52,7 @@
             <span class="font-bold">Sign in</span>
 
             <div class="flex items-center gap-1 text-sm text-secondary">
-              <span>Total events:</span>
+              <span>{{ $locale("activity.details.totalEvents") }}</span>
 
               <value-quantity class="font-black" value="1" quantity="K" />
             </div>
@@ -68,7 +68,7 @@
             <span class="font-bold">Sign in</span>
 
             <div class="flex items-center gap-1 text-sm text-secondary">
-              <span>Total events:</span>
+              <span>{{ $locale("activity.details.totalEvents") }}</span>
 
               <value-quantity class="font-black" value="1" quantity="K" />
             </div>
@@ -79,7 +79,7 @@
       </div>
     </app-card>
 
-    <app-card title="In-app activity">
+    <app-card :title="$locale('activity.details.inAppActivity')">
       <user-activity-time class="!max-h-[400px] -mx-3" />
     </app-card>
   </div>
