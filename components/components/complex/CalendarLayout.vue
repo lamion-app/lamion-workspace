@@ -53,10 +53,7 @@ const items = computed(() => {
   const rangeEnd = new Date(props.endDate);
   rangeEnd.setDate(props.endDate.getDate() - props.endDate.getDay() + 7);
 
-  const totalDays =
-    Math.floor(
-      (rangeEnd.getTime() - rangeStart.getTime()) / (24 * 3600 * 1000),
-    ) + 1;
+  const totalDays = dateDiffDays(rangeStart, rangeEnd);
 
   return [...new Array(totalDays).keys()].map((x) => {
     const date = new Date(rangeStart);

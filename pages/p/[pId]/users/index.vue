@@ -1,19 +1,96 @@
+<script setup lang="ts">
+definePageMeta({
+  title: "users.title",
+  layout: "main",
+});
+
+const { t } = useI18n();
+
+const { useProjectLoad } = useProjects();
+
+const { isLoading, data } = useProjectLoad((id) =>
+  useApiCall<UsersFull>(`/project/${id}/users/full`),
+);
+
+const userActivityItems = computed(() =>
+  mapTimeChartDto(data.value?.user_activity_time),
+);
+
+const platforms = computed(() => mapChartDto(data.value?.platforms));
+
+const totalUsersCard = computed(() => {
+  const info = data.value!.total_users;
+
+  return {
+    title: t("users.totalUsers"),
+    overall: info.comparison,
+    data: {
+      start: parseISODateString(info.from),
+      end: parseISODateString(info.to),
+      items: mapDateChartDto(info.chart),
+    },
+    comparison: {
+      icon: "person",
+      text: t("common.phrases.fromLastMonth"),
+    },
+  };
+});
+
+const activeUsersCard = computed(() => {
+  const info = data.value!.active_users;
+
+  return {
+    title: t("users.activeUsers"),
+    overall: info.comparison,
+    data: {
+      start: parseISODateString(info.from),
+      end: parseISODateString(info.to),
+      items: mapDateChartDto(info.chart),
+    },
+    comparison: {
+      icon: "person",
+      text: t("common.phrases.fromLastMonth"),
+    },
+  };
+});
+</script>
+
 <template>
-  <app-layout>
-    <dashboard-layout>
-      <total-users-card class="!h-[300px] col-span-4 2xl:col-span-3" />
+  <app-layout :is-loading="isLoading || !data">
+    <dashboard-layout v-if="!!data" class="dashboard">
+      <progress-card
+        class="col-span-4 2xl:col-span-3"
+        :title="totalUsersCard.title"
+        :overall="totalUsersCard.overall"
+        :data="totalUsersCard.data"
+        :comparison="totalUsersCard.comparison"
+      />
 
-      <active-users-card class="!h-[300px] col-span-4" />
+      <progress-card
+        class="col-span-4"
+        :title="activeUsersCard.title"
+        :overall="activeUsersCard.overall"
+        :data="activeUsersCard.data"
+        :comparison="activeUsersCard.comparison"
+      />
 
-      <growth-rate-card class="!hidden 2xl:!flex col-span-2" />
+      <growth-rate-card
+        class="max-2xl:!hidden col-span-2"
+        :actual="data.growth_rate.actual"
+        :past="data.growth_rate.past"
+      />
 
-      <platform-collation-card class="col-span-4 2xl:col-span-3 row-span-2" />
+      <platform-collation-card
+        class="col-span-4 2xl:col-span-3 row-span-2"
+        :platforms="platforms"
+        :top-devices="data.top_devices"
+      />
 
       <app-card
         :title="$locale('userActivityTime.title')"
-        class="col-span-8 2xl:col-span-9 row-span-1 !overflow-x-auto"
+        class="max-md:h-[400px] col-span-8 2xl:col-span-9 row-span-1 !overflow-x-auto no-scrollbar"
       >
-<!--        <user-activity-time class="-mx-5" />-->
+        <user-activity-time class="-mx-5" :items="userActivityItems" />
       </app-card>
 
       <app-card
@@ -34,6 +111,7 @@
         </template>
 
         <template #default>
+          <!-- TODO: add devices table loading -->
           <devices-table />
         </template>
       </app-card>
@@ -41,21 +119,12 @@
   </app-layout>
 </template>
 
-<script setup lang="ts">
-definePageMeta({
-  layout: "main",
-});
-
-useHead({
-  title: "Users",
-});
-</script>
-
 <style scoped lang="scss">
-.users-page {
-  .data,
-  .display {
-    @apply flex-1;
+.dashboard {
+  grid-template-rows: 280px 400px;
+
+  @screen 2xl {
+    grid-template-rows: 330px 450px;
   }
 }
 </style>

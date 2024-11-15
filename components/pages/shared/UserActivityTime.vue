@@ -1,8 +1,6 @@
 <script setup lang="ts">
-import type { UserActivityTime } from "@/types/UserActivityTime";
-
 const props = defineProps<{
-  items: Array<UserActivityTime>;
+  items: Array<TimeChartItem>;
 }>();
 
 const chartItems = computed(() =>

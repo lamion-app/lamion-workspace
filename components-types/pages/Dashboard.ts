@@ -1,17 +1,8 @@
-interface Comparison {
-  actual: number;
-  past: number;
-}
-
-interface UserActivityTimeDto {
-  key: string;
-  value: number;
-}
-
-export interface CalendarItemDto {
-  date: string;
-  types: Record<string, number>;
-}
+import type {
+  CalendarItemDto,
+  ChartItemDto,
+  Comparison,
+} from "@/components-types/pages/common";
 
 export interface TopFeature {
   id: number;
@@ -33,5 +24,5 @@ export interface DashboardFull {
   scaling: DashboardScaling;
   top_features: TopFeature[];
   calendar: CalendarItemDto[];
-  user_activity_time: UserActivityTimeDto[];
+  user_activity_time: ChartItemDto[];
 }

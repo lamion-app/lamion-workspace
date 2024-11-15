@@ -33,7 +33,7 @@
 </template>
 
 <script setup lang="ts">
-import type { DashboardScaling } from "@/components-types/Dashboard";
+import type { DashboardScaling } from "@/components-types/pages/Dashboard";
 
 const { t } = useI18n();
 

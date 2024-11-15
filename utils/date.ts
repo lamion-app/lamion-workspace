@@ -2,7 +2,7 @@ import type { Time } from "@/types/common";
 
 export function parseISODateString(s: string) {
   const b = s.split(/\D+/).map((x) => Number(x));
-  return new Date(Date.UTC(b[0], --b[1], b[2]));
+  return new Date(b[0], --b[1], b[2]);
 }
 
 export function parseISOTimeString(s: string): Time {
@@ -24,4 +24,12 @@ export function isSameDate(d1: Date, d2: Date) {
 
 export function formatTime(time: Time) {
   return `${time.hour.toString().padStart(2, "0")}:${time.minute.toString().padStart(2, "0")}`;
+}
+
+export function formatDate(time: Time) {
+  return `${time.hour.toString().padStart(2, "0")}:${time.minute.toString().padStart(2, "0")}`;
+}
+
+export function dateDiffDays(d1: Date, d2: Date) {
+  return Math.floor((d2.getTime() - d1.getTime()) / (24 * 3600 * 1000)) + 1;
 }

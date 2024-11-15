@@ -103,26 +103,6 @@
 <script setup lang="ts">
 import type { FileUploadSelectEvent } from "primevue/fileupload";
 
-interface BaseSettingsItem {
-  key: string;
-  type: "text" | "image";
-  title: string;
-  subtitle: string;
-}
-
-interface TextSettingsItem extends BaseSettingsItem {
-  type: "text";
-  value: string;
-}
-
-interface ImageSettingsItem extends BaseSettingsItem {
-  type: "image";
-  value?: string;
-  label: string;
-}
-
-type SettingsItem = TextSettingsItem | ImageSettingsItem;
-
 const props = defineProps<{
   settings: Array<SettingsItem>;
   validation: (key: string, value: string) => boolean;

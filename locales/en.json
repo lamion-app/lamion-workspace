@@ -42,5 +42,9 @@
   "health": {
     "crashes": "",
     "noCrashes": ""
+  },
+  "users": {
+    "title": "",
+    "topDevices": ""
   }
 }

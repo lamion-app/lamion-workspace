@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import type { TopFeature } from "@/components-types/Dashboard";
+import type { TopFeature } from "@/components-types/pages/Dashboard";
 
 const props = defineProps<{
   items: Array<TopFeature>;

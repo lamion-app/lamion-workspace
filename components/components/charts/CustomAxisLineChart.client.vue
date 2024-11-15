@@ -26,8 +26,8 @@
 </template>
 
 <script setup lang="ts">
-import type { ChartProps } from "~/components-types/charts/Chart";
-import { buildDefaultTheme } from "~/components-types/charts/Chart";
+import type { ChartProps } from "@/components-types/charts/Chart";
+import { buildDefaultTheme } from "@/components-types/charts/Chart";
 
 const props = withDefaults(
   defineProps<

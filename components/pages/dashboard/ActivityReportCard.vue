@@ -3,7 +3,6 @@ import {
   CalendarActivityVariant,
   type CalendarItem,
 } from "@/types/CalendarItem";
-import { isSameDate } from "~/utils/date";
 
 const props = defineProps<{
   items: Array<CalendarItem>;

@@ -13,9 +13,9 @@
         }"
       >
         <slot
-          v-if="tooltipData.item != null"
+          v-if="!!tooltipData.item"
           name="tooltip"
-          :index="tooltipData.item"
+          :index="tooltipData.item - 1"
         />
       </div>
 
@@ -50,9 +50,9 @@
 
 <script setup lang="ts">
 import type { ContextProxy } from "chart.js/helpers";
-import type { Chart, ChartOptions, TooltipModel, TooltipItem } from "chart.js";
-import { buildDefaultTheme } from "~/components-types/charts/Chart";
-import type { ChartProps } from "~/components-types/charts/Chart";
+import type { Chart, ChartOptions, TooltipItem, TooltipModel } from "chart.js";
+import type { ChartProps } from "@/components-types/charts/Chart";
+import { buildDefaultTheme } from "@/components-types/charts/Chart";
 
 const emptyLabel = "---";
 
@@ -92,9 +92,7 @@ const pointBorder = computed(() =>
 );
 
 const chartData = computed(() => {
-  const theme =
-    props.theme ??
-    buildDefaultTheme(props.color, props.brightness);
+  const theme = props.theme ?? buildDefaultTheme(props.color, props.brightness);
 
   return {
     labels: [emptyLabel, ...props.items.map((i) => i.name), emptyLabel],
@@ -159,12 +157,19 @@ const chartOptions = computed(
             const itemName = context.tooltip.title[0];
             const itemIndex = props.items.findIndex((i) => i.name === itemName);
 
-            tooltipData.value = {
-              item: itemIndex ?? tooltipData.value.item,
-              x: context.chart.canvas.offsetLeft + context.tooltip.caretX,
-              y: context.chart.canvas.offsetTop + context.tooltip.caretY,
-              visible: context.tooltip.opacity > 0,
-            };
+            if (itemIndex == -1) {
+              tooltipData.value = {
+                ...tooltipData.value,
+                item: null,
+              };
+            } else {
+              tooltipData.value = {
+                item: itemIndex + 1,
+                x: context.chart.canvas.offsetLeft + context.tooltip.caretX,
+                y: context.chart.canvas.offsetTop + context.tooltip.caretY,
+                visible: context.tooltip.opacity > 0,
+              };
+            }
           },
         },
         legend: {
@@ -204,7 +209,7 @@ const chartOptions = computed(
 </script>
 
 <style scoped lang="scss">
-@import url(/assets/css/charts.scss);
+@import url(@/assets/css/charts.scss);
 
 .chart {
   width: 100%;

@@ -1,8 +1,24 @@
+<script setup lang="ts">
+withDefaults(
+  defineProps<{
+    isLoading?: boolean;
+  }>(),
+  {
+    isLoading: false,
+  },
+);
+
+const { isAppLoaded } = storeToRefs(useAppStore());
+
+const { selectedProjectState, selectedProject } = useProjects();
+</script>
+
 <template>
   <main class="main">
     <div v-if="isAppLoaded" class="main-content">
       <template
         v-if="
+          isLoading ||
           selectedProjectState == undefined ||
           selectedProjectState == SelectedProjectState.LOADING
         "
@@ -59,12 +75,6 @@
     </div>
   </main>
 </template>
-
-<script setup lang="ts">
-const { isAppLoaded } = storeToRefs(useAppStore());
-
-const { selectedProjectState, selectedProject } = useProjects();
-</script>
 
 <style scoped lang="scss">
 @import url(@/assets/css/main.scss);
