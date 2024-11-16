@@ -10,11 +10,3 @@ export interface ActivityDetails {
   top_features: TopFeature[];
   user_activity_time: ChartItemDto[];
 }
-
-export interface TopFeature {
-  id: number;
-  title: string;
-  description: string;
-  total_events: number;
-  total_events_percent: number;
-}

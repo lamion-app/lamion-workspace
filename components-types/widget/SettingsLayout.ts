@@ -8,12 +8,15 @@ export interface BaseSettingsItem {
 export interface TextSettingsItem extends BaseSettingsItem {
   type: "text";
   value: string;
+  onUpdate: (value: string, item: TextSettingsItem) => void;
 }
 
 export interface ImageSettingsItem extends BaseSettingsItem {
   type: "image";
   value?: string;
   label: string;
+  onUpdate: (value: unknown, item: ImageSettingsItem) => void;
+  onDelete: (item: ImageSettingsItem) => void;
 }
 
 export type SettingsItem = TextSettingsItem | ImageSettingsItem;

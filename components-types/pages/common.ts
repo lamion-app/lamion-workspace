@@ -19,3 +19,11 @@ export interface ProgressDto {
     comparison: Comparison;
     chart: Array<ChartItemDto>
 }
+
+export interface TopFeature {
+    id: number;
+    title: string;
+    description: string;
+    total_events: number;
+    total_events_percent: number;
+}

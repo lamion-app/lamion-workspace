@@ -57,13 +57,14 @@
     </app-card>
 
     <app-card class="mt-4" :title="$locale('profile.title')">
-      <settings-layout
+      <!-- TODO -->
+<!--      <settings-layout
         :settings="settings"
         :validation="validateSettingsField"
         @update-text-item="console.log($event) /* TODO */"
         @update-image="console.log('Update image:', $event) /* TODO */"
         @delete-image="console.log('Delete image:', $event) /* TODO */"
-      />
+      />-->
     </app-card>
   </div>
 </template>

@@ -1,17 +1,3 @@
-import type {
-  CalendarItemDto,
-  ChartItemDto,
-  Comparison,
-} from "@/components-types/pages/common";
-
-export interface TopFeature {
-  id: number;
-  title: string;
-  description: string;
-  total_events: number;
-  total_events_percent: number;
-}
-
 export interface DashboardScaling {
   total_users: Comparison;
   active_users: Comparison;
