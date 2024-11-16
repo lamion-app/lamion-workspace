@@ -14,25 +14,31 @@ export const useProjects = () => {
 
   const selectedProjectId = computed(() => store.selectedProject.value?.id);
 
-  function useProjectLoad<T>(callback: (id: number) => Promise<T>) {
+  function useProjectLoad<T, R>(
+    callback: (id: number, ...refs: Array<R>) => Promise<T>,
+    ...customRefs: Array<Ref<R>>
+  ) {
     const isLoading = ref(false);
     const data = ref<T>();
 
-    async function startLoading(id: number) {
+    async function startLoading(id: number, refs: Array<R>) {
       isLoading.value = true;
-      data.value = await callback(id);
+      data.value = await callback(id, ...refs);
       isLoading.value = false;
     }
 
     onMounted(async () => {
       const id = selectedProjectId.value;
       if (id === undefined) return;
-      await startLoading(id);
+      await startLoading(
+        id,
+        customRefs.map((x) => x.value),
+      );
     });
 
-    watch(selectedProjectId, async (id) => {
+    watch([selectedProjectId, ...customRefs], async ([id, ...refs]) => {
       if (id === undefined) return;
-      await startLoading(id);
+      await startLoading(id, refs);
     });
 
     return {

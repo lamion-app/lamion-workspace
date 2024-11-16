@@ -12,7 +12,6 @@
     "tokenName": "Имя токена"
   },
   "activity": {
-    "crashesCount": "сбоев",
     "details": {
       "activeUsers": "Активные пользователи",
       "crashesCount": "Кол-во сбоев",
@@ -21,8 +20,13 @@
       "totalEvents": "Всего действий",
       "triggeredEvents": "Запущено действий"
     },
+    "count": {
+      "users": "новых пользователей",
+      "events": "действий",
+      "crashes": "сбоев"
+    },
+    "noActivityFound": "Нет данных об активности за данный период",
     "errors": "Ошибки",
-    "newUsers": "новых пользователей",
     "noExtraActivity": "Никакой активности",
     "title": "Отчет о деятельности",
     "users": "Пользователи"

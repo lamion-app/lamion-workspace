@@ -8,6 +8,6 @@ export default defineI18nConfig(() => ({
   },
   datetimeFormats: {
     en: Locales.EnglishLocale.datetime,
-    ru: Locales.EnglishLocale.datetime,
+    ru: Locales.RussianLocale.datetime,
   },
 }));

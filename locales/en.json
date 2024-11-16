@@ -4,14 +4,12 @@
     "tokenLoseMessage": ""
   },
   "activity": {
-    "crashesCount": "",
     "details": {
       "crashesCount": "",
       "inAppActivity": "",
       "mostUsedFeatures": "",
       "triggeredEvents": ""
-    },
-    "newUsers": ""
+    }
   },
   "app": {
     "errors": {

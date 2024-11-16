@@ -34,3 +34,9 @@
 .\!center {
   @apply items-center justify-center !important;
 }
+
+.capitalize-start {
+  &::first-letter {
+    @apply capitalize;
+  }
+}

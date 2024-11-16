@@ -26,8 +26,8 @@ export function formatTime(time: Time) {
   return `${time.hour.toString().padStart(2, "0")}:${time.minute.toString().padStart(2, "0")}`;
 }
 
-export function formatDate(time: Time) {
-  return `${time.hour.toString().padStart(2, "0")}:${time.minute.toString().padStart(2, "0")}`;
+export function formatDateISO(date: Date) {
+  return `${date.getFullYear()}-${(date.getMonth() + 1).toString().padStart(2, "0")}-${date.getDate().toString().padStart(2, "0")}`;
 }
 
 export function dateDiffDays(d1: Date, d2: Date) {

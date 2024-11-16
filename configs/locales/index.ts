@@ -35,9 +35,7 @@ export const RussianLocale: Locale = {
       year: "numeric",
       month: "short",
       day: "numeric",
-      weekday: "short",
-      hour: "numeric",
-      minute: "numeric",
+      weekday: "long",
     },
   },
 };

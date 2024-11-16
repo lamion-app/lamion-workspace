@@ -1,24 +1,33 @@
 <template>
   <div class="list-details">
-    <div class="list no-scrollbar" :class="listClass">
-      <div class="col gap-2">
-        <div
-          v-for="(item, index) in items"
-          :key="index"
-          @click="$emit('click:item', item)"
-        >
-          <slot name="item" :item="item" :active="item == selectedItem" />
+    <template v-if="items.length > 0">
+      <div class="list no-scrollbar" :class="listClass">
+        <div class="col gap-2">
+          <div
+            v-for="(item, index) in items"
+            :key="index"
+            @click="$emit('click:item', item)"
+          >
+            <slot
+              name="item"
+              :index="index"
+              :item="item!"
+              :active="item == selectedItem"
+            />
+          </div>
         </div>
       </div>
-    </div>
 
-    <div
-      v-if="showDetails && selectedItem !== null"
-      class="details"
-      :class="detailsClass"
-    >
-      <slot name="details" :item="selectedItem" />
-    </div>
+      <div
+        v-if="showDetails && !!selectedItem"
+        class="details"
+        :class="detailsClass"
+      >
+        <slot name="details" :item="selectedItem" />
+      </div>
+    </template>
+
+    <slot v-else name="empty" />
   </div>
 </template>
 
@@ -26,7 +35,7 @@
 withDefaults(
   defineProps<{
     items: Array<T>;
-    selectedItem: T | null;
+    selectedItem: T | undefined;
     listClass?: string;
     detailsClass?: string;
     showDetails?: boolean;
@@ -43,8 +52,9 @@ defineEmits<{
 }>();
 
 defineSlots<{
-  item(props: { item: T; active: boolean }): VNode;
+  item(props: { item: T; index: number; active: boolean }): VNode;
   details(props: { item: T }): VNode;
+  empty(): VNode;
 }>();
 </script>
 
