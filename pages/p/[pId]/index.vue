@@ -19,7 +19,7 @@ const userActivityItems = computed(() =>
 </script>
 
 <template>
-  <app-layout :is-loading="isLoading || !data">
+  <app-layout :is-loading="isLoading">
     <dashboard-layout v-if="!!data">
       <scaling-card
         class="col-span-full 2xl:col-span-9"

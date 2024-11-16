@@ -56,7 +56,7 @@ const activeUsersCard = computed(() => {
 </script>
 
 <template>
-  <app-layout :is-loading="isLoading || !data">
+  <app-layout :is-loading="isLoading">
     <dashboard-layout v-if="!!data" class="dashboard">
       <progress-card
         class="col-span-4 2xl:col-span-3"

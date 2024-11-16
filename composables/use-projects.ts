@@ -28,6 +28,8 @@ export const useProjects = () => {
     }
 
     onMounted(async () => {
+      if (data.value != undefined || isLoading.value) return;
+
       const id = selectedProjectId.value;
       if (id === undefined) return;
       await startLoading(

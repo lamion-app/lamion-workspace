@@ -81,9 +81,7 @@ const router = useRouter();
 const route = useRoute();
 
 const navigationExpanded = ref(false);
-const pageTitle = computed(() =>
-  t(route.meta.title?.toString() ?? "app.title"),
-);
+const { title: pageTitle } = useSeo();
 
 const navigationItems = computed(() => [
   {
@@ -114,7 +112,7 @@ const navigationItems = computed(() => [
 ]);
 
 const isRootRoute = computed(
-  () => navigationItems.value.filter((x) => x.route == route.name).length > 0,
+  () => navigationItems.value.findIndex((x) => x.route == route.name) != -1,
 );
 
 watchEffect(() => {

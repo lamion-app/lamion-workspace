@@ -22,7 +22,11 @@ export const useProjectsStore = defineStore("projects", () => {
 
   watch([projects, selectedProjectIndex], async ([projects, index]) => {
     if (isNaN(index) || index == undefined) {
-      selectedProjectState.value = SelectedProjectState.NOT_FOUND;
+      // Handle if project already loaded and route changed
+      if (!selectedProject.value && !!savedProjectKey) {
+        selectedProjectState.value = SelectedProjectState.NOT_FOUND;
+      }
+
       return;
     }
 
@@ -30,10 +34,16 @@ export const useProjectsStore = defineStore("projects", () => {
 
     if (index != savedProjectKey) {
       savedProjectKey = index;
-      selectedProject.value = projects[index];
-    }
 
-    selectedProjectState.value = SelectedProjectState.READY;
+      const project = projects[index];
+      selectedProject.value = project;
+
+      if (project) {
+        selectedProjectState.value = SelectedProjectState.READY;
+      } else {
+        selectedProjectState.value = SelectedProjectState.NOT_FOUND;
+      }
+    }
   });
 
   onMounted(async () => {

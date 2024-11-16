@@ -1,10 +1,7 @@
 <script setup lang="ts">
 definePageMeta({
   layout: "main",
-});
-
-useHead({
-  title: "Activity report",
+  title: "activity.title"
 });
 
 const viewport = useViewport();
@@ -90,7 +87,7 @@ function startOfMonth(date: Date) {
 </script>
 
 <template>
-  <app-layout :is-loading="isLoading || !data">
+  <app-layout :is-loading="isLoading">
     <app-card>
       <div class="col gap-8">
         <div class="flex flex-wrap justify-between gap-2">
@@ -167,7 +164,7 @@ function startOfMonth(date: Date) {
           <app-card class="!py-2 max-lg:!contents">
             <div class="-mx-5 -mt-4 -mb-2 overflow-x-auto">
               <calendar-layout
-                class="min-w-[1000px]"
+                class="min-w-[1500px]"
                 grid
                 :start-date="dateRange.startDate"
                 :end-date="dateRange.endDate"

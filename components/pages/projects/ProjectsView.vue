@@ -1,8 +1,14 @@
 <template>
-  <div class="col gap-12">
+  <div class="col gap-4">
     <h3 class="text-5xl font-black">{{ $locale("projects.yourProjects") }}</h3>
 
-    <div class="project-list pt-4">
+    <nuxt-link class="w-fit text-primary flex items-center" to="/u/profile">
+      <span>{{ $t("projects.goToProfile") }}</span>
+
+      <m-icon value="chevron_right" />
+    </nuxt-link>
+
+    <div class="mt-6 project-list pt-4">
       <app-card
         class="project-item item-primary"
         container-class="col center"
@@ -108,10 +114,12 @@ defineEmits<{
 
     .project-title {
       @apply text-2xl font-bold;
+      @apply line-clamp-1;
     }
 
     .project-description {
       @apply text-base font-light;
+      @apply line-clamp-3;
       @apply pt-1;
     }
   }

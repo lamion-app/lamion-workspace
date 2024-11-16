@@ -54,13 +54,12 @@ const dateRange = computed(() => {
 </script>
 
 <template>
-  <!-- TODO: extract month name -->
   <app-card
     class="report-card !justify-start"
     :title="$locale('activity.title')"
-    subtitle="Август 2024"
     title-class="text-3xl font-black"
     title-tag="h2"
+    no-gap
   >
     <template #action>
       <nuxt-link :to="createProjectLink('activity')">
@@ -68,7 +67,15 @@ const dateRange = computed(() => {
       </nuxt-link>
     </template>
 
+    <i18n-d
+      class="text-sm font-bold capitalize-start"
+      tag="span"
+      :value="new Date()"
+      :format="{ year: 'numeric', month: 'long' }"
+    />
+
     <calendar-layout
+      class="mt-4"
       :start-date="dateRange.startDate"
       :end-date="dateRange.endDate"
       gap="gap-2"

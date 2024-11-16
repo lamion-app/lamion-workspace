@@ -1,6 +1,22 @@
 <script setup lang="ts">
 definePageMeta({
   layout: "main",
+  title: () => {
+    const route = useRoute();
+    const { $i18n } = useNuxtApp();
+    const t = $i18n.t;
+    const d = $i18n.d;
+
+    const date = parseISODateString(route.params.date.toString());
+
+    return t("activity.details.activityPeriod", {
+      expr: d(date, {
+        day: "numeric",
+        year: "numeric",
+        month: "long",
+      }),
+    });
+  },
   validate: async (route) => {
     // Check if the id is made up of digits
     return (
@@ -8,10 +24,6 @@ definePageMeta({
       !isNaN(Date.parse(route.params.date))
     );
   },
-});
-
-useHead({
-  title: "Activity detail",
 });
 </script>
 
@@ -32,7 +44,7 @@ useHead({
 
       <app-card class="mt-6 max-lg:!contents">
         <activity-date-details
-          :date="new Date(Date.parse($route.params.date.toString()))"
+          :date="parseISODateString($route.params.date.toString())"
         />
       </app-card>
     </div>
