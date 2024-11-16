@@ -1,9 +1,9 @@
 <template>
   <auth-container>
-    <app-card class="max-sm:!contents" :loading="isLoading">
+    <app-card class="md:min-w-[550px] max-sm:!contents" :loading="isLoading">
       <form class="form col gap-2" @submit.prevent="onSubmit">
         <h1 class="text-5xl font-black max-xl:text-center">
-          {{ $locale("registration") }}
+          {{ $locale("auth.signUp.title") }}
         </h1>
 
         <input-validated
@@ -12,7 +12,7 @@
           :error="errors.email"
           :props="emailAttrs"
           class="mt-6"
-          :placeholder="$locale('email')"
+          :placeholder="$locale('auth.email')"
           icon="mail"
         />
 
@@ -21,7 +21,7 @@
           :show-error="showErrors"
           :error="errors.username"
           :props="usernameAttrs"
-          :placeholder="$locale('username')"
+          :placeholder="$locale('auth.username')"
           icon="person"
         />
 
@@ -31,7 +31,7 @@
           :error="errors.password"
           :props="passwordAttrs"
           password
-          :placeholder="$locale('password')"
+          :placeholder="$locale('auth.password')"
           icon="lock"
         />
 
@@ -47,7 +47,7 @@
           class="mt-6"
           type="submit"
           :disabled="isLoading || !isFormValid"
-          >{{ $locale("signUp") }}
+          >{{ $locale("auth.signUp.action") }}
         </Button>
 
         <div class="sm:contents flex flex-wrap gap-2">
@@ -60,20 +60,20 @@
             <img
               class="size-8 object-cover dark:invert"
               src="https://cdn-icons-png.flaticon.com/512/25/25231.png"
-              :alt="$locale('githubIcon')"
+              alt="GitHub"
             />
 
             <span class="max-sm:hidden">{{
-              $locale("continueWithGithub")
+              $locale("auth.oauth.continueWithGithub")
             }}</span>
           </Button>
         </div>
 
         <span class="mt-4 text-sm text-secondary text-end">
-          <span>{{ $locale("alreadyRegistered") }} </span>
+          <span>{{ $locale("auth.signUp.alreadyRegistered") }} </span>
 
           <nuxt-link class="ms-1 text-primary" to="/auth/login">{{
-            $locale("signIn")
+            $locale("auth.signIn.action")
           }}</nuxt-link>
         </span>
       </form>

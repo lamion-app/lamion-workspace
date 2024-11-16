@@ -19,6 +19,11 @@
       }
     }
   },
+  "auth": {
+    "logout": {
+      "action": ""
+    }
+  },
   "dashboard": {
     "inAppActivity": {
       "ofTotalEvents": ""

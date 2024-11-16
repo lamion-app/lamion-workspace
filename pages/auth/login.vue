@@ -1,13 +1,13 @@
 <template>
   <auth-container>
-    <app-card class="max-sm:!contents" :loading="isLoading">
+    <app-card class="md:min-w-[550px] max-sm:!contents" :loading="isLoading">
       <form class="form col gap-2" @submit.prevent="onSubmit">
         <h1 class="text-5xl font-black max-xl:text-center">
-          {{ $locale("welcomeBack") }}
+          {{ $locale("auth.signIn.title") }}
         </h1>
 
         <span class="text-lg text-secondary max-xl:text-center">{{
-          $locale("pleaseEnterYourDetails")
+          $locale("auth.signIn.subtitle")
         }}</span>
 
         <input-validated
@@ -16,7 +16,7 @@
           :error="errors.email"
           :props="emailAttrs"
           class="mt-6"
-          :placeholder="$locale('email')"
+          :placeholder="$locale('auth.email')"
           icon="mail"
         />
 
@@ -26,7 +26,7 @@
           :error="errors.password"
           :props="passwordAttrs"
           password
-          :placeholder="$locale('password')"
+          :placeholder="$locale('auth.password')"
           icon="lock"
         />
 
@@ -34,7 +34,7 @@
           <nuxt-link
             class="text-sm text-primary text-end"
             to="/auth/forgot-password"
-            >{{ $locale("forgotPassword") }}
+            >{{ $locale("auth.signIn.forgotPassword") }}
           </nuxt-link>
         </div>
 
@@ -50,7 +50,7 @@
           class="mt-6"
           type="submit"
           :disabled="isLoading || !isFormValid"
-          >{{ $locale("signIn") }}
+          >{{ $locale("auth.signIn.action") }}
         </Button>
 
         <div class="sm:contents flex flex-wrap gap-2">
@@ -63,20 +63,20 @@
             <img
               class="size-8 object-cover dark:invert"
               src="https://cdn-icons-png.flaticon.com/512/25/25231.png"
-              :alt="$locale('githubIcon')"
+              alt="GitHub"
             />
 
             <span class="max-sm:hidden">{{
-              $locale("continueWithGithub")
+              $locale("auth.oauth.continueWithGithub")
             }}</span>
           </Button>
         </div>
 
         <span class="mt-4 text-sm text-secondary text-end">
-          <span>{{ $locale("notRegisteredYet") }} </span>
+          <span>{{ $locale("auth.signIn.notRegisteredYet") }} </span>
 
           <nuxt-link class="ms-1 text-primary" to="/auth/registration">{{
-            $locale("registerNow")
+            $locale("auth.signIn.registerNow")
           }}</nuxt-link>
         </span>
       </form>

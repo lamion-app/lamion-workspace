@@ -14,5 +14,10 @@
 </template>
 
 <script setup lang="ts">
+definePageMeta({
+  title: "projects.yourProjects",
+  key: "static",
+});
+
 const { isProjectsLoading, projects, openProject } = useProjects();
 </script>
