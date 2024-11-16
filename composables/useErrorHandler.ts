@@ -22,6 +22,8 @@ export const useErrorHandler = () => {
   const { t } = useI18n();
 
   async function handleError(e: Error) {
+    console.error(e);
+
     let message: string | undefined = undefined;
 
     if (e instanceof FetchError) {

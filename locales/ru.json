@@ -72,6 +72,7 @@
     "oauth": {
       "continueWithGithub": "Продолжить с GitHub",
       "loadingYouAccount": "Загрузка вашего аккаунта",
+      "title": "Вход через сторонний сервис",
       "waitAMinute": "Подождите минуту"
     },
     "password": "Пароль",

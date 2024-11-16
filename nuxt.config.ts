@@ -132,7 +132,6 @@ export default defineNuxtConfig({
         dataType: {
           id: "number",
           username: "string",
-          email: "string",
           avatar: "string | undefined",
         },
       },

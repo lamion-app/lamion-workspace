@@ -84,13 +84,14 @@ const settings = computed(() => [
     subtitle: t("profile.settings.username.subtitle"),
     value: account.value!.username,
   },
-  {
+    // TODO
+ /* {
     type: "text" as const,
     key: "email",
     title: t("profile.settings.email.title"),
     subtitle: t("profile.settings.email.subtitle"),
     value: account.value!.email,
-  },
+  },*/
   {
     type: "image" as const,
     key: "avatar",
