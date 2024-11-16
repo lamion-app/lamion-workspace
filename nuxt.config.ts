@@ -14,9 +14,6 @@ export default defineNuxtConfig({
     "@primevue/nuxt-module",
     "@vueuse/nuxt",
   ],
-  nitro: {
-    preset: "netlify",
-  },
   app: {
     head: {
       link: [

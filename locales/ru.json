@@ -26,7 +26,7 @@
       "totalEvents": "Всего действий",
       "triggeredEvents": "Запущено действий"
     },
-    "errors": "Ошибки",
+    "errors": "Сбои",
     "noActivityFound": "Нет данных об активности за данный период",
     "noExtraActivity": "Никакой активности",
     "title": "Отчет о активности",
@@ -75,7 +75,6 @@
       "waitAMinute": "Подождите минуту"
     },
     "password": "Пароль",
-    "username": "Имя пользователя",
     "passwordReset": {
       "thisFeatureIsStillInDevelopment": "Эта функция все еще находится в разработке."
     },
@@ -93,7 +92,8 @@
       "alreadyRegistered": "Уже зарегистрированы?",
       "credentialsError": "Учетная запись с такими данными уже существует.",
       "title": "Регистрация"
-    }
+    },
+    "username": "Имя пользователя"
   },
   "common": {
     "phrases": {
@@ -166,7 +166,7 @@
     },
     "create": {
       "description": "Описание функции",
-      "linkFunctions": "Укажите функции",
+      "linkFunctions": "Выберите функции",
       "name": "Название функции",
       "title": "Новая группа"
     },
@@ -189,7 +189,7 @@
       "functions": {
         "sort": {
           "date": "Дате создания",
-          "event": "Кол-ву событий"
+          "event": "Кол-ву действий"
         },
         "title": "Функции"
       },
