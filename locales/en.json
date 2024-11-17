@@ -1,15 +1,17 @@
 {
   "accessKey": {
-    "copyToken": "Copy Token",
-    "createANewProjectAccessToken": "Create a new project access token.",
+    "copyToken": "Copy key",
+    "createANewProjectAccessToken": "Create a new project access key.",
     "generate": "Generate",
-    "generateAccessToken": "Create Access Token",
-    "generateToken": "Create Token",
+    "generateAccessToken": "Create access key",
+    "generateToken": "Create key",
     "goToApp": "Go to Application",
-    "mindTokenName": "Specify a token name to remember what it will be used for.",
-    "newTokenReady": "New token ready",
-    "tokenLoseMessage": "If you lose your token, you will have to create a new one.",
-    "tokenName": "Token name"
+    "mindTokenName": "Specify a key name to remember what it will be used for.",
+    "newTokenReady": "New key ready",
+    "noAccessKeys": "No access keys created",
+    "title": "New access key",
+    "tokenLoseMessage": "If you lose your key, you will have to create a new one.",
+    "tokenName": "Key name"
   },
   "activity": {
     "count": {
@@ -261,6 +263,10 @@
       "dialogs": {
         "revokeAllTokens": {
           "confirm": "Confirm",
+          "popup": {
+            "message": "All access keys revoked",
+            "title": "Success"
+          },
           "subtitle": "Are you sure you want to delete ALL access keys?",
           "title": "Attention"
         },
@@ -271,7 +277,7 @@
       },
       "newAccessToken": "New access key",
       "revokeAll": "Revoke all",
-      "title": "Project access tokens"
+      "title": "Project access keys"
     },
     "general": {
       "items": {
