@@ -4,7 +4,7 @@ import type {
   SettingsFull,
 } from "~/components-types/pages/Settings";
 import type { AccessKey } from "~/types/AccessKey";
-import { useErrorHandler } from "~/composables/useErrorHandler";
+import { useErrorHandler } from "~/composables/use-error-handler";
 
 definePageMeta({
   layout: "main",

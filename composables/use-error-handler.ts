@@ -27,7 +27,7 @@ export const useErrorHandler = () => {
     let message: string | undefined = undefined;
 
     if (e instanceof FetchError) {
-      const msg = e.data.message;
+      const msg = e.data?.message;
 
       if (msg == undefined) {
         const messageCode = getErrorTextByStatus(e.statusCode!);
