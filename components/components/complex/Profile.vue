@@ -49,7 +49,6 @@ const isLogoutDialogVisible = ref(false);
       }
 
       .logout {
-        @apply w-min;
         @apply text-sm text-red-400 font-bold;
       }
     }

@@ -1,14 +1,124 @@
+<script setup lang="ts">
+const { t } = useI18n();
+
+const { handleErrorBlock } = useErrorHandler();
+const { projects, openProject } = useProjects();
+
+const data = ref<ProfileFull>();
+const isLoading = ref(false);
+
+const isLogoutDialogVisible = ref(false);
+
+onMounted(loadProfileData);
+
+const settings = computed(() => [
+  {
+    type: "text" as const,
+    key: "username",
+    title: t("profile.settings.username.title"),
+    subtitle: t("profile.settings.username.subtitle"),
+    value: data.value!.account.username,
+    onUpdate(value: string) {
+      handleErrorBlock(async () => {
+        await useApiCall(`/account/me`, {
+          method: "PATCH",
+          body: {
+            username: value,
+          },
+        });
+
+        data.value = {
+          account: {
+            ...data.value!.account,
+            username: value,
+          },
+        };
+      });
+    },
+  },
+  {
+    type: "text" as const,
+    key: "email",
+    title: t("profile.settings.email.title"),
+    subtitle: t("profile.settings.email.subtitle"),
+    value: data.value!.account.email,
+    onUpdate(value: string) {
+      handleErrorBlock(async () => {
+        await useApiCall(`/account/me`, {
+          method: "PATCH",
+          body: {
+            email: value,
+          },
+        });
+
+        data.value = {
+          account: {
+            ...data.value!.account,
+            email: value,
+          },
+        };
+      });
+    },
+  },
+  {
+    type: "image" as const,
+    key: "avatar",
+    title: t("profile.settings.avatar.title"),
+    subtitle: t("profile.settings.avatar.subtitle"),
+    value: data.value!.account.avatar,
+    label: data.value!.account.username,
+    onUpdate(value: File) {
+      handleErrorBlock(async () => {
+        const formData = new FormData();
+        formData.append("file", value);
+
+        await useApiCall("/account/avatar/me", {
+          method: "POST",
+          body: formData,
+        });
+
+        await loadProfileData();
+      });
+    },
+    onDelete() {
+      handleErrorBlock(async () => {
+        await useApiCall("/account/avatar/me", {
+          method: "DELETE",
+        });
+
+        await loadProfileData();
+      });
+    },
+  },
+]);
+
+const validateSettingsField = (key: string, value: string) => {
+  if (key == "email") {
+    // TODO: check email
+  }
+
+  return value.trim().length > 4;
+};
+
+async function loadProfileData() {
+  data.value = undefined;
+  isLoading.value = true;
+  data.value = await useApiCall("/account/profile");
+  isLoading.value = false;
+}
+</script>
+
 <template>
-  <div class="w-full col gap-4">
+  <div v-if="!!data" class="w-full col gap-4">
     <app-card container-class="flex-row items-center !gap-6">
       <label-image
         class="!size-[150px] !bg-window !text-6xl font-black"
-        :label="account!.username"
-        :image="account!.avatar"
+        :label="data.account!.username"
+        :image="data.account!.avatar"
       />
 
       <div class="col gap-2">
-        <h1 class="text-5xl font-black" v-text="account!.username" />
+        <h1 class="text-5xl font-black" v-text="data.account!.username" />
 
         <span
           class="text-sm text-red-400 font-bold cursor-pointer"
@@ -57,58 +167,10 @@
     </app-card>
 
     <app-card class="mt-4" :title="$locale('profile.title')">
-      <!-- TODO -->
-<!--      <settings-layout
+      <settings-layout
         :settings="settings"
         :validation="validateSettingsField"
-        @update-text-item="console.log($event) /* TODO */"
-        @update-image="console.log('Update image:', $event) /* TODO */"
-        @delete-image="console.log('Delete image:', $event) /* TODO */"
-      />-->
+      />
     </app-card>
   </div>
 </template>
-
-<script setup lang="ts">
-const { t } = useI18n();
-
-const { account } = useAppAuth();
-
-const isLogoutDialogVisible = ref(false);
-
-const settings = computed(() => [
-  {
-    type: "text" as const,
-    key: "username",
-    title: t("profile.settings.username.title"),
-    subtitle: t("profile.settings.username.subtitle"),
-    value: account.value!.username,
-  },
-    // TODO
- /* {
-    type: "text" as const,
-    key: "email",
-    title: t("profile.settings.email.title"),
-    subtitle: t("profile.settings.email.subtitle"),
-    value: account.value!.email,
-  },*/
-  {
-    type: "image" as const,
-    key: "avatar",
-    title: t("profile.settings.avatar.title"),
-    subtitle: t("profile.settings.avatar.subtitle"),
-    value: account.value!.avatar,
-    label: account.value!.username,
-  },
-]);
-
-const validateSettingsField = (key: string, value: string) => {
-  if (key == "email") {
-    // TODO: check email
-  }
-
-  return value.trim().length > 4;
-};
-
-const { projects, openProject } = useProjects();
-</script>

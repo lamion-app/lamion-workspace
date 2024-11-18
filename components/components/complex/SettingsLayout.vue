@@ -22,19 +22,17 @@
                 </template>
 
                 <template v-else-if="item.type == 'image'">
-                  <FileUpload
-                    mode="basic"
-                    custom-upload
-                    auto
-                    severity="secondary"
-                    class="p-button-outlined"
-                    @select="onFileSelect"
+                  <input
+                    type="file"
+                    name="file"
+                    accept="image/*"
+                    @change="onFileSelect($event)"
                   />
                 </template>
               </div>
 
               <div class="actions !opacity-100">
-                <block-ui :blocked="isEditDataError">
+                <block-ui :blocked="isEditDataError || (imageEditData && !imageEditData?.file)">
                   <icon-button
                     icon="check"
                     severity="primary"
@@ -101,8 +99,6 @@
 </template>
 
 <script setup lang="ts">
-import type { FileUploadSelectEvent } from "primevue/fileupload";
-
 const props = defineProps<{
   settings: Array<SettingsItem>;
   validation: (key: string, value: string) => boolean;
@@ -119,7 +115,7 @@ const textEditData = ref<
 const imageEditData = ref<
   | {
       item: ImageSettingsItem;
-      file: unknown;
+      file: File | undefined;
     }
   | undefined
 >();
@@ -154,16 +150,21 @@ function startEditMode(item: SettingsItem) {
   } else if (item.type == "image") {
     imageEditData.value = {
       item: item,
-      file: null,
+      file: undefined,
     };
   }
 }
 
-function onFileSelect(event: FileUploadSelectEvent) {
-  imageEditData.value = {
-    item: imageEditData.value!.item,
-    file: event.files[0],
-  };
+function onFileSelect(e: Event) {
+  const target = e.target as HTMLInputElement;
+  if (target && target.files) {
+    const file = target.files[0];
+
+    imageEditData.value = {
+      item: imageEditData.value!.item,
+      file: file,
+    };
+  }
 }
 
 function deleteImageItem(item: ImageSettingsItem) {
@@ -179,7 +180,7 @@ function finishEditMode() {
     );
   } else if (imageEditData.value) {
     imageEditData.value.item.onUpdate(
-      imageEditData.value.file,
+      imageEditData.value.file!,
       imageEditData.value.item,
     );
   }

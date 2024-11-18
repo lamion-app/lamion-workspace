@@ -15,7 +15,7 @@ export interface ImageSettingsItem extends BaseSettingsItem {
   type: "image";
   value?: string;
   label: string;
-  onUpdate: (value: unknown, item: ImageSettingsItem) => void;
+  onUpdate: (value: File, item: ImageSettingsItem) => void;
   onDelete: (item: ImageSettingsItem) => void;
 }
 
