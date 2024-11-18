@@ -161,7 +161,8 @@
     <confirm-dialog group="dialog" />
     <confirm-popup group="prompt" />
 
-    <edit-feature-dialog v-model:visible="showEditDialog" />
+    <!--  TODO  -->
+<!--    <edit-feature-dialog v-model:visible="showEditDialog" />-->
   </app-layout>
 </template>
 

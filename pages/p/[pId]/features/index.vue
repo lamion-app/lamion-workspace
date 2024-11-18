@@ -1,18 +1,97 @@
-<template>
-  <app-layout>
-    <dashboard-layout>
-      <div class="col-span-full lg:col-span-4 flex flex-col gap-4 !h-[600px]">
-        <app-card :title="$locale('features.totalEvents')" class="flex-1">
-          <active-users-chart class="flex-1 -mx-5" />
+<script setup lang="ts">
+import { FeatureSortVariant } from "~/components-types/pages/Feature";
 
-          <text-up-down-indicator
-            class="mt-2"
-            icon="&#xe7fd;"
-            :value="34"
-            quantity="%"
-            :label="$locale('common.phrases.fromLastMonth')"
-          />
-        </app-card>
+definePageMeta({
+  layout: "main",
+  title: "features.title",
+});
+
+const { t } = useI18n();
+const { useProjectLoad, useProjectLoadTransform } = useProjects();
+
+const bottomLoader = ref();
+const featuresSortOp = ref();
+
+const feature = reactive({
+  page: 0,
+  sort: FeatureSortVariant.EVENTS,
+  isLastPage: false,
+  addDialogVisible: false,
+  editDialogItem: ref<FeatureDetailedItem | undefined>(),
+});
+
+const { isLoading, data } = useProjectLoad((id) =>
+  useApiCall<FeatureFull>(`/project/${id}/features/full`),
+);
+
+const {
+  data: features,
+  isLoading: isFeaturesLoading,
+  reset: resetFeatures,
+} = useProjectLoadTransform<Array<FeatureDetailedItem>>(
+  (id, page, sort: FeatureSortVariant) =>
+    useApiCall<Array<FeatureDetailedItem>>(`/project/${id}/features`, {
+      query: {
+        p: page,
+        sort: sort.remoteName,
+      },
+    }),
+  (items, old) => {
+    feature.isLastPage = items.length == 0;
+
+    if (old) {
+      return [...old, ...items];
+    }
+
+    return items;
+  },
+  toRef(feature, "page"),
+  toRef(feature, "sort"),
+);
+
+useIntersectionObserver(bottomLoader, ([{ isIntersecting }]) => {
+  if (isIntersecting && !isFeaturesLoading.value && !feature.isLastPage) {
+    feature.page += 1;
+  }
+});
+
+const totalEventsCard = computed(() => {
+  const info = data.value!.total_events;
+
+  return {
+    title: t("features.totalEvents"),
+    overall: info.comparison,
+    data: {
+      start: parseISODateString(info.from),
+      end: parseISODateString(info.to),
+      items: mapDateChartDto(info.chart),
+    },
+    comparison: {
+      icon: "person",
+      text: t("common.phrases.fromLastMonth"),
+    },
+  };
+});
+
+function changeSortVariant(variant: FeatureSortVariant) {
+  resetFeatures();
+  feature.page = 0;
+  feature.sort = variant;
+  featuresSortOp.value.hide();
+}
+</script>
+
+<template>
+  <app-layout :is-loading="isLoading">
+    <dashboard-layout v-if="!!data">
+      <div class="col-span-full lg:col-span-4 flex flex-col gap-4 !h-[600px]">
+        <progress-card
+          class="flex-1"
+          :title="totalEventsCard.title"
+          :overall="totalEventsCard.overall"
+          :data="totalEventsCard.data"
+          :comparison="totalEventsCard.comparison"
+        />
 
         <div class="col gap-2">
           <app-card
@@ -53,17 +132,20 @@
 
       <div class="col-span-full hidden lg:block" />
 
-      <div class="col-span-full">
+      <div class="col-span-full relative">
         <app-card
           class="!gap-4"
           :title="$locale('features.totalFeatures')"
-          :subtitle="$locale('features.totalItems', { count: 350 })"
+          :subtitle="
+            $locale('features.totalItems', { count: data.total_features })
+          "
+          :loading="isFeaturesLoading && features?.length == 0"
         >
           <div class="flex flex-wrap gap-2">
             <Button
               severity="primary"
               rounded
-              @click="addFeatureDialogVisible = true"
+              @click="feature.addDialogVisible = true"
             >
               <m-icon value="add" />
 
@@ -84,18 +166,15 @@
             <Popover ref="featuresSortOp">
               <div class="col">
                 <button
-                  v-for="item in [
-                    $locale('features.sort.requests'),
-                    $locale('features.sort.errors'),
-                    $locale('features.sort.createdAt'),
-                  ]"
-                  :key="item"
+                  v-for="item in FeatureSortVariant.AllValues"
+                  :key="item.uiName"
                   class="rounded px-4 py-2 text-start"
                   :class="{
-                    'bg-surface-800': item == 'Requests',
+                    'bg-surface-800': item == feature.sort,
                   }"
+                  @click="changeSortVariant(item)"
                 >
-                  <span>{{ item }}</span>
+                  <span v-text="$locale(item.uiName)" />
                 </button>
               </div>
             </Popover>
@@ -103,41 +182,41 @@
         </app-card>
 
         <div
+          v-if="!!features && features.length > 0"
           class="mt-4 grid lg:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 gap-4"
         >
           <feature-card
-            v-for="(_, index) in Array(10)"
-            :key="index"
+            v-for="item in features"
+            :key="item.id"
+            :item="item"
             class="bg-surface-900"
             @click:open="
               navigateTo(
                 createProjectLink('features-id', {
-                  id: 1,
+                  id: item.id,
                 }),
               )
             "
-            @click:edit="showEditDialogVisible = true"
+            @click:edit="feature.editDialogItem = item"
           />
         </div>
+
+        <app-loader
+          v-if="features?.length != 0 && !feature.isLastPage"
+          ref="bottomLoader"
+          static
+        />
       </div>
     </dashboard-layout>
 
-    <add-feature-dialog v-model:visible="addFeatureDialogVisible" />
-    <edit-feature-dialog v-model:visible="showEditDialogVisible" />
+    <add-feature-dialog v-model:visible="feature.addDialogVisible" />
+    <edit-feature-dialog
+      v-if="feature.editDialogItem"
+      :visible="!!feature.editDialogItem"
+      :feature-id="feature.editDialogItem.id"
+      :title="feature.editDialogItem.title"
+      :description="feature.editDialogItem.description ?? ''"
+      @update:visible="feature.editDialogItem = undefined"
+    />
   </app-layout>
 </template>
-
-<script setup lang="ts">
-definePageMeta({
-  layout: "main",
-});
-
-useHead({
-  title: "Features",
-});
-
-const featuresSortOp = ref();
-
-const addFeatureDialogVisible = ref(false);
-const showEditDialogVisible = ref(false);
-</script>

@@ -1,4 +1,6 @@
 <script lang="ts" setup>
+import { round } from "~/utils/math";
+
 const { d } = useI18n();
 
 const props = defineProps<{
@@ -83,7 +85,7 @@ const chartItems = computed(() => {
     <text-up-down-indicator
       class="mx-5 mt-4"
       :icon="comparison.icon"
-      :value="12"
+      :value="round((overall.actual / overall.past) * 100 - 100)"
       quantity="%"
       :label="comparison.text"
     />

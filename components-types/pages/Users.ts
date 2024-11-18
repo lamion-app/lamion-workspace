@@ -1,9 +1,3 @@
-import type {
-  ChartItemDto,
-  Comparison,
-  ProgressDto,
-} from "@/components-types/pages/common";
-
 export interface UsersFull {
   total_users: ProgressDto;
   active_users: ProgressDto;

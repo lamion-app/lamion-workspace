@@ -1,12 +1,10 @@
 <script lang="ts" setup>
+import { round } from "@/utils/math";
+
 defineProps<{
   actual: number;
   past: number;
 }>();
-
-function round(n: number) {
-  return Math.round(n * 10) / 10;
-}
 </script>
 
 <template>

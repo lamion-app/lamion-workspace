@@ -1,7 +1,7 @@
 <template>
   <app-card class="w-full overflow-x-auto" :loading="isLoading">
     <template #loader>
-      <Loader class="!items-start" />
+      <app-loader class="!items-start" />
     </template>
 
     <DataTable class="table -m-5 pt-2 min-w-[900px]" :value="data">

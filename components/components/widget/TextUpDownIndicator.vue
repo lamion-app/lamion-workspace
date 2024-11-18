@@ -3,7 +3,7 @@
     class="flex items-center gap-1"
     :class="{
       'text-primary': value > 0 && indicate,
-      'text-red-500': value <= 0 && indicate,
+      'text-red-500': value < 0 && indicate,
       'text-secondary': !indicate,
     }"
   >
@@ -11,7 +11,7 @@
       class="size-6 rounded border-[1px] col center text-sm"
       :class="{
         'border-primary': value > 0 && indicate,
-        'border-red-500': value <= 0 && indicate,
+        'border-red-500': value < 0 && indicate,
         'border-surface-600': !indicate,
       }"
       :value="icon"

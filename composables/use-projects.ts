@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 export const useProjects = () => {
   const store = storeToRefs(useProjectsStore());
 
@@ -14,16 +15,36 @@ export const useProjects = () => {
 
   const selectedProjectId = computed(() => store.selectedProject.value?.id);
 
-  function useProjectLoad<T, R>(
-    callback: (id: number, ...refs: Array<R>) => Promise<T>,
-    ...customRefs: Array<Ref<R>>
+  function useProjectLoadTransform<T>(
+    callback: (id: number, ...refs: Array<any>) => Promise<T>,
+    transform: (newValue: T, currentValue: T | undefined) => T,
+    ...customRefs: Array<Ref<any>>
   ) {
+    let isResetRequested: boolean = false;
+
     const isLoading = ref(false);
     const data = ref<T>();
 
-    async function startLoading(id: number, refs: Array<R>) {
+    function reset(force: boolean = false) {
+      if (force) {
+        isResetRequested = false;
+        data.value = undefined;
+      } else {
+        isResetRequested = true;
+      }
+    }
+
+    async function startLoading(id: number, refs: Array<any>) {
       isLoading.value = true;
-      data.value = await callback(id, ...refs);
+      const result = await callback(id, ...refs);
+
+      if (isResetRequested) {
+        data.value = transform(result, undefined);
+        isResetRequested = false;
+      } else {
+        data.value = transform(result, data.value);
+      }
+
       isLoading.value = false;
     }
 
@@ -44,9 +65,17 @@ export const useProjects = () => {
     });
 
     return {
-      isLoading: isLoading,
-      data: data,
+      isLoading: shallowReadonly(isLoading),
+      data: shallowReadonly(data),
+      reset: reset,
     };
+  }
+
+  function useProjectLoad<T>(
+    callback: (id: number, ...refs: Array<any>) => Promise<T>,
+    ...customRefs: Array<Ref<any>>
+  ) {
+    return useProjectLoadTransform(callback, (p) => p, ...customRefs);
   }
 
   return {
@@ -58,5 +87,6 @@ export const useProjects = () => {
     selectedProjectState: store.selectedProjectState,
     openProject: openProject,
     useProjectLoad: useProjectLoad,
+    useProjectLoadTransform: useProjectLoadTransform,
   };
 };

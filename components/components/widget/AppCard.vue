@@ -42,7 +42,7 @@
     </div>
 
     <slot v-if="loading" name="loader">
-      <Loader />
+      <app-loader />
     </slot>
   </component>
 </template>
