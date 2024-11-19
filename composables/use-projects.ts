@@ -1,9 +1,18 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 export const useProjects = () => {
-  const store = storeToRefs(useProjectsStore());
+  const store = useProjectsStore();
+  const data = storeToRefs(store);
 
-  const openProject = (project: Project) => {
-    const index = store.projects.value!.indexOf(project);
+  const openProject = async (projectId: Id, fastFail: boolean = true) => {
+    const index = data.projects.value!.findIndex((x) => x.id == projectId);
+
+    if (index == -1) {
+      if (fastFail) return;
+
+      await store.reloadProjects();
+
+      return await openProject(projectId, true);
+    }
 
     navigateTo({
       name: "p-pId",
@@ -13,7 +22,7 @@ export const useProjects = () => {
     });
   };
 
-  const selectedProjectId = computed(() => store.selectedProject.value?.id);
+  const selectedProjectId = computed(() => data.selectedProject.value?.id);
 
   function useProjectLoadTransform<T>(
     callback: (id: number, ...refs: Array<any>) => Promise<T>,
@@ -79,12 +88,12 @@ export const useProjects = () => {
   }
 
   return {
-    projects: shallowReadonly(store.projects),
-    isProjectsLoading: readonly(store.isProjectsLoading),
-    selectedProjectIndex: readonly(store.selectedProjectIndex),
-    selectedProject: shallowReadonly(store.selectedProject),
+    projects: shallowReadonly(data.projects),
+    isProjectsLoading: readonly(data.isProjectsLoading),
+    selectedProjectIndex: readonly(data.selectedProjectIndex),
+    selectedProject: shallowReadonly(data.selectedProject),
     selectedProjectId: selectedProjectId,
-    selectedProjectState: store.selectedProjectState,
+    selectedProjectState: data.selectedProjectState,
     openProject: openProject,
     useProjectLoad: useProjectLoad,
     useProjectLoadTransform: useProjectLoadTransform,

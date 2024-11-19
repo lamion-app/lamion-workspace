@@ -45,11 +45,7 @@
           {{ $locale("auth.signIn.credentialsError") }}
         </span>
 
-        <Button
-          rounded
-          class="mt-6"
-          type="submit"
-          :disabled="isLoading || !isFormValid"
+        <Button rounded class="mt-6" type="submit" :disabled="isLoading"
           >{{ $locale("auth.signIn.action") }}
         </Button>
 
@@ -117,18 +113,20 @@ const showErrors = ref(false);
 const isLoading = ref(false);
 const isInvalidCredentialsErrorVisible = ref(false);
 
-const isFormValid = computed(() => {
-  return (
-    !!email.value &&
-    !!password.value &&
-    !errors.value["email"] &&
-    !errors.value["password"]
-  );
-});
-
 async function onSubmit() {
   // Show errors only after first submit
   showErrors.value = true;
+
+  if (
+    !(
+      !!email.value &&
+      !!password.value &&
+      !errors.value["email"] &&
+      !errors.value["password"]
+    )
+  ) {
+    return;
+  }
 
   isLoading.value = true;
 

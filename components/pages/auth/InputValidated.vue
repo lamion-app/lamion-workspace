@@ -19,6 +19,7 @@
         :class="{
           '!border-red-400': isError,
         }"
+        :variant="variant"
         :invalid="isError"
         :feedback="feedback"
         :placeholder="placeholder"
@@ -41,6 +42,7 @@ const props = withDefaults(
     error?: string;
     props: unknown;
     placeholder: string;
+    variant?: "filled" | "outlined" | undefined;
     icon?: string;
   }>(),
   {
@@ -48,6 +50,7 @@ const props = withDefaults(
     feedback: false,
     error: undefined,
     icon: undefined,
+    variant: undefined,
   },
 );
 

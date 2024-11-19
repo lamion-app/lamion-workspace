@@ -256,6 +256,13 @@
   "projects": {
     "aboutUs": "About Us",
     "addProject": "New project",
+    "createProject": {
+      "input": {
+        "description": "Description",
+        "title": "Title"
+      },
+      "title": "New project"
+    },
     "goToProfile": "Open profile",
     "seeDocs": "Documentation 😊👍",
     "yourProjects": "Projects"

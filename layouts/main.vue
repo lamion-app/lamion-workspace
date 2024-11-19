@@ -39,10 +39,10 @@
           >
             <template v-if="navigationExpanded" #before-menu>
               <ProjectSelect
-                v-if="!!selectedProject && projects != null"
+                v-if="!!selectedProject && !!projects"
                 :model-value="selectedProject!"
                 :projects="projects"
-                @update:model-value="openProject"
+                @update:model-value="openProject($event.id)"
               />
             </template>
 

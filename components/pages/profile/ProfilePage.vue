@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import AddProjectDialog from "~/components/pages/projects/AddProjectDialog.vue";
+
 const { t } = useI18n();
 
 const { handleErrorBlock } = useErrorHandler();
@@ -6,6 +8,7 @@ const { projects, openProject } = useProjects();
 
 const data = ref<ProfileFull>();
 const isLoading = ref(false);
+const isAddProjectDialogVisible = ref(false);
 
 const isLogoutDialogVisible = ref(false);
 
@@ -135,6 +138,7 @@ async function loadProfileData() {
         <Button
           class="!rounded-xl !bg-surface-200 dark:!bg-surface-900 max-xl:col-span-full"
           severity="secondary"
+          @click="isAddProjectDialogVisible = true"
         >
           <m-icon value="add" />
 
@@ -153,18 +157,17 @@ async function loadProfileData() {
 
           <span class="flex-1 text-lg font">{{ project.title }}</span>
 
-          <div class="actions flex gap-2">
-            <icon-button icon="edit" filled />
-            <icon-button
-              icon="open_in_new"
-              severity="primary"
-              filled
-              @click="openProject(project)"
-            />
-          </div>
+          <icon-button
+            icon="open_in_new"
+            severity="primary"
+            filled
+            @click="openProject(project.id)"
+          />
         </app-card>
       </div>
     </app-card>
+
+    <add-project-dialog v-model:visible="isAddProjectDialogVisible" />
 
     <app-card class="mt-4" :title="$locale('profile.title')">
       <settings-layout

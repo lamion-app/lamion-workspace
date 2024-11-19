@@ -20,6 +20,20 @@ export const useProjectsStore = defineStore("projects", () => {
 
   let savedProjectKey: number | undefined = undefined;
 
+  async function reloadProjects() {
+    isProjectsLoading.value = true;
+
+    try {
+      selectedProjectState.value = SelectedProjectState.LOADING;
+      projects.value = await loadProjects();
+    } catch (e) {
+      console.error(e);
+      selectedProjectState.value = SelectedProjectState.ERROR;
+    } finally {
+      isProjectsLoading.value = false;
+    }
+  }
+
   watch([projects, selectedProjectIndex], async ([projects, index]) => {
     if (isNaN(index) || index == undefined) {
       // Handle if project already loaded and route changed
@@ -46,19 +60,7 @@ export const useProjectsStore = defineStore("projects", () => {
     }
   });
 
-  onMounted(async () => {
-    isProjectsLoading.value = true;
-
-    try {
-      selectedProjectState.value = SelectedProjectState.LOADING;
-      projects.value = await loadProjects();
-    } catch (e) {
-      console.error(e);
-      selectedProjectState.value = SelectedProjectState.ERROR;
-    } finally {
-      isProjectsLoading.value = false;
-    }
-  });
+  onMounted(reloadProjects);
 
   return {
     projects: projects,
@@ -66,5 +68,6 @@ export const useProjectsStore = defineStore("projects", () => {
     selectedProjectIndex: selectedProjectIndex,
     selectedProject: selectedProject,
     selectedProjectState: selectedProjectState,
+    reloadProjects: reloadProjects,
   };
 });
