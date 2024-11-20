@@ -3,42 +3,27 @@ const props = defineProps<{
   datePeriod: DatePeriod;
 }>();
 
-const { useProjectLoadTransform } = useProjects();
-
 const tableEl = ref();
 const bottomLoaderEl = ref();
 
-const page = ref(0);
-const isLastPage = ref(false);
+const isTableOnScreen = ref(false);
 
-watch(
-  () => props.datePeriod,
-  () => {
-    page.value = 0;
-    isLastPage.value = false;
-    reset(true);
-  },
-);
-
-const { data, isLoading, reset, blockLoading } = useProjectLoadTransform(
-  (id, page, datePeriod) =>
+const table = useListDataLoader({
+  load: (id, page, datePeriod) =>
     useApiCall<Array<Device>>(`/project/${id}/devices`, {
       query: {
         p: page,
         period: DatePeriod[datePeriod],
       },
     }),
-  (n, o) => {
-    isLastPage.value = n.length == 0;
+  params: [toRef(() => props.datePeriod)],
+  startLoadBy: isTableOnScreen,
+  resetOnChange: [toRef(() => props.datePeriod)],
+  loaderEl: bottomLoaderEl,
+});
 
-    return [...o, ...n];
-  },
-  [page, toRef(() => props.datePeriod)],
-  false,
-);
-
-const tableData = computed(() =>
-  data.value?.map((x) => ({
+const items = computed(() =>
+  table.data?.map((x) => ({
     title: x.title,
     platform: {
       icon: computePlatformIcon(x.platform),
@@ -55,29 +40,19 @@ const tableData = computed(() =>
   })),
 );
 
-onBeforeMount(() => {
-  blockLoading(true);
-});
-
 useIntersectionObserver(tableEl, ([{ isIntersecting }]) => {
-  blockLoading(!isIntersecting);
-});
-
-useIntersectionObserver(bottomLoaderEl, ([{ isIntersecting }]) => {
-  if (isIntersecting && !isLoading.value && !isLastPage.value) {
-    page.value += 1;
-  }
+  isTableOnScreen.value = isIntersecting;
 });
 </script>
 
 <template>
   <div ref="tableEl" class="devices">
-    <div v-if="isLoading && !data" class="w-full h-[200px]">
-      <app-loader />
+    <div v-if="table.isPreLoading" class="w-full h-[150px]">
+      <app-loader class="size-full" />
     </div>
 
     <template v-else>
-      <DataTable :value="tableData">
+      <DataTable :value="items">
         <Column :header="$locale('devices.name')">
           <template #body="slotProps">
             <span>{{ slotProps.data.title }}</span>
@@ -128,13 +103,9 @@ useIntersectionObserver(bottomLoaderEl, ([{ isIntersecting }]) => {
         </Column>
       </DataTable>
 
-      <progress-spinner
-        v-if="!isLoading && !!data && !isLastPage"
-        ref="bottomLoaderEl"
-        class="mt-6 mx-auto"
-      />
+      <div v-if="table.isNeedPostLoading" class="w-full mt-6 flex center">
+        <progress-spinner ref="bottomLoaderEl" />
+      </div>
     </template>
   </div>
 </template>
-
-<style lang="scss" scoped></style>
