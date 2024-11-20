@@ -41,7 +41,7 @@ const types = new Map([
       />
 
       <p>
-        <value-quantity :value="type[1]" quantity="K" />
+        <value-quantity :value="type[1]" />
 
         <span class="ms-1">{{ $locale(types.get(type[0])!.label) }}</span>
       </p>

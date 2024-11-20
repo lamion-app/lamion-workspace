@@ -140,7 +140,6 @@
                 <value-quantity
                   class="ms-1"
                   value="20"
-                  quantity="K"
                   quantity-class="text-secondary"
                 />
               </div>
@@ -162,7 +161,7 @@
     <confirm-popup group="prompt" />
 
     <!--  TODO  -->
-<!--    <edit-feature-dialog v-model:visible="showEditDialog" />-->
+    <!--    <edit-feature-dialog v-model:visible="showEditDialog" />-->
   </app-layout>
 </template>
 

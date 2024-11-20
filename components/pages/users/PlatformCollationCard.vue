@@ -62,15 +62,9 @@ const devices = computed(() =>
                 "
                 :prefix="device.activityDiff > 0 ? '+' : '-'"
                 :value="Math.abs(device.activityDiff)"
-                quantity="k"
               />
 
-              <span
-                >(<value-quantity
-                  :value="device.activityActual"
-                  quantity="k"
-                />)</span
-              >
+              <span>(<value-quantity :value="device.activityActual" />)</span>
 
               <span class="font-thin">{{ $locale("users.totalEvents") }}</span>
             </div>

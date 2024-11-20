@@ -102,6 +102,15 @@
     "phrases": {
       "fromLastMonth": "с прошлого месяца"
     },
+    "quantity": {
+      "short": {
+        "billion": "млрд",
+        "million": "млн",
+        "quadrillion": "q",
+        "thousand": "тыс",
+        "trillion": "трлн"
+      }
+    },
     "simple": {
       "any": "Любой",
       "back": "Назад",

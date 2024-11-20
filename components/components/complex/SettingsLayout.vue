@@ -32,7 +32,11 @@
               </div>
 
               <div class="actions !opacity-100">
-                <block-ui :blocked="isEditDataError || (imageEditData && !imageEditData?.file)">
+                <block-ui
+                  :blocked="
+                    isEditDataError || (imageEditData && !imageEditData?.file)
+                  "
+                >
                   <icon-button
                     icon="check"
                     severity="primary"

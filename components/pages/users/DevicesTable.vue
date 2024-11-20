@@ -20,7 +20,6 @@
             value-class="text-3xl"
             quantity-class="text-2xl text-secondary"
             :value="slotProps.data.activityNumber"
-            :quantity="slotProps.data.activityQuantity"
           />
 
           <up-down-indicator
@@ -46,7 +45,6 @@
             value-class="text-3xl"
             quantity-class="text-2xl text-secondary"
             :value="slotProps.data.errorNumber"
-            :quantity="slotProps.data.errorQuantity"
           />
         </div>
       </template>

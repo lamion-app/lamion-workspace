@@ -1,7 +1,7 @@
 <script setup lang="ts">
 definePageMeta({
   layout: "main",
-  title: "activity.title"
+  title: "activity.title",
 });
 
 const viewport = useViewport();

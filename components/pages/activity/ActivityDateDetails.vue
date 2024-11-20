@@ -35,7 +35,6 @@ const userActivityItems = computed(() =>
           <value-quantity
             class="text-6xl"
             :value="data.active_users"
-            quantity="K"
             quantity-class="text-secondary"
           />
         </app-card>
@@ -48,7 +47,6 @@ const userActivityItems = computed(() =>
           <value-quantity
             class="text-6xl"
             :value="data.total_events"
-            quantity="K"
             quantity-class="text-secondary"
           />
         </app-card>
@@ -61,7 +59,6 @@ const userActivityItems = computed(() =>
           <value-quantity
             class="text-6xl"
             :value="data.crashes"
-            quantity="K"
             quantity-class="text-secondary"
           />
         </app-card>
@@ -88,7 +85,6 @@ const userActivityItems = computed(() =>
                   <value-quantity
                     class="font-black"
                     :value="feature.total_events"
-                    quantity="K"
                   />
                 </div>
               </div>
@@ -96,7 +92,7 @@ const userActivityItems = computed(() =>
               <value-quantity
                 class="text-xs font-black"
                 :value="feature.total_events_percent.toFixed(1)"
-                quantity="%"
+                custom-quantity="%"
               />
             </div>
 

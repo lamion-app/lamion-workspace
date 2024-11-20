@@ -16,7 +16,7 @@ defineProps<{
           'text-red-500': actual < 0,
         }"
         :value="Math.abs(round(actual))"
-        quantity="%"
+        custom-quantity="%"
         quantity-class="text-7xl"
       />
 

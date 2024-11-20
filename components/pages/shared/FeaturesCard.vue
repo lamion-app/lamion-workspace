@@ -26,7 +26,6 @@
           <value-quantity
             class="text-4xl"
             value="5.67"
-            quantity="M"
             quantity-class="text-3xl text-secondary"
           />
         </div>
@@ -38,7 +37,6 @@
           <value-quantity
             class="text-4xl"
             value="300"
-            quantity="K"
             quantity-class="text-3xl text-secondary"
           />
         </div>

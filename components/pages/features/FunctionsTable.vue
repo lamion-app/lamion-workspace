@@ -25,7 +25,6 @@
               value-class="text-3xl"
               quantity-class="text-2xl text-secondary"
               :value="slotProps.data.activityNumber"
-              :quantity="slotProps.data.activityQuantity"
             />
           </div>
         </template>

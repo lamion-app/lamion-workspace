@@ -102,6 +102,15 @@
     "phrases": {
       "fromLastMonth": "since last month"
     },
+    "quantity": {
+      "short": {
+        "billion": "b",
+        "million": "m",
+        "quadrillion": "q",
+        "thousand": "k",
+        "trillion": "t"
+      }
+    },
     "simple": {
       "any": "Any",
       "back": "Back",
@@ -233,7 +242,7 @@
     "crashes": "crashes",
     "crashesCount": "crashes",
     "noCrashes": "There were no crashes",
-    "title": "Everything is ok"
+    "title": "Health"
   },
   "profile": {
     "createNewProject": "Create a new project",

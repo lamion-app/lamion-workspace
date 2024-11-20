@@ -16,12 +16,12 @@
           v-if="!!title"
           :class="!!titleClass ? titleClass : 'text-2xl font-black'"
         >
-          {{ title }}</component
-        >
+          {{ title }}
+        </component>
 
         <component :is="subtitleTag" v-if="!!subtitle" class="text-sm">
-          {{ subtitle }}</component
-        >
+          {{ subtitle }}
+        </component>
       </div>
 
       <slot name="action">
@@ -76,7 +76,7 @@ withDefaults(
     titleTag: "span",
     subtitleTag: "span",
     as: "div",
-  }
+  },
 );
 
 defineEmits<{

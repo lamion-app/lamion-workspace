@@ -42,6 +42,7 @@ const chartItems = computed(() => {
 
 <template>
   <app-card
+    class="!overflow-visible"
     :title="title"
     title-class="text-lg text-secondary"
     no-gap
@@ -50,12 +51,11 @@ const chartItems = computed(() => {
     <value-quantity
       class="mx-5 text-4xl font-medium"
       :value="overall.actual"
-      quantity="K"
       quantity-class="text-3xl text-secondary"
     />
 
     <line-chart
-      class="mt-2 flex-1 overflow-hidden"
+      class="mt-2 flex-1"
       color="primary"
       brightness="500"
       stroke-opacity="ff"

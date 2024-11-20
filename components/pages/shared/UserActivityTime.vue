@@ -24,11 +24,7 @@ const chartItems = computed(() =>
   >
     <template #value="{ item }">
       <div class="col center px-2">
-        <value-quantity
-          class="text-lg font-black"
-          :value="item.number"
-          quantity="k"
-        />
+        <value-quantity class="text-lg font-black" :value="item.number" />
         <span class="text-sm font-normal">{{
           $locale("userActivityTime.sessions")
         }}</span>

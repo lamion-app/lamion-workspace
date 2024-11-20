@@ -23,7 +23,6 @@
           <value-quantity
             class="mx-1 text-pink-500 dark:text-pink-300"
             :value="crashes"
-            quantity="k"
             quantity-class="opacity-70"
           />
 
@@ -41,7 +40,6 @@
         <value-quantity
           class="text-7xl font-black"
           :value="crashes"
-          quantity="k"
           quantity-class="text-red-700 dark:text-red-400"
         />
 

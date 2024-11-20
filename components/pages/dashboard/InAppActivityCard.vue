@@ -41,7 +41,6 @@ const displayingItems = computed(() => props.items.slice(0, 5));
 
         <value-quantity
           :value="feature.total_events"
-          quantity="K"
           value-class="text-xl font-bold"
           quantity-class="text-lg font-medium text-secondary"
         />

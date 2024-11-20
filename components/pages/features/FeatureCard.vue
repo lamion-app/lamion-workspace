@@ -35,7 +35,6 @@ defineEmits<{
           <value-quantity
             class="font-medium text-primary"
             :value="item.total_events"
-            quantity="K"
           />
         </div>
 
@@ -49,7 +48,6 @@ defineEmits<{
           <value-quantity
             class="font-medium text-red-600 dark:text-red-500"
             :value="item.total_errors"
-            quantity="%"
           />
         </div>
       </div>
@@ -75,19 +73,11 @@ defineEmits<{
           <div class="flex items-center gap-1 text-sm text-secondary">
             <span>{{ $locale("features.card.totalCalls") }}:</span>
 
-            <value-quantity
-              class="font-black"
-              :value="f.total_events"
-              quantity="K"
-            />
+            <value-quantity class="font-black" :value="f.total_events" />
           </div>
         </div>
 
-        <value-quantity
-          class="text-xs font-black"
-          :value="round(f.percent)"
-          quantity="%"
-        />
+        <value-quantity class="text-xs font-black" :value="round(f.percent)" />
       </div>
     </app-card>
 

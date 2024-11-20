@@ -8,7 +8,6 @@
     <value-quantity
       class="mx-5 text-4xl font-medium"
       value="500"
-      quantity="K"
       quantity-class="text-3xl text-secondary"
     />
 

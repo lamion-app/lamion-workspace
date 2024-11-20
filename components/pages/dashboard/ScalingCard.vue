@@ -17,7 +17,6 @@
           <value-quantity
             class="text-6xl"
             :value="item.value"
-            :quantity="item.quantity"
             quantity-class="text-secondary"
           />
 
@@ -46,7 +45,6 @@ const items = computed(() => [
   {
     name: t("dashboard.totalUsers"),
     value: props.data.total_users.actual,
-    quantity: "K", // TODO
     change: {
       value: 10,
       quantity: "%",
@@ -55,7 +53,6 @@ const items = computed(() => [
   {
     name: t("dashboard.activeUsers"),
     value: props.data.active_users.actual,
-    quantity: "K",
     change: {
       value: 30,
       quantity: "%",
@@ -64,7 +61,6 @@ const items = computed(() => [
   {
     name: t("dashboard.crashes"),
     value: props.data.total_crashes.actual,
-    quantity: "K",
     change: {
       value: -5,
       quantity: "%",
@@ -74,7 +70,6 @@ const items = computed(() => [
   {
     name: t("dashboard.triggeredEvents"),
     value: props.data.triggered_events.actual,
-    quantity: "B",
     change: {
       value: -5,
       quantity: "%",

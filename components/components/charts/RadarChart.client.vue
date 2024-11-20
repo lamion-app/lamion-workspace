@@ -1,9 +1,5 @@
 <template>
-  <Chart
-    type="radar"
-    :data="chartData"
-    :options="chartOptions"
-  />
+  <Chart type="radar" :data="chartData" :options="chartOptions" />
 </template>
 
 <script setup lang="ts">
