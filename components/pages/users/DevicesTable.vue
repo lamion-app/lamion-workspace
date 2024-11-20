@@ -48,7 +48,7 @@ useIntersectionObserver(tableEl, ([{ isIntersecting }]) => {
 <template>
   <div ref="tableEl" class="devices">
     <div v-if="table.isPreLoading" class="w-full h-[150px]">
-      <app-loader class="size-full" />
+      <app-loader class="size-full" static />
     </div>
 
     <template v-else>
@@ -104,7 +104,7 @@ useIntersectionObserver(tableEl, ([{ isIntersecting }]) => {
       </DataTable>
 
       <div v-if="table.isNeedPostLoading" class="w-full mt-6 flex center">
-        <progress-spinner ref="bottomLoaderEl" />
+        <app-loader ref="bottomLoaderEl" static />
       </div>
     </template>
   </div>

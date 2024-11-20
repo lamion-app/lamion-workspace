@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { FeatureSortVariant } from "~/components-types/pages/Feature";
+import { FeatureSortVariant } from "@/components-types/pages/Feature";
 
 definePageMeta({
   layout: "main",
@@ -7,15 +7,13 @@ definePageMeta({
 });
 
 const { t } = useI18n();
-const { useProjectLoad, useProjectLoadTransform } = useProjects();
+const { useProjectLoad } = useProjects();
 
 const bottomLoader = ref();
 const featuresSortOp = ref();
 
-const feature = reactive({
-  page: 0,
+const featureData = reactive({
   sort: FeatureSortVariant.EVENTS,
-  isLastPage: false,
   addDialogVisible: false,
   editDialogItem: ref<FeatureDetailedItem | undefined>(),
 });
@@ -24,30 +22,17 @@ const { isLoading, data } = useProjectLoad((id) =>
   useApiCall<FeatureFull>(`/project/${id}/features/full`),
 );
 
-const {
-  data: features,
-  isLoading: isFeaturesLoading,
-  reset: resetFeatures,
-} = useProjectLoadTransform<Array<FeatureDetailedItem>>(
-  (id, page, sort: FeatureSortVariant) =>
+const features = useListDataLoader({
+  load: (id, page, sort: FeatureSortVariant) =>
     useApiCall<Array<FeatureDetailedItem>>(`/project/${id}/features`, {
       query: {
         p: page,
         sort: sort.remoteName,
       },
     }),
-  (items, old) => {
-    feature.isLastPage = items.length == 0;
-
-    return [...old, ...items];
-  },
-  [toRef(feature, "page"), toRef(feature, "sort")],
-);
-
-useIntersectionObserver(bottomLoader, ([{ isIntersecting }]) => {
-  if (isIntersecting && !isFeaturesLoading.value && !feature.isLastPage) {
-    feature.page += 1;
-  }
+  params: [toRef(featureData, "sort")],
+  resetOnChange: [toRef(featureData, "sort")],
+  loaderEl: bottomLoader,
 });
 
 const totalEventsCard = computed(() => {
@@ -69,9 +54,7 @@ const totalEventsCard = computed(() => {
 });
 
 function changeSortVariant(variant: FeatureSortVariant) {
-  resetFeatures();
-  feature.page = 0;
-  feature.sort = variant;
+  featureData.sort = variant;
   featuresSortOp.value.hide();
 }
 </script>
@@ -134,13 +117,13 @@ function changeSortVariant(variant: FeatureSortVariant) {
           :subtitle="
             $locale('features.totalItems', { count: data.total_features })
           "
-          :loading="isFeaturesLoading && features?.length == 0"
+          :loading="features.isPreLoading"
         >
           <div class="flex flex-wrap gap-2">
             <Button
               severity="primary"
               rounded
-              @click="feature.addDialogVisible = true"
+              @click="featureData.addDialogVisible = true"
             >
               <m-icon value="add" />
 
@@ -165,7 +148,7 @@ function changeSortVariant(variant: FeatureSortVariant) {
                   :key="item.uiName"
                   class="rounded px-4 py-2 text-start"
                   :class="{
-                    'bg-surface-800': item == feature.sort,
+                    'bg-surface-800': item == featureData.sort,
                   }"
                   @click="changeSortVariant(item)"
                 >
@@ -177,11 +160,11 @@ function changeSortVariant(variant: FeatureSortVariant) {
         </app-card>
 
         <div
-          v-if="!!features && features.length > 0"
+          v-if="!!features.data && features.data.length > 0"
           class="mt-4 grid lg:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 gap-4"
         >
           <feature-card
-            v-for="item in features"
+            v-for="item in features.data"
             :key="item.id"
             :item="item"
             class="bg-surface-900"
@@ -192,26 +175,26 @@ function changeSortVariant(variant: FeatureSortVariant) {
                 }),
               )
             "
-            @click:edit="feature.editDialogItem = item"
+            @click:edit="featureData.editDialogItem = item"
           />
         </div>
 
         <app-loader
-          v-if="features?.length != 0 && !feature.isLastPage"
+          v-if="features.isNeedPostLoading"
           ref="bottomLoader"
           static
         />
       </div>
     </dashboard-layout>
 
-    <add-feature-dialog v-model:visible="feature.addDialogVisible" />
+    <add-feature-dialog v-model:visible="featureData.addDialogVisible" />
     <edit-feature-dialog
-      v-if="feature.editDialogItem"
-      :visible="!!feature.editDialogItem"
-      :feature-id="feature.editDialogItem.id"
-      :title="feature.editDialogItem.title"
-      :description="feature.editDialogItem.description ?? ''"
-      @update:visible="feature.editDialogItem = undefined"
+      v-if="featureData.editDialogItem"
+      :visible="!!featureData.editDialogItem"
+      :feature-id="featureData.editDialogItem.id"
+      :title="featureData.editDialogItem.title"
+      :description="featureData.editDialogItem.description ?? ''"
+      @update:visible="featureData.editDialogItem = undefined"
     />
   </app-layout>
 </template>

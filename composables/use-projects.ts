@@ -31,7 +31,7 @@ export const useProjects = () => {
     autoLoading: boolean = true,
   ) {
     let isResetRequested = false;
-    let isBlocked = false;
+    let isBlocked = !autoLoading;
 
     const isLoading = ref(false);
     const data = ref<T>();

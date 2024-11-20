@@ -33,10 +33,6 @@ export const useListDataLoader = <T>(params: {
     !params.startLoadBy,
   );
 
-  onBeforeMount(async () => {
-    await blockLoading(true);
-  });
-
   if (params.startLoadBy) {
     watch(params.startLoadBy, async (loading) => {
       await blockLoading(!loading);
