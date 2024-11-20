@@ -39,14 +39,9 @@ const {
   (items, old) => {
     feature.isLastPage = items.length == 0;
 
-    if (old) {
-      return [...old, ...items];
-    }
-
-    return items;
+    return [...old, ...items];
   },
-  toRef(feature, "page"),
-  toRef(feature, "sort"),
+  [toRef(feature, "page"), toRef(feature, "sort")],
 );
 
 useIntersectionObserver(bottomLoader, ([{ isIntersecting }]) => {

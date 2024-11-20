@@ -26,13 +26,25 @@ export const useProjects = () => {
 
   function useProjectLoadTransform<T>(
     callback: (id: number, ...refs: Array<any>) => Promise<T>,
-    transform: (newValue: T, currentValue: T | undefined) => T,
-    ...customRefs: Array<Ref<any>>
+    transform: (newValue: T, currentValue: T) => T,
+    customRefs: Array<Ref<any>> = [],
+    autoLoading: boolean = true,
   ) {
-    let isResetRequested: boolean = false;
+    let isResetRequested = false;
+    let isBlocked = false;
 
     const isLoading = ref(false);
     const data = ref<T>();
+
+    async function blockLoading(block: boolean) {
+      if (isBlocked == block) return;
+
+      isBlocked = block;
+
+      if (!block) {
+        await onMountedAction();
+      }
+    }
 
     function reset(force: boolean = false) {
       if (force) {
@@ -44,11 +56,13 @@ export const useProjects = () => {
     }
 
     async function startLoading(id: number, refs: Array<any>) {
+      if (isBlocked) return;
+
       isLoading.value = true;
       const result = await callback(id, ...refs);
 
-      if (isResetRequested) {
-        data.value = transform(result, undefined);
+      if (isResetRequested || !data.value) {
+        data.value = result;
         isResetRequested = false;
       } else {
         data.value = transform(result, data.value);
@@ -57,7 +71,7 @@ export const useProjects = () => {
       isLoading.value = false;
     }
 
-    onMounted(async () => {
+    async function onMountedAction() {
       if (data.value != undefined || isLoading.value) return;
 
       const id = selectedProjectId.value;
@@ -66,7 +80,11 @@ export const useProjects = () => {
         id,
         customRefs.map((x) => x.value),
       );
-    });
+    }
+
+    if (autoLoading) {
+      onMounted(onMountedAction);
+    }
 
     watch([selectedProjectId, ...customRefs], async ([id, ...refs]) => {
       if (id === undefined) return;
@@ -77,14 +95,16 @@ export const useProjects = () => {
       isLoading: shallowReadonly(isLoading),
       data: shallowReadonly(data),
       reset: reset,
+      blockLoading: blockLoading,
     };
   }
 
   function useProjectLoad<T>(
     callback: (id: number, ...refs: Array<any>) => Promise<T>,
-    ...customRefs: Array<Ref<any>>
+    customRefs: Array<Ref<any>> = [],
+    autoLoading: boolean = true,
   ) {
-    return useProjectLoadTransform(callback, (p) => p, ...customRefs);
+    return useProjectLoadTransform(callback, (p) => p, customRefs, autoLoading);
   }
 
   return {

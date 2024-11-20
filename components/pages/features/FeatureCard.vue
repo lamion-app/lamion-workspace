@@ -77,7 +77,11 @@ defineEmits<{
           </div>
         </div>
 
-        <value-quantity class="text-xs font-black" :value="round(f.percent)" />
+        <value-quantity
+          class="text-xs font-black"
+          :value="round(f.percent)"
+          custom-quantity="%"
+        />
       </div>
     </app-card>
 

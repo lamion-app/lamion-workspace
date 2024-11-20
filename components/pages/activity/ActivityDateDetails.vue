@@ -9,7 +9,7 @@ const { useProjectLoad } = useProjects();
 
 const { data, isLoading } = useProjectLoad(
   (id, date) => useApiCall<ActivityDetails>(`/project/${id}/activity/${date}`),
-  computed(() => formatDateISO(props.date)),
+  [computed(() => formatDateISO(props.date))],
 );
 
 const userActivityItems = computed(() =>

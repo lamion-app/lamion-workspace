@@ -1,135 +1,140 @@
-<template>
-  <!-- TODO: add deferred -->
-  <DataTable :value="data">
-    <Column field="name" :header="$locale('devices.name')" />
-
-    <Column :header="$locale('devices.platform')">
-      <template #body="slotProps">
-        <div class="flex items-center gap-2">
-          <m-icon :value="slotProps.data.platform.icon" />
-
-          <span v-text="slotProps.data.platform.name" />
-        </div>
-      </template>
-    </Column>
-
-    <Column :header="$locale('devices.activity')">
-      <template #body="slotProps">
-        <div class="flex items-center gap-2">
-          <value-quantity
-            value-class="text-3xl"
-            quantity-class="text-2xl text-secondary"
-            :value="slotProps.data.activityNumber"
-          />
-
-          <up-down-indicator
-            v-if="
-              !!slotProps.data.activityIncrease &&
-              slotProps.data.activityIncrease !== 0
-            "
-            :value="slotProps.data.activityIncrease"
-            :quantity="slotProps.data.activityIncreaseQuantity"
-          />
-        </div>
-      </template>
-    </Column>
-
-    <Column :header="$locale('devices.errors')">
-      <template #body="slotProps">
-        <div>
-          <value-quantity
-            :class="{
-              'text-red-500': slotProps.data.errorNumber >= 5,
-              'font-black': slotProps.data.errorNumber >= 5,
-            }"
-            value-class="text-3xl"
-            quantity-class="text-2xl text-secondary"
-            :value="slotProps.data.errorNumber"
-          />
-        </div>
-      </template>
-    </Column>
-  </DataTable>
-</template>
-
 <script setup lang="ts">
-interface DevicePlatform {
-  icon: string;
-  iconUrl?: boolean;
-  name: string;
-}
+const props = defineProps<{
+  datePeriod: DatePeriod;
+}>();
 
-interface Device {
-  name: string;
-  platform: DevicePlatform;
-  activityNumber: number;
-  activityQuantity?: string;
-  activityIncrease?: number;
-  activityIncreaseQuantity?: string;
-  errorNumber: number;
-  errorQuantity?: string;
-}
+const { useProjectLoadTransform } = useProjects();
 
-const platforms = {
-  android: {
-    icon: String.fromCharCode(0xe859),
-    name: "Android",
-  },
-  ios: {
-    icon: String.fromCharCode(0xe027),
-    name: "Android",
-  },
-  browserMobile: {
-    icon: String.fromCharCode(0xe64c),
-    name: "Browser/Mobile",
-  },
-  browserDesktop: {
-    icon: String.fromCharCode(0xe64c),
-    name: "Browser/Desktop",
-  },
-  desktop: {
-    icon: String.fromCharCode(0xe30a),
-    name: "Desktop",
-  },
-};
+const tableEl = ref();
+const bottomLoaderEl = ref();
 
-const data: Array<Device> = [
-  {
-    name: "Chrome 129.0.6668.100",
-    platform: platforms.browserDesktop,
-    activityNumber: 100,
-    activityQuantity: "K",
-    activityIncrease: 5,
-    activityIncreaseQuantity: "%",
-    errorNumber: 5,
+const page = ref(0);
+const isLastPage = ref(false);
+
+watch(
+  () => props.datePeriod,
+  () => {
+    page.value = 0;
+    isLastPage.value = false;
+    reset(true);
   },
-  {
-    name: "Xiaomi 15+ pro ultra",
-    platform: platforms.android,
-    activityNumber: 35,
-    activityQuantity: "K",
-    activityIncrease: 14,
-    activityIncreaseQuantity: "%",
-    errorNumber: 2,
+);
+
+const { data, isLoading, reset, blockLoading } = useProjectLoadTransform(
+  (id, page, datePeriod) =>
+    useApiCall<Array<Device>>(`/project/${id}/devices`, {
+      query: {
+        p: page,
+        period: DatePeriod[datePeriod],
+      },
+    }),
+  (n, o) => {
+    isLastPage.value = n.length == 0;
+
+    return [...o, ...n];
   },
-  {
-    name: "Iphone 15+",
-    platform: platforms.ios,
-    activityNumber: 36,
-    activityQuantity: "K",
-    activityIncrease: -3,
-    activityIncreaseQuantity: "%",
-    errorNumber: 30,
-  },
-  {
-    name: "Firefox mobile",
-    platform: platforms.browserMobile,
-    activityNumber: 1,
-    activityQuantity: "K",
-    activityIncrease: 0,
-    errorNumber: 3,
-  },
-];
+  [page, toRef(() => props.datePeriod)],
+  false,
+);
+
+const tableData = computed(() =>
+  data.value?.map((x) => ({
+    title: x.title,
+    platform: {
+      icon: computePlatformIcon(x.platform),
+      title: x.platform,
+    },
+    activity: {
+      value: x.activity.actual,
+      change: computeChange(x.activity),
+    },
+    error: {
+      value: x.errors.actual,
+      change: computeChange(x.errors),
+    },
+  })),
+);
+
+onBeforeMount(() => {
+  blockLoading(true);
+});
+
+useIntersectionObserver(tableEl, ([{ isIntersecting }]) => {
+  blockLoading(!isIntersecting);
+});
+
+useIntersectionObserver(bottomLoaderEl, ([{ isIntersecting }]) => {
+  if (isIntersecting && !isLoading.value && !isLastPage.value) {
+    page.value += 1;
+  }
+});
 </script>
+
+<template>
+  <div ref="tableEl" class="devices">
+    <div v-if="isLoading && !data" class="w-full h-[200px]">
+      <app-loader />
+    </div>
+
+    <template v-else>
+      <DataTable :value="tableData">
+        <Column :header="$locale('devices.name')">
+          <template #body="slotProps">
+            <span>{{ slotProps.data.title }}</span>
+
+            <div class="flex items-center gap-2">
+              <m-icon :value="slotProps.data.platform.icon" />
+
+              <span v-text="slotProps.data.platform.title" />
+            </div>
+          </template>
+        </Column>
+
+        <Column :header="$locale('devices.activity')">
+          <template #body="slotProps">
+            <div class="flex items-center gap-2">
+              <value-quantity
+                value-class="text-3xl"
+                quantity-class="text-2xl text-secondary"
+                :value="slotProps.data.activity.value"
+              />
+
+              <up-down-indicator
+                v-if="slotProps.data.activity.change"
+                :value="slotProps.data.activity.change"
+                quantity="%"
+              />
+            </div>
+          </template>
+        </Column>
+
+        <Column :header="$locale('devices.errors')">
+          <template #body="slotProps">
+            <div class="flex items-center gap-2">
+              <value-quantity
+                value-class="text-3xl"
+                quantity-class="text-2xl text-secondary"
+                :value="slotProps.data.error.value"
+              />
+
+              <up-down-indicator
+                v-if="slotProps.data.error.change"
+                :value="slotProps.data.error.change"
+                revert
+                quantity="%"
+              />
+            </div>
+          </template>
+        </Column>
+      </DataTable>
+
+      <progress-spinner
+        v-if="!isLoading && !!data && !isLastPage"
+        ref="bottomLoaderEl"
+        class="mt-6 mx-auto"
+      />
+    </template>
+  </div>
+</template>
 
 <style lang="scss" scoped></style>

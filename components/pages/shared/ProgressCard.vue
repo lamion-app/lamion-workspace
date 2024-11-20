@@ -42,7 +42,6 @@ const chartItems = computed(() => {
 
 <template>
   <app-card
-    class="!overflow-visible"
     :title="title"
     title-class="text-lg text-secondary"
     no-gap
@@ -55,7 +54,7 @@ const chartItems = computed(() => {
     />
 
     <line-chart
-      class="mt-2 flex-1"
+      class="mt-2 flex-1 overflow-hidden"
       color="primary"
       brightness="500"
       stroke-opacity="ff"

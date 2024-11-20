@@ -61,21 +61,18 @@
 </template>
 
 <script setup lang="ts">
+import { datePeriodNames } from "~/types/DatePeriod";
+
 const { t } = useI18n();
 
 const tab = ref(DatePeriod.DAY);
 
-const datePeriodNames = new Map<DatePeriod, string>([
-  [DatePeriod.DAY, t("datetime.periods.daily")],
-  [DatePeriod.WEEK, t("datetime.periods.weekly")],
-  [DatePeriod.MONTH, t("datetime.periods.monthly")],
-  [DatePeriod.YEAR, t("datetime.periods.yearly")],
-  [DatePeriod.ALL_TIME, t("datetime.periods.all_time")],
-]);
-const datePeriods = DatePeriodEntries.map((d) => ({
-  value: d,
-  name: datePeriodNames.get(d),
-}));
+const datePeriods = computed(() =>
+  DatePeriodEntries.map((d) => ({
+    value: d,
+    name: t(datePeriodNames.get(d)!),
+  })),
+);
 
 const array = [
   {

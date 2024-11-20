@@ -21,13 +21,16 @@ const viewMode = ref(viewVariants[0]);
 
 const selectedMonth = ref(startOfMonth(new Date()));
 
-const { isLoading, data } = useProjectLoad((id, month) => {
-  return useApiCall<ActivityFull>(`/project/${id}/activity/full`, {
-    query: {
-      date: formatDateISO(month),
-    },
-  });
-}, selectedMonth);
+const { isLoading, data } = useProjectLoad(
+  (id, month) => {
+    return useApiCall<ActivityFull>(`/project/${id}/activity/full`, {
+      query: {
+        date: formatDateISO(month),
+      },
+    });
+  },
+  [selectedMonth],
+);
 
 const calendarItems = computed(() => mapCalendarItems(data.value?.calendar));
 const selectedItem = ref<CalendarItem>();

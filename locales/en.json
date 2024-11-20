@@ -165,7 +165,7 @@
     }
   },
   "devices": {
-    "activity": "Activity",
+    "activity": "Events",
     "errors": "Errors",
     "name": "Device name",
     "platform": "Platform"

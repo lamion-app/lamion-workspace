@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import { datePeriodNames } from "~/types/DatePeriod";
+
 definePageMeta({
   title: "users.title",
   layout: "main",
@@ -7,6 +9,16 @@ definePageMeta({
 const { t } = useI18n();
 
 const { useProjectLoad } = useProjects();
+
+const deviceTable = reactive({
+  selectedDatePeriod: ref(DatePeriod.DAY),
+  datePeriods: computed(() =>
+    [DatePeriod.DAY, DatePeriod.MONTH, DatePeriod.YEAR].map((d) => ({
+      value: d,
+      name: t(datePeriodNames.get(d)!),
+    })),
+  ),
+});
 
 const { isLoading, data } = useProjectLoad((id) =>
   useApiCall<UsersFull>(`/project/${id}/users/full`),
@@ -100,19 +112,16 @@ const activeUsersCard = computed(() => {
       >
         <template #action>
           <SelectButton
-            :model-value="$locale('datetime.periods.daily')"
-            :options="[
-              $locale('datetime.periods.daily'),
-              $locale('datetime.periods.monthly'),
-              $locale('datetime.periods.yearly'),
-            ]"
+            v-model="deviceTable.selectedDatePeriod"
+            :options="deviceTable.datePeriods"
+            option-label="name"
+            option-value="value"
             aria-labelledby="basic"
           />
         </template>
 
         <template #default>
-          <!-- TODO: add devices table loading -->
-          <devices-table />
+          <devices-table :date-period="deviceTable.selectedDatePeriod" />
         </template>
       </app-card>
     </dashboard-layout>

@@ -21,9 +21,10 @@
           />
 
           <up-down-indicator
-            :value="item.change.value"
-            :quantity="item.change.quantity"
-            :revert="item.change.revert"
+            v-if="item.change"
+            :value="item.change"
+            quantity="%"
+            :revert="item.revertChange"
           />
         </div>
       </app-card>
@@ -32,8 +33,6 @@
 </template>
 
 <script setup lang="ts">
-import type { DashboardScaling } from "@/components-types/pages/Dashboard";
-
 const { t } = useI18n();
 
 const props = defineProps<{
@@ -45,35 +44,23 @@ const items = computed(() => [
   {
     name: t("dashboard.totalUsers"),
     value: props.data.total_users.actual,
-    change: {
-      value: 10,
-      quantity: "%",
-    },
+    change: computeChange(props.data.total_users),
   },
   {
     name: t("dashboard.activeUsers"),
     value: props.data.active_users.actual,
-    change: {
-      value: 30,
-      quantity: "%",
-    },
+    change: computeChange(props.data.active_users),
   },
   {
     name: t("dashboard.crashes"),
     value: props.data.total_crashes.actual,
-    change: {
-      value: -5,
-      quantity: "%",
-      revert: true,
-    },
+    change: computeChange(props.data.total_crashes),
+    revertChange: true,
   },
   {
     name: t("dashboard.triggeredEvents"),
     value: props.data.triggered_events.actual,
-    change: {
-      value: -5,
-      quantity: "%",
-    },
+    change: computeChange(props.data.triggered_events),
   },
 ]);
 </script>

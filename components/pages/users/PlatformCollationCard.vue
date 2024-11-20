@@ -4,24 +4,6 @@ const props = defineProps<{
   topDevices: TopDevice[];
 }>();
 
-const platformIcons: Record<string, string> = {
-  android: "android",
-  ios: "ios",
-  backend: "host",
-  web: "public",
-};
-
-function computePlatformIcon(platform: string) {
-  const keys = Object.keys(platformIcons);
-  const index = keys.findIndex((x) =>
-    platform.toLocaleLowerCase().includes(x.toLocaleLowerCase()),
-  );
-
-  if (index == -1) return "public";
-
-  return platformIcons[keys[index]];
-}
-
 const devices = computed(() =>
   props.topDevices.map((x) => ({
     title: x.title,
