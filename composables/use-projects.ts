@@ -47,7 +47,7 @@ export const useProjects = () => {
       isBlocked = block;
 
       if (!block) {
-        await onMountedAction();
+        await invokeLoadWithCurrentValues();
       }
     }
 
@@ -60,7 +60,7 @@ export const useProjects = () => {
       }
     }
 
-    async function startLoading(id: number, refs: Array<any>) {
+    async function onLoad(id: number, refs: Array<any>) {
       if (isBlocked) return;
 
       isLoading.value = true;
@@ -80,25 +80,27 @@ export const useProjects = () => {
       isLoading.value = false;
     }
 
-    async function onMountedAction() {
+    async function invokeLoadWithCurrentValues() {
       if (data.value != undefined || isLoading.value) return;
 
       const id = selectedProjectId.value;
       if (id === undefined) return;
-      await startLoading(id, params.customRefs?.map((x) => x.value) ?? []);
+      await onLoad(id, params.customRefs?.map((x) => x.value) ?? []);
     }
 
     if (autoLoading) {
-      onMounted(onMountedAction);
+      onBeforeMount(invokeLoadWithCurrentValues);
     }
 
     watch(
       [selectedProjectId, ...(params.customRefs ?? [])],
       async (val) => {
+        if (isBlocked || isLoading.value) return;
+
         const [id, ...refs] = val;
 
         if (id === undefined) return;
-        await startLoading(id, refs);
+        await onLoad(id, refs);
       },
       {
         immediate: autoLoading,

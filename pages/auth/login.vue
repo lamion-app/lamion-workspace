@@ -89,10 +89,7 @@ definePageMeta({
     unauthenticatedOnly: true,
     navigateAuthenticatedTo: "/",
   },
-});
-
-useHead({
-  title: "Login",
+  title: "auth.signIn.title",
 });
 
 const { signIn } = useAppAuth();

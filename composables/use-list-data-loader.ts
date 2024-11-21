@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
-import type {MaybeElement} from "@vueuse/core";
+import type { MaybeElement } from "@vueuse/core";
 
 export const useListDataLoader = <T>(params: {
   load: (id: Id, page: number, ...refs: Array<any>) => Promise<Array<T>>;
@@ -8,6 +8,7 @@ export const useListDataLoader = <T>(params: {
   resetOnChange?: Array<Ref<any>> | true;
   startLoadBy?: Ref<boolean>;
   loaderEl: Ref<MaybeElement>;
+  reloadDelay?: number;
 }) => {
   const { useProjectLoad } = useProjects();
 
@@ -45,10 +46,32 @@ export const useListDataLoader = <T>(params: {
     });
   }
 
+  let reloadTimer: ReturnType<typeof setTimeout> | undefined;
+
   async function reload() {
+    if (!params.reloadDelay) {
+      return doReload();
+    }
+
+    await blockLoading(true);
+
+    if (reloadTimer !== undefined) {
+      clearTimeout(reloadTimer);
+    }
+
+    reloadTimer = setTimeout(() => {
+      doReload();
+
+      clearTimeout(reloadTimer);
+    }, params.reloadDelay);
+  }
+
+  async function doReload() {
     page.value = 0;
     isLastPage.value = false;
     reset(true);
+
+    await blockLoading(false);
   }
 
   useIntersectionObserver(params.loaderEl, ([{ isIntersecting }]) => {

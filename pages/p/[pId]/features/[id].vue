@@ -1,9 +1,9 @@
 <script setup lang="ts">
-import { Teleport } from "vue";
 import type { RouteLocationNormalizedLoadedGeneric } from "#vue-router";
 
 definePageMeta({
   layout: "main",
+  keepalive: false,
   title: (route: RouteLocationNormalizedLoadedGeneric) => {
     const { $i18n } = useNuxtApp();
     const t = $i18n.t;
@@ -13,7 +13,7 @@ definePageMeta({
     });
   },
   key: (route) => {
-    return `feature#${route.params.id}`;
+    return `feature-${route.params.id}`;
   },
   validate: async (route) => {
     return typeof route.params.id === "string" && /^\d+$/.test(route.params.id);
@@ -63,6 +63,7 @@ const functions = useListDataLoader({
     toRef(functionsSearch, "globalSearch"),
   ],
   resetOnChange: true,
+  reloadDelay: 1000,
 });
 
 const tags = computed(
@@ -201,8 +202,8 @@ const confirmDetachFunction = (
         </Button>
 
         <client-only>
-          <component
-            :is="$viewport.isLessThan('lg') ? Teleport : 'div'"
+          <teleport
+            :disabled="!$viewport.isLessThan('lg')"
             to="#header-actions"
           >
             <div class="flex gap-2 rounded-full px-2 py-1 lg:bg-surface-800">
@@ -213,11 +214,15 @@ const confirmDetachFunction = (
                 @click="confirmDelete()"
               />
             </div>
-          </component>
+          </teleport>
         </client-only>
       </div>
 
-      <h1 class="text-6xl line-clamp-1" v-text="data.feature.title" />
+      <h1
+        class="text-6xl line-clamp-1"
+        :title="data.feature.title"
+        v-text="data.feature.title"
+      />
 
       <p v-text="data.feature.description" />
 

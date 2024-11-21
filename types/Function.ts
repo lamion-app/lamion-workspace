@@ -17,6 +17,6 @@ export interface FunctionDetailedDto {
   id: Id;
   title: string;
   events: number;
-  feature: FeatureSimpleDto;
+  features: Array<FeatureSimpleDto>;
   tags: FunctionTag[];
 }

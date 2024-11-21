@@ -229,11 +229,12 @@
   "functions": {
     "emptyText": "No functions",
     "searchByName": "Search by name",
-    "subtitle": "Global search",
+    "subtitle": "Global functions search",
     "table": {
       "activity": "Activity",
       "feature": "Feature",
       "name": "Name",
+      "noData": "No matching results",
       "tags": "Tags"
     },
     "title": "Application functions"

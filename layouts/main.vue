@@ -112,7 +112,9 @@ const navigationItems = computed(() => [
 ]);
 
 const isRootRoute = computed(
-  () => navigationItems.value.findIndex((x) => x.route == route.name) != -1,
+  () =>
+    route.meta.isRootRoute === true ||
+    navigationItems.value.findIndex((x) => x.route == route.name) != -1,
 );
 
 watchEffect(() => {
@@ -147,6 +149,12 @@ function onNavigationClick() {
     @apply px-6;
     @apply bg-surface-100 dark:bg-surface-900;
     @apply transition-all;
+
+    #header-actions {
+      > :not(:last-child) {
+        display: none !important;
+      }
+    }
   }
 
   .nav-controller {
