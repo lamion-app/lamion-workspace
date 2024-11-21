@@ -4,7 +4,7 @@ withDefaults(
     static?: boolean;
   }>(),
   {
-    static: true,
+    static: false,
   },
 );
 </script>

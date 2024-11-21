@@ -3,7 +3,6 @@ export enum DatePeriod {
   WEEK,
   MONTH,
   YEAR,
-  ALL_TIME,
 }
 
 export const DatePeriodEntries = [
@@ -11,7 +10,6 @@ export const DatePeriodEntries = [
   DatePeriod.WEEK,
   DatePeriod.MONTH,
   DatePeriod.YEAR,
-  DatePeriod.ALL_TIME,
 ];
 
 export const datePeriodNames = new Map<DatePeriod, string>([
@@ -19,5 +17,4 @@ export const datePeriodNames = new Map<DatePeriod, string>([
   [DatePeriod.WEEK, "datetime.periods.weekly"],
   [DatePeriod.MONTH, "datetime.periods.monthly"],
   [DatePeriod.YEAR, "datetime.periods.yearly"],
-  [DatePeriod.ALL_TIME, "datetime.periods.all_time"],
 ]);
