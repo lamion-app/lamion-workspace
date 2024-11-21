@@ -8,7 +8,7 @@ definePageMeta({
 
 const { t } = useI18n();
 
-const { useProjectLoad } = useProjects();
+const { useProjectLoadAlias } = useProjects();
 
 const deviceTable = reactive({
   selectedDatePeriod: ref(DatePeriod.DAY),
@@ -20,7 +20,7 @@ const deviceTable = reactive({
   ),
 });
 
-const { isLoading, data } = useProjectLoad((id) =>
+const { isLoading, data } = useProjectLoadAlias((id) =>
   useApiCall<UsersFull>(`/project/${id}/users/full`),
 );
 

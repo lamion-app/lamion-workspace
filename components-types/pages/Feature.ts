@@ -3,10 +3,23 @@ export interface FeatureFull {
   total_features: number;
 }
 
+export interface FeatureDetailsFull {
+  feature: FeatureSimpleDto;
+  tags: Array<string>;
+  events: ProgressDto;
+  errors: ProgressDto;
+}
+
+export interface FeatureSimpleDto {
+  id: Id;
+  title: string;
+  description: string | undefined;
+}
+
 export interface FunctionSimpleDto {
   id: Id;
   title: string;
-  description: string | unknown;
+  description: string | undefined;
 }
 
 export interface FeatureDetailedItem {
@@ -19,18 +32,18 @@ export interface FeatureDetailedItem {
   top_function: TopFunction[];
 }
 
-export class FeatureSortVariant {
-  public static readonly AllValues: FeatureSortVariant[] = [];
+export class DefaultSortVariant {
+  public static readonly AllValues: DefaultSortVariant[] = [];
 
-  public static readonly EVENTS = new FeatureSortVariant(
+  public static readonly EVENTS = new DefaultSortVariant(
     "features.sort.requests",
     "EVENTS_COUNT",
   );
-  public static readonly ERRORS = new FeatureSortVariant(
+  public static readonly ERRORS = new DefaultSortVariant(
     "features.sort.errors",
     "ERRORS_COUNT",
   );
-  public static readonly DATE_CREATED = new FeatureSortVariant(
+  public static readonly DATE_CREATED = new DefaultSortVariant(
     "features.sort.createdAt",
     "DATE_CREATED",
   );
@@ -39,7 +52,7 @@ export class FeatureSortVariant {
     public readonly uiName: string,
     public readonly remoteName: string,
   ) {
-    FeatureSortVariant.AllValues.push(this);
+    DefaultSortVariant.AllValues.push(this);
   }
 }
 

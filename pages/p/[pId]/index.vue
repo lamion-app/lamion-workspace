@@ -5,9 +5,9 @@ definePageMeta({
   key: "static",
 });
 
-const { useProjectLoad } = useProjects();
+const { useProjectLoadAlias } = useProjects();
 
-const { isLoading, data } = useProjectLoad((id) =>
+const { isLoading, data } = useProjectLoadAlias((id: Id) =>
   useApiCall<DashboardFull>(`/project/${id}/dashboard/full`),
 );
 

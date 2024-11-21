@@ -1,6 +1,6 @@
 <template>
   <app-layout>
-    <app-card
+<!--    <app-card
       class="!gap-4"
       :title="$locale('functions.title')"
       :subtitle="$locale('functions.subtitle')"
@@ -26,12 +26,12 @@
       :data="content"
       :features="features"
       :tags="tags"
-    />
+    />-->
   </app-layout>
 </template>
 
 <script setup lang="ts">
-definePageMeta({
+/*definePageMeta({
   layout: "main",
 });
 
@@ -166,5 +166,5 @@ function loadData() {
 
     isLoading.value = false;
   }, 1500);
-}
+}*/
 </script>

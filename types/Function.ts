@@ -2,16 +2,21 @@ export interface FeatureFilter {
   name: string;
 }
 
-export interface FunctionTag {
-  name: string;
-  color?: string;
+export interface FunctionWithEventsDto {
+  id: Id;
+  title: string;
+  events: number;
 }
 
-export interface FunctionItem {
+export interface FunctionTag {
+  id: Id;
   name: string;
-  totalActivityNumber: number;
-  activityNumber: number;
-  activityQuantity: string;
-  feature: FeatureFilter;
+}
+
+export interface FunctionDetailedDto {
+  id: Id;
+  title: string;
+  events: number;
+  feature: FeatureSimpleDto;
   tags: FunctionTag[];
 }

@@ -5,7 +5,7 @@ definePageMeta({
 });
 
 const viewport = useViewport();
-const { useProjectLoad } = useProjects();
+const { useProjectLoadAlias } = useProjects();
 
 const viewVariants = [
   {
@@ -21,7 +21,7 @@ const viewMode = ref(viewVariants[0]);
 
 const selectedMonth = ref(startOfMonth(new Date()));
 
-const { isLoading, data } = useProjectLoad(
+const { isLoading, data } = useProjectLoadAlias(
   (id, month) => {
     return useApiCall<ActivityFull>(`/project/${id}/activity/full`, {
       query: {

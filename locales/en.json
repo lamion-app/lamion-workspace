@@ -206,6 +206,8 @@
         },
         "title": "Functions"
       },
+      "noFunctions": "No functions related",
+      "title": "Feature #{name}",
       "totalEvents": "Total actions"
     },
     "edit": {
@@ -235,7 +237,7 @@
       "name": "Name",
       "tags": "Tags"
     },
-    "title": "Application features"
+    "title": "Application functions"
   },
   "health": {
     "crashAlert": "Attention",

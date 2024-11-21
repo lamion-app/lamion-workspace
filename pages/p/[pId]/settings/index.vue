@@ -5,12 +5,12 @@ definePageMeta({
 });
 
 const { t } = useI18n();
-const { useProjectLoad, selectedProjectId } = useProjects();
+const { useProjectLoadAlias, selectedProjectId } = useProjects();
 const { handleErrorBlock } = useErrorHandler();
 const confirm = useConfirm();
 const toast = useToast();
 
-const { isLoading, data } = useProjectLoad((id) =>
+const { isLoading, data } = useProjectLoadAlias((id) =>
   useApiCall<SettingsFull>(`/project/${id}/settings`),
 );
 

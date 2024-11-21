@@ -4,7 +4,7 @@
       <app-loader class="!items-start" />
     </template>
 
-    <DataTable class="table -m-5 pt-2 min-w-[900px]" :value="data">
+<!--    <DataTable class="table -m-5 pt-2 min-w-[900px]" :value="data">
       <template v-if="!isLoading" #empty>
         <span>{{ $locale("functions.emptyText") }}</span>
       </template>
@@ -173,7 +173,7 @@
           </div>
         </template>
       </Column>
-    </DataTable>
+    </DataTable>-->
 
     <!-- TODO: add bottom progress bar -->
   </app-card>
@@ -182,7 +182,7 @@
 <script setup lang="ts">
 defineProps<{
   isLoading: boolean;
-  data: Array<FunctionItem> | undefined;
+  // data: Array<FunctionItem> | undefined;
   features: Array<FeatureFilter> | undefined;
   tags: Array<FunctionTag> | undefined;
 }>();

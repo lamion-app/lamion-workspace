@@ -3,6 +3,8 @@ export const useProjects = () => {
   const store = useProjectsStore();
   const data = storeToRefs(store);
 
+  const { handleError } = useErrorHandler();
+
   const openProject = async (projectId: Id, fastFail: boolean = true) => {
     const index = data.projects.value!.findIndex((x) => x.id == projectId);
 
@@ -24,16 +26,19 @@ export const useProjects = () => {
 
   const selectedProjectId = computed(() => data.selectedProject.value?.id);
 
-  function useProjectLoadTransform<T>(
-    callback: (id: number, ...refs: Array<any>) => Promise<T>,
-    transform: (newValue: T, currentValue: T) => T,
-    customRefs: Array<Ref<any>> = [],
-    autoLoading: boolean = true,
-  ) {
+  function useProjectLoad<T>(params: {
+    load: (id: number, ...refs: Array<any>) => Promise<T>;
+    transform?: (newValue: T, currentValue: T) => T;
+    customRefs?: Array<Ref<any>>;
+    autoLoading?: boolean;
+  }) {
+    const autoLoading = params.autoLoading ?? true;
+
     let isResetRequested = false;
     let isBlocked = !autoLoading;
 
     const isLoading = ref(false);
+    const isError = ref(false);
     const data = ref<T>();
 
     async function blockLoading(block: boolean) {
@@ -59,13 +64,17 @@ export const useProjects = () => {
       if (isBlocked) return;
 
       isLoading.value = true;
-      const result = await callback(id, ...refs);
-
-      if (isResetRequested || !data.value) {
-        data.value = result;
-        isResetRequested = false;
-      } else {
-        data.value = transform(result, data.value);
+      try {
+        const result = await params.load(id, ...refs);
+        if (isResetRequested || !data.value || !params.transform) {
+          data.value = result;
+          isResetRequested = false;
+        } else {
+          data.value = params.transform(result, data.value);
+        }
+      } catch (e) {
+        await handleError(e as Error);
+        isError.value = true;
       }
 
       isLoading.value = false;
@@ -76,35 +85,45 @@ export const useProjects = () => {
 
       const id = selectedProjectId.value;
       if (id === undefined) return;
-      await startLoading(
-        id,
-        customRefs.map((x) => x.value),
-      );
+      await startLoading(id, params.customRefs?.map((x) => x.value) ?? []);
     }
 
     if (autoLoading) {
       onMounted(onMountedAction);
     }
 
-    watch([selectedProjectId, ...customRefs], async ([id, ...refs]) => {
-      if (id === undefined) return;
-      await startLoading(id, refs);
-    });
+    watch(
+      [selectedProjectId, ...(params.customRefs ?? [])],
+      async (val) => {
+        const [id, ...refs] = val;
+
+        if (id === undefined) return;
+        await startLoading(id, refs);
+      },
+      {
+        immediate: autoLoading,
+      },
+    );
 
     return {
       isLoading: shallowReadonly(isLoading),
       data: shallowReadonly(data),
+      isError: shallowReadonly(isError),
       reset: reset,
       blockLoading: blockLoading,
     };
   }
 
-  function useProjectLoad<T>(
+  function useProjectLoadAlias<T>(
     callback: (id: number, ...refs: Array<any>) => Promise<T>,
     customRefs: Array<Ref<any>> = [],
     autoLoading: boolean = true,
   ) {
-    return useProjectLoadTransform(callback, (p) => p, customRefs, autoLoading);
+    return useProjectLoad({
+      load: callback,
+      customRefs: customRefs,
+      autoLoading: autoLoading,
+    });
   }
 
   return {
@@ -115,7 +134,10 @@ export const useProjects = () => {
     selectedProjectId: selectedProjectId,
     selectedProjectState: data.selectedProjectState,
     openProject: openProject,
+    /**
+     * @deprecated
+     */
+    useProjectLoadAlias: useProjectLoadAlias,
     useProjectLoad: useProjectLoad,
-    useProjectLoadTransform: useProjectLoadTransform,
   };
 };

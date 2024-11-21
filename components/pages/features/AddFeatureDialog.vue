@@ -6,13 +6,13 @@ const visible = defineModel<boolean>("visible", { required: true });
 const selectedFunctions = ref<Array<FunctionSimpleDto>>([]);
 
 const { handleErrorBlock } = useErrorHandler();
-const { useProjectLoad, selectedProjectId } = useProjects();
+const { useProjectLoadAlias, selectedProjectId } = useProjects();
 const { t } = useI18n();
 const toast = useToast();
 
 const titleText = ref("");
 const descriptionText = ref("");
-const { data: functions, isLoading } = useProjectLoad((id) =>
+const { data: functions, isLoading } = useProjectLoadAlias((id) =>
   useApiCall<Array<FunctionSimpleDto>>(`/project/${id}/functions`),
 );
 

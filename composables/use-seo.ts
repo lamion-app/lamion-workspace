@@ -12,7 +12,7 @@ export const useSeo = () => {
 
       let title: string;
       if (routeTitle instanceof Function) {
-        title = routeTitle.call(undefined).toString();
+        title = routeTitle.call(undefined, route).toString();
       } else {
         title = t(routeTitle.toString());
       }

@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { FeatureSortVariant } from "@/components-types/pages/Feature";
+import { DefaultSortVariant } from "@/components-types/pages/Feature";
 
 definePageMeta({
   layout: "main",
@@ -7,23 +7,23 @@ definePageMeta({
 });
 
 const { t } = useI18n();
-const { useProjectLoad } = useProjects();
+const { useProjectLoadAlias } = useProjects();
 
 const bottomLoader = ref();
 const featuresSortOp = ref();
 
 const featureData = reactive({
-  sort: FeatureSortVariant.EVENTS,
+  sort: DefaultSortVariant.EVENTS,
   addDialogVisible: false,
   editDialogItem: ref<FeatureDetailedItem | undefined>(),
 });
 
-const { isLoading, data } = useProjectLoad((id) =>
+const { isLoading, data } = useProjectLoadAlias((id) =>
   useApiCall<FeatureFull>(`/project/${id}/features/full`),
 );
 
 const features = useListDataLoader({
-  load: (id, page, sort: FeatureSortVariant) =>
+  load: (id, page, sort: DefaultSortVariant) =>
     useApiCall<Array<FeatureDetailedItem>>(`/project/${id}/features`, {
       query: {
         p: page,
@@ -53,7 +53,7 @@ const totalEventsCard = computed(() => {
   };
 });
 
-function changeSortVariant(variant: FeatureSortVariant) {
+function changeSortVariant(variant: DefaultSortVariant) {
   featureData.sort = variant;
   featuresSortOp.value.hide();
 }
@@ -144,7 +144,7 @@ function changeSortVariant(variant: FeatureSortVariant) {
             <Popover ref="featuresSortOp">
               <div class="col">
                 <button
-                  v-for="item in FeatureSortVariant.AllValues"
+                  v-for="item in DefaultSortVariant.AllValues"
                   :key="item.uiName"
                   class="rounded px-4 py-2 text-start"
                   :class="{

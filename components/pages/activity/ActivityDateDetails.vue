@@ -5,9 +5,9 @@ const props = defineProps<{
   date: Date;
 }>();
 
-const { useProjectLoad } = useProjects();
+const { useProjectLoadAlias } = useProjects();
 
-const { data, isLoading } = useProjectLoad(
+const { data, isLoading } = useProjectLoadAlias(
   (id, date) => useApiCall<ActivityDetails>(`/project/${id}/activity/${date}`),
   [computed(() => formatDateISO(props.date))],
 );
