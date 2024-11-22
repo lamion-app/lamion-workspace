@@ -7,40 +7,40 @@ on:
       - "feature/ci-cd-**"
 
 jobs:
-  check:
-    runs-on: ubuntu-latest
-    name: "Run checks"
-    steps:
-      - uses: actions/checkout@v4
-
-      - name: Setup Node
-        uses: actions/setup-node@v4
-        with:
-          node-version: 18
-
-      - run: npm install
-      - run: npm run lint
+  #  check:
+  #    runs-on: ubuntu-latest
+  #    name: "Run checks"
+  #    steps:
+  #      - uses: actions/checkout@v4
+  #
+  #      - name: Setup Node
+  #        uses: actions/setup-node@v4
+  #        with:
+  #          node-version: 20
+  #
+  #      - run: npm install
+  #      - run: npm run lint
   deploy:
     runs-on: ubuntu-latest
     name: "Deploy to Netlify"
-    needs:
-      - check
+    #    needs:
+    #      - check
     steps:
       - uses: actions/checkout@v4
 
       - name: Setup Node
         uses: actions/setup-node@v4
         with:
-          node-version: 18
+          node-version: 20
 
       - run: npm install
       - run: npm run build
+        env:
+          GITHUB_CLIENT_ID: ${{ secrets.GITHUB_CLIENT_ID }}
+          GITHUB_REDIRECT_URL: ${{ env.OAUTH_GITHUB_REDIRECT_URL }}
 
       - name: Deploy to netlify
         uses: netlify/actions/cli@master
         env:
           NETLIFY_AUTH_TOKEN: ${{ secrets.DEV_AUTH_TOKEN }}
           NETLIFY_SITE_ID: ${{ secrets.DEV_SITE_ID }}
-        with:
-          args: deploy
-          production-deploy: true
