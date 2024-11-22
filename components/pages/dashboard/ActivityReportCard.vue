@@ -1,10 +1,65 @@
+<script setup lang="ts">
+import {
+  CalendarActivityVariant,
+  type CalendarItem,
+} from "@/types/CalendarItem";
+
+const props = defineProps<{
+  items: Array<CalendarItem>;
+}>();
+
+const severityMap = new Map([
+  [CalendarActivityVariant.USERS, "primary"],
+  [CalendarActivityVariant.EVENTS, "warning"],
+  [CalendarActivityVariant.ERRORS, "danger"],
+]);
+
+const getItemSeverity = computed(() => (date: Date) => {
+  const item = props.items.find((x) => isSameDate(x.date, date));
+
+  if (!item || item.types.size == 0) {
+    return "secondary";
+  }
+
+  const variant = new Array(...item.types.entries()).sort(
+    (x1, x2) => x1[1] - x2[1],
+  )[0][0];
+
+  return severityMap.get(variant) ?? "secondary";
+});
+
+const dateRange = computed(() => {
+  const inputDate = new Date();
+  inputDate.setHours(0);
+  inputDate.setMinutes(0);
+  inputDate.setSeconds(0);
+  inputDate.setMilliseconds(0);
+
+  const startDate = new Date(inputDate);
+
+  // Go back to start of month or 3 weeks
+  startDate.setDate(Math.min(1, inputDate.getDate() - 7 * 3));
+
+  // Go to start of week
+  const day = startDate.getDay();
+  const diff = startDate.getDate() - day + (day == 0 ? -6 : 1);
+  startDate.setDate(diff);
+
+  return {
+    inputDate: inputDate,
+    startDate: startDate,
+    endDate: inputDate,
+  };
+});
+</script>
+
 <template>
   <app-card
     class="report-card !justify-start"
     :title="$locale('activity.title')"
-    subtitle="Август 2024"
     title-class="text-3xl font-black"
     title-tag="h2"
+    no-gap
   >
     <template #action>
       <nuxt-link :to="createProjectLink('activity')">
@@ -12,36 +67,50 @@
       </nuxt-link>
     </template>
 
-    <calendar-layout :weeks="3" gap="gap-2">
+    <i18n-d
+      class="text-sm font-bold capitalize-start"
+      tag="span"
+      :value="new Date()"
+      :format="{ year: 'numeric', month: 'long' }"
+    />
+
+    <calendar-layout
+      class="mt-4"
+      :start-date="dateRange.startDate"
+      :end-date="dateRange.endDate"
+      gap="gap-2"
+    >
       <template #legend>
         <div class="flex flex-wrap gap-2 text-sm font-bold text-surface-100">
-          <span class="select-none bg-primary-500 rounded-lg px-3 py-1"
-            >{{ $locale('activity.users') }}</span
-          >
-          <span class="select-none bg-red-700 rounded-lg px-3 py-1"
-            >{{ $locale('activity.errors') }}</span
-          >
-          <span class="select-none bg-surface-700 rounded-lg px-3 py-1"
-            >{{ $locale('activity.noExtraActivity') }}</span
-          >
+          <span class="select-none bg-primary-500 rounded-lg px-3 py-1">{{
+            $locale("activity.users")
+          }}</span>
+          <span class="select-none bg-red-700 rounded-lg px-3 py-1">{{
+            $locale("activity.errors")
+          }}</span>
+          <span class="select-none bg-surface-700 rounded-lg px-3 py-1">{{
+            $locale("activity.noExtraActivity")
+          }}</span>
         </div>
       </template>
 
-      <template #default="{ index }">
+      <template #default="{ date, inRange }">
         <Button
           class="size-full aspect-square"
           :class="{
-            'opacity-50': index < 3,
+            'opacity-50': !inRange,
           }"
-          :severity="
-            index % 4 ? 'secondary' : index % 12 === 0 ? 'danger' : 'primary'
-          "
+          :severity="getItemSeverity(date)"
           as="router-link"
-          :to="createProjectLink('activity-date', { date: index })"
+          :to="
+            createProjectLink('activity-date', {
+              date: date.toISOString().substring(0, 10),
+            })
+          "
         >
           <div
             class="size-full text-2xl font-medium flex items-center justify-center"
-            v-text="index < 3 ? 29 + index : index - 2"
+            v-text="date.getDate()"
           />
         </Button>
       </template>

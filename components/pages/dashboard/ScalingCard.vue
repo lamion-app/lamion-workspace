@@ -2,7 +2,7 @@
   <app-card
     :title="title"
     :subtitle="$locale('dashboard.todaySummary')"
-    title-class="text-4xl font-black"
+    title-class="text-5xl font-black"
     title-tag="h1"
   >
     <div class="scaling-container">
@@ -17,14 +17,14 @@
           <value-quantity
             class="text-6xl"
             :value="item.value"
-            :quantity="item.quantity"
             quantity-class="text-secondary"
           />
 
           <up-down-indicator
-            :value="item.change.value"
-            :quantity="item.change.quantity"
-            :revert="item.change.revert"
+            v-if="item.change"
+            :value="item.change"
+            quantity="%"
+            :revert="item.revertChange"
           />
         </div>
       </app-card>
@@ -35,49 +35,34 @@
 <script setup lang="ts">
 const { t } = useI18n();
 
-defineProps<{
+const props = defineProps<{
   title: string;
+  data: DashboardScaling;
 }>();
 
-const items = [
+const items = computed(() => [
   {
     name: t("dashboard.totalUsers"),
-    value: 300,
-    quantity: "K",
-    change: {
-      value: 10,
-      quantity: "%",
-    },
+    value: props.data.total_users.actual,
+    change: computeChange(props.data.total_users),
   },
   {
     name: t("dashboard.activeUsers"),
-    value: 2.2,
-    quantity: "K",
-    change: {
-      value: 30,
-      quantity: "%",
-    },
+    value: props.data.active_users.actual,
+    change: computeChange(props.data.active_users),
   },
   {
     name: t("dashboard.crashes"),
-    value: 12,
-    quantity: "K",
-    change: {
-      value: -5,
-      quantity: "%",
-      revert: true,
-    },
+    value: props.data.total_crashes.actual,
+    change: computeChange(props.data.total_crashes),
+    revertChange: true,
   },
   {
     name: t("dashboard.triggeredEvents"),
-    value: 616,
-    quantity: "B",
-    change: {
-      value: -5,
-      quantity: "%",
-    },
+    value: props.data.triggered_events.actual,
+    change: computeChange(props.data.triggered_events),
   },
-];
+]);
 </script>
 
 <style scoped lang="scss">

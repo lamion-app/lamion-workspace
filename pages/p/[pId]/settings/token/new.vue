@@ -7,11 +7,15 @@
     <app-card class="mt-4">
       <Stepper v-model:value="step" linear>
         <StepList class="max-w-[600px]">
-          <Step :value="1">{{ $locale("accessKey.generateToken") }}</Step>
-          <Step :value="2">{{ $locale("accessKey.copyToken") }}</Step>
+          <Step :value="steps.create.stepNum"
+            >{{ $locale("accessKey.generateToken") }}
+          </Step>
+          <Step :value="steps.result.stepNum"
+            >{{ $locale("accessKey.copyToken") }}
+          </Step>
         </StepList>
         <StepPanels>
-          <StepPanel :value="1" class="!bg-transparent">
+          <StepPanel :value="steps.create.stepNum" class="!bg-transparent">
             <div class="col">
               <h3 class="text-2xl font-medium">
                 {{ $locale("accessKey.generateAccessToken") }}
@@ -19,6 +23,7 @@
               <span>{{ $locale("accessKey.mindTokenName") }}</span>
 
               <input-text
+                v-model="steps.create.title"
                 class="mt-4 max-w-[350px]"
                 :placeholder="$locale('accessKey.tokenName')"
               />
@@ -33,13 +38,13 @@
                 <Button
                   severity="primary"
                   :label="$locale('accessKey.generate')"
-                  @click="step = 2"
+                  @click="steps.create.createToken()"
                 />
               </div>
             </div>
           </StepPanel>
 
-          <StepPanel :value="2" class="!bg-transparent">
+          <StepPanel :value="steps.result.stepNum" class="!bg-transparent">
             <div class="col">
               <h3 class="text-2xl font-medium">
                 {{ $locale("accessKey.newTokenReady") }}
@@ -47,11 +52,11 @@
               <span>{{ $locale("accessKey.tokenLoseMessage") }}</span>
 
               <app-card class="mt-4" container-class="items-center flex-row">
-                <span>Kr63gkeru4A4fCnXamdoH2e7tb7sn8P2206c</span>
+                <span>{{ steps.result.token }}</span>
 
                 <icon-button
                   icon="content_copy"
-                  @click="copyTextToClipboard('SAMPLE TOKEN COPY')"
+                  @click="copyTextToClipboard(steps.result.token)"
                 />
               </app-card>
 
@@ -74,17 +79,46 @@
 <script setup lang="ts">
 definePageMeta({
   layout: "main",
+  title: "accessKey.title",
   keepalive: false,
 });
 
-useHead({
-  title: "New access token",
+const { handleErrorBlock } = useErrorHandler();
+const { selectedProjectId } = useProjects();
+
+const initStep = 1;
+const step = ref(initStep);
+
+const steps = reactive({
+  create: {
+    stepNum: initStep,
+    title: ref(""),
+    createToken: () => {
+      handleErrorBlock(async () => {
+        const response = await useApiCall<{ value: string }>(
+          `/project/${selectedProjectId.value}/access/key`,
+          {
+            method: "POST",
+            body: {
+              title: steps.create.title,
+            },
+          },
+        );
+
+        steps.result.token = response.value;
+
+        step.value = steps.result.stepNum;
+      });
+    },
+  },
+  result: {
+    stepNum: 2,
+    token: ref(""),
+  },
 });
 
-const step = ref(1);
-
 onMounted(() => {
-  step.value = 1;
+  step.value = initStep;
 });
 </script>
 

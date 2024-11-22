@@ -7,6 +7,6 @@
       <NuxtPage />
     </NuxtLayout>
 
-    <Toast />
+    <Toast group="global-toast" />
   </div>
 </template>

@@ -27,7 +27,6 @@
         <div class="nav-controller drawer">
           <button
             class="btn-expand"
-            :aria-label="$locale('expand')"
             @click="navigationExpanded = !navigationExpanded"
           >
             <m-icon class="text-lg font-black" value="chevron_right" />
@@ -40,10 +39,10 @@
           >
             <template v-if="navigationExpanded" #before-menu>
               <ProjectSelect
-                v-if="!!selectedProject && projects != null"
+                v-if="!!selectedProject && !!projects"
                 :model-value="selectedProject!"
                 :projects="projects"
-                @update:model-value="openProject"
+                @update:model-value="openProject($event.id)"
               />
             </template>
 
@@ -82,9 +81,7 @@ const router = useRouter();
 const route = useRoute();
 
 const navigationExpanded = ref(false);
-const pageTitle = computed(() =>
-  t(route.meta.title?.toString() ?? "app.title"),
-);
+const { title: pageTitle } = useSeo();
 
 const navigationItems = computed(() => [
   {
@@ -115,7 +112,9 @@ const navigationItems = computed(() => [
 ]);
 
 const isRootRoute = computed(
-  () => navigationItems.value.filter((x) => x.route == route.name).length > 0,
+  () =>
+    route.meta.isRootRoute === true ||
+    navigationItems.value.findIndex((x) => x.route == route.name) != -1,
 );
 
 watchEffect(() => {
@@ -150,6 +149,12 @@ function onNavigationClick() {
     @apply px-6;
     @apply bg-surface-100 dark:bg-surface-900;
     @apply transition-all;
+
+    #header-actions {
+      > :not(:last-child) {
+        display: none !important;
+      }
+    }
   }
 
   .nav-controller {

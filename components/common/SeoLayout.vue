@@ -1,16 +1,15 @@
 <script setup lang="ts">
-const route = useRoute();
-const { t } = useI18n();
 const head = useLocaleHead();
 
-const title = computed(() => {
-  const routeTitle = route.meta.title?.toString();
+const { t } = useI18n();
+const { title } = useSeo();
 
-  if (routeTitle == null) {
+const formattedTitle = computed(() => {
+  if (!title.value) {
     return t("app.title");
   }
 
-  return `${t(routeTitle)} - ${t("app.title")}`;
+  return `${title.value} - ${t("app.title")}`;
 });
 </script>
 
@@ -18,7 +17,7 @@ const title = computed(() => {
   <div>
     <Html :lang="head.htmlAttrs?.lang" :dir="head.htmlAttrs?.dir">
       <Head>
-        <Title>{{ title }}</Title>
+        <Title>{{ formattedTitle }}</Title>
         <template v-for="link in head.link" :key="link.id">
           <Link
             :id="link.id"

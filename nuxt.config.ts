@@ -14,9 +14,6 @@ export default defineNuxtConfig({
     "@primevue/nuxt-module",
     "@vueuse/nuxt",
   ],
-  nitro: {
-    preset: "netlify",
-  },
   app: {
     head: {
       link: [
@@ -34,7 +31,7 @@ export default defineNuxtConfig({
   },
   components: [
     {
-      path: "~/components",
+      path: "@/components",
       pathPrefix: false,
     },
   ],
@@ -135,7 +132,6 @@ export default defineNuxtConfig({
         dataType: {
           id: "number",
           username: "string",
-          email: "string",
           avatar: "string | undefined",
         },
       },

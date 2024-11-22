@@ -1,10 +1,28 @@
+<script setup lang="ts">
+import type { FeatureDetailedItem } from "@/components-types/pages/Feature";
+
+defineProps<{
+  item: FeatureDetailedItem;
+}>();
+
+defineEmits<{
+  "click:open": [];
+  "click:edit": [];
+}>();
+</script>
+
 <template>
   <app-card class="!justify-start !gap-4">
     <div class="col">
-      <span class="text-2xl">Авторизация</span>
-      <span class="text-sm text-secondary">{{
-        $locale("features.card.functionsCount", { count: 10 })
-      }}</span>
+      <span class="text-2xl line-clamp-2" v-text="item.title" />
+      <span
+        class="text-sm text-secondary"
+        v-text="
+          $locale('features.card.functionsCount', {
+            count: item.functions_count,
+          })
+        "
+      />
     </div>
 
     <div class="col gap-2">
@@ -16,8 +34,7 @@
 
           <value-quantity
             class="font-medium text-primary"
-            value="10"
-            quantity="K"
+            :value="item.total_events"
           />
         </div>
 
@@ -30,8 +47,7 @@
 
           <value-quantity
             class="font-medium text-red-600 dark:text-red-500"
-            value="2"
-            quantity="%"
+            :value="item.total_errors"
           />
         </div>
       </div>
@@ -42,40 +58,49 @@
       :title="$locale('features.card.topFunction')"
       title-class="text-sm font-medium text-secondary"
     >
-      <div class="flex gap-2 justify-between items-center">
+      <div
+        v-for="f in item.top_function"
+        :key="f.id"
+        class="flex gap-2 justify-between items-center"
+      >
         <div>
-          <span class="font-bold">Authorization</span>
+          <span
+            class="font-bold line-clamp-1"
+            :title="f.title"
+            v-text="f.title"
+          />
 
           <div class="flex items-center gap-1 text-sm text-secondary">
             <span>{{ $locale("features.card.totalCalls") }}:</span>
 
-            <value-quantity class="font-black" value="1" quantity="K" />
+            <value-quantity class="font-black" :value="f.total_events" />
           </div>
         </div>
 
-        <value-quantity class="text-xs font-black" value="30" quantity="%" />
+        <value-quantity
+          class="text-xs font-black"
+          :value="round(f.percent)"
+          custom-quantity="%"
+        />
       </div>
     </app-card>
 
-    <div class="flex flex-wrap gap-2">
+    <div class="spacer flex items-end flex-wrap gap-2">
       <Chip @click="$emit('click:open')">
         <m-icon class="text-lg" value="open_in_new" />
 
-        <span class="font-medium text-sm">{{ $locale("common.simple.open") }}</span>
+        <span class="font-medium text-sm">{{
+          $locale("common.simple.open")
+        }}</span>
       </Chip>
 
       <Chip @click="$emit('click:edit')">
         <m-icon class="text-lg" value="edit" />
 
-        <span class="font-medium text-sm">{{ $locale("common.simple.edit") }}</span>
+        <span class="font-medium text-sm">{{
+          $locale("common.simple.edit")
+        }}</span>
       </Chip>
     </div>
   </app-card>
 </template>
-
-<script setup lang="ts">
-defineEmits<{
-  "click:open": [];
-  "click:edit": [];
-}>();
-</script>

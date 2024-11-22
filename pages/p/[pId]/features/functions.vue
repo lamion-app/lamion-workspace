@@ -12,159 +12,104 @@
         </InputIcon>
 
         <InputText
-          v-model="filters.search"
+          v-model="filters.query"
           class="w-full lg:w-[350px]"
           :placeholder="$locale('common.simple.search')"
         />
       </IconField>
     </app-card>
 
-    <functions-table
-      v-model:filters="filters"
-      class="mt-6"
-      :is-loading="isLoading"
-      :data="content"
-      :features="features"
-      :tags="tags"
-    />
+    <app-card
+      class="w-full !overflow-x-auto mt-6"
+      :loading="functions.isPreLoading"
+    >
+      <div v-if="functions.isEmpty" class="col center">
+        <h1 class="text-4xl">{{ $locale("functions.table.noData") }}</h1>
+      </div>
+
+      <functions-table
+        v-else
+        v-model:filters="filters"
+        class="min-w-[800px]"
+        :is-loading="functions.isPreLoading"
+        :items="functions.data"
+        :features="features"
+        :tags="tags"
+      />
+
+      <app-loader
+        v-if="functions.isNeedPostLoading"
+        ref="bottomLoaderEl"
+        static
+      />
+    </app-card>
   </app-layout>
 </template>
 
 <script setup lang="ts">
 definePageMeta({
   layout: "main",
+  title: "functions.title",
+  isRootRoute: true,
 });
 
-useHead({
-  title: "Functions",
-});
-
-const isLoading = ref(false);
-const content = ref<Array<FunctionItem>>([]);
-const features = ref<Array<FeatureFilter>>([]);
-const tags = ref<Array<FunctionTag>>([]);
+const bottomLoaderEl = ref();
 
 const filters = reactive({
-  search: "",
-  name: undefined,
-  features: undefined,
-  tags: undefined,
+  query: "",
+  name: undefined as string | undefined,
+  features: undefined as Array<FeatureSimpleDto> | undefined,
+  tags: undefined as Array<FunctionTag> | undefined,
 });
 
-watch(filters, loadDataAfterTimeout);
-onMounted(loadTableData);
+const functions = useListDataLoader({
+  load: (
+    id: Id,
+    page: number,
+    query: string,
+    name: string | undefined,
+    features: Array<FeatureSimpleDto> | undefined,
+    tags: Array<FunctionTag> | undefined,
+  ) =>
+    useApiCall<Array<FunctionDetailedDto>>(`/project/${id}/functions/search`, {
+      query: {
+        p: page,
+        q: query,
+        n: name,
+        f: features?.map((x) => x.id),
+        t: tags?.map((x) => x.id),
+      },
+    }),
+  loaderEl: bottomLoaderEl,
+  params: [...Object.values(toRefs(filters))],
+  resetOnChange: true,
+  reloadDelay: 1000,
+});
 
-let loadTimer: ReturnType<typeof setTimeout> | undefined;
+const tags = ref<Array<FunctionTag>>();
+const features = ref<Array<FeatureSimpleDto>>();
 
-function loadDataAfterTimeout() {
-  if (loadTimer !== undefined) {
-    clearTimeout(loadTimer);
+watchEffect(() => {
+  if (!functions.data) {
+    return;
   }
 
-  loadTimer = setTimeout(loadData, 800);
-}
+  const totalTags = functions.data.flatMap((x) => x.tags);
 
-function loadTableData() {
-  features.value = [
-    { name: "Authorization" },
-    { name: "Post" },
-    { name: "Home" },
-  ];
+  tags.value = totalTags
+    .filter((e, i, self) => i == self.findIndex((x) => x.id == e.id))
+    .sort((a, b) => a.id - b.id);
+});
 
-  tags.value = [
-    { name: "UI", color: "blue" },
-    { name: "NETWORK", color: "green" },
-    { name: "NAVIGATION", color: "magenta" },
-    { name: "EXTRA" },
-  ];
+watchEffect(() => {
+  if (!functions.data) {
+    return;
+  }
 
-  loadData();
-}
+  const totalTags = functions.data.flatMap((x) => x.features);
 
-function loadData() {
-  if (isLoading.value) return;
-
-  isLoading.value = true;
-  setTimeout(() => {
-    content.value = [...Array(5).keys()]
-      .map((_) => [
-        {
-          name: "Login click",
-          totalActivityNumber: 10000,
-          activityNumber: 10,
-          activityQuantity: "K",
-          feature: { name: "Authorization" },
-          tags: [{ name: "UI", color: "blue" }],
-        },
-        {
-          name: "Login failed",
-          totalActivityNumber: 400,
-          activityNumber: 0.4,
-          activityQuantity: "K",
-          feature: { name: "Authorization" },
-          tags: [
-            { name: "UI", color: "blue" },
-            { name: "NETWORK", color: "green" },
-          ],
-        },
-        {
-          name: "Open post details",
-          totalActivityNumber: 20000,
-          activityNumber: 20,
-          activityQuantity: "K",
-          feature: { name: "Post" },
-          tags: [
-            { name: "UI", color: "blue" },
-            { name: "NAVIGATION", color: "magenta" },
-          ],
-        },
-        {
-          name: "Like post",
-          totalActivityNumber: 120000,
-          activityNumber: 120,
-          activityQuantity: "K",
-          feature: { name: "Post" },
-          tags: [
-            { name: "UI", color: "blue" },
-            { name: "NETWORK", color: "green" },
-          ],
-        },
-        {
-          name: "Load more posts",
-          totalActivityNumber: 78000,
-          activityNumber: 78,
-          activityQuantity: "K",
-          feature: { name: "Home" },
-          tags: [{ name: "NETWORK", color: "green" }],
-        },
-        {
-          name: "See post comments",
-          totalActivityNumber: 8000,
-          activityNumber: 8,
-          activityQuantity: "K",
-          feature: { name: "Post" },
-          tags: [
-            { name: "UI", color: "blue" },
-            { name: "NETWORK", color: "green" },
-            { name: "EXTRA" },
-          ],
-        },
-        {
-          name: "Open post author",
-          totalActivityNumber: 2000,
-          activityNumber: 2,
-          activityQuantity: "K",
-          feature: { name: "Post" },
-          tags: [
-            { name: "UI", color: "blue" },
-            { name: "NETWORK", color: "green" },
-            { name: "NAVIGATION", color: "magenta" },
-          ],
-        },
-      ])
-      .flat();
-
-    isLoading.value = false;
-  }, 1500);
-}
+  features.value = totalTags
+    .filter((e, i, self) => i == self.findIndex((x) => x.id == e.id))
+    .sort((a, b) => a.id - b.id);
+});
 </script>

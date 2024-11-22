@@ -1,30 +1,331 @@
 {
   "accessKey": {
-    "mindTokenName": "",
-    "tokenLoseMessage": ""
+    "copyToken": "Copy key",
+    "createANewProjectAccessToken": "Create a new project access key.",
+    "generate": "Generate",
+    "generateAccessToken": "Create access key",
+    "generateToken": "Create key",
+    "goToApp": "Go to Application",
+    "mindTokenName": "Specify a key name to remember what it will be used for.",
+    "newTokenReady": "New key ready",
+    "noAccessKeys": "No access keys created",
+    "title": "New access key",
+    "tokenLoseMessage": "If you lose your key, you will have to create a new one.",
+    "tokenName": "Key name"
   },
   "activity": {
-    "crashesCount": "",
-    "details": {
-      "crashesCount": "",
-      "inAppActivity": "",
-      "mostUsedFeatures": "",
-      "triggeredEvents": ""
+    "count": {
+      "crashes": "crashes",
+      "events": "events",
+      "users": "new users"
     },
-    "newUsers": ""
+    "details": {
+      "activeUsers": "Active users",
+      "activityPeriod": "Activity for {expr}",
+      "crashesCount": "Crashes count",
+      "inAppActivity": "Most used features",
+      "mostUsedFeatures": "Top features",
+      "totalEvents": "Total events",
+      "triggeredEvents": "Triggered events"
+    },
+    "errors": "Errors",
+    "noActivityFound": "No activity data for this period",
+    "noExtraActivity": "No activity",
+    "title": "Activity Report",
+    "users": "Users"
+  },
+  "app": {
+    "errors": {
+      "loadingError": "Loading error",
+      "notAvailableYet": "Currently unavailable",
+      "projectNotFound": {
+        "subtitle": "The project may have been deleted.\nPlease, contact to support.",
+        "title": "Project not found"
+      },
+      "statuses": {
+        "badRequest": "Browser error",
+        "forbidden": "No rights to perform the operation",
+        "internalServerError": "Server error",
+        "notFound": "Not found",
+        "unauthorized": "Login error"
+      },
+      "title": "Error",
+      "unknownError": "Unknown error"
+    },
+    "goToDashboard": "Go to dashboard",
+    "navigation": {
+      "activity": "Activity",
+      "dashboard": "Dashboard",
+      "features": "Features",
+      "settings": "Settings",
+      "users": "Users"
+    },
+    "title": "Lamion"
+  },
+  "auth": {
+    "email": "Email",
+    "logout": {
+      "action": "Log out",
+      "dialog": {
+        "subtitle": "Are you sure you want to log out of your account?",
+        "title": "Confirm action"
+      }
+    },
+    "oauth": {
+      "continueWithGithub": "Continue with GitHub",
+      "loadingYouAccount": "Loading your account",
+      "title": "OAuth authorization",
+      "waitAMinute": "Wait a minute"
+    },
+    "password": "Password",
+    "passwordReset": {
+      "thisFeatureIsStillInDevelopment": "This feature is still under development."
+    },
+    "signIn": {
+      "action": "Sign in",
+      "credentialsError": "Account not found.",
+      "forgotPassword": "Forgot your password?",
+      "notRegisteredYet": "Not registered yet?",
+      "registerNow": "Register now",
+      "subtitle": "Please enter your details",
+      "title": "Welcome"
+    },
+    "signUp": {
+      "action": "Register",
+      "alreadyRegistered": "Already registered?",
+      "credentialsError": "An account with this data already exists.",
+      "title": "Sign up"
+    },
+    "username": "Username"
+  },
+  "common": {
+    "phrases": {
+      "fromLastMonth": "since last month"
+    },
+    "quantity": {
+      "short": {
+        "billion": "b",
+        "million": "m",
+        "quadrillion": "q",
+        "thousand": "k",
+        "trillion": "t"
+      }
+    },
+    "simple": {
+      "any": "Any",
+      "back": "Back",
+      "cancel": "Cancel",
+      "clear": "Clear",
+      "delete": "Delete",
+      "edit": "Edit",
+      "finish": "Finish",
+      "only": "Only",
+      "open": "Open",
+      "ready": "Ready",
+      "search": "Search",
+      "sortBy": "Sort by"
+    }
+  },
+  "dashboard": {
+    "activeUsers": "Active users",
+    "crashes": "Crashes",
+    "featuresRating": {
+      "byAllTime": "For all time",
+      "bySelectedPeriod": "For the period",
+      "chartName": "Top features"
+    },
+    "inAppActivity": {
+      "ofTotalEvents": "{expr}% of total actions",
+      "subtitle": "See which features matter most to users",
+      "title": "Project activity"
+    },
+    "title": "Dashboard",
+    "todaySummary": "Results of today",
+    "totalUsers": "Users",
+    "triggeredEvents": "Triggered events"
+  },
+  "datetime": {
+    "months": {
+      "short": {
+        "fri": "Fri",
+        "mon": "Mon",
+        "sat": "Sat",
+        "sun": "Sun",
+        "thu": "Thu",
+        "tue": "Tue",
+        "wed": "Wed"
+      }
+    },
+    "periods": {
+      "daily": "For day",
+      "monthly": "For month",
+      "weekly": "For week",
+      "yearly": "For year"
+    }
+  },
+  "devices": {
+    "activity": "Events",
+    "errors": "Errors",
+    "name": "Device name",
+    "platform": "Platform"
   },
   "features": {
-    "create": {
-      "title": ""
+    "card": {
+      "errorsOfTotal": "Crashes",
+      "functionsCount": "Functions: {count} ",
+      "topFunction": "Top function",
+      "totalCalls": "Total events"
     },
+    "create": {
+      "description": "Function description",
+      "linkFunctions": "Select functions",
+      "name": "Function name",
+      "title": "New feature"
+    },
+    "createNewFeature": "Create a new feature",
     "details": {
+      "crashRate": "Crash Rate",
+      "dialogs": {
+        "delete": {
+          "subtitle": "Are you sure you want to delete the feature? This action cannot be undone.",
+          "title": "Attention"
+        },
+        "detachFeature": {
+          "confirm": "Confirm",
+          "title": "Are you sure you want to detach the function?"
+        }
+      },
+      "edit": {
+        "title": "Change object"
+      },
       "functions": {
         "sort": {
-          "date": "Date created",
-          "event": "Events count"
+          "date": "Creation date",
+          "event": "Number of events"
         },
-        "title": ""
+        "title": "Functions"
+      },
+      "noFunctions": "No functions related",
+      "title": "Feature #{name}",
+      "totalEvents": "Total actions"
+    },
+    "edit": {
+      "description": "Function description",
+      "name": "Function name",
+      "title": "Editing"
+    },
+    "manageCrashes": "View errors",
+    "seeAppFunctions": "Project functions",
+    "sort": {
+      "createdAt": "Creation date",
+      "errors": "Crashes count",
+      "requests": "Events count"
+    },
+    "title": "Features",
+    "totalEvents": "Total events:",
+    "totalFeatures": "Project features",
+    "totalItems": "Total {count} items"
+  },
+  "functions": {
+    "emptyText": "No functions",
+    "searchByName": "Search by name",
+    "subtitle": "Global functions search",
+    "table": {
+      "activity": "Activity",
+      "feature": "Feature",
+      "name": "Name",
+      "noData": "No matching results",
+      "tags": "Tags"
+    },
+    "title": "Application functions"
+  },
+  "health": {
+    "crashAlert": "Attention",
+    "crashes": "crashes",
+    "crashesCount": "crashes",
+    "noCrashes": "There were no crashes",
+    "title": "Health"
+  },
+  "profile": {
+    "createNewProject": "Create a new project",
+    "settings": {
+      "avatar": {
+        "subtitle": "Upload your avatar",
+        "title": "Avatar"
+      },
+      "email": {
+        "subtitle": "Provide your contact information",
+        "title": "Contact email"
+      },
+      "username": {
+        "subtitle": "Your name in app",
+        "title": "Username"
       }
-    }
+    },
+    "title": "Profile"
+  },
+  "projects": {
+    "aboutUs": "About Us",
+    "addProject": "New project",
+    "createProject": {
+      "input": {
+        "description": "Description",
+        "title": "Title"
+      },
+      "title": "New project"
+    },
+    "goToProfile": "Open profile",
+    "seeDocs": "Documentation 😊👍",
+    "yourProjects": "Projects"
+  },
+  "settings": {
+    "accessTokens": {
+      "dialogs": {
+        "revokeAllTokens": {
+          "confirm": "Confirm",
+          "popup": {
+            "message": "All access keys revoked",
+            "title": "Success"
+          },
+          "subtitle": "Are you sure you want to delete ALL access keys?",
+          "title": "Attention"
+        },
+        "revokeToken": {
+          "confirm": "Confirm",
+          "title": "Are you sure you want to delete the access key?"
+        }
+      },
+      "newAccessToken": "New access key",
+      "revokeAll": "Revoke all",
+      "title": "Project access keys"
+    },
+    "general": {
+      "items": {
+        "projectDescription": {
+          "subtitle": "Description of the project",
+          "title": "Description"
+        },
+        "projectName": {
+          "subtitle": "Project display name",
+          "title": "Project name"
+        }
+      },
+      "title": "General settings"
+    },
+    "title": "Project Settings"
+  },
+  "userActivityTime": {
+    "sessions": "sessions",
+    "title": "User activity"
+  },
+  "users": {
+    "activeUsers": "Active users",
+    "devicesInfo": "Device Information",
+    "growthRate": "Growth rate",
+    "platforms": "Platforms",
+    "title": "Users",
+    "topDevices": "Popular devices",
+    "totalEvents": "actions",
+    "totalUsers": "Users"
   }
 }

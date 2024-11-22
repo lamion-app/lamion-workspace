@@ -1,6 +1,6 @@
 export const useAppAuth = () => {
   const config = useRuntimeConfig();
-  const { signOut, signUp, data, status } = useAuth();
+  const { signOut, signUp, data, status, token } = useAuth();
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const providers: Array<AuthProvider<any>> = [
@@ -13,6 +13,7 @@ export const useAppAuth = () => {
 
   return {
     providers: providers,
+    token: token,
     account: data,
     status: status,
     isLoggedIn: isLoggedIn,
@@ -56,21 +57,5 @@ export const useAppAuth = () => {
         },
       );
     },
-    /*async (email: string, username: string, password: string) => {
-                          const response = await useApiCall("auth/signUp", {
-                            method: "post",
-                            body: {
-                              email,
-                              username,
-                              password,
-                            },
-                          });
-              
-                          if (response.error.value == null) {
-                            return await credentialsSignIn(email, password);
-                          } else {
-                            throw response.error.value;
-                          }
-                        },*/
   };
 };

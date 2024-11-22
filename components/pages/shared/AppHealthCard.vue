@@ -15,21 +15,18 @@
       }}</span>
 
       <div class="text-lg font-medium">
-        <span v-if="crashes.count == 0">{{
-          $locale("health.noCrashesInTheLastWeek")
-        }}</span>
+        <span v-if="crashes == 0">{{ $locale("health.noCrashes") }}</span>
 
         <p v-else class="text-center">
           <span>{{ $locale("common.simple.only") }} </span>
 
           <value-quantity
             class="mx-1 text-pink-500 dark:text-pink-300"
-            :value="crashes.count"
-            :quantity="crashes.quantity"
+            :value="crashes"
             quantity-class="opacity-70"
           />
 
-          <span> {{ $locale("health.crashesInTheLastWeek") }}</span>
+          <span> {{ $locale("health.crashes") }}</span>
         </p>
       </div>
     </template>
@@ -42,8 +39,7 @@
       <p>
         <value-quantity
           class="text-7xl font-black"
-          :value="crashes.count"
-          :quantity="crashes.quantity"
+          :value="crashes"
           quantity-class="text-red-700 dark:text-red-400"
         />
 
@@ -57,25 +53,25 @@
 </template>
 
 <script setup lang="ts">
-const state = ref({
-  crashes: 500,
-});
+const props = defineProps<{
+  crashes: number;
+}>();
 
-const isHealth = computed(() => state.value.crashes < 1000);
+const isHealth = computed(() => props.crashes < 1000);
 
-const crashes = computed(() => {
-  if (state.value.crashes > 1000) {
-    return {
-      count: state.value.crashes / 1000,
-      quantity: "K",
-    };
-  }
-
-  return {
-    count: state.value.crashes,
-    quantity: null,
-  };
-});
+// const crashes = computed(() => {
+//   if (state.value.crashes > 1000) {
+//     return {
+//       count: state.value.crashes / 1000,
+//       quantity: "K",
+//     };
+//   }
+//
+//   return {
+//     count: state.value.crashes,
+//     quantity: null,
+//   };
+// });
 </script>
 
 <style scoped lang="scss">

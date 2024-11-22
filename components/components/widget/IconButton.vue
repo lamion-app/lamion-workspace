@@ -19,6 +19,6 @@ withDefaults(
   {
     severity: "secondary",
     filled: false,
-  }
+  },
 );
 </script>

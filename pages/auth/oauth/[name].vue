@@ -4,6 +4,7 @@ definePageMeta({
     unauthenticatedOnly: true,
     navigateAuthenticatedTo: "/",
   },
+  title: "auth.oauth.title",
   validate: async (route) => {
     if (typeof route.params.name !== "string") {
       return false;
@@ -11,21 +12,18 @@ definePageMeta({
 
     const oauth = useOAuth();
 
-    const isValid = await oauth.prepare(route.params.name, route.query);
-
-    return isValid;
+    return await oauth.prepare(route.params.name, route.query);
   },
-});
-
-useHead({
-  title: "Oauth authorization",
 });
 
 const oauth = useOAuth();
 const route = useRoute();
+const { handleErrorBlock } = useErrorHandler();
 
 onMounted(async () => {
-  await oauth.invokeProvider(route.params.name.toString(), route.query);
+  await handleErrorBlock(async () => {
+    await oauth.invokeProvider(route.params.name.toString(), route.query);
+  });
 
   navigateTo("/");
 });
@@ -36,9 +34,9 @@ onMounted(async () => {
     <ProgressBar mode="indeterminate" class="fixed top-0" style="height: 6px" />
 
     <app-card class="card">
-      <h1>{{ $locale('waitAMinute') }}</h1>
+      <h1>{{ $locale("auth.oauth.waitAMinute") }}</h1>
 
-      <h3>{{ $locale('loadingYouAccount') }}</h3>
+      <h3>{{ $locale("auth.oauth.loadingYouAccount") }}</h3>
     </app-card>
   </div>
 </template>

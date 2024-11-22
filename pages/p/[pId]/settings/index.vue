@@ -1,125 +1,92 @@
-<template>
-  <app-layout>
-    <h1 class="text-6xl font-black">{{ $locale("settings.title") }}</h1>
-
-    <app-card class="mt-12" container-class="col !gap-6">
-      <div class="section">
-        <h3 class="title">{{ $locale("settings.general.title") }}</h3>
-
-        <settings-layout
-          :settings="settings"
-          :validation="validateSettingsField"
-          @update-text-item="console.log($event) /* TODO */"
-          @update-image="console.log('Update image:', $event) /* TODO */"
-          @delete-image="console.log('Delete image:', $event) /* TODO */"
-        />
-      </div>
-
-      <div class="section !gap-4">
-        <h3 class="title">{{ $locale("settings.accessTokens.title") }}</h3>
-
-        <div class="col gap-2">
-          <div
-            v-for="item in accessTokens"
-            :key="item.name"
-            class="flex justify-between gap-2"
-          >
-            <div class="col">
-              <span class="text-lg font-medium">{{ item.name }}</span>
-              <span class="text-sm font-thin">{{ item.value }}</span>
-            </div>
-
-            <icon-button
-              icon="delete"
-              severity="danger"
-              @click="confirmDeleteItem($event)"
-            />
-          </div>
-        </div>
-
-        <div class="mt-2 flex flex-wrap gap-2">
-          <Button
-            as="router-link"
-            class="max-sm:w-full"
-            rounded
-            severity="primary"
-            :to="createProjectLink('settings-token-new')"
-          >
-            <m-icon value="add" />
-
-            <span>{{ $locale("settings.accessTokens.newAccessToken") }}</span>
-          </Button>
-
-          <Button
-            class="max-sm:w-full"
-            text
-            rounded
-            severity="danger"
-            @click="confirmRevokeAll()"
-          >
-            <m-icon value="delete" />
-
-            <span>{{ $locale("settings.accessTokens.revokeAll") }}</span>
-          </Button>
-        </div>
-      </div>
-    </app-card>
-
-    <confirm-popup group="prompt" />
-    <confirm-dialog group="dialog" />
-  </app-layout>
-</template>
-
 <script setup lang="ts">
 definePageMeta({
   layout: "main",
-});
-
-useHead({
-  title: "Project settings",
+  title: "settings.title",
 });
 
 const { t } = useI18n();
+const { useProjectLoadAlias, selectedProjectId } = useProjects();
+const { handleErrorBlock } = useErrorHandler();
 const confirm = useConfirm();
 const toast = useToast();
 
-const { selectedProject } = useProjects();
+const { isLoading, data } = useProjectLoadAlias((id) =>
+  useApiCall<SettingsFull>(`/project/${id}/settings`),
+);
 
-const accessTokens = [
-  {
-    name: "FIRST TOKEN",
-    value: "Created 23.06.2024",
-  },
-  {
-    name: "SECOND TOKEN",
-    value: "Created 23.06.2024",
-  },
-];
+const tokens = ref<Array<AccessKeyDto>>([]);
+const settingsData = reactive({
+  title: "",
+  description: "",
+});
 
-const settings = computed(() => [
+watchEffect(() => {
+  const projectData = data.value;
+  if (!projectData) return;
+
+  tokens.value = projectData.tokens;
+
+  settingsData.title = projectData.title;
+  settingsData.description = projectData.description ?? "";
+});
+
+const settings = computed<Array<SettingsItem>>(() => [
   {
     type: "text" as const,
     key: "project-name",
     title: t("settings.general.items.projectName.title"),
     subtitle: t("settings.general.items.projectName.subtitle"),
-    value: selectedProject.value!.name,
+    value: settingsData.title,
+    onUpdate(value: string) {
+      handleErrorBlock(async () => {
+        await useApiCall(`/project/${selectedProjectId.value}`, {
+          method: "PATCH",
+          body: {
+            title: value,
+          },
+        });
+
+        settingsData.title = value;
+      });
+    },
   },
   {
     type: "text" as const,
     key: "project-label",
     title: t("settings.general.items.projectDescription.title"),
     subtitle: t("settings.general.items.projectDescription.subtitle"),
-    value: selectedProject.value!.description,
+    value: settingsData.description,
+    onUpdate(value: string) {
+      handleErrorBlock(async () => {
+        await useApiCall(`/project/${selectedProjectId.value}`, {
+          method: "PATCH",
+          body: {
+            description: value,
+          },
+        });
+
+        settingsData.description = value;
+      });
+    },
   },
 ]);
 
 const validateSettingsField = (key: string, value: string) => {
-  console.log(key, value);
+  console.debug(key, value);
 
-  return true; // TODO
+  // TODO
+  return true;
 };
 
-const confirmDeleteItem = (event: MouseEvent) => {
+const tokensList = computed(() =>
+  tokens.value.map((x) => ({
+    id: x.id,
+    title: x.title,
+    createdAt: parseISODateString(x.created_at),
+  })),
+);
+
+const confirmDeleteItem = (token: AccessKey, event: Event) => {
   confirm.require({
     group: "prompt",
     target: event.currentTarget as HTMLElement,
@@ -133,13 +100,8 @@ const confirmDeleteItem = (event: MouseEvent) => {
       label: t("settings.accessTokens.dialogs.revokeToken.confirm"),
       severity: "danger",
     },
-    accept: async () => {
-      toast.add({
-        severity: "info",
-        summary: "Confirmed",
-        detail: "You have accepted",
-        life: 3000,
-      });
+    accept: () => {
+      deleteToken(token);
     },
   });
 };
@@ -152,30 +114,78 @@ const confirmRevokeAll = () => {
     rejectProps: {
       label: t("common.simple.cancel"),
       severity: "secondary",
+      outlined: true,
     },
     acceptProps: {
       label: t("settings.accessTokens.dialogs.revokeAllTokens.confirm"),
       severity: "danger",
     },
     accept: () => {
-      toast.add({
-        severity: "info",
-        summary: "Confirmed",
-        detail: "Record deleted",
-        life: 3000,
-      });
-    },
-    reject: () => {
-      toast.add({
-        severity: "error",
-        summary: "Rejected",
-        detail: "You have rejected",
-        life: 3000,
-      });
+      deleteAllTokens();
     },
   });
 };
+
+function deleteAllTokens() {
+  handleErrorBlock(async () => {
+    await useApiCall(`/project/${selectedProjectId.value}/access/key`, {
+      method: "DELETE",
+    });
+
+    toast.add({
+      severity: "info",
+      summary: t("settings.accessTokens.dialogs.revokeAllTokens.popup.title"),
+      detail: t("settings.accessTokens.dialogs.revokeAllTokens.popup.message"),
+      life: 3000,
+    });
+
+    tokens.value = [];
+  });
+}
+
+function deleteToken(token: AccessKey) {
+  handleErrorBlock(async () => {
+    await useApiCall(
+      `/project/${selectedProjectId.value}/access/key/${token.id}`,
+      {
+        method: "DELETE",
+      },
+    );
+
+    tokens.value = tokens.value.filter((x) => x.id !== token.id);
+  });
+}
 </script>
+
+<template>
+  <app-layout :is-loading="isLoading">
+    <h1 class="text-6xl font-black">{{ $locale("settings.title") }}</h1>
+
+    <app-card v-if="!!data" class="mt-12" container-class="col !gap-6">
+      <div class="section">
+        <h3 class="title">{{ $locale("settings.general.title") }}</h3>
+
+        <settings-layout
+          :settings="settings"
+          :validation="validateSettingsField"
+        />
+      </div>
+
+      <div class="section !gap-4">
+        <h3 class="title">{{ $locale("settings.accessTokens.title") }}</h3>
+
+        <access-keys-section
+          :items="tokensList"
+          @delete-item="confirmDeleteItem($event.item, $event.event)"
+          @delete-all="confirmRevokeAll()"
+        />
+      </div>
+    </app-card>
+
+    <confirm-popup group="prompt" />
+    <confirm-dialog group="dialog" />
+  </app-layout>
+</template>
 
 <style scoped lang="scss">
 .section {

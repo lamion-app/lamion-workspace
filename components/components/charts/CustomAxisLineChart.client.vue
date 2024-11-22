@@ -26,8 +26,8 @@
 </template>
 
 <script setup lang="ts">
-import type { ChartProps } from "~/components-types/charts/Chart";
-import { buildDefaultTheme } from "~/components-types/charts/Chart";
+import type { ChartProps } from "@/components-types/charts/Chart";
+import { buildDefaultTheme } from "@/components-types/charts/Chart";
 
 const props = withDefaults(
   defineProps<
@@ -56,6 +56,7 @@ const chartData = computed(() => {
       {
         data: props.items.map((p) => p.number),
         fill: false,
+        tension: 0.4,
         borderColor: theme.strokeColor + props.strokeOpacity,
         borderWidth: props.strokeWidth,
         pointBackgroundColor: "transparent",
@@ -102,19 +103,21 @@ const itemsCount = computed(() => props.items.length);
 
 <style scoped lang="scss">
 .line-chart {
-  @apply relative h-full;
-  @apply flex flex-col gap-4;
+  @apply relative w-max h-full;
+  @apply flex flex-col gap-2;
 
   .chart {
-    @apply flex-1;
-    width: calc(100% - 100% / v-bind(itemsCount) + v-bind(pointRadiusPx) * 2);
+    $margins: calc(100% / v-bind(itemsCount) / 2 - v-bind(pointRadiusPx));
+
+    @apply absolute !important;
     margin-top: v-bind(valueHeight);
-    margin-left: calc(100% / v-bind(itemsCount) / 2 - v-bind(pointRadiusPx));
+    left: $margins;
+    right: $margins;
   }
 
   .axis {
-    @apply absolute top-0;
-    @apply size-full flex;
+    //@apply absolute top-0;
+    @apply w-max h-full flex;
     z-index: 1;
 
     .tick {

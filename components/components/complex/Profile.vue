@@ -1,5 +1,5 @@
 <template>
-  <NuxtLink :to="createProjectLink('profile')" class="w-full">
+  <NuxtLink to="/u/profile" class="w-full">
     <app-card class="profile" :class="{ expanded: expanded }">
       <div class="profile-content">
         <label-image :label="account.username" :image="account.avatar" />
@@ -49,7 +49,6 @@ const isLogoutDialogVisible = ref(false);
       }
 
       .logout {
-        @apply w-min;
         @apply text-sm text-red-400 font-bold;
       }
     }

@@ -1,68 +1,65 @@
+<script setup lang="ts">
+const props = defineProps<{
+  platforms: ChartItem[];
+  topDevices: TopDevice[];
+}>();
+
+const devices = computed(() =>
+  props.topDevices.map((x) => ({
+    title: x.title,
+    activityActual: x.activity.actual,
+    activityDiff: x.activity.actual - x.activity.past,
+    icon: computePlatformIcon(x.platform),
+  })),
+);
+</script>
+
 <template>
   <app-card
     class="!rounded-3xl"
     :title="$locale('users.platforms')"
     variant="outlined"
-    no-gap
+    container-class="col h-full pb-5"
   >
-    <div class="-mx-5 px-5 flex-1">
-      <radar-chart class="w-full" :items="data" name="devices" />
+    <div
+      class="-mx-5 px-5 h-[320px] md:h-full md:max-h-[260px] xl:max-h-[300px]"
+    >
+      <radar-chart class="size-full" :items="platforms" name="devices" />
     </div>
 
     <app-card
-      class="-mx-5 -mb-5"
+      class="-mx-5 -mb-3 flex-1 !overflow-y-auto"
       :title="$locale('users.topDevices')"
       title-class="text-xl font-bold"
     >
       <div class="devices">
-        <div v-for="(_, index) in Array(5)" :key="index" class="device">
-          <Avatar class="leading" shape="circle">
-            <m-icon value="public" />
-          </Avatar>
+        <div v-for="(device, index) in devices" :key="index" class="device">
+          <div class="content">
+            <span class="title" :title="device.title">{{ device.title }}</span>
 
-          <div class="page-content">
-            <span class="name">chrome130</span>
+            <div class="subtitle">
+              <value-quantity
+                :class="
+                  device.activityDiff > 0 ? 'text-primary' : 'text-red-500'
+                "
+                :prefix="device.activityDiff > 0 ? '+' : '-'"
+                :value="Math.abs(device.activityDiff)"
+              />
 
-            <p class="total">
-              <span>
-                {{ $locale("common.simple.total") }}
-              </span>
-              <span class="mx-1 count">8K</span>
-              <span>{{ $locale("common.simple.calls") }}</span>
-            </p>
+              <span>(<value-quantity :value="device.activityActual" />)</span>
+
+              <span class="font-thin">{{ $locale("users.totalEvents") }}</span>
+            </div>
           </div>
 
-          <Avatar class="trailing" label="2K" shape="circle" />
+          <Avatar class="leading" shape="circle">
+            <m-icon :value="device.icon" />
+          </Avatar>
         </div>
       </div>
     </app-card>
   </app-card>
 </template>
-
-<script setup lang="ts">
-const data = [
-  {
-    name: "Android",
-    number: 65,
-  },
-  {
-    name: "IOS",
-    number: 59,
-  },
-  {
-    name: "WEB/Desktop",
-    number: 90,
-  },
-  {
-    name: "WEB/Mobile",
-    number: 81,
-  },
-  {
-    name: "Desktop",
-    number: 56,
-  },
-];
-</script>
 
 <style scoped lang="scss">
 .devices {
@@ -73,32 +70,26 @@ const data = [
   .device {
     @apply w-full;
     height: 48px;
-    @apply flex items-center justify-between gap-2;
+    @apply flex items-center gap-2;
     @apply overflow-x-hidden;
 
-    .leading,
-    .trailing {
+    .leading {
       width: 40px;
       height: 40px;
-    }
-
-    .leading {
       @apply bg-surface-200 dark:bg-surface-700;
     }
 
-    .page-content {
-      @apply flex flex-1 flex-col;
+    .content {
+      @apply flex-1 flex flex-col;
 
-      .name {
-        @apply text-sm font-medium text-nowrap;
+      .title {
+        @apply text-sm font-medium;
+        @apply line-clamp-1;
       }
 
-      .total {
-        @apply text-xs font-thin;
-
-        .count {
-          @apply font-bold;
-        }
+      .subtitle {
+        @apply flex items-center gap-1;
+        @apply text-sm font-medium;
       }
     }
 
