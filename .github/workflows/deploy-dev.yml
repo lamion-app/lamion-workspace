@@ -37,11 +37,6 @@ jobs:
       - run: npm run build
         env:
           NITRO_PRESET: netlify_builder
-          API_ORIGIN: https://lamion-api.onrender.com
-          AUTH_ORIGIN: https://lamion-api.onrender.com
-          WORKSPACE_ORIGIN: https://lamionapp.netlify.app/
-          GITHUB_CLIENT_ID: Ov23lih2nox7FoE15le0
-          GITHUB_REDIRECT_URL: https://lamionapp.netlify.app/auth/oauth/github
 
       - name: Deploy to netlify
         uses: netlify/actions/cli@master
