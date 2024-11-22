@@ -35,6 +35,8 @@ jobs:
 
       - run: npm install
       - run: npm run build
+        env:
+          NITRO_PRESET: netlify_edge
 
       - name: Deploy to netlify
         uses: netlify/actions/cli@master
