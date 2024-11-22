@@ -32,7 +32,7 @@
             <m-icon class="text-lg font-black" value="chevron_right" />
           </button>
 
-          <navigation
+          <app-navigation
             :expanded="navigationExpanded"
             :items="navigationItems"
             @hide="navigationExpanded = false"
@@ -47,13 +47,13 @@
             </template>
 
             <template v-if="!!account" #after-menu>
-              <Profile
+              <profile-card
                 :expanded="navigationExpanded"
                 :account="account"
                 @click="navigationExpanded = false"
               />
             </template>
-          </navigation>
+          </app-navigation>
         </div>
 
         <div

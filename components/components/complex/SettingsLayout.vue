@@ -27,7 +27,7 @@
                     name="file"
                     accept="image/*"
                     @change="onFileSelect($event)"
-                  />
+                  >
                 </template>
               </div>
 

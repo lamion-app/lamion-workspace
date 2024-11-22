@@ -28,18 +28,18 @@ export const GitHubAuthProvider = <AuthProvider<GithubOauthData>>{
       code,
     };
   },
-  handleOauthResult: async (oahtData: GithubOauthData) => {
-    console.debug(`Github OAuth called. Code=${oahtData.code}`);
+  handleOauthResult: async (oauthData: GithubOauthData) => {
+    console.debug(`Github OAuth called. Code=${oauthData.code}`);
 
     const { getSession } = useAuth();
-    const { setToken, loading, data } = useAuthState();
+    const { setToken, loading } = useAuthState();
 
     loading.value = true;
 
     const response = await useApiCall<AuthResponse>("/auth/oauth/github", {
       method: "POST",
       body: {
-        code: oahtData.code,
+        code: oauthData.code,
       },
     });
 
