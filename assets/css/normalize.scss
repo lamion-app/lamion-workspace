@@ -58,3 +58,13 @@ body,
     @apply object-cover;
   }
 }
+
+* {
+  @apply [&::-webkit-scrollbar]:w-2;
+  @apply [&::-webkit-scrollbar-track]:rounded-full;
+  @apply [&::-webkit-scrollbar-track]:bg-gray-100;
+  @apply [&::-webkit-scrollbar-thumb]:rounded-full;
+  @apply [&::-webkit-scrollbar-thumb]:bg-gray-300;
+  @apply dark:[&::-webkit-scrollbar-track]:bg-gray-800;
+  @apply dark:[&::-webkit-scrollbar-thumb]:bg-gray-500;
+}

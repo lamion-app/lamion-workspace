@@ -4,6 +4,7 @@ import { DefaultSortVariant } from "@/components-types/pages/Feature";
 definePageMeta({
   layout: "main",
   title: "features.title",
+  auth: true,
 });
 
 const { t } = useI18n();

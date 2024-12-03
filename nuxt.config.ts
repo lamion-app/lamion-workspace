@@ -13,6 +13,7 @@ export default defineNuxtConfig({
     "@nuxtjs/tailwindcss",
     "@primevue/nuxt-module",
     "@vueuse/nuxt",
+    "@nuxt/content",
   ],
   app: {
     head: {
@@ -104,6 +105,14 @@ export default defineNuxtConfig({
     options: {
       theme: {
         preset: Aura,
+      },
+    },
+  },
+  content: {
+    highlight: {
+      theme: {
+        default: "one-dark-pro",
+        dark: "github-dark",
       },
     },
   },

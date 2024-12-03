@@ -4,6 +4,7 @@ import type { RouteLocationNormalizedLoadedGeneric } from "#vue-router";
 definePageMeta({
   layout: "main",
   keepalive: false,
+  auth: true,
   title: (route: RouteLocationNormalizedLoadedGeneric) => {
     const { $i18n } = useNuxtApp();
     const t = $i18n.t;

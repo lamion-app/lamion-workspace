@@ -2,6 +2,7 @@
 definePageMeta({
   layout: "main",
   title: "settings.title",
+  auth: true,
 });
 
 const { t } = useI18n();

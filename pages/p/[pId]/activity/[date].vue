@@ -1,6 +1,7 @@
 <script setup lang="ts">
 definePageMeta({
   layout: "main",
+  auth: true,
   title: () => {
     const route = useRoute();
     const { $i18n } = useNuxtApp();

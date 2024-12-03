@@ -3,6 +3,7 @@ definePageMeta({
   title: "dashboard.title",
   layout: "main",
   key: "static",
+  auth: true,
 });
 
 const { useProjectLoadAlias } = useProjects();

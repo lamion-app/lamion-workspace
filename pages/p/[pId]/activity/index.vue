@@ -2,6 +2,7 @@
 definePageMeta({
   layout: "main",
   title: "activity.title",
+  auth: true,
 });
 
 const viewport = useViewport();

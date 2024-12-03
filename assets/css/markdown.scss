@@ -1,0 +1,23 @@
+.markdown {
+  @apply flex flex-col gap-2;
+
+  h1 {
+    @apply text-8xl;
+  }
+  h2 {
+    @apply text-6xl;
+  }
+  h3 {
+    @apply text-4xl;
+  }
+
+  hr {
+    @apply my-6;
+    @apply border-gray-700;
+  }
+
+  .shiki {
+    @apply p-4;
+    @apply bg-gray-800 rounded-xl;
+  }
+}
