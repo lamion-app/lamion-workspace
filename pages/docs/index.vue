@@ -20,7 +20,7 @@ definePageMeta({
       </p>
 
       <div class="flex justify-center gap-6">
-        <Button to="/docs/installation" as="router-link">
+        <Button to="/docs/getting-started/installation" as="router-link">
           Getting started
         </Button>
 

@@ -1,14 +1,18 @@
 .markdown {
   @apply flex flex-col gap-2;
+  @apply overflow-x-hidden;
 
   h1 {
-    @apply text-8xl;
+    @apply text-6xl font-medium;
   }
   h2 {
-    @apply text-6xl;
+    @apply text-4xl font-medium;
   }
   h3 {
-    @apply text-4xl;
+    @apply text-2xl font-medium;
+  }
+  h4 {
+    @apply text-xl;
   }
 
   hr {
@@ -19,5 +23,6 @@
   .shiki {
     @apply p-4;
     @apply bg-gray-800 rounded-xl;
+    @apply overflow-auto;
   }
 }
