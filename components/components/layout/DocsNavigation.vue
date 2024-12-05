@@ -10,16 +10,7 @@ const { data: navigation } = await useAsyncData("navigation", () =>
 const navigationItems = computed(() => {
   if (!navigation.value) return [];
 
-  const docsLinks = navigation.value[0].children ?? [];
-
-  return docsLinks
-    .sort((a, b) => a.order - b.order)
-    .map((x) => {
-      return {
-        ...x,
-        children: x.children?.sort((a, b) => a.order - b.order),
-      };
-    });
+  return navigation.value[0].children;
 });
 </script>
 
@@ -46,13 +37,13 @@ const navigationItems = computed(() => {
 
         <div
           v-if="link.children"
-          class="col ms-2 border-primary border-l-2 border-opacity-30"
+          class="col ms-2 border-primary-900 border-l-[1px] border-opacity-30"
         >
           <nuxt-link
             v-for="childLink in link.children"
             :key="childLink._path"
             :to="childLink._path"
-            class="ps-4 -ml-0.5 docs-link text-secondary"
+            class="ps-4 -ml-[1px] docs-link text-secondary"
             :class="{
               active: route.path == childLink._path,
             }"
@@ -104,7 +95,7 @@ $navigation-width: 260px;
     @apply h-[28px];
 
     @apply text-base font-medium;
-    @apply border-l-2 border-transparent;
+    @apply border-l-[1px] border-transparent;
 
     &.active {
       @apply text-primary;

@@ -115,9 +115,6 @@ export default defineNuxtConfig({
         dark: "github-dark",
       },
     },
-    navigation: {
-      fields: ["order"],
-    },
   },
   viewport: {
     breakpoints: {
