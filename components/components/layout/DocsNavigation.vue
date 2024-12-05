@@ -1,16 +1,21 @@
 <script setup lang="ts">
 const route = useRoute();
+const { locale } = useI18n();
 
 const isNavigationDisplaying = ref(false);
 
-const { data: navigation } = await useAsyncData("navigation", () =>
-  fetchContentNavigation(queryContent("docs"))
+const { data: navigation } = await useAsyncData(
+  "navigation",
+  () => fetchContentNavigation(queryContent(`${locale.value}/docs`)),
+  {
+    watch: [locale],
+  }
 );
 
 const navigationItems = computed(() => {
   if (!navigation.value) return [];
 
-  return navigation.value[0].children;
+  return navigation.value[0].children![0].children;
 });
 </script>
 
@@ -42,7 +47,7 @@ const navigationItems = computed(() => {
           <nuxt-link
             v-for="childLink in link.children"
             :key="childLink._path"
-            :to="childLink._path"
+            :to="childLink._path.substring(locale.length + 1)"
             class="ps-4 -ml-[1px] docs-link text-secondary"
             :class="{
               active: route.path == childLink._path,
