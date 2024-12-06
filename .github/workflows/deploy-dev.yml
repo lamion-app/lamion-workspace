@@ -31,6 +31,10 @@ jobs:
           echo WORKSPACE_ORIGIN=${{ env.WORKSPACE_ORIGIN }} >> .env
 
       - run: cat .env
+      - run: echo ${{ env.NITRO_PRESET }}
+      - run: echo $NITRO_PRESET
+        env:
+          NITRO_PRESET: ${{ env.NITRO_PRESET }}
 
       - run: npm install
 
