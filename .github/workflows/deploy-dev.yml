@@ -19,7 +19,7 @@ jobs:
       #     node-version: 20
 
       - run: |
-          echo ${{ toJSON(env) }}
+          echo ${{ toJSON(secrets) }}
 
       # - run: npm install
 
