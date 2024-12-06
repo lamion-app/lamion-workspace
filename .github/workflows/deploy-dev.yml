@@ -42,7 +42,7 @@ jobs:
       - name: Deploy to netlify
         uses: netlify/actions/cli@master
         with:
-          args: deploy
+          args: deploy --dir=.netlify --functions=functions
         env:
           NETLIFY_AUTH_TOKEN: ${{ secrets.DEV_AUTH_TOKEN }}
           NETLIFY_SITE_ID: ${{ secrets.DEV_SITE_ID }}
