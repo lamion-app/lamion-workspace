@@ -28,9 +28,17 @@
 .root {
   background: linear-gradient(
     50deg,
-    var(--p-surface-950) 0%,
-    var(--p-gray-900) 100%
+    var(--p-surface-100) 0%,
+    var(--p-gray-100) 100%
   );
+
+  @media (prefers-color-scheme: dark) {
+    background: linear-gradient(
+      50deg,
+      var(--p-surface-950) 0%,
+      var(--p-gray-900) 100%
+    );
+  }
 
   .viewport-wrapper {
     @apply max-w-[1240px] mx-auto px-[20px];
