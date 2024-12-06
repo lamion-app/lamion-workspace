@@ -45,6 +45,8 @@ jobs:
           echo OAUTH_GITHUB_REDIRECT_URL=${{ env.OAUTH_GITHUB_REDIRECT_URL }} >> .env
           echo WORKSPACE_ORIGIN=${{ env.WORKSPACE_ORIGIN }} >> .env
 
+      - run: cat .env
+
       - run: npm install
 
       - run: npm run build
