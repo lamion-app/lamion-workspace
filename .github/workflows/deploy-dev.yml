@@ -26,7 +26,8 @@ jobs:
           touch .env
           echo GITHUB_CLIENT_ID=$$GITHUB_CLIENT_ID >> .env
           echo GITHUB_CLIENT_ID_SECRET=${{ secrets.DEV_GITHUB_CLIENT_ID }} >> .env
-          echo GITHUB_REDIRECT_URL=${{ env.OAUTH_GITHUB_REDIRECT_URL }} >> .env
+          echo GITHUB_REDIRECT_URL=$$GITHUB_REDIRECT_URL >> .env
+          echo GITHUB_REDIRECT_URL_ENV=${{ env.OAUTH_GITHUB_REDIRECT_URL }} >> .env
 
       - run: cat .env
       - run: echo ${{ env.NITRO_PRESET }}
