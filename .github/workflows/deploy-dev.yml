@@ -20,20 +20,13 @@ jobs:
 
       - name: Create env file
         env:
-          GITHUB_CLIENT_ID: ${{ secrets.GITHUB_CLIENT_ID }}
+          GITHUB_CLIENT_ID: ${{ secrets.DEV_GITHUB_CLIENT_ID }}
           GITHUB_REDIRECT_URL: ${{ env.OAUTH_GITHUB_REDIRECT_URL }}
-          NITRO_PRESET: ${{ env.NITRO_PRESET }}
-          API_ORIGIN: ${{ env.API_ORIGIN }}
-          AUTH_ORIGIN: ${{ env.API_ORIGIN }}/
-          WORKSPACE_ORIGIN: ${{ env.WORKSPACE_ORIGIN }}
         run: |
           touch .env
           echo GITHUB_CLIENT_ID=$$GITHUB_CLIENT_ID >> .env
+          echo GITHUB_CLIENT_ID_SECRET=${{ secrets.DEV_GITHUB_CLIENT_ID }} >> .env
           echo GITHUB_REDIRECT_URL=${{ env.OAUTH_GITHUB_REDIRECT_URL }} >> .env
-          echo NITRO_PRESET=${{ env.NITRO_PRESET }} >> .env
-          echo API_ORIGIN=${{ env.API_ORIGIN }} >> .env
-          echo OAUTH_GITHUB_REDIRECT_URL=${{ env.OAUTH_GITHUB_REDIRECT_URL }} >> .env
-          echo WORKSPACE_ORIGIN=${{ env.WORKSPACE_ORIGIN }} >> .env
 
       - run: cat .env
       - run: echo ${{ env.NITRO_PRESET }}
