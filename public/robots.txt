@@ -1,1 +1,3 @@
-
+User-agent: *
+Crawl-delay: 5
+Sitemap: https://lamionapp.netlify.app/sitemap.xml
