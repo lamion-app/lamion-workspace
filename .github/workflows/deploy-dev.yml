@@ -33,7 +33,20 @@ jobs:
         with:
           node-version: 20
 
+      - name: Create env file
+        env:
+          GITHUB_CLIENT_ID: ${{ secrets.GITHUB_CLIENT_ID }}
+        run: |
+          touch .env
+          echo GITHUB_CLIENT_ID=$GITHUB_CLIENT_ID >> .env
+          echo GITHUB_REDIRECT_URL=${{ env.OAUTH_GITHUB_REDIRECT_URL }} >> .env
+          echo NITRO_PRESET=${{ env.NITRO_PRESET }} >> .env
+          echo API_ORIGIN=${{ env.API_ORIGIN }} >> .env
+          echo OAUTH_GITHUB_REDIRECT_URL=${{ env.OAUTH_GITHUB_REDIRECT_URL }} >> .env
+          echo WORKSPACE_ORIGIN=${{ env.WORKSPACE_ORIGIN }} >> .env
+
       - run: npm install
+
       - run: npm run build
         env:
           GITHUB_CLIENT_ID: ${{ secrets.GITHUB_CLIENT_ID }}
