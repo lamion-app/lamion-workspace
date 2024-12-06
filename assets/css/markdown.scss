@@ -32,13 +32,13 @@
 
   p {
     code {
-      @apply bg-gray-700 rounded px-2;
+      @apply bg-gray-300 dark:bg-gray-700 rounded px-2;
     }
   }
 
   .shiki {
     @apply p-4;
-    @apply bg-gray-800 rounded-xl;
+    @apply bg-surface-800 dark:bg-gray-800 rounded-xl;
     @apply overflow-auto;
   }
 }
