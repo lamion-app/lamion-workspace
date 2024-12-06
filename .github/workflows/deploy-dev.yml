@@ -39,10 +39,21 @@ jobs:
           GITHUB_CLIENT_ID: ${{ secrets.GITHUB_CLIENT_ID }}
           GITHUB_REDIRECT_URL: ${{ env.OAUTH_GITHUB_REDIRECT_URL }}
 
-      - name: Deploy to netlify
-        uses: netlify/actions/cli@master
-        with:
-          args: deploy --dir=/ --functions=/
-        env:
-          NETLIFY_AUTH_TOKEN: ${{ secrets.DEV_AUTH_TOKEN }}
-          NETLIFY_SITE_ID: ${{ secrets.DEV_SITE_ID }}
+      - name: Install Netlify
+        run: npm install netlify-cli@17.10.1 -g
+
+      - name: Deploy to Netlify
+        id: netlify_deploy
+        run: |
+          netlify deploy \
+            --dir .netlify/functions-internal \
+            --site ${{ secrets.DEV_SITE_ID }} \
+            --auth ${{ secrets.DEV_AUTH_TOKEN }}
+
+      # - name: Deploy to netlify
+      #   uses: netlify/actions/cli@master
+      #   with:
+      #     args: deploy --dir=/ --functions=/
+      #   env:
+      #     NETLIFY_AUTH_TOKEN: ${{ secrets.DEV_AUTH_TOKEN }}
+      #     NETLIFY_SITE_ID: ${{ secrets.DEV_SITE_ID }}
