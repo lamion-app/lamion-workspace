@@ -7,13 +7,12 @@
         >{{ $locale("app.title") }}</span
       >
 
-      <Avatar
+      <img
         v-else
         :label="$locale('app.title').charAt(0)"
-        shape="circle"
-        size="large"
-        class="avatar-logo font-black !text-3xl !bg-primary !text-primary-contrast"
-      />
+        src="/favicon.ico"
+        class="max-w-12 aspect-square"
+      >
     </NuxtLink>
   </div>
 </template>
@@ -25,7 +24,7 @@ withDefaults(
   }>(),
   {
     expanded: true,
-  },
+  }
 );
 </script>
 

@@ -11,7 +11,7 @@
                 class="size-8 object-cover dark:invert"
                 src="https://cdn-icons-png.flaticon.com/512/25/25231.png"
                 alt="GitHub"
-              />
+              >
             </nuxt-link>
           </div>
         </div>

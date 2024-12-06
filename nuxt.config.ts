@@ -14,14 +14,18 @@ export default defineNuxtConfig({
     "@primevue/nuxt-module",
     "@vueuse/nuxt",
     "@nuxt/content",
+    "@nuxtjs/sitemap",
   ],
+  nitro: {
+    prerender: {
+      crawlLinks: true,
+      routes: ["/docs"],
+    },
+  },
   app: {
     head: {
       link: [
-        {
-          rel: "stylesheet",
-          href: "https://fonts.googleapis.com/icon?family=Material+Icons",
-        },
+        { rel: "icon", type: "image/x-icon", href: "/favicon.ico" },
         {
           rel: "stylesheet",
           href: "https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200",
@@ -67,6 +71,14 @@ export default defineNuxtConfig({
         },
       },
     },
+  },
+  site: {
+    url: process.env.WORKSPACE_ORIGIN,
+    name: "Lamion",
+  },
+  sitemap: {
+    cacheMaxAgeSeconds: 3600,
+    sources: ["/api/__sitemap__/urls"],
   },
   pinia: {
     storesDirs: ["./store/**"],
