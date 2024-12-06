@@ -3,8 +3,8 @@ name: "Deploy dev server"
 on:
   push:
     branches:
-      - "master"
-      - "feature/ci-cd-**"
+#      - "master"
+#      - "feature/ci-cd-**"
 
 jobs:
   deploy:
