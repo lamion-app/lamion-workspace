@@ -1,0 +1,21 @@
+name: "Run linter"
+
+on:
+  pull_request:
+    branches:
+      - master
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    name: "Run checks"
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 21
+
+      - run: npm install
+      - run: npm run lint
