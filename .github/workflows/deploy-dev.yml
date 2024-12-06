@@ -39,13 +39,13 @@ jobs:
       - run: npm install
 
       - run: npm run build
-        # env:
-        #   GITHUB_CLIENT_ID: ${{ secrets.GITHUB_CLIENT_ID }}
-        #   GITHUB_REDIRECT_URL: ${{ env.OAUTH_GITHUB_REDIRECT_URL }}
-        #   NITRO_PRESET: ${{ env.NITRO_PRESET }}
-        #   API_ORIGIN: ${{ env.API_ORIGIN }}
-        #   OAUTH_GITHUB_REDIRECT_URL: ${{ env.OAUTH_GITHUB_REDIRECT_URL }}
-        #   WORKSPACE_ORIGIN: ${{ env.WORKSPACE_ORIGIN }}
+        env:
+          GITHUB_CLIENT_ID: ${{ secrets.DEV_GITHUB_CLIENT_ID }}
+          GITHUB_REDIRECT_URL: ${{ env.OAUTH_GITHUB_REDIRECT_URL }}
+          NITRO_PRESET: ${{ env.NITRO_PRESET }}
+          API_ORIGIN: ${{ env.API_ORIGIN }}
+          AUTH_ORIGIN: ${{ env.API_ORIGIN }}/
+          WORKSPACE_ORIGIN: ${{ env.WORKSPACE_ORIGIN }}
 
       - name: Install Netlify
         run: npm install netlify-cli@17.10.1 -g
