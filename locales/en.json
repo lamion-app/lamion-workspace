@@ -169,6 +169,16 @@
     "name": "Device name",
     "platform": "Platform"
   },
+  "docs": {
+    "landing": {
+      "title_1": "Lightweight events logger for",
+      "title_2": "your projects",
+      "subtitle_1": "Lamion is simple and easy to learn events logger library for web applications.",
+      "subtitle_2": "Just include script in your html and it is ready to go!",
+      "start": "Getting started",
+      "open_projects": "Go to your projects"
+    }
+  },
   "features": {
     "card": {
       "errorsOfTotal": "Crashes",

@@ -51,6 +51,7 @@ definePageMeta({
   layout: "main",
   title: "functions.title",
   isRootRoute: true,
+  auth: true,
 });
 
 const bottomLoaderEl = ref();

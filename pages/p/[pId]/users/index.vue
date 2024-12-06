@@ -4,6 +4,7 @@ import { datePeriodNames } from "~/types/DatePeriod";
 definePageMeta({
   title: "users.title",
   layout: "main",
+  auth: true,
 });
 
 const { t } = useI18n();

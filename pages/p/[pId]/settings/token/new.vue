@@ -81,6 +81,7 @@ definePageMeta({
   layout: "main",
   title: "accessKey.title",
   keepalive: false,
+  auth: true,
 });
 
 const { handleErrorBlock } = useErrorHandler();
