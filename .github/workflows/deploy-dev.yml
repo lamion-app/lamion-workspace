@@ -1,4 +1,4 @@
-name: "Deploy dev server"
+name: "DEV deploy"
 
 on:
   push:
@@ -9,6 +9,8 @@ jobs:
   deploy:
     runs-on: ubuntu-latest
     name: "Deploy to Netlify"
+    permissions:
+      deployments: write
     env:
       GITHUB_CLIENT_ID: ${{ secrets.OAUTH_GITHUB_CLIENT_ID }}
       GITHUB_REDIRECT_URL: ${{ vars.OAUTH_GITHUB_REDIRECT_URL }}
@@ -24,17 +26,45 @@ jobs:
         with:
           node-version: 20
 
-      - run: npm install
+      - run: npm ci
 
       - run: npm run build
 
       - name: Install Netlify
         run: npm install netlify-cli -g
 
+      - uses: chrnorm/deployment-action@v2
+        name: Create GitHub deployment
+        id: deployment
+        with:
+          token: '${{ github.token }}'
+          environment-url: ${{ vars.WORKSPACE_ORIGIN }}
+          environment: develop
+
       - name: Deploy to Netlify
-        id: netlify_deploy
+        id: netlify
         run: |
           netlify deploy \
-            --dir .netlify/functions-internal \
+            --json \
+            --prod \
+            --dir dist \
             --site ${{ secrets.NETLIFY_SITE_ID }} \
             --auth ${{ secrets.NETLIFY_AUTH_TOKEN }}
+
+      - name: Update deployment status (success)
+        if: success()
+        uses: chrnorm/deployment-status@v2
+        with:
+          token: '${{ github.token }}'
+          environment-url: ${{ steps.netlify.outputs.url }}
+          deployment-id: ${{ steps.deployment.outputs.deployment_id }}
+          state: 'success'
+
+      - name: Update deployment status (failure)
+        if: failure()
+        uses: chrnorm/deployment-status@v2
+        with:
+          token: '${{ github.token }}'
+          environment-url: ${{ steps.deployment.outputs.environment_url }}
+          deployment-id: ${{ steps.deployment.outputs.deployment_id }}
+          state: 'failure'
