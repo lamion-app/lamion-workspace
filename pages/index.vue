@@ -9,6 +9,7 @@
     HELLO
 
     TEST2
+    TEST3
 
     <nuxt-link to="/docs">DOCS</nuxt-link>
     <nuxt-link to="/p">PROJECTS</nuxt-link>
