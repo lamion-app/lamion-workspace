@@ -38,6 +38,7 @@ jobs:
         id: deployment
         with:
           token: '${{ github.token }}'
+          environment-url: ${{ vars.WORKSPACE_ORIGIN }}
           environment: dev
 
       - name: Deploy to Netlify
@@ -66,7 +67,7 @@ jobs:
         uses: chrnorm/deployment-status@v2
         with:
           token: '${{ github.token }}'
-          environment-url: fromJson(steps.netlify.outputs.NETLIFY_OUTPUT).url
+          environment-url: fromJson(steps.netlify.outputs).url
           deployment-id: ${{ steps.deployment.outputs.deployment_id }}
           state: 'success'
 
