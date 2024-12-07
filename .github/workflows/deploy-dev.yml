@@ -46,7 +46,6 @@ jobs:
         run: |
           netlify deploy \
             --json \
-            --build \
             --prod \
             --dir .netlify/functions-internal \
             --functions .netlify/functions-internal \
