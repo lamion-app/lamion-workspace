@@ -17,8 +17,6 @@ const { data } = await useAsyncData(
     const result = await fetchContent();
     isLoading.value = false;
 
-    console.log(result);
-
     return result;
   },
   {
@@ -41,21 +39,15 @@ async function fetchContent() {
 
 <template>
   <div class="size-full">
-    <span>{{ locale }}</span>
-
     <docs-navigation v-if="data">
-      <content-renderer class="markdown pb-16" :value="data">
+      <app-loader v-if="isLoading || !data" static />
+
+      <content-renderer v-else class="markdown pb-16" :value="data">
         <template #empty>
           <p>No content found.</p>
         </template>
       </content-renderer>
     </docs-navigation>
-
-    <span>
-      {{ data }}
-    </span>
-
-    <app-loader v-if="isLoading" static />
   </div>
 </template>
 
