@@ -35,7 +35,7 @@ jobs:
         id: netlify_deploy
         run: |
           netlify deploy \
-            --prod
+            --prod \
             --dir .netlify/functions-internal \
             --site ${{ secrets.NETLIFY_SITE_ID }} \
             --auth ${{ secrets.NETLIFY_AUTH_TOKEN }}
