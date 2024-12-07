@@ -6,6 +6,8 @@
     <!-- TODO -->
     <div>TODO: landing</div>
 
+    HELLO
+
     <nuxt-link to="/docs">DOCS</nuxt-link>
     <nuxt-link to="/p">PROJECTS</nuxt-link>
   </div>
