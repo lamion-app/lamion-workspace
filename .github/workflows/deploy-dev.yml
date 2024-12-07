@@ -31,12 +31,39 @@ jobs:
       - name: Install Netlify
         run: npm install netlify-cli -g
 
-      - name: Deploy to Netlify
-        id: netlify_deploy
-        run: |
-          netlify deploy \
-            --prod \
-            --dir .netlify/functions-internal \
-            --functions .netlify/functions-internal \
-            --site ${{ secrets.NETLIFY_SITE_ID }} \
-            --auth ${{ secrets.NETLIFY_AUTH_TOKEN }}
+#      - name: Start deployment
+#        uses: bobheadxi/deployments@v1
+#        id: deployment
+#        with:
+#          env: production
+#          step: start
+
+      - name: Deploy to netlify
+        id: netlify
+        uses: netlify/actions/cli@master
+        env:
+          NETLIFY_AUTH_TOKEN: ${{ secrets.DEV_AUTH_TOKEN }}
+          NETLIFY_SITE_ID: ${{ secrets.DEV_SITE_ID }}
+        with:
+          args: deploy --json --prod --dir .netlify/functions-internal
+
+#      - name: Deploy to Netlify
+#        id: netlify
+#        run: |
+#          netlify deploy \
+#            --prod \
+#            --dir .netlify/functions-internal \
+#            --functions .netlify/functions-internal \
+#            --site ${{ secrets.NETLIFY_SITE_ID }} \
+#            --auth ${{ secrets.NETLIFY_AUTH_TOKEN }}
+
+#      - name: Finish deployment
+#        uses: bobheadxi/deployments@v1
+#        if: always()
+#        with:
+#          env: ${{ steps.deployment.outputs.env }}
+#          step: finish
+#          status: ${{ job.status }}
+#          deployment_id: ${{ steps.deployment.outputs.deployment_id }}
+#          env_url: ${{ fromJson(steps.netlify.outputs.NETLIFY_OUTPUT).url }}
+
