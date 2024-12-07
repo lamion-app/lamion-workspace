@@ -40,10 +40,14 @@ async function fetchContent() {
 <template>
   <div class="size-full">
     <docs-navigation v-if="data">
-      <content-renderer class="markdown pb-16" :value="data" />
-    </docs-navigation>
+      <app-loader v-if="isLoading || !data" static />
 
-    <app-loader v-if="isLoading" static />
+      <content-renderer v-else class="markdown pb-16" :value="data">
+        <template #empty>
+          <p>No content found.</p>
+        </template>
+      </content-renderer>
+    </docs-navigation>
   </div>
 </template>
 

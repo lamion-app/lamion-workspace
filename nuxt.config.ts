@@ -15,13 +15,8 @@ export default defineNuxtConfig({
     "@vueuse/nuxt",
     "@nuxt/content",
     "@nuxtjs/sitemap",
+    "@nuxtjs/seo",
   ],
-  nitro: {
-    prerender: {
-      crawlLinks: true,
-      routes: ["/docs"],
-    },
-  },
   app: {
     head: {
       link: [
