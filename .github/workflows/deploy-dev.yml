@@ -31,12 +31,12 @@ jobs:
       - name: Install Netlify
         run: npm install netlify-cli -g
 
-#      - name: Start deployment
-#        uses: bobheadxi/deployments@v1
-#        id: deployment
-#        with:
-#          env: production
-#          step: start
+      - name: Start deployment
+        uses: bobheadxi/deployments@v1
+        id: deployment
+        with:
+          env: production
+          step: start
 
       - name: Deploy to netlify
         id: netlify
@@ -57,13 +57,12 @@ jobs:
 #            --site ${{ secrets.NETLIFY_SITE_ID }} \
 #            --auth ${{ secrets.NETLIFY_AUTH_TOKEN }}
 
-#      - name: Finish deployment
-#        uses: bobheadxi/deployments@v1
-#        if: always()
-#        with:
-#          env: ${{ steps.deployment.outputs.env }}
-#          step: finish
-#          status: ${{ job.status }}
-#          deployment_id: ${{ steps.deployment.outputs.deployment_id }}
-#          env_url: ${{ fromJson(steps.netlify.outputs.NETLIFY_OUTPUT).url }}
-
+      - name: Finish deployment
+        uses: bobheadxi/deployments@v1
+        if: always()
+        with:
+          env: ${{ steps.deployment.outputs.env }}
+          step: finish
+          status: ${{ job.status }}
+          deployment_id: ${{ steps.deployment.outputs.deployment_id }}
+          env_url: ${{ fromJson(steps.netlify.outputs.NETLIFY_OUTPUT).url }}
