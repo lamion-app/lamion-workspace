@@ -41,6 +41,8 @@ async function fetchContent() {
 
 <template>
   <div class="size-full">
+    <span>{{ locale }}</span>
+
     <docs-navigation v-if="data">
       <content-renderer class="markdown pb-16" :value="data">
         <template #empty>
