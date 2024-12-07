@@ -40,14 +40,26 @@ jobs:
           token: '${{ github.token }}'
           environment: dev
 
-      - name: Deploy to netlify
+      - name: Deploy to Netlify
         id: netlify
-        uses: netlify/actions/cli@master
-        env:
-          NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
-          NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
-        with:
-          args: deploy --build --json --prod --dir .netlify/functions-internal
+        run: |
+          netlify deploy \
+            --json \
+            --build \
+            --prod \
+            --dir .netlify/functions-internal \
+            --functions .netlify/functions-internal \
+            --site ${{ secrets.NETLIFY_SITE_ID }} \
+            --auth ${{ secrets.NETLIFY_AUTH_TOKEN }}
+
+#      - name: Deploy to netlify
+#        id: netlify
+#        uses: netlify/actions/cli@master
+#        env:
+#          NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
+#          NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
+#        with:
+#          args: deploy --json --prod --dir .netlify/functions-internal
 
       - name: Update deployment status (success)
         if: success()
