@@ -42,8 +42,8 @@ jobs:
         id: netlify
         uses: netlify/actions/cli@master
         env:
-          NETLIFY_AUTH_TOKEN: ${{ secrets.DEV_AUTH_TOKEN }}
-          NETLIFY_SITE_ID: ${{ secrets.DEV_SITE_ID }}
+          NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
+          NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
         with:
           args: deploy --json --prod --dir .netlify/functions-internal
 
