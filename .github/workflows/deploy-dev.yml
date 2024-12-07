@@ -52,10 +52,10 @@ jobs:
             --auth ${{ secrets.NETLIFY_AUTH_TOKEN }}
 
       - run: |
-          echo "fromJson(steps.netlify.outputs)"
+          echo "${{ fromJson(steps.netlify.outputs) }}"
 
       - run: |
-          echo "steps.netlify.outputs"
+          echo "${{ steps.netlify.outputs }}"
 
       - name: Update deployment status (success)
         if: success()
