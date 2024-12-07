@@ -33,13 +33,13 @@ jobs:
       - name: Install Netlify
         run: npm install netlify-cli -g
 
-#      - uses: chrnorm/deployment-action@v2
-#        name: Create GitHub deployment
-#        id: deployment
-#        with:
-#          token: '${{ github.token }}'
-#          environment-url: ${{ vars.WORKSPACE_ORIGIN }}
-#          environment: develop
+      - uses: chrnorm/deployment-action@v2
+        name: Create GitHub deployment
+        id: deployment
+        with:
+          token: '${{ github.token }}'
+          environment-url: ${{ vars.WORKSPACE_ORIGIN }}
+          environment: develop
 
       - name: Deploy to Netlify
         id: netlify
