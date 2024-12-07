@@ -9,6 +9,8 @@ jobs:
   deploy:
     runs-on: ubuntu-latest
     name: "Deploy to Netlify"
+    permissions:
+      deployments: write
     env:
       GITHUB_CLIENT_ID: ${{ secrets.OAUTH_GITHUB_CLIENT_ID }}
       GITHUB_REDIRECT_URL: ${{ vars.OAUTH_GITHUB_REDIRECT_URL }}
