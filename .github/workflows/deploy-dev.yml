@@ -39,7 +39,7 @@ jobs:
         with:
           token: '${{ github.token }}'
           environment-url: ${{ vars.WORKSPACE_ORIGIN }}
-          environment: dev
+          environment: develop
 
       - name: Deploy to Netlify
         id: netlify
@@ -47,19 +47,9 @@ jobs:
           netlify deploy \
             --json \
             --prod \
-            --dir .netlify/functions-internal \
-            --functions .netlify/functions-internal \
+            --dir dist \
             --site ${{ secrets.NETLIFY_SITE_ID }} \
             --auth ${{ secrets.NETLIFY_AUTH_TOKEN }}
-
-#      - name: Deploy to netlify
-#        id: netlify
-#        uses: netlify/actions/cli@master
-#        env:
-#          NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
-#          NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
-#        with:
-#          args: deploy --json --prod --dir .netlify/functions-internal
 
       - name: Update deployment status (success)
         if: success()
