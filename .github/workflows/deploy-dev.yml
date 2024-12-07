@@ -41,4 +41,5 @@ jobs:
 
       - name: Deploy to main url
         run: |
-          netlify deploy --prod
+          netlify deploy --prod \
+            --auth ${{ secrets.NETLIFY_AUTH_TOKEN }}
