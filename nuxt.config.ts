@@ -22,6 +22,12 @@ export default defineNuxtConfig({
       routes: ["/docs"],
     },
   },
+  nitro: {
+    prerender: {
+      crawlLinks: true,
+      routes: ["/docs"],
+    },
+  },
   app: {
     head: {
       link: [
