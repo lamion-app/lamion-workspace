@@ -3,12 +3,25 @@ const props = defineProps<{
   items: Array<TimeChartItem>;
 }>();
 
-const chartItems = computed(() =>
-  props.items.map((x) => ({
+const chartItems = computed(() => {
+  const input = props.items.map((x) => ({
     number: x.value,
     name: formatTime(x.key),
-  })),
-);
+  }));
+
+  return [...Array(24).keys()].map((x) => {
+    return (
+      input.find((y) => y.number == x) ?? {
+        number: x,
+        name: formatTime({
+          hour: x,
+          minute: 0,
+          second: 0,
+        }),
+      }
+    );
+  });
+});
 </script>
 
 <template>
