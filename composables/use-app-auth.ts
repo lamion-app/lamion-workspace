@@ -19,14 +19,12 @@ export const useAppAuth = () => {
     isLoggedIn: isLoggedIn,
     isLoading: isLoading,
     logout: () => {
-      const loginPage = useLoginPage();
-
       signOut({
         redirect: false,
       }).then(() => {
         localStorage.clear();
 
-        loginPage.navigate();
+        navigateTo("/");
       });
     },
     signIn: {
@@ -36,7 +34,7 @@ export const useAppAuth = () => {
         return CredentialsAuthProvider.invoke(
           email,
           password,
-          route.query.callbackUrl?.toString() ?? "/",
+          route.query.callbackUrl?.toString() ?? "/"
         );
       },
       githubOauth: GitHubAuthProvider.invoke.bind(GitHubAuthProvider, config),
@@ -54,7 +52,7 @@ export const useAppAuth = () => {
         },
         {
           callbackUrl: callbackUrl,
-        },
+        }
       );
     },
   };

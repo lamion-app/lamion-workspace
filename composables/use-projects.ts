@@ -24,7 +24,12 @@ export const useProjects = () => {
     });
   };
 
-  const selectedProjectId = computed(() => data.selectedProject.value?.id);
+  const selectedProjectId = computed(() => {
+    if (data.selectedProjectState.value !== SelectedProjectState.READY)
+      return undefined;
+
+    return data.selectedProject.value?.id;
+  });
 
   function useProjectLoad<T>(params: {
     load: (id: number, ...refs: Array<any>) => Promise<T>;
@@ -85,6 +90,7 @@ export const useProjects = () => {
 
       const id = selectedProjectId.value;
       if (id === undefined) return;
+
       await onLoad(id, params.customRefs?.map((x) => x.value) ?? []);
     }
 
@@ -95,16 +101,15 @@ export const useProjects = () => {
     watch(
       [selectedProjectId, ...(params.customRefs ?? [])],
       async (val) => {
-        if (isBlocked || isLoading.value) return;
-
         const [id, ...refs] = val;
 
-        if (id === undefined) return;
+        if (id === undefined || isBlocked || isLoading.value) return;
+
         await onLoad(id, refs);
       },
       {
         immediate: autoLoading,
-      },
+      }
     );
 
     return {
@@ -119,7 +124,7 @@ export const useProjects = () => {
   function useProjectLoadAlias<T>(
     callback: (id: number, ...refs: Array<any>) => Promise<T>,
     customRefs: Array<Ref<any>> = [],
-    autoLoading: boolean = true,
+    autoLoading: boolean = true
   ) {
     return useProjectLoad({
       load: callback,

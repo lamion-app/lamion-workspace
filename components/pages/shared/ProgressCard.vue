@@ -38,6 +38,14 @@ const chartItems = computed(() => {
     };
   });
 });
+
+const comparisonValue = computed(() =>
+  round((props.overall.actual / props.overall.past) * 100 - 100)
+);
+
+const showComparison = computed(() => {
+  return !!props.overall.past;
+});
 </script>
 
 <template>
@@ -81,12 +89,16 @@ const chartItems = computed(() => {
       </template>
     </line-chart>
 
-    <text-up-down-indicator
-      class="mx-5 mt-4"
-      :icon="comparison.icon"
-      :value="round((overall.actual / overall.past) * 100 - 100)"
-      quantity="%"
-      :label="comparison.text"
-    />
+    <div class="mx-5 mt-4">
+      <text-up-down-indicator
+        v-if="showComparison"
+        :icon="comparison.icon"
+        :value="comparisonValue"
+        quantity="%"
+        :label="comparison.text"
+      />
+
+      <span v-else>N/A</span>
+    </div>
   </app-card>
 </template>

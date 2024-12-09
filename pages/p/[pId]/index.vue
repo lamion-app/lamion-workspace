@@ -6,16 +6,16 @@ definePageMeta({
   auth: true,
 });
 
-const { useProjectLoadAlias } = useProjects();
+const { useProjectLoad } = useProjects();
 
-const { isLoading, data } = useProjectLoadAlias((id: Id) =>
-  useApiCall<DashboardFull>(`/project/${id}/dashboard/full`),
-);
+const { isLoading, data } = useProjectLoad({
+  load: (id: Id) => useApiCall<DashboardFull>(`/project/${id}/dashboard/full`),
+});
 
 const calendarItems = computed(() => mapCalendarItems(data.value?.calendar));
 
 const userActivityItems = computed(() =>
-  mapTimeChartDto(data.value?.user_activity_time),
+  mapTimeChartDto(data.value?.user_activity_time)
 );
 </script>
 

@@ -3,18 +3,15 @@ defineProps<{
   isLoading: boolean;
   items: Array<FunctionDetailedDto> | undefined;
   features: Array<FeatureSimpleDto> | undefined;
-  tags: Array<FunctionTag> | undefined;
 }>();
 
 const filters = defineModel<{
   name: string | undefined;
   features: Array<FeatureSimpleDto> | undefined;
-  tags: Array<FunctionTag> | undefined;
 }>("filters", { required: true });
 
 const namePopover = ref();
 const featurePopover = ref();
-const tagsPopover = ref();
 </script>
 
 <template>
@@ -133,51 +130,7 @@ const tagsPopover = ref();
       </template>
     </Column>
 
-    <Column class="w-[15%]">
-      <template #header>
-        <div class="header action" @click="tagsPopover.toggle($event)">
-          <span class="font-medium">{{ $locale("functions.table.tags") }}</span>
-
-          <m-icon class="text-lg" value="filter_alt" />
-
-          <popover ref="tagsPopover">
-            <div class="filter-popover">
-              <multi-select
-                v-model="filters.tags"
-                :options="tags"
-                option-label="title"
-                :placeholder="$locale('common.simple.any')"
-              />
-
-              <Button
-                type="button"
-                :label="$locale('common.simple.clear')"
-                size="small"
-                severity="secondary"
-                @click="filters.tags = undefined"
-              />
-            </div>
-          </popover>
-        </div>
-      </template>
-
-      <template #body="{ data }">
-        <div class="flex flex-wrap gap-2">
-          <span
-            v-for="tag in data.tags"
-            :key="tag.id"
-            class="max-w-[100px] rounded px-4 whitespace-nowrap overflow-hidden text-ellipsis"
-            :style="{
-              backgroundColor: stringToColour(tag.title),
-            }"
-            :title="tag.title"
-            >{{ tag.title }}
-          </span>
-        </div>
-      </template>
-    </Column>
-
-    <Column class="max-md:hidden w-[100px] row-hover">
+    <!-- <Column class="max-md:hidden w-[100px] row-hover">
       <template #body>
         <div class="flex gap-2">
           <icon-button
@@ -190,7 +143,7 @@ const tagsPopover = ref();
           />
         </div>
       </template>
-    </Column>
+    </Column> -->
   </DataTable>
 </template>
 

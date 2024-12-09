@@ -20,7 +20,7 @@ const featureData = reactive({
 });
 
 const { isLoading, data } = useProjectLoadAlias((id) =>
-  useApiCall<FeatureFull>(`/project/${id}/features/full`),
+  useApiCall<FeatureFull>(`/project/${id}/features/full`)
 );
 
 const features = useListDataLoader({
@@ -98,7 +98,7 @@ function changeSortVariant(variant: DefaultSortVariant) {
                 icon="&#xf1e1;"
                 :to="
                   createProjectLink(
-                    i === 0 ? 'features-functions' : 'features-crashes',
+                    i === 0 ? 'features-functions' : 'features-crashes'
                   )
                 "
               />
@@ -173,12 +173,16 @@ function changeSortVariant(variant: DefaultSortVariant) {
               navigateTo(
                 createProjectLink('features-id', {
                   id: item.id,
-                }),
+                })
               )
             "
             @click:edit="featureData.editDialogItem = item"
           />
         </div>
+
+        <app-card v-if="!!features.data && features.data.length == 0" class="mt-4">
+          <span class="text-4xl text-center">N/A</span>
+        </app-card>
 
         <app-loader
           v-if="features.isNeedPostLoading"
