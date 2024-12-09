@@ -6,10 +6,10 @@ const loadProjects = async (): Promise<Array<Project>> => {
 };
 
 export const useProjectsStore = defineStore("projects", () => {
-  const route = useRoute();
+  const router = useRouter();
 
   const selectedProjectIndex = computed(() => {
-    return Number(route.params.pId);
+    return Number(router.currentRoute.value.params.pId);
   });
 
   const projects = ref<Array<Project> | null>(null);
@@ -35,16 +35,15 @@ export const useProjectsStore = defineStore("projects", () => {
   }
 
   watch([projects, selectedProjectIndex], async ([projects, index]) => {
-    if (isNaN(index) || index == undefined) {
-      // Handle if project already loaded and route changed
-      if (!selectedProject.value && !!savedProjectKey) {
-        selectedProjectState.value = SelectedProjectState.NOT_FOUND;
-      }
-
+    if (
+      isNaN(index) ||
+      index == undefined ||
+      !projects ||
+      projects.length === 0
+    ) {
+      selectedProjectState.value = SelectedProjectState.NOT_FOUND;
       return;
     }
-
-    if (!projects || projects.length === 0) return;
 
     if (index != savedProjectKey) {
       savedProjectKey = index;

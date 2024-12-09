@@ -4,23 +4,23 @@ const props = defineProps<{
 }>();
 
 const chartItems = computed(() => {
-  const input = props.items.map((x) => ({
-    number: x.value,
-    name: formatTime(x.key),
-  }));
-
-  return [...Array(24).keys()].map((x) => {
-    return (
-      input.find((y) => y.number == x) ?? {
-        number: x,
-        name: formatTime({
-          hour: x,
-          minute: 0,
-          second: 0,
-        }),
-      }
-    );
-  });
+  return [...Array(24).keys()]
+    .map((x) => {
+      return (
+        props.items.find((y) => y.key.hour == x) ?? {
+          key: {
+            hour: x,
+            minute: 0,
+            second: 0,
+          },
+          value: 0,
+        }
+      );
+    })
+    .map((x) => ({
+      number: x.value,
+      name: formatTime(x.key),
+    }));
 });
 </script>
 

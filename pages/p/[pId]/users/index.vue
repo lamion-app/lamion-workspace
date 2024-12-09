@@ -9,7 +9,7 @@ definePageMeta({
 
 const { t } = useI18n();
 
-const { useProjectLoadAlias } = useProjects();
+const { useProjectLoad } = useProjects();
 
 const deviceTable = reactive({
   selectedDatePeriod: ref(DatePeriod.DAY),
@@ -17,16 +17,16 @@ const deviceTable = reactive({
     [DatePeriod.DAY, DatePeriod.MONTH, DatePeriod.YEAR].map((d) => ({
       value: d,
       name: t(datePeriodNames.get(d)!),
-    })),
+    }))
   ),
 });
 
-const { isLoading, data } = useProjectLoadAlias((id) =>
-  useApiCall<UsersFull>(`/project/${id}/users/full`),
-);
+const { isLoading, data } = useProjectLoad({
+  load: (id) => useApiCall<UsersFull>(`/project/${id}/users/full`),
+});
 
 const userActivityItems = computed(() =>
-  mapTimeChartDto(data.value?.user_activity_time),
+  mapTimeChartDto(data.value?.user_activity_time)
 );
 
 const platforms = computed(() => mapChartDto(data.value?.platforms));
@@ -72,7 +72,7 @@ const activeUsersCard = computed(() => {
   <app-layout :is-loading="isLoading">
     <dashboard-layout v-if="!!data" class="dashboard">
       <progress-card
-        class="col-span-4 2xl:col-span-3"
+        :class="data.growth_rate ? ['col-span-4 2xl:col-span-3'] : ['col-span-5 2xl:col-span-4']"
         :title="totalUsersCard.title"
         :overall="totalUsersCard.overall"
         :data="totalUsersCard.data"
@@ -80,7 +80,7 @@ const activeUsersCard = computed(() => {
       />
 
       <progress-card
-        class="col-span-4"
+        :class="data.growth_rate ? ['col-span-4'] : ['col-span-5']"
         :title="activeUsersCard.title"
         :overall="activeUsersCard.overall"
         :data="activeUsersCard.data"
@@ -88,6 +88,7 @@ const activeUsersCard = computed(() => {
       />
 
       <growth-rate-card
+        v-if="data.growth_rate"
         class="max-2xl:!hidden col-span-2"
         :actual="data.growth_rate.actual"
         :past="data.growth_rate.past"
