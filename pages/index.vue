@@ -82,6 +82,18 @@ const usecases = [
     title: "Demonstration projects for learning WEB development",
   },
 ];
+
+const socials = Object.entries(config.public.app.socials).map((x) => {
+  let icon: string = "";
+
+  if (x[0] == "github") icon = "/img/github.png";
+  else if (x[0] == "npm") icon = "/img/npm.png";
+
+  return {
+    icon: icon,
+    url: x[1],
+  };
+});
 </script>
 
 <template>
@@ -223,12 +235,12 @@ const usecases = [
         <div class="jump" />
 
         <landing-section class="black">
-          <div class="viewport-wrapper grid grid-cols-2 gap-8">
+          <div class="viewport-wrapper flex flex-col lg:grid grid-cols-2 gap-8">
             <div class="col">
               <h3 class="text-7xl font-black">Focus on creativity</h3>
               <span class="text-3xl mt-8"
                 >With Lamion, you don't have to worry about any analytics issues
-                in your app. Set it up once - use it everywhere.</span
+                in your app. Set up once - use everywhere.</span
               >
             </div>
 
@@ -245,6 +257,8 @@ const usecases = [
                     to="/docs"
                     severity="secondary"
                   >
+                    <m-icon value="developer_guide" />
+
                     <span>Read docs</span>
 
                     <m-icon value="chevron_right" />
@@ -257,7 +271,7 @@ const usecases = [
 
         <div class="jump" />
 
-        <landing-section size="large" class="semi-transparent">
+        <landing-section class="!min-h-screen" size="large">
           <div class="viewport-wrapper">
             <div class="mx-auto max-w-[80%] col items-center gap-8">
               <h2 class="text-2xl font-black text-primary">Contributing</h2>
@@ -275,7 +289,7 @@ const usecases = [
               <Button
                 severity="contrast"
                 as="a"
-                :href="config.public.app.githubRepo"
+                :href="config.public.app.socials.github"
                 target="_blank"
                 rel="noopener"
               >
@@ -300,27 +314,74 @@ const usecases = [
 
         <div class="jump" />
 
-        <landing-section class="viewport-wrapper !pb-56">
-          <div class="viewport-wrapper col center gap-4">
-            <app-logo class="!size-28" :link="false" :expanded="false" />
+        <footer class="landing-section black flex center">
+          <div class="viewport-wrapper col gap-6 py-12">
+            <div class="flex flex-col-reverse lg:grid grid-cols-3 gap-12">
+              <div
+                class="size-full col gap-2 lg:gap-8 items-start justify-center"
+              >
+                <div class="flex center gap-2">
+                  <app-logo class="!size-8" :link="false" :expanded="false" />
+                  <app-logo :link="false" expanded />
+                </div>
 
-            <h3 class="mt-4 text-6xl font-medium">Try Lamion today</h3>
-            <p>No payment or anything else is required</p>
+                <div class="flex items-start justify-start gap-2">
+                  <Button
+                    v-for="item in socials"
+                    :key="item.icon"
+                    class="!size-11 !p-0"
+                    as="a"
+                    :href="item.url"
+                    variant="outlined"
+                    severity="secondary"
+                    target="_blank"
+                    rel="noopener"
+                  >
+                    <img class="size-6 dark:invert" :src="item.icon" />
+                  </Button>
+                </div>
+              </div>
 
-            <Button
-              class="w-full max-w-[180px] mt-8"
-              as="router-link"
-              to="/p"
-              rounded
-              >Get started</Button
-            >
+              <div
+                class="col-span-2 col gap-4 border-gray-900 border-2 rounded-[30px] px-8 py-12"
+              >
+                <h3 class="mt-4 text-6xl font-medium">Try Lamion today</h3>
+                <p>No payment or anything else is required</p>
+
+                <div class="flex flex-wrap gap-2 mt-4">
+                  <Button
+                    class="w-full max-w-[180px]"
+                    as="router-link"
+                    to="/p"
+                    severity="contrast"
+                    >Get started</Button
+                  >
+
+                  <Button
+                    class="!bg-transparent"
+                    as="router-link"
+                    to="/docs"
+                    severity="secondary"
+                    >Read docs
+                  </Button>
+                </div>
+              </div>
+            </div>
+
+            <Divider />
+
+            <div class="flex flex-wrap gap-2 text-secondary">
+              <span>© 2024</span>
+              <span>Released under Apache License 2.0</span>
+
+              <div class="spacer" />
+
+              <div class="flex gap-2 center">
+                <m-icon value="email" />
+                <span>{{ config.public.app.contacts.email }}</span>
+              </div>
+            </div>
           </div>
-        </landing-section>
-
-        <div class="jump large" />
-
-        <footer class="landing-section black h-[300px]">
-          <div class="viewport-wrapper">Footer</div>
         </footer>
       </main>
     </div>

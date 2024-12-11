@@ -57,7 +57,13 @@ export default defineNuxtConfig({
   runtimeConfig: {
     public: {
       app: {
-        githubRepo: process.env.GITHUB_REPO_URL,
+        contacts: {
+          email: process.env.CONTACT_EMAIL,
+        },
+        socials: {
+          github: process.env.GITHUB_REPO_URL,
+          npm: process.env.NPM_URL,
+        },
       },
       api: {
         origin: process.env.API_ORIGIN,

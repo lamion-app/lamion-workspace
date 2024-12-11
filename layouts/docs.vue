@@ -10,7 +10,7 @@ const config = useRuntimeConfig();
           <app-logo />
 
           <div class="icons flex gap-2">
-            <nuxt-link :to="config.public.app.githubRepo">
+            <nuxt-link :to="config.public.app.socials.github">
               <img
                 class="size-8 object-cover dark:invert"
                 src="/img/github.png"
