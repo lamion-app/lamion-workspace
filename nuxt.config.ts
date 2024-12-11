@@ -16,11 +16,11 @@ export default defineNuxtConfig({
     "@nuxt/content",
     "@nuxtjs/sitemap",
     "@nuxtjs/seo",
+    "nuxt-particles",
   ],
   app: {
     head: {
       link: [
-        { rel: "icon", type: "image/x-icon", href: "/favicon.ico" },
         {
           rel: "stylesheet",
           href: "https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200",
@@ -56,6 +56,9 @@ export default defineNuxtConfig({
   },
   runtimeConfig: {
     public: {
+      app: {
+        githubRepo: process.env.GITHUB_REPO_URL,
+      },
       api: {
         origin: process.env.API_ORIGIN,
       },
@@ -138,6 +141,10 @@ export default defineNuxtConfig({
       tablet: "md",
     },
     fallbackBreakpoint: "lg",
+  },
+  particles: {
+    mode: "slim",
+    lazy: true,
   },
   auth: {
     baseURL: process.env.AUTH_ORIGIN,

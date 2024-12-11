@@ -169,14 +169,20 @@
     "name": "Device name",
     "platform": "Platform"
   },
+  "landing": {
+    "title": "Docs for lamion",
+    "title_1": "Lightweight events logger for",
+    "title_2": "your projects",
+    "subtitle": "Lightweight tracking library for web applications. Just enable the script and you're ready to go!"
+  },
   "docs": {
     "landing": {
-      "title_1": "Lightweight events logger for",
-      "title_2": "your projects",
-      "subtitle_1": "Lamion is simple and easy to learn events logger library for web applications.",
-      "subtitle_2": "Just include script in your html and it is ready to go!",
-      "start": "Getting started",
-      "open_projects": "Go to your projects"
+      "title": "Docs for lamion",
+      "title_1": "Connect Lamion to",
+      "title_2": "your project",
+      "subtitle_1": "Learn how to set up Lamion in your application.",
+      "subtitle_2": "It's easier than it seems!",
+      "start": "Getting started"
     }
   },
   "features": {

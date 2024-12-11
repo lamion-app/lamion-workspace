@@ -42,7 +42,7 @@ async function fetchContent() {
     <docs-navigation v-if="data">
       <app-loader v-if="isLoading || !data" static />
 
-      <content-renderer v-else class="markdown pb-16" :value="data">
+      <content-renderer v-else class="markdown code-bg pb-16" :value="data">
         <template #empty>
           <p>No content found.</p>
         </template>
@@ -50,5 +50,3 @@ async function fetchContent() {
     </docs-navigation>
   </div>
 </template>
-
-<style lang="scss" src="/assets/css/markdown.scss" />

@@ -1,12 +1,13 @@
 <script setup lang="ts">
 definePageMeta({
   layout: "docs",
+  title: "docs.landing.title",
 });
 </script>
 
 <template>
   <div class="size-full col">
-    <div class="col gap-12 py-36 text-center">
+    <landing-section class="text-center">
       <h1 class="text-5xl sm:text-7xl font-bold">
         {{ $locale("docs.landing.title_1") }}
         <br >
@@ -21,18 +22,12 @@ definePageMeta({
         {{ $locale("docs.landing.subtitle_2") }}
       </p>
 
-      <div class="flex justify-center gap-6">
-        <Button
-          class="min-w-36"
-          to="/docs/getting-started/installation"
-          as="router-link"
-          >{{ $locale("docs.landing.start") }}</Button
-        >
-
-        <Button to="/p" as="router-link" text>{{
-          $locale("docs.landing.open_projects")
-        }}</Button>
-      </div>
-    </div>
+      <Button
+        class="w-full max-w-[200px] mx-auto"
+        to="/docs/getting-started/installation"
+        as="router-link"
+        >{{ $locale("docs.landing.start") }}</Button
+      >
+    </landing-section>
   </div>
 </template>

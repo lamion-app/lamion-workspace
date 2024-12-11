@@ -1,29 +1,31 @@
 <template>
   <div class="logo flex center">
-    <NuxtLink to="/">
+    <component :is="link ? NuxtLink : 'span'" to="/">
       <span
         v-if="expanded"
-        class="text-logo text-4xl font-black text-primary select-none cursor-pointer"
+        class="text-logo text-4xl font-black text-primary select-none"
+        :class="{
+          'cursor-pointer': link,
+        }"
         >{{ $locale("app.title") }}</span
       >
 
-      <img
-        v-else
-        :label="$locale('app.title').charAt(0)"
-        src="/favicon.ico"
-        class="max-w-12 aspect-square"
-      >
-    </NuxtLink>
+      <img v-else src="/favicon.ico" class="size-full aspect-square" >
+    </component>
   </div>
 </template>
 
 <script setup lang="ts">
+import { NuxtLink } from "#components";
+
 withDefaults(
   defineProps<{
     expanded?: boolean;
+    link?: boolean;
   }>(),
   {
     expanded: true,
+    link: true,
   }
 );
 </script>

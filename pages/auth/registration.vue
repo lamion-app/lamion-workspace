@@ -59,7 +59,7 @@
           >
             <img
               class="size-8 object-cover dark:invert"
-              src="https://cdn-icons-png.flaticon.com/512/25/25231.png"
+              src="/img/github.png"
               alt="GitHub"
             >
 

@@ -45,17 +45,20 @@ export const useProjectsStore = defineStore("projects", () => {
       return;
     }
 
-    if (index != savedProjectKey) {
-      savedProjectKey = index;
+    if (index === savedProjectKey && !!selectedProject.value) {
+      selectedProjectState.value = SelectedProjectState.READY;
+      return;
+    }
 
-      const project = projects[index];
-      selectedProject.value = project;
+    savedProjectKey = index;
 
-      if (project) {
-        selectedProjectState.value = SelectedProjectState.READY;
-      } else {
-        selectedProjectState.value = SelectedProjectState.NOT_FOUND;
-      }
+    const project = projects[index];
+    selectedProject.value = project;
+
+    if (project) {
+      selectedProjectState.value = SelectedProjectState.READY;
+    } else {
+      selectedProjectState.value = SelectedProjectState.NOT_FOUND;
     }
   });
 
