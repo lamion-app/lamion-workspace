@@ -134,13 +134,13 @@ const socials = Object.entries(config.public.app.socials).map((x) => {
           >
             <h1 class="text-4xl sm:text-6xl font-bold">
               {{ t("landing.initial.title_1") }}
-              <br >
+              <br class="max-lg:hidden" >
               <span class="text-primary font-black">{{
                 t("landing.initial.title_2")
               }}</span>
             </h1>
 
-            <p class="text-lg max-w-[650px] mx-auto whitespace-pre-wrap">
+            <p class="text-lg max-w-[650px] mx-auto lg:whitespace-pre-wrap">
               {{ t("landing.initial.subtitle") }}
             </p>
           </div>
@@ -356,7 +356,7 @@ const socials = Object.entries(config.public.app.socials).map((x) => {
 
                 <div class="flex flex-wrap gap-2 mt-4">
                   <Button
-                    class="w-full max-w-[180px]"
+                    class="w-full lg:max-w-[180px]"
                     as="router-link"
                     to="/p"
                     severity="contrast"
@@ -364,7 +364,7 @@ const socials = Object.entries(config.public.app.socials).map((x) => {
                   >
 
                   <Button
-                    class="!bg-transparent"
+                    class="!bg-transparent max-lg:w-full"
                     as="router-link"
                     to="/docs"
                     severity="secondary"
