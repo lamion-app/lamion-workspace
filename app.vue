@@ -29,5 +29,7 @@ useHead({
     </NuxtLayout>
 
     <Toast group="global-toast" />
+
+    <extra-seo />
   </div>
 </template>
