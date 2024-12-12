@@ -1,6 +1,7 @@
 <script setup lang="ts">
 const colorMode = useColorMode();
 const config = useRuntimeConfig();
+const { isLoggedIn } = useAppAuth();
 
 const options = computed(() => ({
   fullScreen: {
@@ -110,6 +111,7 @@ const socials = Object.entries(config.public.app.socials).map((x) => {
           <app-logo :link="false" />
 
           <Button
+            v-if="isLoggedIn"
             class="max-sm:!hidden !px-4 !py-1 !text-sky-500"
             as="router-link"
             to="/p"
@@ -210,7 +212,7 @@ const socials = Object.entries(config.public.app.socials).map((x) => {
                 />
 
                 <h2 class="mt-6 text-2xl font-medium">{{ item.title }}</h2>
-                <span class="text-gray-300">{{ item.description }}</span>
+                <span class="text-secondary">{{ item.description }}</span>
               </div>
             </div>
           </div>
@@ -250,9 +252,11 @@ const socials = Object.entries(config.public.app.socials).map((x) => {
                   <ContentDoc path="/code/init" />
                 </div>
 
-                <div class="bg-gray-900/60 px-5 py-4">
+                <div
+                  class="bg-gray-900 bg-opacity-80 dark:bg-opacity-60 px-5 py-4"
+                >
                   <Button
-                    class="!bg-transparent"
+                    class="!bg-transparent !text-white dark:!text-primary"
                     as="router-link"
                     to="/docs"
                     severity="secondary"
@@ -294,7 +298,7 @@ const socials = Object.entries(config.public.app.socials).map((x) => {
                 rel="noopener"
               >
                 <img
-                  class="size-6 object-cover light:invert"
+                  class="size-6 object-cover invert dark:filter-none"
                   src="/img/github.png"
                   alt="GitHub"
                 />
@@ -417,15 +421,15 @@ const socials = Object.entries(config.public.app.socials).map((x) => {
 
   .landing-section {
     &.black {
-      @apply bg-gray-950;
+      @apply bg-gray-200 dark:bg-gray-950;
     }
 
     &.medium {
-      @apply bg-gray-900;
+      @apply bg-gray-100 dark:bg-gray-900;
     }
 
     &.semi-transparent {
-      @apply bg-gray-900 bg-opacity-40;
+      @apply bg-gray-100 dark:bg-gray-900 bg-opacity-40;
     }
   }
 
@@ -439,30 +443,64 @@ const socials = Object.entries(config.public.app.socials).map((x) => {
     }
 
     &:has(+ .landing-section.black) {
-      @apply to-gray-950 !important;
+      @apply to-gray-200 !important;
     }
 
     &:has(+ .landing-section.medium) {
-      @apply to-gray-900 !important;
+      @apply to-gray-100 !important;
     }
 
     &:has(+ .landing-section.semi-transparent) {
       --tw-gradient-to: color-mix(
         in srgb,
-        var(--p-gray-900) 40%,
+        var(--p-gray-100) 40%,
         transparent
       ) !important;
+    }
+
+    @media (prefers-color-scheme: dark) {
+      &:has(+ .landing-section.black) {
+        @apply to-gray-950 !important;
+      }
+
+      &:has(+ .landing-section.medium) {
+        @apply to-gray-900 !important;
+      }
+
+      &:has(+ .landing-section.semi-transparent) {
+        --tw-gradient-to: color-mix(
+          in srgb,
+          var(--p-gray-900) 40%,
+          transparent
+        ) !important;
+      }
     }
   }
 
   .landing-section.black + .jump {
-    @apply from-gray-950;
+    @apply from-gray-200;
   }
   .landing-section.medium + .jump {
-    @apply from-gray-900;
+    @apply from-gray-100;
   }
   .landing-section.semi-transparent + .jump {
-    --tw-gradient-from: color-mix(in srgb, var(--p-gray-900) 40%, transparent);
+    --tw-gradient-from: color-mix(in srgb, var(--p-gray-100) 40%, transparent);
+  }
+
+  @media (prefers-color-scheme: dark) {
+    .landing-section.black + .jump {
+      @apply from-gray-950;
+    }
+    .landing-section.medium + .jump {
+      @apply from-gray-900;
+    }
+    .landing-section.semi-transparent + .jump {
+      --tw-gradient-from: color-mix(
+        in srgb,
+        var(--p-gray-900) 40%,
+        transparent
+      ) !important;
+    }
   }
 }
 </style>
