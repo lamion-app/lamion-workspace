@@ -129,7 +129,7 @@ const socials = Object.entries(config.public.app.socials).map((x) => {
           >
             <h1 class="text-4xl sm:text-6xl font-bold">
               {{ t("landing.initial.title_1") }}
-              <br />
+              <br >
               <span class="text-primary font-black">{{
                 t("landing.initial.title_2")
               }}</span>
@@ -299,7 +299,7 @@ const socials = Object.entries(config.public.app.socials).map((x) => {
                   class="size-6 object-cover invert dark:filter-none"
                   src="/img/github.png"
                   alt="GitHub"
-                />
+                >
 
                 <span class="ms-2">{{
                   t("landing.contributing.openGithub")
@@ -336,7 +336,7 @@ const socials = Object.entries(config.public.app.socials).map((x) => {
                     target="_blank"
                     rel="noopener"
                   >
-                    <img class="size-6 dark:invert" :src="item.icon" />
+                    <img class="size-6 dark:invert" :src="item.icon" >
                   </Button>
                 </div>
               </div>
