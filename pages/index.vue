@@ -118,7 +118,7 @@ const socials = Object.entries(config.public.app.socials).map((x) => {
             v-if="isLoggedIn"
             class="max-sm:!hidden !px-4 !py-1 !text-sky-500"
             as="router-link"
-            to="/p"
+            :to="$localePath('/p')"
             severity="info"
             text
           >
@@ -134,7 +134,7 @@ const socials = Object.entries(config.public.app.socials).map((x) => {
           >
             <h1 class="text-4xl sm:text-6xl font-bold">
               {{ t("landing.initial.title_1") }}
-              <br class="max-lg:hidden" >
+              <br class="max-lg:hidden" />
               <span class="text-primary font-black">{{
                 t("landing.initial.title_2")
               }}</span>
@@ -146,11 +146,14 @@ const socials = Object.entries(config.public.app.socials).map((x) => {
           </div>
 
           <div class="flex flex-wrap justify-center gap-4">
-            <Button class="w-full max-w-[180px]" as="router-link" to="/p">{{
-              t("landing.initial.getStarted")
-            }}</Button>
+            <Button
+              class="w-full max-w-[180px]"
+              as="router-link"
+              :to="$localePath('/p')"
+              >{{ t("landing.initial.getStarted") }}</Button
+            >
 
-            <Button as="router-link" to="/docs" text>{{
+            <Button as="router-link" :to="$localePath('/docs')" text>{{
               t("landing.initial.readDocs")
             }}</Button>
           </div>
@@ -261,7 +264,7 @@ const socials = Object.entries(config.public.app.socials).map((x) => {
                   <Button
                     class="!bg-transparent !text-white dark:!text-primary"
                     as="router-link"
-                    to="/docs"
+                    :to="$localePath('/docs')"
                     severity="secondary"
                   >
                     <m-icon value="developer_guide" />
@@ -304,7 +307,7 @@ const socials = Object.entries(config.public.app.socials).map((x) => {
                   class="size-6 object-cover invert dark:filter-none"
                   src="/img/github.png"
                   alt="GitHub"
-                >
+                />
 
                 <span class="ms-2">{{
                   t("landing.contributing.openGithub")
@@ -341,7 +344,7 @@ const socials = Object.entries(config.public.app.socials).map((x) => {
                     target="_blank"
                     rel="noopener"
                   >
-                    <img class="size-6 dark:invert" :src="item.icon" >
+                    <img class="size-6 dark:invert" :src="item.icon" />
                   </Button>
                 </div>
               </div>
@@ -358,7 +361,7 @@ const socials = Object.entries(config.public.app.socials).map((x) => {
                   <Button
                     class="w-full lg:max-w-[180px]"
                     as="router-link"
-                    to="/p"
+                    :to="$localePath('/p')"
                     severity="contrast"
                     >{{ $locale("landing.initial.getStarted") }}</Button
                   >
@@ -366,7 +369,7 @@ const socials = Object.entries(config.public.app.socials).map((x) => {
                   <Button
                     class="!bg-transparent max-lg:w-full"
                     as="router-link"
-                    to="/docs"
+                    :to="$localePath('/docs')"
                     severity="secondary"
                     >{{ $locale("landing.initial.readDocs") }}
                   </Button>

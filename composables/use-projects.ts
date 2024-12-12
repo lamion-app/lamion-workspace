@@ -2,6 +2,7 @@
 export const useProjects = () => {
   const store = useProjectsStore();
   const data = storeToRefs(store);
+  const localePath = useLocalePath();
 
   const { handleError } = useErrorHandler();
 
@@ -16,12 +17,14 @@ export const useProjects = () => {
       return await openProject(projectId, true);
     }
 
-    navigateTo({
-      name: "p-pId",
-      params: {
-        pId: index,
-      },
-    });
+    navigateTo(
+      localePath({
+        name: "p-pId",
+        params: {
+          pId: index,
+        },
+      })
+    );
   };
 
   const selectedProjectId = computed(() => {

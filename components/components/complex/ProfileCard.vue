@@ -1,5 +1,5 @@
 <template>
-  <NuxtLink to="/u/profile" class="w-full">
+  <NuxtLink :to="$localePath('/u/profile')" class="w-full">
     <app-card class="profile" :class="{ expanded: expanded }">
       <div class="profile-content">
         <label-image :label="account.username" :image="account.avatar" />
