@@ -13,7 +13,6 @@ jobs:
       deployments: write
     env:
       GITHUB_CLIENT_ID: ${{ secrets.OAUTH_GITHUB_CLIENT_ID }}
-      GITHUB_REDIRECT_URL: ${{ vars.OAUTH_GITHUB_REDIRECT_URL }}
       NITRO_PRESET: ${{ vars.NITRO_PRESET }}
       API_ORIGIN: ${{ vars.API_ORIGIN }}
       AUTH_ORIGIN: ${{ vars.API_ORIGIN }}/
