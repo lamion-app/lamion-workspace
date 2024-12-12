@@ -3,6 +3,8 @@ const colorMode = useColorMode();
 const config = useRuntimeConfig();
 const { isLoggedIn } = useAppAuth();
 
+const { t } = useI18n();
+
 const options = computed(() => ({
   fullScreen: {
     enable: true,
@@ -32,38 +34,35 @@ const options = computed(() => ({
 
 const setupSteps = [
   {
-    title: "Setup new project",
-    description: "Sign up and create project",
+    title: t("landing.setup.items.setup.title"),
+    description: t("landing.setup.items.setup.description"),
   },
   {
-    title: "Create access key",
-    description: "Generate access key for your project",
+    title: t("landing.setup.items.accessKey.title"),
+    description: t("landing.setup.items.accessKey.description"),
   },
   {
-    title: "Start using Lamion",
-    description: "Install dependencies and setup logger by guide",
+    title: t("landing.setup.items.start.title"),
+    description: t("landing.setup.items.start.description"),
   },
 ];
 
 const advantages = [
   {
-    title: "Lightweight",
-    description:
-      "Lamion is a small library that will not overload your project. Bundle size is only 11 KB!",
+    title: t("landing.advantages.items.developer.title"),
+    description: t("landing.advantages.items.developer.description"),
     icon: "flare",
     tint: "text-sky-500",
   },
   {
-    title: "Developer-oriented",
-    description:
-      "The main purpose of the project is to help independent developers with their projects.",
+    title: t("landing.advantages.items.lightweight.title"),
+    description: t("landing.advantages.items.lightweight.description"),
     icon: "developer_mode",
     tint: "text-primary",
   },
   {
-    title: "Metrics, Dimensions, Reports",
-    description:
-      "Lamion provides a comprehensive detailed report on your project's activities. ",
+    title: t("landing.advantages.items.metrics.title"),
+    description: t("landing.advantages.items.metrics.description"),
     icon: "monitoring",
     tint: "text-rose-500",
   },
@@ -71,16 +70,16 @@ const advantages = [
 
 const usecases = [
   {
-    title: "Small student projects",
+    title: t("landing.usecases.items.student.title"),
   },
   {
-    title: "Projects with one developer",
+    title: t("landing.usecases.items.single.title"),
   },
   {
-    title: "Projects not requiring in-depth analytics",
+    title: t("landing.usecases.items.simple.title"),
   },
   {
-    title: "Demonstration projects for learning WEB development",
+    title: t("landing.usecases.items.demo.title"),
   },
 ];
 
@@ -118,7 +117,7 @@ const socials = Object.entries(config.public.app.socials).map((x) => {
             severity="info"
             text
           >
-            <span>Go to dasboard</span>
+            <span>{{ t("landing.initial.goToDashboard") }}</span>
           </Button>
         </div>
       </header>
@@ -129,30 +128,26 @@ const socials = Object.entries(config.public.app.socials).map((x) => {
             class="max-sm:items-start max-sm:justify-start max-sm:text-start col gap-12"
           >
             <h1 class="text-4xl sm:text-6xl font-bold">
-              {{ $locale("landing.title_1") }}
+              {{ t("landing.initial.title_1") }}
               <br />
               <span class="text-primary font-black">{{
-                $locale("landing.title_2")
+                t("landing.initial.title_2")
               }}</span>
             </h1>
 
-            <p class="text-lg max-w-[650px] mx-auto">
-              {{ $locale("landing.subtitle") }}
+            <p class="text-lg max-w-[650px] mx-auto whitespace-pre-wrap">
+              {{ t("landing.initial.subtitle") }}
             </p>
           </div>
 
           <div class="flex flex-wrap justify-center gap-4">
-            <Button class="w-full max-w-[180px]" as="router-link" to="/p"
-              >Get started</Button
-            >
+            <Button class="w-full max-w-[180px]" as="router-link" to="/p">{{
+              t("landing.initial.getStarted")
+            }}</Button>
 
-            <Button
-              class="w-full max-w-[180px]"
-              as="router-link"
-              to="/docs"
-              text
-              >Read docs</Button
-            >
+            <Button as="router-link" to="/docs" text>{{
+              t("landing.initial.readDocs")
+            }}</Button>
           </div>
         </landing-section>
 
@@ -161,13 +156,11 @@ const socials = Object.entries(config.public.app.socials).map((x) => {
         <landing-section class="black">
           <div class="viewport-wrapper w-full text-start">
             <div class="col gap-8 lg:max-w-[60%]">
-              <h2 class="text-6xl font-bold">Easiest to use</h2>
+              <h2 class="text-6xl font-bold">
+                {{ t("landing.setup.title") }}
+              </h2>
 
-              <p class="text-xl">
-                The project development process becomes clear when intuitive
-                dashboards provide instant access to data without requiring any
-                SQL or analytics skills.
-              </p>
+              <p class="text-xl">{{ t("landing.setup.subtitle") }}</p>
             </div>
 
             <div class="mt-16 col gap-8">
@@ -197,7 +190,9 @@ const socials = Object.entries(config.public.app.socials).map((x) => {
 
         <landing-section class="medium">
           <div class="viewport-wrapper">
-            <span class="text-6xl font-bold">Advantages</span>
+            <span class="text-6xl font-bold">{{
+              t("landing.advantages.title")
+            }}</span>
 
             <div class="mt-20 col lg:!grid lg:grid-cols-3 gap-6">
               <div
@@ -220,7 +215,9 @@ const socials = Object.entries(config.public.app.socials).map((x) => {
 
         <landing-section class="medium">
           <div class="viewport-wrapper">
-            <h2 class="text-center text-6xl font-bold">Use cases</h2>
+            <h2 class="text-center text-6xl font-bold">
+              {{ t("landing.usecases.title") }}
+            </h2>
 
             <div class="mt-12 col lg:!grid gap-x-12 gap-y-6 grid-cols-2">
               <div
@@ -239,11 +236,12 @@ const socials = Object.entries(config.public.app.socials).map((x) => {
         <landing-section class="black">
           <div class="viewport-wrapper flex flex-col lg:grid grid-cols-2 gap-8">
             <div class="col">
-              <h3 class="text-7xl font-black">Focus on creativity</h3>
-              <span class="text-3xl mt-8"
-                >With Lamion, you don't have to worry about any analytics issues
-                in your app. Set up once - use everywhere.</span
-              >
+              <h3 class="text-7xl font-black">
+                {{ t("landing.code.title") }}
+              </h3>
+              <span class="text-3xl mt-8">{{
+                t("landing.code.subtitle")
+              }}</span>
             </div>
 
             <div>
@@ -263,7 +261,7 @@ const socials = Object.entries(config.public.app.socials).map((x) => {
                   >
                     <m-icon value="developer_guide" />
 
-                    <span>Read docs</span>
+                    <span>{{ t("landing.initial.readDocs") }}</span>
 
                     <m-icon value="chevron_right" />
                   </Button>
@@ -278,16 +276,16 @@ const socials = Object.entries(config.public.app.socials).map((x) => {
         <landing-section class="!min-h-screen" size="large">
           <div class="viewport-wrapper">
             <div class="mx-auto max-w-[80%] col items-center gap-8">
-              <h2 class="text-2xl font-black text-primary">Contributing</h2>
+              <h2 class="text-2xl font-black text-primary">
+                {{ t("landing.contributing.caption") }}
+              </h2>
 
-              <span class="text-6xl font-bold">Help us improve Lamion</span>
+              <span class="text-6xl font-bold">{{
+                t("landing.contributing.title")
+              }}</span>
 
-              <p class="text-xl">
-                You can help improve Lamion by contributing to our GitHub
-                repositories.
-                <br />
-                We believe that your opinions and ideas will help make Lamion
-                even better.
+              <p class="text-xl whitespace-pre-wrap">
+                {{ t("landing.contributing.subtitle") }}
               </p>
 
               <Button
@@ -303,15 +301,12 @@ const socials = Object.entries(config.public.app.socials).map((x) => {
                   alt="GitHub"
                 />
 
-                <span class="ms-2">Go to Lamion's GitHub page</span>
+                <span class="ms-2">{{
+                  t("landing.contributing.openGithub")
+                }}</span>
               </Button>
 
-              <p class="text-xl">
-                If you have any suggestions, improvements or fixes, please
-                create a pull request or open an issue in our repositories. We
-                appreciate every help and will be happy to consider your
-                suggestions!
-              </p>
+              <p class="text-xl">{{ t("landing.contributing.text") }}</p>
             </div>
           </div>
         </landing-section>
@@ -375,8 +370,8 @@ const socials = Object.entries(config.public.app.socials).map((x) => {
             <Divider />
 
             <div class="flex flex-wrap gap-2 text-secondary">
-              <span>© 2024</span>
-              <span>Released under Apache License 2.0</span>
+              <span>{{ t("landing.footer.copyright") }}</span>
+              <span>{{ t("landing.footer.license") }}</span>
 
               <div class="spacer" />
 

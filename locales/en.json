@@ -170,10 +170,81 @@
     "platform": "Platform"
   },
   "landing": {
-    "title": "Docs for lamion",
-    "title_1": "Lightweight events logger for",
-    "title_2": "your projects",
-    "subtitle": "Lightweight tracking library for web applications. Just enable the script and you're ready to go!"
+    "initial": {
+      "title_1": "Lightweight events logger for",
+      "title_2": "your projects",
+      "subtitle": "Lightweight tracking library for web applications.\nJust enable the script and you're ready to go!",
+      "getStarted": "Get started",
+      "readDocs": "Read docs",
+      "goToDashboard": "Go to dashboard"
+    },
+    "setup": {
+      "title": "Easiest to use",
+      "subtitle": "The project development process becomes clear when intuitive dashboards provide instant access to data without requiring any SQL or analytics skills.",
+      "items": {
+        "setup": {
+          "title": "Setup new project",
+          "description": "Generate access key for your project"
+        },
+        "accessKey": {
+          "title": "Create access key",
+          "description": "Generate access key for your project"
+        },
+        "start": {
+          "title": "Start using Lamion",
+          "description": "Install dependencies and setup logger by guide"
+        }
+      }
+    },
+    "advantages": {
+      "title": "Advantages",
+      "items": {
+        "lightweight": {
+          "title": "Lightweight",
+          "description": "Lamion is a small library that will not overload your project. Bundle size is only 11 KB!"
+        },
+        "developer": {
+          "title": "Developer-oriented",
+          "description": "The main purpose of the project is to help independent developers with their projects."
+        },
+        "metrics": {
+          "title": "Metrics, Dimensions, Reports",
+          "description": "Lamion provides a comprehensive detailed report on your project's activities."
+        }
+      }
+    },
+    "usecases": {
+      "title": "Use cases",
+      "items": {
+        "student": {
+          "title": "Small student projects"
+        },
+        "single": {
+          "title": "Projects with one developer"
+        },
+        "simple": {
+          "title": "Projects not requiring in-depth analytics"
+        },
+        "demo": {
+          "title": "Demonstration projects for learning WEB development"
+        }
+      }
+    },
+    "code": {
+      "title": "Focus on creativity",
+      "subtitle": "With Lamion, you don't have to worry about any analytics issues in your app. Set up once - use everywhere."
+    },
+    "contributing": {
+      "caption": "Contributing",
+      "title": "Help us improve Lamion",
+      "subtitle": "You can help improve Lamion by contributing to our GitHub repositories.\n We believe that your opinions and ideas will help make Lamion even better.",
+      "openGithub": "Go to Lamion's GitHub page",
+      "text": "If you have any suggestions, improvements or fixes, please create a pull request or open an issue in our repositories. We appreciate every help and will be happy to consider your suggestions!"
+    },
+    "footer": {
+      "copyright": "© 2024",
+      "license": "Released under Apache License 2.0"
+    }
   },
   "docs": {
     "landing": {
