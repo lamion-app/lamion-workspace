@@ -17,7 +17,7 @@ jobs:
       NITRO_PRESET: ${{ vars.NITRO_PRESET }}
       API_ORIGIN: ${{ vars.API_ORIGIN }}
       AUTH_ORIGIN: ${{ vars.API_ORIGIN }}/
-      WORKSPACE_ORIGIN: ${{ vars.WORKSPACE_ORIGIN }}
+      DEPLOY_PRIME_URL: ${{ vars.WORKSPACE_ORIGIN }}
     steps:
       - uses: actions/checkout@v4
 

@@ -83,7 +83,7 @@ export default defineNuxtConfig({
     },
   },
   site: {
-    url: process.env.WORKSPACE_ORIGIN,
+    url: process.env.DEPLOY_PRIME_URL,
     name: "Lamion",
   },
   seo: {
@@ -103,7 +103,7 @@ export default defineNuxtConfig({
     checker: true,
   },
   i18n: {
-    baseUrl: process.env.WORKSPACE_ORIGIN,
+    baseUrl: process.env.DEPLOY_PRIME_URL,
     vueI18n: "./configs/i18n.config.ts",
     strategy: "no_prefix",
     defaultLocale: "ru",

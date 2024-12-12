@@ -14,7 +14,7 @@ const config = useRuntimeConfig();
               class="size-8 object-cover dark:invert"
               src="/img/github.png"
               alt="GitHub"
-            />
+            >
           </nuxt-link>
         </div>
       </div>
