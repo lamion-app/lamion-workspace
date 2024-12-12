@@ -120,7 +120,7 @@ async function loadProfileData() {
         :image="data.account!.avatar"
       />
 
-      <div class="col gap-2">
+      <div class="flex-1 col gap-2">
         <h1 class="text-5xl font-black" v-text="data.account!.username" />
 
         <span
@@ -129,6 +129,8 @@ async function loadProfileData() {
           >{{ $locale("auth.logout.action") }}</span
         >
       </div>
+
+      
     </app-card>
 
     <logout-dialog v-model:visible="isLogoutDialogVisible" />
