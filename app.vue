@@ -1,3 +1,13 @@
+<script setup lang="ts">
+const { t } = useI18n();
+
+useHead({
+  titleTemplate: (titleChunk) => {
+    return titleChunk ? `${titleChunk} - ${t("app.title")}` : t("app.title");
+  },
+});
+</script>
+
 <template>
   <div id="app">
     <Head>

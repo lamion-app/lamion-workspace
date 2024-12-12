@@ -80,6 +80,9 @@ export default defineNuxtConfig({
     url: process.env.WORKSPACE_ORIGIN,
     name: "Lamion",
   },
+  seo: {
+    automaticDefaults: false,
+  },
   sitemap: {
     cacheMaxAgeSeconds: 3600,
     sources: ["/api/__sitemap__/urls"],

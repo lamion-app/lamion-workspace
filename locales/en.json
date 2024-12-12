@@ -170,8 +170,9 @@
     "platform": "Platform"
   },
   "landing": {
+    "title": "Lamion - lightweight analytics for developers",
     "initial": {
-      "title_1": "Lightweight events logger for",
+      "title_1": "Lightweight analytics for",
       "title_2": "your projects",
       "subtitle": "Lightweight tracking library for web applications.\nJust enable the script and you're ready to go!",
       "getStarted": "Get started",

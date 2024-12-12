@@ -1,17 +1,15 @@
 <script setup lang="ts">
 definePageMeta({
   layout: "docs",
-  key: "static",
 });
 
 const route = useRoute();
-const router = useRouter();
 const { locale } = useI18n();
 
-const isLoading = ref(false);
+const isLoading = ref(true);
 
 const { data } = await useAsyncData(
-  "content",
+  `content-${route.fullPath}`,
   async () => {
     isLoading.value = true;
     const result = await fetchContent();
@@ -20,9 +18,13 @@ const { data } = await useAsyncData(
     return result;
   },
   {
-    watch: [locale, router.currentRoute],
+    watch: [locale],
   }
 );
+
+useHead({
+  title: data.value?.title,
+});
 
 async function fetchContent() {
   try {
