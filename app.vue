@@ -1,11 +1,26 @@
+<script setup lang="ts">
+const { t } = useI18n();
+const { title } = useSeo();
+const route = useRoute();
+
+useHead({
+  titleTemplate: (titleChunk) => {
+    const value = title.value ?? titleChunk;
+    const isTitlePrefixEnabled = route.meta.titlePrefix !== false;
+
+    if (value && isTitlePrefixEnabled) {
+      return `${value} %separator %siteName`;
+    } else if (value) {
+      return value;
+    } else {
+      return t("app.title");
+    }
+  },
+});
+</script>
+
 <template>
   <div id="app">
-    <Head>
-      <Meta
-        name="google-site-verification"
-        content="ZcKm2416laGr3KgHL1pAcT-ZD4RbnmyMnufrQ5s4x4s"
-    /></Head>
-
     <NuxtRouteAnnouncer />
     <NuxtLoadingIndicator />
 

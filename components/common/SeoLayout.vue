@@ -1,23 +1,14 @@
 <script setup lang="ts">
 const head = useLocaleHead();
 
-const { t } = useI18n();
 const { title } = useSeo();
-
-const formattedTitle = computed(() => {
-  if (!title.value) {
-    return t("app.title");
-  }
-
-  return `${title.value} - ${t("app.title")}`;
-});
 </script>
 
 <template>
   <div>
     <Html :lang="head.htmlAttrs?.lang" :dir="head.htmlAttrs?.dir">
       <Head>
-        <Title>{{ formattedTitle }}</Title>
+        <Title>{{ title }}</Title>
         <template v-for="link in head.link" :key="link.id">
           <Link
             :id="link.id"

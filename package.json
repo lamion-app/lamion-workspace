@@ -8,7 +8,7 @@
     "generate": "nuxt generate",
     "preview": "nuxt preview",
     "postinstall": "nuxt prepare",
-    "lint": "eslint .",
+    "lint": "eslint . --max-warnings=0",
     "lint:prettier": "prettier . --check",
     "lint:fix": "eslint . --fix"
   },
@@ -39,6 +39,7 @@
     "eslint": "^9.16.0",
     "eslint-config-prettier": "^9.1.0",
     "eslint-plugin-prettier": "^5.2.1",
+    "nuxt-particles": "^0.3.0",
     "prettier": "^3.4.2",
     "sass-embedded": "^1.82.0",
     "tailwindcss-primeui": "^0.3.4",

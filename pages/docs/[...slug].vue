@@ -1,17 +1,15 @@
 <script setup lang="ts">
 definePageMeta({
   layout: "docs",
-  key: "static",
 });
 
 const route = useRoute();
-const router = useRouter();
-const { locale } = useI18n();
+const { locale, t } = useI18n();
 
 const isLoading = ref(false);
 
 const { data } = await useAsyncData(
-  "content",
+  `content-${route.fullPath}`,
   async () => {
     isLoading.value = true;
     const result = await fetchContent();
@@ -20,9 +18,13 @@ const { data } = await useAsyncData(
     return result;
   },
   {
-    watch: [locale, router.currentRoute],
+    watch: [locale],
   }
 );
+
+useHead({
+  title: `${data.value?.title} | ${t("docs.landing.title")}`,
+});
 
 async function fetchContent() {
   try {
@@ -42,7 +44,7 @@ async function fetchContent() {
     <docs-navigation v-if="data">
       <app-loader v-if="isLoading || !data" static />
 
-      <content-renderer v-else class="markdown pb-16" :value="data">
+      <content-renderer v-if="!!data" class="markdown code-bg pb-16" :value="data">
         <template #empty>
           <p>No content found.</p>
         </template>
@@ -50,5 +52,3 @@ async function fetchContent() {
     </docs-navigation>
   </div>
 </template>
-
-<style lang="scss" src="/assets/css/markdown.scss" />

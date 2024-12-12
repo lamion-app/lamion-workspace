@@ -1,31 +1,35 @@
+<script setup lang="ts">
+const config = useRuntimeConfig();
+</script>
+
 <template>
-  <seo-layout>
-    <div class="root">
-      <header class="header">
-        <div class="viewport-wrapper flex items-center justify-between gap-4">
-          <app-logo />
+  <div class="landing">
+    <header class="header border-surface-700 border-b-[1px]">
+      <div class="viewport-wrapper">
+        <app-logo />
 
-          <div class="icons flex gap-2">
-            <nuxt-link to="https://github.com/orgs/lamion-app" external>
-              <img
-                class="size-8 object-cover dark:invert"
-                src="https://cdn-icons-png.flaticon.com/512/25/25231.png"
-                alt="GitHub"
-              >
-            </nuxt-link>
-          </div>
+        <div class="icons flex gap-2">
+          <nuxt-link :to="config.public.app.socials.github">
+            <img
+              class="size-8 object-cover dark:invert"
+              src="/img/github.png"
+              alt="GitHub"
+            >
+          </nuxt-link>
         </div>
-      </header>
+      </div>
+    </header>
 
-      <main class="viewport-wrapper main">
-        <slot />
-      </main>
-    </div>
-  </seo-layout>
+    <main class="viewport-wrapper main">
+      <slot />
+    </main>
+  </div>
 </template>
 
 <style scoped lang="scss">
-.root {
+@import url(/assets/css/landing.scss);
+
+.landing {
   background: linear-gradient(
     50deg,
     var(--p-surface-100) 0%,
@@ -38,21 +42,6 @@
       var(--p-surface-950) 0%,
       var(--p-gray-900) 100%
     );
-  }
-
-  .viewport-wrapper {
-    @apply max-w-[1240px] mx-auto px-[20px];
-  }
-
-  .header {
-    @apply w-full;
-    height: var(--header-height);
-    @apply border-surface-700 border-b-[1px];
-  }
-
-  .main {
-    @apply w-full;
-    min-height: calc(100vh - var(--header-height));
   }
 }
 </style>

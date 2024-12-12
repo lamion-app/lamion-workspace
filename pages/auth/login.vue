@@ -58,7 +58,7 @@
           >
             <img
               class="size-8 object-cover dark:invert"
-              src="https://cdn-icons-png.flaticon.com/512/25/25231.png"
+              src="/img/github.png"
               alt="GitHub"
             >
 
@@ -85,10 +85,7 @@ import * as yup from "yup";
 import { useForm } from "vee-validate";
 
 definePageMeta({
-  auth: {
-    unauthenticatedOnly: true,
-    navigateAuthenticatedTo: "/",
-  },
+  auth: false,
   title: "auth.signIn.title",
 });
 

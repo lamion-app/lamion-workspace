@@ -13,7 +13,7 @@ const isAddProjectDialogVisible = ref(false);
 </script>
 
 <template>
-  <main class="w-full min-h-screen py-6 px-6 xl:py-10 xl:px-12">
+  <main class="w-full min-h-screen py-6 px-6 xl:py-10 xl:px-12 bg-window">
     <div v-if="isProjectsLoading" class="size-full flex center">
       <progress-spinner class="!mx-auto" />
     </div>

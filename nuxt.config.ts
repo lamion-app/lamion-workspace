@@ -16,11 +16,17 @@ export default defineNuxtConfig({
     "@nuxt/content",
     "@nuxtjs/sitemap",
     "@nuxtjs/seo",
+    "nuxt-particles",
   ],
   app: {
     head: {
+      meta: [
+        {
+          name: "google-site-verification",
+          content: "ZcKm2416laGr3KgHL1pAcT-ZD4RbnmyMnufrQ5s4x4s"
+        }
+      ],
       link: [
-        { rel: "icon", type: "image/x-icon", href: "/favicon.ico" },
         {
           rel: "stylesheet",
           href: "https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200",
@@ -56,20 +62,32 @@ export default defineNuxtConfig({
   },
   runtimeConfig: {
     public: {
+      app: {
+        contacts: {
+          email: process.env.CONTACT_EMAIL,
+        },
+        socials: {
+          github: process.env.GITHUB_REPO_URL,
+          npm: process.env.NPM_URL,
+        },
+      },
       api: {
         origin: process.env.API_ORIGIN,
       },
       oauth: {
         github: {
           clientId: process.env.GITHUB_CLIENT_ID,
-          redirectUrl: process.env.GITHUB_REDIRECT_URL,
+          redirectUrl: process.env.DEPLOY_PRIME_URL + "/auth/oauth/github",
         },
       },
     },
   },
   site: {
-    url: process.env.WORKSPACE_ORIGIN,
+    url: process.env.DEPLOY_PRIME_URL,
     name: "Lamion",
+  },
+  seo: {
+    automaticDefaults: false,
   },
   sitemap: {
     cacheMaxAgeSeconds: 3600,
@@ -85,7 +103,7 @@ export default defineNuxtConfig({
     checker: true,
   },
   i18n: {
-    baseUrl: process.env.WORKSPACE_ORIGIN,
+    baseUrl: process.env.DEPLOY_PRIME_URL,
     vueI18n: "./configs/i18n.config.ts",
     strategy: "no_prefix",
     defaultLocale: "ru",
@@ -138,6 +156,10 @@ export default defineNuxtConfig({
       tablet: "md",
     },
     fallbackBreakpoint: "lg",
+  },
+  particles: {
+    mode: "slim",
+    lazy: true,
   },
   auth: {
     baseURL: process.env.AUTH_ORIGIN,
