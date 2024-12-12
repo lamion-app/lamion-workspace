@@ -1,6 +1,7 @@
 <script setup lang="ts">
 definePageMeta({
   title: "landing.title",
+  titlePrefix: false,
 });
 
 const colorMode = useColorMode();

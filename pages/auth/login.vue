@@ -85,10 +85,7 @@ import * as yup from "yup";
 import { useForm } from "vee-validate";
 
 definePageMeta({
-  auth: {
-    unauthenticatedOnly: true,
-    navigateAuthenticatedTo: "/",
-  },
+  auth: false,
   title: "auth.signIn.title",
 });
 

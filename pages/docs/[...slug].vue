@@ -4,9 +4,9 @@ definePageMeta({
 });
 
 const route = useRoute();
-const { locale } = useI18n();
+const { locale, t } = useI18n();
 
-const isLoading = ref(true);
+const isLoading = ref(false);
 
 const { data } = await useAsyncData(
   `content-${route.fullPath}`,
@@ -23,7 +23,7 @@ const { data } = await useAsyncData(
 );
 
 useHead({
-  title: data.value?.title,
+  title: `${data.value?.title} | ${t("docs.landing.title")}`,
 });
 
 async function fetchContent() {
@@ -44,7 +44,7 @@ async function fetchContent() {
     <docs-navigation v-if="data">
       <app-loader v-if="isLoading || !data" static />
 
-      <content-renderer v-else class="markdown code-bg pb-16" :value="data">
+      <content-renderer v-if="!!data" class="markdown code-bg pb-16" :value="data">
         <template #empty>
           <p>No content found.</p>
         </template>

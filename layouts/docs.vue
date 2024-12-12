@@ -3,29 +3,27 @@ const config = useRuntimeConfig();
 </script>
 
 <template>
-  <seo-layout>
-    <div class="landing">
-      <header class="header border-surface-700 border-b-[1px]">
-        <div class="viewport-wrapper">
-          <app-logo />
+  <div class="landing">
+    <header class="header border-surface-700 border-b-[1px]">
+      <div class="viewport-wrapper">
+        <app-logo />
 
-          <div class="icons flex gap-2">
-            <nuxt-link :to="config.public.app.socials.github">
-              <img
-                class="size-8 object-cover dark:invert"
-                src="/img/github.png"
-                alt="GitHub"
-              >
-            </nuxt-link>
-          </div>
+        <div class="icons flex gap-2">
+          <nuxt-link :to="config.public.app.socials.github">
+            <img
+              class="size-8 object-cover dark:invert"
+              src="/img/github.png"
+              alt="GitHub"
+            />
+          </nuxt-link>
         </div>
-      </header>
+      </div>
+    </header>
 
-      <main class="viewport-wrapper main">
-        <slot />
-      </main>
-    </div>
-  </seo-layout>
+    <main class="viewport-wrapper main">
+      <slot />
+    </main>
+  </div>
 </template>
 
 <style scoped lang="scss">
