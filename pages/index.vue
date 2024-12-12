@@ -349,8 +349,10 @@ const socials = Object.entries(config.public.app.socials).map((x) => {
               <div
                 class="col-span-2 col gap-4 border-gray-900 border-2 rounded-[30px] px-8 py-12"
               >
-                <h3 class="mt-4 text-6xl font-medium">Try Lamion today</h3>
-                <p>No payment or anything else is required</p>
+                <h3 class="mt-4 text-6xl font-medium">
+                  {{ $locale("landing.footer.getStarted.title") }}
+                </h3>
+                <p>{{ $locale("landing.footer.getStarted.subtitle") }}</p>
 
                 <div class="flex flex-wrap gap-2 mt-4">
                   <Button
@@ -358,7 +360,7 @@ const socials = Object.entries(config.public.app.socials).map((x) => {
                     as="router-link"
                     to="/p"
                     severity="contrast"
-                    >Get started</Button
+                    >{{ $locale("landing.initial.getStarted") }}</Button
                   >
 
                   <Button
@@ -366,7 +368,7 @@ const socials = Object.entries(config.public.app.socials).map((x) => {
                     as="router-link"
                     to="/docs"
                     severity="secondary"
-                    >Read docs
+                    >{{ $locale("landing.initial.readDocs") }}
                   </Button>
                 </div>
               </div>

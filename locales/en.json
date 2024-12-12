@@ -244,7 +244,11 @@
     },
     "footer": {
       "copyright": "© 2024",
-      "license": "Released under Apache License 2.0"
+      "license": "Released under Apache License 2.0",
+      "getStarted": {
+        "title": "Try Lamion today",
+        "subtitle": "No payment or anything else is required"
+      }
     }
   },
   "docs": {

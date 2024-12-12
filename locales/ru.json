@@ -244,7 +244,11 @@
     },
     "footer": {
       "copyright": "© 2024",
-      "license": "Выпущено под лицензией Apache 2.0."
+      "license": "Выпущено под лицензией Apache 2.0.",
+      "getStarted": {
+        "title": "Попробуй Lamion",
+        "subtitle": "Никакой оплаты или чего-либо еще не требуется"
+      }
     }
   },
   "docs": {
