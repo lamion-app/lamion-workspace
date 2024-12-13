@@ -116,11 +116,13 @@ export default defineNuxtConfig({
       {
         code: "en",
         language: "en-US",
+        name: "English",
         file: "en-US.json",
       },
       {
         code: "ru",
         language: "ru-RU",
+        name: "Русский",
         file: "ru-RU.json",
       },
     ],
@@ -169,7 +171,7 @@ export default defineNuxtConfig({
     lazy: true,
   },
   auth: {
-    baseURL: process.env.AUTH_ORIGIN,
+    baseURL: process.env.API_ORIGIN + "/",
     globalAppMiddleware: false,
     provider: {
       type: "local",

@@ -7,8 +7,8 @@ definePageMeta({
 const colorMode = useColorMode();
 const config = useRuntimeConfig();
 const { isLoggedIn } = useAppAuth();
-
-const { t } = useI18n();
+const { t, locale, locales } = useI18n();
+const switchLocalePath = useSwitchLocalePath();
 
 const options = computed(() => ({
   fullScreen: {
@@ -114,16 +114,27 @@ const socials = Object.entries(config.public.app.socials).map((x) => {
         <div class="viewport-wrapper">
           <app-logo :link="false" />
 
-          <Button
-            v-if="isLoggedIn"
-            class="max-sm:!hidden !px-4 !py-1 !text-sky-500"
-            as="router-link"
-            :to="$localePath('/p')"
-            severity="info"
-            text
-          >
-            <span>{{ t("landing.initial.goToDashboard") }}</span>
-          </Button>
+          <div class="flex flex-wrap gap-4">
+            <Button
+              v-if="isLoggedIn"
+              class="max-sm:!hidden !px-4 !py-1 !text-sky-500"
+              as="router-link"
+              :to="$localePath('/p')"
+              severity="info"
+              text
+            >
+              <span>{{ t("landing.initial.goToDashboard") }}</span>
+            </Button>
+
+            <Select
+              class="!bg-transparent !border-0 !shadow-none hover:!shadow-lg"
+              :model-value="locale"
+              :options="locales"
+              option-label="name"
+              option-value="code"
+              @update:model-value="navigateTo(switchLocalePath($event))"
+            />
+          </div>
         </div>
       </header>
 
