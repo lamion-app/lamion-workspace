@@ -1,9 +1,6 @@
 <script setup lang="ts">
 definePageMeta({
-  auth: {
-    unauthenticatedOnly: true,
-    navigateAuthenticatedTo: "/",
-  },
+  auth: false,
   title: "auth.oauth.title",
   validate: async (route) => {
     if (typeof route.params.name !== "string") {
@@ -16,6 +13,7 @@ definePageMeta({
   },
 });
 
+const localePath = useLocalePath();
 const oauth = useOAuth();
 const route = useRoute();
 const { handleErrorBlock } = useErrorHandler();
@@ -25,7 +23,7 @@ onMounted(async () => {
     await oauth.invokeProvider(route.params.name.toString(), route.query);
   });
 
-  navigateTo("/");
+  navigateTo(route.query.callbackUrl?.toString() ?? localePath("/p"));
 });
 </script>
 

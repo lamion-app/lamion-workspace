@@ -7,8 +7,8 @@ definePageMeta({
 const colorMode = useColorMode();
 const config = useRuntimeConfig();
 const { isLoggedIn } = useAppAuth();
-
-const { t } = useI18n();
+const { t, locale, locales } = useI18n();
+const switchLocalePath = useSwitchLocalePath();
 
 const options = computed(() => ({
   fullScreen: {
@@ -114,16 +114,27 @@ const socials = Object.entries(config.public.app.socials).map((x) => {
         <div class="viewport-wrapper">
           <app-logo :link="false" />
 
-          <Button
-            v-if="isLoggedIn"
-            class="max-sm:!hidden !px-4 !py-1 !text-sky-500"
-            as="router-link"
-            to="/p"
-            severity="info"
-            text
-          >
-            <span>{{ t("landing.initial.goToDashboard") }}</span>
-          </Button>
+          <div class="flex flex-wrap gap-4">
+            <Button
+              v-if="isLoggedIn"
+              class="max-sm:!hidden !px-4 !py-1 !text-sky-500"
+              as="router-link"
+              :to="$localePath('/p')"
+              severity="info"
+              text
+            >
+              <span>{{ t("landing.initial.goToDashboard") }}</span>
+            </Button>
+
+            <Select
+              class="!bg-transparent !border-0 !shadow-none hover:!shadow-lg"
+              :model-value="locale"
+              :options="locales"
+              option-label="name"
+              option-value="code"
+              @update:model-value="navigateTo(switchLocalePath($event))"
+            />
+          </div>
         </div>
       </header>
 
@@ -146,11 +157,14 @@ const socials = Object.entries(config.public.app.socials).map((x) => {
           </div>
 
           <div class="flex flex-wrap justify-center gap-4">
-            <Button class="w-full max-w-[180px]" as="router-link" to="/p">{{
-              t("landing.initial.getStarted")
-            }}</Button>
+            <Button
+              class="w-full max-w-[180px]"
+              as="router-link"
+              :to="$localePath('/p')"
+              >{{ t("landing.initial.getStarted") }}</Button
+            >
 
-            <Button as="router-link" to="/docs" text>{{
+            <Button as="router-link" :to="$localePath('/docs')" text>{{
               t("landing.initial.readDocs")
             }}</Button>
           </div>
@@ -261,7 +275,7 @@ const socials = Object.entries(config.public.app.socials).map((x) => {
                   <Button
                     class="!bg-transparent !text-white dark:!text-primary"
                     as="router-link"
-                    to="/docs"
+                    :to="$localePath('/docs')"
                     severity="secondary"
                   >
                     <m-icon value="developer_guide" />
@@ -358,7 +372,7 @@ const socials = Object.entries(config.public.app.socials).map((x) => {
                   <Button
                     class="w-full lg:max-w-[180px]"
                     as="router-link"
-                    to="/p"
+                    :to="$localePath('/p')"
                     severity="contrast"
                     >{{ $locale("landing.initial.getStarted") }}</Button
                   >
@@ -366,7 +380,7 @@ const socials = Object.entries(config.public.app.socials).map((x) => {
                   <Button
                     class="!bg-transparent max-lg:w-full"
                     as="router-link"
-                    to="/docs"
+                    :to="$localePath('/docs')"
                     severity="secondary"
                     >{{ $locale("landing.initial.readDocs") }}
                   </Button>

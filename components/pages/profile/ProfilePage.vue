@@ -1,10 +1,10 @@
 <script setup lang="ts">
-import AddProjectDialog from "~/components/pages/projects/AddProjectDialog.vue";
-
 const { t } = useI18n();
 
 const { handleErrorBlock } = useErrorHandler();
 const { projects, openProject } = useProjects();
+const { locale, locales } = useI18n();
+const switchLocalePath = useSwitchLocalePath();
 
 const data = ref<ProfileFull>();
 const isLoading = ref(false);
@@ -120,7 +120,7 @@ async function loadProfileData() {
         :image="data.account!.avatar"
       />
 
-      <div class="col gap-2">
+      <div class="flex-1 col gap-2">
         <h1 class="text-5xl font-black" v-text="data.account!.username" />
 
         <span
@@ -129,6 +129,14 @@ async function loadProfileData() {
           >{{ $locale("auth.logout.action") }}</span
         >
       </div>
+
+      <Select
+        :model-value="locale"
+        :options="locales"
+        option-label="name"
+        option-value="code"
+        @update:model-value="navigateTo(switchLocalePath($event))"
+      />
     </app-card>
 
     <logout-dialog v-model:visible="isLogoutDialogVisible" />

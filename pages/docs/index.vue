@@ -24,7 +24,7 @@ definePageMeta({
 
       <Button
         class="w-full max-w-[200px] mx-auto"
-        to="/docs/getting-started/installation"
+        :to="$localePath('/docs/getting-started/installation')"
         as="router-link"
         >{{ $locale("docs.landing.start") }}</Button
       >

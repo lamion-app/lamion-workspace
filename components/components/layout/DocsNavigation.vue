@@ -1,6 +1,9 @@
 <script setup lang="ts">
+import type { NavItem } from "@nuxt/content";
+
 const route = useRoute();
 const { locale } = useI18n();
+const localePath = useLocalePath();
 
 const isNavigationDisplaying = ref(false);
 
@@ -9,14 +12,23 @@ const { data: navigation } = await useAsyncData(
   () => fetchContentNavigation(queryContent(`${locale.value}/docs`)),
   {
     watch: [locale],
+    immediate: true,
   }
 );
 
 const navigationItems = computed(() => {
   if (!navigation.value) return [];
 
-  return navigation.value[0].children![0].children;
+  return navigation.value[0].children![0].children?.map(mapItem);
 });
+
+function mapItem(item: NavItem): DocsNavItem {
+  return {
+    title: item.title,
+    path: localePath(item._path.substring(locale.value.length + 1)),
+    children: item.children?.map(mapItem),
+  };
+}
 </script>
 
 <template>
@@ -37,7 +49,7 @@ const navigationItems = computed(() => {
         <span>Close</span>
       </Button>
 
-      <template v-for="link in navigationItems" :key="link._path">
+      <template v-for="link in navigationItems" :key="link.path">
         <span class="docs-link">{{ link.title }}</span>
 
         <div
@@ -46,11 +58,11 @@ const navigationItems = computed(() => {
         >
           <nuxt-link
             v-for="childLink in link.children"
-            :key="childLink._path"
-            :to="childLink._path.substring(locale.length + 1)"
+            :key="childLink.path"
+            :to="childLink.path"
             class="ps-4 -ml-[1px] docs-link text-secondary"
             :class="{
-              active: route.path == childLink._path,
+              active: route.path == childLink.path,
             }"
             @click="isNavigationDisplaying = false"
             >{{ childLink.title }}</nuxt-link

@@ -19,7 +19,7 @@
         class="menu-item"
         :to="createProjectLink(item.route)"
         :class="{
-          active: item.route == route.name,
+          active: route.name == `${item.route}___${locale}`,
         }"
         @click="$emit('hide')"
       >
@@ -48,6 +48,7 @@ defineEmits<{
 }>();
 
 const route = useRoute();
+const { locale } = useI18n();
 </script>
 
 <style scoped lang="scss">

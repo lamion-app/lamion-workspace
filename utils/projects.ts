@@ -1,5 +1,6 @@
 export const createProjectLink = (page?: string, params?: object) => {
   const store = storeToRefs(useProjectsStore());
+  const localePath = useLocalePath();
 
   let route: string;
   if (page == undefined || page == "") {
@@ -10,11 +11,11 @@ export const createProjectLink = (page?: string, params?: object) => {
     route = "p-pId-" + page;
   }
 
-  return {
+  return localePath({
     name: route,
     params: {
       pId: store.selectedProjectIndex.value,
       ...params,
     },
-  };
+  });
 };

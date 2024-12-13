@@ -1,6 +1,6 @@
 <template>
   <div class="logo flex center">
-    <component :is="link ? NuxtLink : 'span'" to="/">
+    <component :is="link ? NuxtLinkLocale : 'span'" to="/">
       <span
         v-if="expanded"
         class="text-logo text-4xl font-black text-primary select-none"
@@ -16,7 +16,7 @@
 </template>
 
 <script setup lang="ts">
-import { NuxtLink } from "#components";
+import { NuxtLinkLocale } from "#components";
 
 withDefaults(
   defineProps<{

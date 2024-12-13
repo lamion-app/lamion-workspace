@@ -3,17 +3,23 @@ import { serverQueryContent } from "#content/server";
 
 export default defineSitemapEventHandler(async (e: H3Event) => {
   const contentList = await serverQueryContent(e).find();
+  const config = useRuntimeConfig();
+  const defaultLocale = config.public.i18n.defaultLocale;
 
   return contentList
     .filter((c) => !c._path?.endsWith("_dir")) // Filters _dir.yml files
     .map((c) => {
-      const pathParts = c._path!.split("/").filter((x) => x.length > 0);
-      return pathParts.slice(1).join("/"); // Remove language tag from url
+      if (c._path!.startsWith(defaultLocale)) {
+        return c._path?.substring(defaultLocale.length);
+      }
+
+      return c._path;
     })
     .filter((value, index, array) => array.indexOf(value) === index) // Filter duplicates
     .map((path) => {
       return asSitemapUrl({
         loc: path,
+        _i18nTransform: true,
       });
     });
 });

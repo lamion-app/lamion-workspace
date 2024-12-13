@@ -3,7 +3,6 @@ import AddProjectDialog from "~/components/pages/projects/AddProjectDialog.vue";
 
 definePageMeta({
   title: "projects.yourProjects",
-  key: "static",
   auth: true,
 });
 

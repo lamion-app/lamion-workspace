@@ -27,11 +27,15 @@ useHead({
 });
 
 async function fetchContent() {
+  const path = route.path.startsWith("/" + locale.value)
+    ? route.path.substring(locale.value.length + 1)
+    : route.path;
+
   try {
-    return await queryContent(locale.value.toLowerCase(), route.path).findOne();
+    return await queryContent(locale.value.toLowerCase(), path).findOne();
   } catch {
     try {
-      return await queryContent(route.path).findOne();
+      return await queryContent(path).findOne();
     } catch {
       showError({ statusCode: 404, statusMessage: "Not found" });
     }
@@ -44,7 +48,11 @@ async function fetchContent() {
     <docs-navigation v-if="data">
       <app-loader v-if="isLoading || !data" static />
 
-      <content-renderer v-if="!!data" class="markdown code-bg pb-16" :value="data">
+      <content-renderer
+        v-if="!!data"
+        class="markdown code-bg pb-16"
+        :value="data"
+      >
         <template #empty>
           <p>No content found.</p>
         </template>

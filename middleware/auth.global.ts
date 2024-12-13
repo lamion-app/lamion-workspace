@@ -1,8 +1,15 @@
-export default defineNuxtRouteMiddleware((to, from) => {
+export default defineNuxtRouteMiddleware((to) => {
   const { isLoggedIn } = useAppAuth();
-  const loginPage = useLoginPage();
-
+  const localePath = useLocalePath();
+  
   if (to.meta.auth === true && !isLoggedIn.value) {
-    return loginPage.navigate(from.fullPath);
+    return navigateTo(
+      localePath({
+        name: "auth-login",
+        query: {
+          callbackUrl: to.fullPath,
+        },
+      })
+    );
   }
 });

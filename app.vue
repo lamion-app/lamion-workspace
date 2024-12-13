@@ -20,14 +20,16 @@ useHead({
 </script>
 
 <template>
-  <div id="app">
-    <NuxtRouteAnnouncer />
-    <NuxtLoadingIndicator />
+  <seo-layout>
+    <div id="app">
+      <NuxtRouteAnnouncer />
+      <NuxtLoadingIndicator />
 
-    <NuxtLayout>
-      <NuxtPage />
-    </NuxtLayout>
+      <NuxtLayout>
+        <NuxtPage />
+      </NuxtLayout>
 
-    <Toast group="global-toast" />
-  </div>
+      <Toast group="global-toast" />
+    </div>
+  </seo-layout>
 </template>

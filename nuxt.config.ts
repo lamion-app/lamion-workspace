@@ -109,23 +109,28 @@ export default defineNuxtConfig({
   i18n: {
     baseUrl: process.env.DEPLOY_PRIME_URL,
     vueI18n: "./configs/i18n.config.ts",
-    strategy: "no_prefix",
-    defaultLocale: "ru",
+    strategy: "prefix_except_default",
+    defaultLocale: process.env.DEFAULT_LOCALE?.toString() as never,
+    lazy: true,
+    locales: [
+      {
+        code: "en",
+        language: "en-US",
+        name: "English",
+        file: "en-US.json",
+      },
+      {
+        code: "ru",
+        language: "ru-RU",
+        name: "Русский",
+        file: "ru-RU.json",
+      },
+    ],
     detectBrowserLanguage: {
       useCookie: true,
       cookieKey: "i18n_redirected",
       redirectOn: "root",
     },
-    locales: [
-      {
-        code: "en",
-        language: "en-US",
-      },
-      {
-        code: "ru",
-        language: "ru-RU",
-      },
-    ],
   },
   tailwindcss: {
     configPath: "./configs/tailwind.config.ts",
@@ -166,7 +171,7 @@ export default defineNuxtConfig({
     lazy: true,
   },
   auth: {
-    baseURL: process.env.AUTH_ORIGIN,
+    baseURL: process.env.API_ORIGIN + "/",
     globalAppMiddleware: false,
     provider: {
       type: "local",
