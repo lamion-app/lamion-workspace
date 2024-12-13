@@ -10,7 +10,7 @@
         >{{ $locale("app.title") }}</span
       >
 
-      <img v-else src="/favicon.ico" class="size-full aspect-square" />
+      <img v-else src="/favicon.ico" class="size-full aspect-square" >
     </component>
   </div>
 </template>
