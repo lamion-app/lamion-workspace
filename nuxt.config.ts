@@ -1,6 +1,11 @@
 import { defineNuxtConfig } from "nuxt/config";
 import Aura from "@primevue/themes/aura";
 
+const DEPLOY_URL =
+  process.env.DEPLOY_SPECIAL_URL ??
+  process.env.DEPLOY_PRIME_URL ??
+  process.env.URL;
+
 export default defineNuxtConfig({
   compatibilityDate: "2024-04-03",
   devtools: { enabled: true },
@@ -81,13 +86,13 @@ export default defineNuxtConfig({
       oauth: {
         github: {
           clientId: process.env.GITHUB_CLIENT_ID,
-          redirectUrl: process.env.DEPLOY_PRIME_URL + "/auth/oauth/github",
+          redirectUrl: DEPLOY_URL + "/auth/oauth/github",
         },
       },
     },
   },
   site: {
-    url: process.env.DEPLOY_PRIME_URL,
+    url: DEPLOY_URL,
     name: "Lamion",
   },
   seo: {
@@ -107,7 +112,7 @@ export default defineNuxtConfig({
     checker: true,
   },
   i18n: {
-    baseUrl: process.env.DEPLOY_PRIME_URL,
+    baseUrl: DEPLOY_URL,
     vueI18n: "./configs/i18n.config.ts",
     strategy: "prefix_except_default",
     defaultLocale: process.env.DEFAULT_LOCALE?.toString() as never,
