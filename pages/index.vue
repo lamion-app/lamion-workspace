@@ -333,11 +333,11 @@ const socials = Object.entries(config.public.app.socials).map((x) => {
                 target="_blank"
                 rel="noopener"
               >
-                <img
+                <nuxt-img
                   class="size-6 object-cover invert dark:filter-none"
                   src="/img/github.png"
                   alt="GitHub"
-                >
+                />
 
                 <span class="ms-2">{{
                   t("landing.contributing.openGithub")
@@ -374,11 +374,11 @@ const socials = Object.entries(config.public.app.socials).map((x) => {
                     target="_blank"
                     rel="noopener"
                   >
-                    <img
+                    <nuxt-img
                       class="size-6 dark:invert"
                       :alt="item.name"
                       :src="item.icon"
-                    >
+                    />
                   </Button>
                 </div>
               </div>

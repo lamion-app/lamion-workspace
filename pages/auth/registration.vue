@@ -57,11 +57,11 @@
             severity="secondary"
             @click="signIn.githubOauth()"
           >
-            <img
+            <nuxt-img
               class="size-8 object-cover dark:invert"
               src="/img/github.png"
               alt="GitHub"
-            >
+            />
 
             <span class="max-sm:hidden">{{
               $locale("auth.oauth.continueWithGithub")

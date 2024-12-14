@@ -10,7 +10,12 @@
         >{{ $locale("app.title") }}</span
       >
 
-      <img v-else src="/favicon.ico" alt="APP LOGO" class="size-full aspect-square" >
+      <nuxt-img
+        v-else
+        src="/favicon.ico"
+        alt="APP LOGO"
+        class="size-full aspect-square"
+      />
     </component>
   </div>
 </template>
