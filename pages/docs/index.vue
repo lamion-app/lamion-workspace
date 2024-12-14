@@ -21,7 +21,7 @@ useHead({
     <landing-section class="text-center">
       <h1 class="text-5xl sm:text-7xl font-bold">
         {{ t("docs.landing.title_1") }}
-        <br />
+        <br >
         <span class="text-primary font-black">{{
           t("docs.landing.title_2")
         }}</span>
@@ -29,7 +29,7 @@ useHead({
 
       <p class="text-xl">
         {{ t("docs.landing.subtitle_1") }}
-        <br />
+        <br >
         {{ t("docs.landing.subtitle_2") }}
       </p>
 
