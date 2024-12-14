@@ -7,7 +7,7 @@ const STATIC_EXPIRES = 1;
 const DEPLOY_URL =
   process.env.DEPLOY_SPECIAL_URL ??
   process.env.DEPLOY_PRIME_URL ??
-  process.env.URL;
+  process.env.URL!;
 
 export default defineNuxtConfig({
   compatibilityDate: "2024-04-03",
@@ -171,6 +171,10 @@ export default defineNuxtConfig({
         preset: Aura,
       },
     },
+  },
+  image: {
+    provider: process.env.NUXT_IMAGE_PROVIDER,
+    domains: [DEPLOY_URL],
   },
   content: {
     highlight: {
