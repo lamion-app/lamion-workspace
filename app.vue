@@ -16,6 +16,12 @@ useHead({
       return t("app.title");
     }
   },
+  meta: [
+    {
+      name: "keywords",
+      content: t("app.seo.keywords"),
+    },
+  ],
 });
 </script>
 

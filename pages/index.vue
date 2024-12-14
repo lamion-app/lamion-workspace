@@ -8,7 +8,21 @@ const colorMode = useColorMode();
 const config = useRuntimeConfig();
 const { isLoggedIn } = useAppAuth();
 const { t, locale, locales } = useI18n();
+const localePath = useLocalePath();
 const switchLocalePath = useSwitchLocalePath();
+
+useHead({
+  meta: [
+    {
+      name: "description",
+      content: t("app.seo.description"),
+    },
+    {
+      property: "og:description",
+      content: t("app.seo.description"),
+    },
+  ],
+});
 
 const options = computed(() => ({
   fullScreen: {
@@ -36,6 +50,10 @@ const options = computed(() => ({
     },
   },
 }));
+
+const mainRedirectUrl = computed(() =>
+  isLoggedIn ? localePath("/p") : localePath("/auth/login?callbackUrl=/p")
+);
 
 const setupSteps = [
   {
@@ -95,6 +113,7 @@ const socials = Object.entries(config.public.app.socials).map((x) => {
   else if (x[0] == "npm") icon = "/img/npm.png";
 
   return {
+    name: x[0],
     icon: icon,
     url: x[1],
   };
@@ -119,7 +138,7 @@ const socials = Object.entries(config.public.app.socials).map((x) => {
               v-if="isLoggedIn"
               class="max-sm:!hidden !px-4 !py-1 !text-sky-500"
               as="router-link"
-              :to="$localePath('/p')"
+              :to="mainRedirectUrl"
               severity="info"
               text
             >
@@ -160,7 +179,7 @@ const socials = Object.entries(config.public.app.socials).map((x) => {
             <Button
               class="w-full max-w-[180px]"
               as="router-link"
-              :to="$localePath('/p')"
+              :to="mainRedirectUrl"
               >{{ t("landing.initial.getStarted") }}</Button
             >
 
@@ -275,7 +294,7 @@ const socials = Object.entries(config.public.app.socials).map((x) => {
                   <Button
                     class="!bg-transparent !text-white dark:!text-primary"
                     as="router-link"
-                    :to="$localePath('/docs')"
+                    :to="$localePath('/docs/getting-started/installation')"
                     severity="secondary"
                   >
                     <m-icon value="developer_guide" />
@@ -355,7 +374,11 @@ const socials = Object.entries(config.public.app.socials).map((x) => {
                     target="_blank"
                     rel="noopener"
                   >
-                    <img class="size-6 dark:invert" :src="item.icon" >
+                    <img
+                      class="size-6 dark:invert"
+                      :alt="item.name"
+                      :src="item.icon"
+                    >
                   </Button>
                 </div>
               </div>
@@ -372,7 +395,7 @@ const socials = Object.entries(config.public.app.socials).map((x) => {
                   <Button
                     class="w-full lg:max-w-[180px]"
                     as="router-link"
-                    :to="$localePath('/p')"
+                    :to="mainRedirectUrl"
                     severity="contrast"
                     >{{ $locale("landing.initial.getStarted") }}</Button
                   >

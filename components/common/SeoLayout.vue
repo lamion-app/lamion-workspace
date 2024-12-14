@@ -1,14 +1,11 @@
 <script setup lang="ts">
 const head = useLocaleHead();
-
-const { title } = useSeo();
 </script>
 
 <template>
   <div>
     <Html :lang="head.htmlAttrs?.lang" :dir="head.htmlAttrs?.dir">
       <Head>
-        <Title>{{ title }}</Title>
         <template v-for="link in head.link" :key="link.id">
           <Link
             :id="link.id"
