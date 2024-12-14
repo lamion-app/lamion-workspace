@@ -2,6 +2,8 @@ import { defineOrganization } from "nuxt-schema-org/schema";
 import { defineNuxtConfig } from "nuxt/config";
 import Aura from "@primevue/themes/aura";
 
+const STATIC_EXPIRES = 1;
+
 const DEPLOY_URL =
   process.env.DEPLOY_SPECIAL_URL ??
   process.env.DEPLOY_PRIME_URL ??
@@ -24,6 +26,15 @@ export default defineNuxtConfig({
     "@nuxtjs/seo",
     "nuxt-particles",
   ],
+  nitro: {
+    routeRules: {
+      "/img/**": {
+        headers: {
+          "cache-control": `public,max-age=${STATIC_EXPIRES},s-maxage=${STATIC_EXPIRES}`,
+        },
+      },
+    },
+  },
   app: {
     head: {
       meta: [

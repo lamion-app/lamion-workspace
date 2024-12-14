@@ -14,7 +14,11 @@ const switchLocalePath = useSwitchLocalePath();
 useHead({
   meta: [
     {
-      property: "description",
+      name: "description",
+      content: t("app.seo.description"),
+    },
+    {
+      property: "og:description",
       content: t("app.seo.description"),
     },
   ],
@@ -290,7 +294,7 @@ const socials = Object.entries(config.public.app.socials).map((x) => {
                   <Button
                     class="!bg-transparent !text-white dark:!text-primary"
                     as="router-link"
-                    :to="$localePath('/docs')"
+                    :to="$localePath('/docs/getting-started/installation')"
                     severity="secondary"
                   >
                     <m-icon value="developer_guide" />

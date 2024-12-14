@@ -6,9 +6,9 @@
           {{ $locale("auth.signIn.title") }}
         </h1>
 
-        <span class="text-lg text-secondary max-xl:text-center">{{
+        <h3 class="text-lg text-secondary max-xl:text-center">{{
           $locale("auth.signIn.subtitle")
-        }}</span>
+        }}</h3>
 
         <input-validated
           v-model="email"
