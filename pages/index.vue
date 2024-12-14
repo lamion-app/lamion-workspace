@@ -8,6 +8,7 @@ const colorMode = useColorMode();
 const config = useRuntimeConfig();
 const { isLoggedIn } = useAppAuth();
 const { t, locale, locales } = useI18n();
+const localePath = useLocalePath();
 const switchLocalePath = useSwitchLocalePath();
 
 const options = computed(() => ({
@@ -36,6 +37,10 @@ const options = computed(() => ({
     },
   },
 }));
+
+const mainRedirectUrl = computed(() =>
+  isLoggedIn ? localePath("/p") : localePath("/auth/login")
+);
 
 const setupSteps = [
   {
@@ -95,6 +100,7 @@ const socials = Object.entries(config.public.app.socials).map((x) => {
   else if (x[0] == "npm") icon = "/img/npm.png";
 
   return {
+    name: x[0],
     icon: icon,
     url: x[1],
   };
@@ -119,7 +125,7 @@ const socials = Object.entries(config.public.app.socials).map((x) => {
               v-if="isLoggedIn"
               class="max-sm:!hidden !px-4 !py-1 !text-sky-500"
               as="router-link"
-              :to="$localePath('/p')"
+              :to="mainRedirectUrl"
               severity="info"
               text
             >
@@ -145,7 +151,7 @@ const socials = Object.entries(config.public.app.socials).map((x) => {
           >
             <h1 class="text-4xl sm:text-6xl font-bold">
               {{ t("landing.initial.title_1") }}
-              <br class="max-lg:hidden" >
+              <br class="max-lg:hidden" />
               <span class="text-primary font-black">{{
                 t("landing.initial.title_2")
               }}</span>
@@ -160,7 +166,7 @@ const socials = Object.entries(config.public.app.socials).map((x) => {
             <Button
               class="w-full max-w-[180px]"
               as="router-link"
-              :to="$localePath('/p')"
+              :to="mainRedirectUrl"
               >{{ t("landing.initial.getStarted") }}</Button
             >
 
@@ -318,7 +324,7 @@ const socials = Object.entries(config.public.app.socials).map((x) => {
                   class="size-6 object-cover invert dark:filter-none"
                   src="/img/github.png"
                   alt="GitHub"
-                >
+                />
 
                 <span class="ms-2">{{
                   t("landing.contributing.openGithub")
@@ -355,7 +361,11 @@ const socials = Object.entries(config.public.app.socials).map((x) => {
                     target="_blank"
                     rel="noopener"
                   >
-                    <img class="size-6 dark:invert" :src="item.icon" >
+                    <img
+                      class="size-6 dark:invert"
+                      :alt="item.name"
+                      :src="item.icon"
+                    />
                   </Button>
                 </div>
               </div>
@@ -372,7 +382,7 @@ const socials = Object.entries(config.public.app.socials).map((x) => {
                   <Button
                     class="w-full lg:max-w-[180px]"
                     as="router-link"
-                    :to="$localePath('/p')"
+                    :to="mainRedirectUrl"
                     severity="contrast"
                     >{{ $locale("landing.initial.getStarted") }}</Button
                   >
