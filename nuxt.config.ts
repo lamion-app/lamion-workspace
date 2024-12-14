@@ -1,3 +1,4 @@
+import { defineOrganization } from "nuxt-schema-org/schema";
 import { defineNuxtConfig } from "nuxt/config";
 import Aura from "@primevue/themes/aura";
 
@@ -36,6 +37,7 @@ export default defineNuxtConfig({
         },
       ],
       link: [
+        { rel: "icon", type: "image/x-icon", href: "/favicon.ico" },
         {
           rel: "stylesheet",
           href: "https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200",
@@ -98,6 +100,17 @@ export default defineNuxtConfig({
   seo: {
     automaticDefaults: false,
   },
+  schemaOrg: {
+    identity: defineOrganization({
+      name: "Lamion",
+      alternateName: "Lamion Analytics",
+      description: "Easiest analytics for WEB projects",
+      email: process.env.CONTACT_EMAIL,
+      url: DEPLOY_URL,
+      logo: "/favicon.ico",
+      sameAs: [process.env.CONTACT_EMAIL!, process.env.GITHUB_REPO_URL!],
+    }),
+  },
   sitemap: {
     cacheMaxAgeSeconds: 3600,
     sources: ["/api/__sitemap__/urls"],
@@ -153,6 +166,9 @@ export default defineNuxtConfig({
         default: "one-dark-pro",
         dark: "github-dark",
       },
+    },
+    navigation: {
+      fields: ["seoDescription"],
     },
   },
   viewport: {

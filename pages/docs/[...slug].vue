@@ -22,8 +22,36 @@ const { data } = await useAsyncData(
   }
 );
 
+const title = `${data.value?.title} | ${t("docs.landing.title")}`;
+const description = computed(() =>
+  data.value?.seoDescription
+    ? `${t(data.value?.seoDescription)} ${t("docs.seo.descFinal")}`
+    : undefined
+);
+
+defineBreadcrumb({
+  itemListElement: [
+    { name: t("docs.landing.title"), item: "/docs" },
+    { name: data.value?.title },
+  ],
+});
+
 useHead({
-  title: `${data.value?.title} | ${t("docs.landing.title")}`,
+  title: title,
+  meta: [
+    {
+      name: "description",
+      content: description,
+    },
+    {
+      property: "og:description",
+      content: description,
+    },
+    {
+      property: "og:title",
+      content: `${title} | ${t("app.title")}`,
+    },
+  ],
 });
 
 async function fetchContent() {

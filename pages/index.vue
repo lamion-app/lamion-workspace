@@ -11,6 +11,15 @@ const { t, locale, locales } = useI18n();
 const localePath = useLocalePath();
 const switchLocalePath = useSwitchLocalePath();
 
+useHead({
+  meta: [
+    {
+      property: "description",
+      content: t("app.seo.description"),
+    },
+  ],
+});
+
 const options = computed(() => ({
   fullScreen: {
     enable: true,
