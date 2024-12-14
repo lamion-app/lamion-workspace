@@ -37,7 +37,7 @@
   "app": {
     "seo": {
       "description": "Are you a beginner developer? Set up analytics in your project without unnecessary pain. Lamion is a lightweight and clear library for WEB project analytics.",
-      "keywords": "analytics, project, projects, WEB, web, developer, simple, easy, fast"
+      "keywords": "analytics, project, projects, WEB, web, developer, simple, easy, fast, lightweight"
     },
     "errors": {
       "loadingError": "Loading error",
