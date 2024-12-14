@@ -5,11 +5,5 @@ const primeui = require("tailwindcss-primeui");
 export default <Partial<Config>>{
   theme: {},
   plugins: [primeui],
-  safelist: [
-    {
-      pattern: /(bg)-(.*?)-(.*?)/,
-      variants: ["hover", "active"],
-    },
-  ],
   content: [`../src/**/*.{js,ts,vue}`],
 };
