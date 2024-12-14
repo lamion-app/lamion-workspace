@@ -25,6 +25,7 @@ export default defineNuxtConfig({
     "@nuxtjs/sitemap",
     "@nuxtjs/seo",
     "nuxt-particles",
+    "@nuxt/image",
   ],
   nitro: {
     routeRules: {
