@@ -48,7 +48,6 @@
     "vue-tsc": "^2.1.10"
   },
   "optionalDependencies": {
-    "@next/swc-linux-x64-gnu": "13.5.7",
     "@rollup/rollup-linux-x64-gnu": "4.25.0"
   }
 }
