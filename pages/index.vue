@@ -48,7 +48,7 @@ const options = computed(() => ({
 }));
 
 const mainRedirectUrl = computed(() =>
-  isLoggedIn ? localePath("/p") : localePath("/auth/login")
+  isLoggedIn ? localePath("/p") : localePath("/auth/login?callbackUrl=/p")
 );
 
 const setupSteps = [

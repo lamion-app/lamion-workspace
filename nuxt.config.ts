@@ -108,7 +108,7 @@ export default defineNuxtConfig({
       email: process.env.CONTACT_EMAIL,
       url: DEPLOY_URL,
       logo: "/favicon.ico",
-      sameAs: [process.env.CONTACT_EMAIL!, process.env.GITHUB_REPO_URL!],
+      sameAs: [process.env.NPM_URL!, process.env.GITHUB_REPO_URL!],
     }),
   },
   sitemap: {
