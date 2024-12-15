@@ -12,7 +12,7 @@
 
       <nuxt-img
         v-else
-        src="/favicon.ico"
+        src="/img/app_icon.png"
         alt="APP LOGO"
         class="size-full aspect-square"
       />

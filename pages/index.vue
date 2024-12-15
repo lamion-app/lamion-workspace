@@ -160,9 +160,9 @@ const socials = Object.entries(config.public.app.socials).map((x) => {
       <main>
         <landing-section class="viewport-wrapper !min-h-[75vh]" size="large">
           <div
-            class="max-sm:items-start max-sm:justify-start max-sm:text-start col gap-12"
+            class="max-sm:items-start max-sm:justify-start max-sm:text-start col gap-4 lg:gap-12"
           >
-            <h1 class="text-4xl sm:text-6xl font-bold">
+            <h1 class="title font-bold">
               {{ t("landing.initial.title_1") }}
               <br class="max-lg:hidden" >
               <span class="text-primary font-black">{{
@@ -170,7 +170,7 @@ const socials = Object.entries(config.public.app.socials).map((x) => {
               }}</span>
             </h1>
 
-            <p class="text-lg max-w-[650px] mx-auto lg:whitespace-pre-wrap">
+            <p class="text-lg lg:max-w-[650px] mx-auto lg:whitespace-pre-wrap">
               {{ t("landing.initial.subtitle") }}
             </p>
           </div>
@@ -194,7 +194,7 @@ const socials = Object.entries(config.public.app.socials).map((x) => {
         <landing-section class="black">
           <div class="viewport-wrapper w-full text-start">
             <div class="col gap-8 lg:max-w-[60%]">
-              <h2 class="text-6xl font-bold">
+              <h2 class="title">
                 {{ t("landing.setup.title") }}
               </h2>
 
@@ -228,9 +228,7 @@ const socials = Object.entries(config.public.app.socials).map((x) => {
 
         <landing-section class="medium">
           <div class="viewport-wrapper">
-            <span class="text-6xl font-bold">{{
-              t("landing.advantages.title")
-            }}</span>
+            <span class="title">{{ t("landing.advantages.title") }}</span>
 
             <div class="mt-20 col lg:!grid lg:grid-cols-3 gap-6">
               <div
@@ -253,7 +251,7 @@ const socials = Object.entries(config.public.app.socials).map((x) => {
 
         <landing-section class="medium">
           <div class="viewport-wrapper">
-            <h2 class="text-center text-6xl font-bold">
+            <h2 class="text-center title">
               {{ t("landing.usecases.title") }}
             </h2>
 
@@ -274,10 +272,10 @@ const socials = Object.entries(config.public.app.socials).map((x) => {
         <landing-section class="black">
           <div class="viewport-wrapper flex flex-col lg:grid grid-cols-2 gap-8">
             <div class="col">
-              <h3 class="text-7xl font-black">
+              <h3 class="title">
                 {{ t("landing.code.title") }}
               </h3>
-              <span class="text-3xl mt-8">{{
+              <span class="text-2xl lg:text-3xl lg:mt-8">{{
                 t("landing.code.subtitle")
               }}</span>
             </div>
@@ -313,14 +311,12 @@ const socials = Object.entries(config.public.app.socials).map((x) => {
 
         <landing-section class="!min-h-screen" size="large">
           <div class="viewport-wrapper">
-            <div class="mx-auto max-w-[80%] col items-center gap-8">
+            <div class="mx-auto lg:max-w-[80%] col items-center gap-8">
               <h2 class="text-2xl font-black text-primary">
                 {{ t("landing.contributing.caption") }}
               </h2>
 
-              <span class="text-6xl font-bold">{{
-                t("landing.contributing.title")
-              }}</span>
+              <span class="title">{{ t("landing.contributing.title") }}</span>
 
               <p class="text-xl whitespace-pre-wrap">
                 {{ t("landing.contributing.subtitle") }}
@@ -386,7 +382,7 @@ const socials = Object.entries(config.public.app.socials).map((x) => {
               <div
                 class="col-span-2 col gap-4 border-gray-900 border-2 rounded-[30px] px-8 py-12"
               >
-                <h3 class="mt-4 text-6xl font-medium">
+                <h3 class="mt-4 title">
                   {{ $locale("landing.footer.getStarted.title") }}
                 </h3>
                 <p>{{ $locale("landing.footer.getStarted.subtitle") }}</p>
@@ -469,6 +465,10 @@ const socials = Object.entries(config.public.app.socials).map((x) => {
 
     &.semi-transparent {
       @apply bg-gray-100 dark:bg-gray-900 bg-opacity-40;
+    }
+
+    .title {
+      @apply text-4xl lg:text-6xl font-bold;
     }
   }
 
