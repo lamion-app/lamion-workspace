@@ -22,11 +22,12 @@
       </app-card>
 
       <app-card
-        v-for="project in projects"
+        v-for="(project, index) in projects"
         :key="project.id"
+        as="router-link"
+        :to="$localePath(`/p/${index}`)"
         class="project-item"
         container-class="col center"
-        @click="$emit('selectProject', project)"
       >
         <span class="project-title" v-text="project.title" />
 
@@ -39,21 +40,11 @@
 
       <div class="project-list">
         <app-card
-          v-if="showTemplates"
-          class="project-item item-secondary"
-          container-class="col center"
-          @click="$emit('openTemplates')"
-        >
-          <m-icon value="explore" class="text-4xl" />
-
-          <h5 class="project-title pt-3">{{ $locale("projects.aboutUs") }}</h5>
-        </app-card>
-
-        <app-card
           v-if="showDocs"
+          as="router-link"
+          :to="$localePath('/docs')"
           class="project-item item-secondary"
           container-class="col center"
-          @click="$emit('openDocs')"
         >
           <m-icon value="library_books" class="text-4xl" />
 
@@ -74,14 +65,11 @@ withDefaults(
   {
     showTemplates: true,
     showDocs: true,
-  },
+  }
 );
 
 defineEmits<{
   addProject: [];
-  selectProject: [Project];
-  openTemplates: [];
-  openDocs: [];
 }>();
 </script>
 

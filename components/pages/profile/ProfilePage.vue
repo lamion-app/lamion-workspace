@@ -113,15 +113,15 @@ async function loadProfileData() {
 
 <template>
   <div v-if="!!data" class="w-full col gap-4">
-    <app-card container-class="flex-row items-center !gap-6">
+    <app-card container-class="flex-row flex-wrap items-center !gap-6">
       <label-image
-        class="!size-[150px] !bg-window !text-6xl font-black"
+        class="!size-[150px] max-sm:!w-full max-sm:!h-56 !bg-window !text-6xl font-black"
         :label="data.account!.username"
         :image="data.account!.avatar"
       />
 
-      <div class="flex-1 col gap-2">
-        <h1 class="text-5xl font-black" v-text="data.account!.username" />
+      <div class="max-sm:w-full flex-1 col gap-2">
+        <h1 class="text-5xl font-black line-clamp-1" v-text="data.account!.username" />
 
         <span
           class="text-sm text-red-400 font-bold cursor-pointer"
@@ -131,6 +131,7 @@ async function loadProfileData() {
       </div>
 
       <Select
+        class="min-w-52"
         :model-value="locale"
         :options="locales"
         option-label="name"
