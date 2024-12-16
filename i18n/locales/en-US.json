@@ -37,7 +37,7 @@
   "app": {
     "seo": {
       "description": "Are you a beginner developer? Set up analytics in your project without unnecessary pain. Lamion is a lightweight and clear library for WEB project analytics.",
-      "keywords": "analytics, project, projects, WEB, web, developer, simple, easy, fast, lightweight"
+      "keywords": "analytics, project, projects, WEB, web, developer, simple, easy, fast, lightweight, lamion"
     },
     "errors": {
       "loadingError": "Loading error",
@@ -178,7 +178,7 @@
     "initial": {
       "title_1": "Lightweight analytics for",
       "title_2": "your projects",
-      "subtitle": "Lightweight tracking library for web applications.\nJust enable the script and you're ready to go!",
+      "subtitle": "Lightweight analytics library for web projects.\nJust enable the script and you're ready to go!",
       "getStarted": "Get started",
       "readDocs": "Read docs",
       "goToDashboard": "Go to dashboard"
@@ -197,7 +197,7 @@
         },
         "start": {
           "title": "Start using Lamion",
-          "description": "Install dependencies and setup logger by guide"
+          "description": "Install dependencies and setup logger by docs"
         }
       }
     },
@@ -257,7 +257,7 @@
   },
   "docs": {
     "seo": {
-      "description": "How to set up analytics with Lamion in your project? It's very simple, because Lamion works both with frameworks and in pure WEB.",
+      "description": "How to set up analytics with Lamion in your project? It's very easy, because Lamion works both with frameworks and in pure WEB.",
       "descFinal": "Documentation for Lamion.",
       "pages": {
         "howToInstall": "Instructions for installing and configuring Lamion in a project.",
