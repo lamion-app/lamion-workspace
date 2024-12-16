@@ -6,7 +6,7 @@ definePageMeta({
   auth: true,
 });
 
-const { isProjectsLoading, projects, openProject } = useProjects();
+const { isProjectsLoading, projects } = useProjects();
 
 const isAddProjectDialogVisible = ref(false);
 </script>
@@ -22,7 +22,6 @@ const isAddProjectDialogVisible = ref(false);
       class="w-full min-h-screen"
       :projects="projects!"
       @add-project="isAddProjectDialogVisible = true"
-      @select-project="openProject($event.id)"
     />
 
     <add-project-dialog v-model:visible="isAddProjectDialogVisible" />
