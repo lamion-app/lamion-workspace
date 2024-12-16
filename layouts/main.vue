@@ -72,7 +72,7 @@
 const viewport = useViewport();
 const { isAppLoaded } = storeToRefs(useAppStore());
 const { account } = useAppAuth();
-const { t } = useI18n();
+const { t, locale } = useI18n();
 const { projects, selectedProject, openProject } = useProjects();
 
 const router = useRouter();
@@ -112,7 +112,7 @@ const navigationItems = computed(() => [
 const isRootRoute = computed(
   () =>
     route.meta.isRootRoute === true ||
-    navigationItems.value.findIndex((x) => x.route == route.name) != -1
+    navigationItems.value.findIndex((x) => `${x.route}___${locale.value}` == route.name) != -1
 );
 
 watchEffect(() => {

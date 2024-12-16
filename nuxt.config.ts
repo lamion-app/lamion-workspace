@@ -100,7 +100,7 @@ export default defineNuxtConfig({
       oauth: {
         github: {
           clientId: process.env.GITHUB_CLIENT_ID,
-          redirectUrl: DEPLOY_URL + "/auth/oauth/github",
+          redirectUrl: DEPLOY_URL + "auth/oauth/github",
         },
       },
     },
