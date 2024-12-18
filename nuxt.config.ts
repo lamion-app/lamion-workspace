@@ -26,6 +26,7 @@ export default defineNuxtConfig({
     "@nuxtjs/seo",
     "nuxt-particles",
     "@nuxt/image",
+    "@nuxtjs/critters",
   ],
   nitro: {
     routeRules: {
@@ -119,7 +120,7 @@ export default defineNuxtConfig({
       description: "Easiest analytics for WEB projects",
       email: process.env.CONTACT_EMAIL,
       url: DEPLOY_URL,
-      logo: "/favicon.ico",
+      logo: "/img/app_icon.png",
       sameAs: [process.env.NPM_URL!, process.env.GITHUB_REPO_URL!],
     }),
   },

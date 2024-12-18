@@ -1,3 +1,2 @@
 User-agent: *
-Sitemap: https://lamionapp.netlify.app/sitemap.xml
 Disallow: /yandex_b6848af81e24d3b8.html
